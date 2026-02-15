@@ -3457,6 +3457,9 @@ img {
   border-color: #7b1f45;
   text-decoration: none;
 }
+.nav__item.active a {
+  border-color: #7b1f45;
+}
 .nav__item a:active,
 .nav__item a:focus,
 .nav__item a:visited {
@@ -4481,6 +4484,10 @@ img {
 .footer__list li a:hover {
   text-decoration: none;
 }
+.footer__list li.active {
+  position: relative;
+  left: 3px;
+}
 .footer__contacts {
   width: 25%;
   display: inline-block;
@@ -5040,8 +5047,8 @@ img {
   text-decoration: none;
 }
 
-.languages .languages__est.active,
-.languages .languages__rus.active{
+.languages a.languages__est.active,
+.languages a.languages__rus.active{
   border-bottom: 3px solid #7b1f45;
 }
 .languages .languages__est:not(.active),
