@@ -69,11 +69,20 @@ $(document).ready(function () {
   $(".ajax-form").submit(function () {
     var str = $(this).serialize();
     var form = $(this);
+    var action = form.attr('action');
+
+    if (!action) {
+      form.find(".error").html("Form action not configured");
+      return false;
+    }
 
     $.ajax({
-      url: "form.php",
+      url: action,
       type: "post",
       data: str,
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
       success: function (msg) {
         if (msg == "OK") {
           form.html(
@@ -84,6 +93,18 @@ $(document).ready(function () {
           form.find(".error").html(msg);
         }
       },
+      error: function(xhr) {
+        if (xhr.status === 422) {
+          var errors = xhr.responseJSON.errors;
+          var errorHtml = '';
+          for (var key in errors) {
+            errorHtml += errors[key][0] + '<br>';
+          }
+          form.find(".error").html(errorHtml);
+        } else {
+          form.find(".error").html("Viga saatmisel / Ошибка отправки");
+        }
+      }
     });
     return false;
   });

@@ -8,6 +8,7 @@
 <link rel="icon" href="/favicon.png" type="image/x-icon"/>
 <meta name="viewport" content="width=1000">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <link href="/assets/templates/offshors/css/style.css?v=4" rel="stylesheet" media="screen">
 <link href="/assets/templates/offshors/css/font-awesome.min.css" rel="stylesheet" media="screen">
 <link href="/assets/templates/offshors/css/jquery.bxslider.css" rel="stylesheet" media="screen">
@@ -187,7 +188,8 @@ var s = document.createElement('script'); s.type = 'text/javascript'; s.async = 
 <div id="popupContact2" class="pop-up">
 <a href="" class="pop-up__close"></a>
 <h3>{{ app()->getLocale() == 'ru' ? 'Заказать звонок' : 'Telli kõne' }}</h3>
-  <form action="" class="pop-up__form ajax-form">
+  <form action="{{ route('contact.callback') }}" method="POST" class="pop-up__form ajax-form">
+  @csrf
   <div class="error"></div>
     <input type="text" class="pop-up__input" name="name" placeholder="{{ app()->getLocale() == 'ru' ? 'Ваше имя' : 'Teie nimi' }}">
     <input type="text" class="pop-up__input" name="tel" value="" placeholder="{{ app()->getLocale() == 'ru' ? 'Ваш номер телефона' : 'Teie telefoni number' }}">
@@ -199,7 +201,8 @@ var s = document.createElement('script'); s.type = 'text/javascript'; s.async = 
 <div id="popupContact1" class="pop-up">
 <a href="" class="pop-up__close"></a>
 <h3>{{ app()->getLocale() == 'ru' ? 'ОТПРАВИТЬ ЗАЯВКУ' : 'SAADA PÄRING' }}</h3>
-  <form action="" class="pop-up__form ajax-form">
+  <form action="{{ route('contact.inquiry') }}" method="POST" class="pop-up__form ajax-form">
+  @csrf
   <div class="error"></div>
     <input type="text" class="pop-up__input" name="name" placeholder="{{ app()->getLocale() == 'ru' ? 'Ваше имя' : 'Teie nimi' }}">
     <input type="text" class="pop-up__input" name="tel" value="" placeholder="{{ app()->getLocale() == 'ru' ? 'Ваш номер телефона' : 'Teie telefoni number' }}">

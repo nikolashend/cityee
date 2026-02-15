@@ -1,7 +1,12 @@
 <?php
 
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
+
+// Form submission routes
+Route::post('/contact/callback', [ContactController::class, 'callback'])->name('contact.callback');
+Route::post('/contact/inquiry', [ContactController::class, 'inquiry'])->name('contact.inquiry');
 
 // Estonian routes (default)
 Route::get('/', [PageController::class, 'home'])->name('et.home');
