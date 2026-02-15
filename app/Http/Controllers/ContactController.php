@@ -31,7 +31,7 @@ class ContactController extends Controller
             $headers .= "Content-type: text/plain; charset=utf-8\r\n";
             
             // Отправка через PHP mail()
-            $mailSent = mail("nikolashend@gmail.com", $subject, $message, $headers);
+            $mailSent = mail("info@cityee.ee", $subject, $message, $headers);
             
             // Логирование
             Log::channel('single')->info('Callback Request', [
@@ -86,7 +86,7 @@ class ContactController extends Controller
             $headers .= "Content-type: text/plain; charset=utf-8\r\n";
             
             // Отправка через PHP mail()
-            $mailSent = mail("nikolashend@gmail.com", $subject, $message, $headers);
+            $mailSent = mail("info@cityee.ee", $subject, $message, $headers);
             
             // Логирование
             Log::channel('single')->info('Inquiry Request', [
