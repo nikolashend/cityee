@@ -8,7 +8,7 @@
 <link rel="icon" href="/favicon.png" type="image/x-icon"/>
 <meta name="viewport" content="width=1000">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="/assets/templates/offshors/css/style.css?v=3" rel="stylesheet" media="screen">
+<link href="/assets/templates/offshors/css/style.css?v=4" rel="stylesheet" media="screen">
 <link href="/assets/templates/offshors/css/font-awesome.min.css" rel="stylesheet" media="screen">
 <link href="/assets/templates/offshors/css/jquery.bxslider.css" rel="stylesheet" media="screen">
 
