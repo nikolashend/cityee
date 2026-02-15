@@ -217,7 +217,7 @@ var s = document.createElement('script'); s.type = 'text/javascript'; s.async = 
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="/js/jquery.2.1.3.min.js"><\/script>')</script>
-<script src="/assets/templates/offshors/js/main.js"></script>
+<script src="/assets/templates/offshors/js/main.js?v=2"></script>
 <script src="/assets/templates/offshors/js/jquery.bxslider.js"></script>
 
 <link rel="stylesheet" href="/assets/lightboxed/lightboxed.css?v=1.31">
