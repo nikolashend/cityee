@@ -27,11 +27,13 @@ class ContactController extends Controller
             $message .= "Телефон: " . $tel . "\n\n";
             $message .= "Отправлено с сайта cityee.ee";
             
-            $headers = "From: cityee.ee <noreply@cityee.ee>\r\n";
+            $headers = "From: info@cityee.ee\r\n";
+            $headers .= "Reply-To: info@cityee.ee\r\n";
             $headers .= "Content-type: text/plain; charset=utf-8\r\n";
+            $headers .= "X-Mailer: PHP/" . phpversion();
             
             // Отправка через PHP mail()
-            $mailSent = mail("nikolashend@gmail.com", $subject, $message, $headers);
+            $mailSent = @mail("nikolashend@gmail.com", $subject, $message, $headers);
             
             // Логирование
             Log::channel('single')->info('Callback Request', [
@@ -82,11 +84,13 @@ class ContactController extends Controller
             }
             $message .= "\nОтправлено с сайта cityee.ee";
             
-            $headers = "From: cityee.ee <noreply@cityee.ee>\r\n";
+            $headers = "From: info@cityee.ee\r\n";
+            $headers .= "Reply-To: info@cityee.ee\r\n";
             $headers .= "Content-type: text/plain; charset=utf-8\r\n";
+            $headers .= "X-Mailer: PHP/" . phpversion();
             
             // Отправка через PHP mail()
-            $mailSent = mail("nikolashend@gmail.com", $subject, $message, $headers);
+            $mailSent = @mail("nikolashend@gmail.com", $subject, $message, $headers);
             
             // Логирование
             Log::channel('single')->info('Inquiry Request', [
