@@ -1,5 +1,15 @@
 <!DOCTYPE html>
-<html class="no-js" lang="{{ app()->getLocale() == 'ru' ? 'ru' : 'et' }}">
+@php
+    $locale = $locale ?? app()->getLocale();
+    $ui     = $ui ?? config("cityee.ui.{$locale}", []);
+    $nav    = $nav ?? config("cityee.nav.{$locale}", []);
+    $co     = config('cityee.company');
+    $agent  = config('cityee.agent');
+    $metrikaId = config("cityee.metrika.{$locale}", '87598929');
+    $pageKey = $pageKey ?? 'home';
+    $langMap = ['et' => 'et', 'ru' => 'ru', 'en' => 'en'];
+@endphp
+<html class="no-js" lang="{{ $locale }}">
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <title>@yield('title')</title>
@@ -9,9 +19,31 @@
 <meta name="viewport" content="width=1000">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="csrf-token" content="{{ csrf_token() }}">
+
+{{-- Canonical + Hreflang --}}
+@if (isset($pageKey))
+<link rel="canonical" href="{{ \App\Support\SeoLinks::canonical($pageKey) }}">
+@foreach (\App\Support\SeoLinks::hreflang($pageKey) as $alt)
+<link rel="alternate" hreflang="{{ $alt['hreflang'] }}" href="{{ $alt['href'] }}">
+@endforeach
+@endif
+
+{{-- OG tags --}}
+<meta property="og:site_name" content="CityEE">
+<meta property="og:title" content="@yield('title')">
+<meta property="og:description" content="@yield('description')">
+<meta property="og:type" content="website">
+@if (isset($pageKey))
+<meta property="og:url" content="{{ \App\Support\SeoLinks::canonical($pageKey) }}">
+@endif
+<meta property="og:image" content="/assets/templates/offshors/img/about-foto.jpg">
+
 <link href="/assets/templates/offshors/css/style.css?v=4" rel="stylesheet" media="screen">
 <link href="/assets/templates/offshors/css/font-awesome.min.css" rel="stylesheet" media="screen">
 <link href="/assets/templates/offshors/css/jquery.bxslider.css" rel="stylesheet" media="screen">
+
+{{-- JSON-LD --}}
+@stack('jsonld')
 
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -31,14 +63,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
    m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
-   ym({{ app()->getLocale() == 'ru' ? '87599735' : '87598929' }}, "init", {
+   ym({{ $metrikaId }}, "init", {
         clickmap:true,
         trackLinks:true,
         accurateTrackBounce:true,
         webvisor:true
    });
 </script>
-<noscript><div><img src="https://mc.yandex.ru/watch/{{ app()->getLocale() == 'ru' ? '87599735' : '87598929' }}" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<noscript><div><img src="https://mc.yandex.ru/watch/{{ $metrikaId }}" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
 
 </head>
@@ -50,71 +82,69 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="header__logo">
       <div class="logo" href="/">
         <div class="logo__img"><img src="/assets/templates/offshors/img/logo.png"></div>
-        <span class="logo__text">@yield('logo_text')</span>
-        <a class="logo__href" href="{{ app()->getLocale() == 'ru' ? '/ru' : '/' }}"></a>
+        <span class="logo__text">@yield('logo_text', $ui['logo_text'] ?? '')</span>
+        <a class="logo__href" href="{{ route("{$locale}.home") }}"></a>
       </div>
     </div>
 
     <div class="header__contacts">
       <div class="contacts">
-        <p class="contacts__adress">Viru väljak 2<br/> Tallinn, 10111</p>
-        <p class="contacts__mail" style="font-size:15px;"><a href="mailto:info@cityee.ee">info@cityee.ee</a></p>
+        <p class="contacts__adress">{{ $co['address'] }}<br/> {{ $co['city'] }}, {{ $co['postal_code'] }}</p>
+        <p class="contacts__mail" style="font-size:15px;"><a href="mailto:{{ $co['email'] }}">{{ $co['email'] }}</a></p>
       </div>
     </div>
 
     <div class="header__phones">
       <div class="phones">
-        <div style="text-align:center;"><a href="https://www.city24.ee/{{ app()->getLocale() == 'ru' ? 'ru/' : '' }}company-detail/9898/city-ee-ou" target="blank">City24</a></div>
-        <div style="text-align:center;"><a href="https://www.facebook.com/cityee.ee" target="blank">Facebook</a></div>
-        <div style="text-align:center;"><a href="https://www.instagram.com/cityee_ee/" target="blank">Instagram</a></div>
-        <div style="text-align:center;"><a href="https://www.linkedin.com/in/kinnisvaramaakler/" target="blank">LinkedIn</a></div>
+        <div style="text-align:center;"><a href="{{ $co['city24'] }}{{ $locale === 'ru' ? 'ru/' : '' }}" target="blank">City24</a></div>
+        <div style="text-align:center;"><a href="{{ $co['facebook'] }}" target="blank">Facebook</a></div>
+        <div style="text-align:center;"><a href="{{ $co['instagram'] }}" target="blank">Instagram</a></div>
+        <div style="text-align:center;"><a href="{{ $co['linkedin'] }}" target="blank">LinkedIn</a></div>
       </div>
     </div>
 
     <div class="header__main-phone">
       <div class="main-phone">
-        <span class="main-phone__item">(+372)5113411 </span>
-        <span class="main-phone__time">10.00 {{ app()->getLocale() == 'ru' ? 'до' : 'kuni' }} 22.00</span>
-        <a class="main-phone__skype" href="https://wa.me/3725113411" target="_blank">
-    {{ app()->getLocale() == 'ru' ? 'позвонить в WhatsApp' : 'helista WhatsApp\'i' }}
+        <span class="main-phone__item">{{ $co['phone_display'] }} </span>
+        <span class="main-phone__time">{{ $ui['hours'] ?? '10.00 kuni 22.00' }}</span>
+        <a class="main-phone__skype" href="{{ $co['whatsapp'] }}" target="_blank">
+    {{ $ui['call_whatsapp'] ?? "helista WhatsApp'i" }}
 </a>
       </div>
-      <a href="" class="mini-btn call-back">{{ app()->getLocale() == 'ru' ? 'Заказать звонок' : 'Telli kõne' }}</a>
+      <a href="" class="mini-btn call-back">{{ $ui['order_call'] ?? 'Telli kõne' }}</a>
     </div>
 
     <div class="header__btn-wrapp">
-      <a href="" class="header__mobile-btn header__mobile-btn--adress">{{ app()->getLocale() == 'ru' ? 'Контакты' : 'Kontaktid' }}</a>
-      <a href="" class="header__mobile-btn header__mobile-btn--phones">{{ app()->getLocale() == 'ru' ? 'Объекты' : 'Objektid' }}</a>
+      <a href="" class="header__mobile-btn header__mobile-btn--adress">{{ $ui['contacts'] ?? 'Kontaktid' }}</a>
+      <a href="" class="header__mobile-btn header__mobile-btn--phones">{{ $ui['objects'] ?? 'Objektid' }}</a>
     </div>
 
   </div>
 
   <nav class="nav">
     <div class="container">
-      @if(app()->getLocale() == 'ru')
       <ul class="nav__list">
-        <li class="nav__item first {{ Route::currentRouteName() == 'ru.home' ? 'active' : '' }}"><a href="{{ route('ru.home') }}" title="Главная">Главная</a></li>
-        <li class="nav__item {{ Route::currentRouteName() == 'ru.kinnisvara-muuk' ? 'active' : '' }}"><a href="{{ route('ru.kinnisvara-muuk') }}" title="Надежный маклер в Таллинне">Продать недвижимость</a></li>
-        <li class="nav__item {{ Route::currentRouteName() == 'ru.kinnisvara-uur' ? 'active' : '' }}"><a href="{{ route('ru.kinnisvara-uur') }}" title="Надежный маклер в Таллинне">Сдать недвижимость в аренду</a></li>
-        <li class="nav__item {{ Route::currentRouteName() == 'ru.konsultatsioon' ? 'active' : '' }}"><a href="{{ route('ru.konsultatsioon') }}" title="Консультирование">Kонсультации</a></li>
-        <li class="nav__item last {{ Route::currentRouteName() == 'ru.kontaktid' ? 'active' : '' }}"><a href="{{ route('ru.kontaktid') }}" title="Маклер Таллинн">Контакты</a></li>
+        @foreach ($nav as $i => $item)
+          @php
+              $routeName = "{$locale}.{$item['route']}";
+              $classes = 'nav__item';
+              if ($i === 0) $classes .= ' first';
+              if ($i === count($nav) - 1) $classes .= ' last';
+              if (Route::currentRouteName() === $routeName) $classes .= ' active';
+          @endphp
+          <li class="{{ $classes }}"><a href="{{ route($routeName) }}" title="{{ $item['title'] }}">{{ $item['label'] }}</a></li>
+        @endforeach
       </ul>
-      @else
-      <ul class="nav__list">
-        <li class="nav__item first {{ Route::currentRouteName() == 'et.home' ? 'active' : '' }}"><a href="{{ route('et.home') }}" title="Pealeht">Pealeht</a></li>
-        <li class="nav__item {{ Route::currentRouteName() == 'et.kinnisvara-muuk' ? 'active' : '' }}"><a href="{{ route('et.kinnisvara-muuk') }}" title="Kinnisvara müük parima võimaliku hinna ja parima võimaliku ajaga !">Kinnisvara vahendamine</a></li>
-        <li class="nav__item {{ Route::currentRouteName() == 'et.kinnisvara-uur' ? 'active' : '' }}"><a href="{{ route('et.kinnisvara-uur') }}" title="Abi üürilepingu koostamisel">Kinnisvara üürileandmine</a></li>
-        <li class="nav__item {{ Route::currentRouteName() == 'et.konsultatsioon' ? 'active' : '' }}"><a href="{{ route('et.konsultatsioon') }}" title="Konsulteerimine">Konsultatsioonid</a></li>
-        <li class="nav__item last {{ Route::currentRouteName() == 'et.kontaktid' ? 'active' : '' }}"><a href="{{ route('et.kontaktid') }}" title="Kontaktid">Kontaktid</a></li>
-      </ul>
-      @endif
       <a href="#" class="nav__btn"></a>
       <div class="languages">
-        <a href="@yield('lang_et_url', '/')" class="languages__est{{ app()->getLocale() == 'et' ? ' active' : '' }}">
+        <a href="@yield('lang_et_url', route('et.' . ($pageKey ?? 'home')))" class="languages__est{{ $locale === 'et' ? ' active' : '' }}">
           <span>Est</span>
         </a>
-        <a href="@yield('lang_ru_url', '/ru')" class="languages__rus{{ app()->getLocale() == 'ru' ? ' active' : '' }}">
+        <a href="@yield('lang_ru_url', route('ru.' . ($pageKey ?? 'home')))" class="languages__rus{{ $locale === 'ru' ? ' active' : '' }}">
           <span>Rus</span>
+        </a>
+        <a href="@yield('lang_en_url', route('en.' . ($pageKey ?? 'home')))" class="languages__eng{{ $locale === 'en' ? ' active' : '' }}">
+          <span>Eng</span>
         </a>
       </div>
     </div>
@@ -125,44 +155,39 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <footer class="footer @yield('footer_class')">
   <div class="questions">
-    <p>{{ app()->getLocale() == 'ru' ? 'У вас есть вопросы? Звоните!' : 'Kas Teil on küsimusi? Helistage!' }} <span>(+372)5113411</span>&nbsp;
-    <a href="{{ route(app()->getLocale() == 'ru' ? 'ru.kinnisvara-muuk' : 'et.kinnisvara-muuk') }}" target="_blank" onclick="if(document.location.href.match('kinnisvara-muuk')){$('#feedback').trigger('click'); return false;}"><font color="#fafae6" size="5">&nbsp;&nbsp;{{ app()->getLocale() == 'ru' ? 'Как успешно продать недвижимость?' : 'Kuidas edukalt kinnisvara müüa?' }}</font></a></p>
+    <p>{{ $ui['questions_call'] ?? 'Kas Teil on küsimusi? Helistage!' }} <span>{{ $co['phone_display'] }}</span>&nbsp;
+    <a href="{{ route("{$locale}.sell") }}" target="_blank" onclick="if(document.location.href.match('kinnisvara-muuk|sell')){$('#feedback').trigger('click'); return false;}"><font color="#fafae6" size="5">&nbsp;&nbsp;{{ $ui['how_sell'] ?? '' }}</font></a></p>
   </div>
   <div class="container">
     <div class="footer__menu">
-      @if(app()->getLocale() == 'ru')
       <ul class="footer__list">
-        <li class="first {{ Route::currentRouteName() == 'ru.home' ? 'active' : '' }}"><a href="{{ route('ru.home') }}" title="Главная">Главная</a></li>
-        <li class="{{ Route::currentRouteName() == 'ru.kinnisvara-muuk' ? 'active' : '' }}"><a href="{{ route('ru.kinnisvara-muuk') }}" title="Надежный маклер в Таллинне">Продать недвижимость</a></li>
-        <li class="{{ Route::currentRouteName() == 'ru.kinnisvara-uur' ? 'active' : '' }}"><a href="{{ route('ru.kinnisvara-uur') }}" title="Надежный маклер в Таллинне">Сдать недвижимость в аренду</a></li>
-        <li class="{{ Route::currentRouteName() == 'ru.konsultatsioon' ? 'active' : '' }}"><a href="{{ route('ru.konsultatsioon') }}" title="Консультирование">Kонсультации</a></li>
-        <li class="last {{ Route::currentRouteName() == 'ru.kontaktid' ? 'active' : '' }}"><a href="{{ route('ru.kontaktid') }}" title="Маклер Таллинн">Контакты</a></li>
+        @foreach ($nav as $i => $item)
+          @php
+              $routeName = "{$locale}.{$item['route']}";
+              $classes = '';
+              if ($i === 0) $classes = 'first';
+              if ($i === count($nav) - 1) $classes = 'last';
+              if (Route::currentRouteName() === $routeName) $classes .= ' active';
+          @endphp
+          <li class="{{ trim($classes) }}"><a href="{{ route($routeName) }}" title="{{ $item['title'] }}">{{ $item['label'] }}</a></li>
+        @endforeach
       </ul>
-      @else
-      <ul class="footer__list">
-        <li class="first {{ Route::currentRouteName() == 'et.home' ? 'active' : '' }}"><a href="{{ route('et.home') }}" title="Pealeht">Pealeht</a></li>
-        <li class="{{ Route::currentRouteName() == 'et.kinnisvara-muuk' ? 'active' : '' }}"><a href="{{ route('et.kinnisvara-muuk') }}" title="Kinnisvara müük parima võimaliku hinna ja parima võimaliku ajaga !">Kinnisvara vahendamine</a></li>
-        <li class="{{ Route::currentRouteName() == 'et.kinnisvara-uur' ? 'active' : '' }}"><a href="{{ route('et.kinnisvara-uur') }}" title="Abi üürilepingu koostamisel">Kinnisvara üürileandmine</a></li>
-        <li class="{{ Route::currentRouteName() == 'et.konsultatsioon' ? 'active' : '' }}"><a href="{{ route('et.konsultatsioon') }}" title="Konsulteerimine">Konsultatsioonid</a></li>
-        <li class="last {{ Route::currentRouteName() == 'et.kontaktid' ? 'active' : '' }}"><a href="{{ route('et.kontaktid') }}" title="Kontaktid">Kontaktid</a></li>
-      </ul>
-      @endif
       <ul class="footer__list"></ul>
     </div>
 
     <div class="footer__contacts">
       <div class="contacts">
-        <p class="contacts__adress">Viru väljak 2<br/> Tallinn, 10111</p>
-        <p class="contacts__mail" style="font-size:18px;"><a href="mailto:info@cityee.ee">info@cityee.ee</a></p>
-        <a href="" class="mini-btn call-back">{{ app()->getLocale() == 'ru' ? 'Заказать звонок' : 'Telli kõne' }}</a>
+        <p class="contacts__adress">{{ $co['address'] }}<br/> {{ $co['city'] }}, {{ $co['postal_code'] }}</p>
+        <p class="contacts__mail" style="font-size:18px;"><a href="mailto:{{ $co['email'] }}">{{ $co['email'] }}</a></p>
+        <a href="" class="mini-btn call-back">{{ $ui['order_call'] ?? 'Telli kõne' }}</a>
       </div>
     </div>
 
     <div class="footer__phones">
       <div class="main-phone">
-        <span class="main-phone__item">(+372)5113411</span><br/>
-        <a class="main-phone__skype" href="https://wa.me/3725113411" target="_blank">
-    {{ app()->getLocale() == 'ru' ? 'позвонить в WhatsApp' : 'helista WhatsApp\'i' }}
+        <span class="main-phone__item">{{ $co['phone_display'] }}</span><br/>
+        <a class="main-phone__skype" href="{{ $co['whatsapp'] }}" target="_blank">
+    {{ $ui['call_whatsapp'] ?? "helista WhatsApp'i" }}
 </a>
       </div>
       <div class="phones"></div>
@@ -170,15 +195,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <div class="footer__copy">
       <p>
-        © CityEE {{ date('Y') }} {{ app()->getLocale() == 'ru' ? 'г. Все права защищены. Бюро по недвижимости / Маклер в Таллинне и Харьюмаа / ПАРТНЕР ПО ОПТИМИЗАЦИИ СДЕЛОК С НЕДВИЖИМОСТЬЮ.' : 'a. Kõik õigused kaitstud. Kinnisvara Büroo / Maakler Tallinnas ja Harjumaal / KINNISVARATEHINGUTE OPTIMEERIMISE PARTNER.' }}
+        © CityEE {{ date('Y') }} {{ $ui['copyright'] ?? '' }}
       </p>
     </div>
   </div>
 
-<!-- BEGIN JIVOSITE CODE -->
+<!-- BEGIN JIVOSITE CODE {lazy} -->
 <script type='text/javascript'>
-(function(){ var widget_id = 'aQH4gFFc3a';
-var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = '//code.jivosite.com/script/widget/'+widget_id; var ss = document.getElementsByTagName('script')[0]; ss.parentNode.insertBefore(s, ss);})();
+(function(){ var widget_id = 'aQH4gFFc3a';var d=document;function l(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='//code.jivosite.com/script/widget/'+widget_id;var ss=d.getElementsByTagName('script')[0];ss.parentNode.insertBefore(s,ss);}if(d.readyState==='complete'){l();}else if(window.addEventListener){window.addEventListener('load',l,false);}else if(window.attachEvent){window.attachEvent('onload',l);}})();
 </script>
 <!-- END JIVOSITE CODE -->
 
@@ -187,31 +211,31 @@ var s = document.createElement('script'); s.type = 'text/javascript'; s.async = 
 <div class="backgroundPopup"></div>
 <div id="popupContact2" class="pop-up">
 <a href="" class="pop-up__close"></a>
-<h3>{{ app()->getLocale() == 'ru' ? 'Заказать звонок' : 'Telli kõne' }}</h3>
+<h3>{{ $ui['order_call'] ?? 'Telli kõne' }}</h3>
   <form action="{{ route('contact.callback') }}" method="POST" class="pop-up__form ajax-form">
   @csrf
   <div class="error"></div>
-    <input type="text" class="pop-up__input" name="name" placeholder="{{ app()->getLocale() == 'ru' ? 'Ваше имя' : 'Teie nimi' }}">
-    <input type="text" class="pop-up__input" name="tel" value="" placeholder="{{ app()->getLocale() == 'ru' ? 'Ваш номер телефона' : 'Teie telefoni number' }}">
-    <input type="submit" class="btn" name="submit" value="{{ app()->getLocale() == 'ru' ? 'Отправить' : 'Saada' }}">
+    <input type="text" class="pop-up__input" name="name" placeholder="{{ $ui['your_name'] ?? 'Teie nimi' }}">
+    <input type="text" class="pop-up__input" name="tel" value="" placeholder="{{ $ui['your_phone'] ?? 'Teie telefoni number' }}">
+    <input type="submit" class="btn" name="submit" value="{{ $ui['send'] ?? 'Saada' }}">
     <input type="hidden" name="query_type" value="call">
   </form>
 </div>
 
 <div id="popupContact1" class="pop-up">
 <a href="" class="pop-up__close"></a>
-<h3>{{ app()->getLocale() == 'ru' ? 'ОТПРАВИТЬ ЗАЯВКУ' : 'SAADA PÄRING' }}</h3>
+<h3>{{ $ui['send_inquiry'] ?? 'SAADA PÄRING' }}</h3>
   <form action="{{ route('contact.inquiry') }}" method="POST" class="pop-up__form ajax-form">
   @csrf
   <div class="error"></div>
-    <input type="text" class="pop-up__input" name="name" placeholder="{{ app()->getLocale() == 'ru' ? 'Ваше имя' : 'Teie nimi' }}">
-    <input type="text" class="pop-up__input" name="tel" value="" placeholder="{{ app()->getLocale() == 'ru' ? 'Ваш номер телефона' : 'Teie telefoni number' }}">
-    <input type="text" class="pop-up__input" name="email" value="" placeholder="{{ app()->getLocale() == 'ru' ? 'Ваш email' : 'Teie email' }}">
-    <textarea rows="4" class="pop-up__input" name="comment" value="" placeholder="{{ app()->getLocale() == 'ru' ? 'Ваш комментарий' : 'Teie komentaar' }}"></textarea>
-    <input type="submit" class="btn" name="submit" value="{{ app()->getLocale() == 'ru' ? 'Отправить' : 'Saada' }}">
+    <input type="text" class="pop-up__input" name="name" placeholder="{{ $ui['your_name'] ?? 'Teie nimi' }}">
+    <input type="text" class="pop-up__input" name="tel" value="" placeholder="{{ $ui['your_phone'] ?? 'Teie telefoni number' }}">
+    <input type="text" class="pop-up__input" name="email" value="" placeholder="{{ $ui['your_email'] ?? 'Teie email' }}">
+    <textarea rows="4" class="pop-up__input" name="comment" value="" placeholder="{{ $ui['your_comment'] ?? 'Teie komentaar' }}"></textarea>
+    <input type="submit" class="btn" name="submit" value="{{ $ui['send'] ?? 'Saada' }}">
     <input type="hidden" name="query_type" value="buy_kompany">
     <p></p>
-    <p><a href="{{ route(app()->getLocale() == 'ru' ? 'ru.kinnisvara-muuk' : 'et.kinnisvara-muuk') }}" target="_blank"><font size="4"> {{ app()->getLocale() == 'ru' ? 'Как успешно продать недвижимость' : 'Kuidas edukalt kinnisvara müüa' }}</font></a></p>
+    <p><a href="{{ route("{$locale}.sell") }}" target="_blank"><font size="4"> {{ $ui['how_sell'] ?? '' }}</font></a></p>
   </form>
 </div>
 

@@ -2,24 +2,44 @@
 
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\SitemapController;
 use Illuminate\Support\Facades\Route;
 
-// Form submission routes
+// ─── Form submission routes (shared) ────────────────────────
 Route::post('/contact/callback', [ContactController::class, 'callback'])->name('contact.callback');
 Route::post('/contact/inquiry', [ContactController::class, 'inquiry'])->name('contact.inquiry');
 
-// Estonian routes (default)
-Route::get('/', [PageController::class, 'home'])->name('et.home');
-Route::get('/kinnisvara-muuk', [PageController::class, 'kinnisvaraMuuk'])->name('et.kinnisvara-muuk');
-Route::get('/kinnisvara-uur', [PageController::class, 'kinnisvaraUur'])->name('et.kinnisvara-uur');
-Route::get('/konsultatsioon', [PageController::class, 'konsultatsioon'])->name('et.konsultatsioon');
-Route::get('/kontaktid', [PageController::class, 'kontaktid'])->name('et.kontaktid');
+// ─── Sitemap & robots ───────────────────────────────────────
+Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
+Route::get('/robots.txt', [SitemapController::class, 'robots'])->name('robots');
 
-// Russian routes
+// ─── Estonian routes (cityee.ee) — default ──────────────────
+Route::get('/',                  [PageController::class, 'home'])->name('et.home');
+Route::get('/kinnisvara-muuk',   [PageController::class, 'sell'])->name('et.sell');
+Route::get('/kinnisvara-uur',    [PageController::class, 'rent'])->name('et.rent');
+Route::get('/konsultatsioon',    [PageController::class, 'consultation'])->name('et.consultation');
+Route::get('/kontaktid',         [PageController::class, 'contacts'])->name('et.contacts');
+Route::get('/miks-cityee',       [PageController::class, 'whyCityee'])->name('et.why');
+
+
+// ─── Russian routes (ru.cityee.ee — or /ru prefix for local dev) ─
 Route::prefix('ru')->group(function () {
-    Route::get('/', [PageController::class, 'home'])->defaults('locale', 'ru')->name('ru.home');
-    Route::get('/kinnisvara-muuk', [PageController::class, 'kinnisvaraMuuk'])->defaults('locale', 'ru')->name('ru.kinnisvara-muuk');
-    Route::get('/kinnisvara-uur', [PageController::class, 'kinnisvaraUur'])->defaults('locale', 'ru')->name('ru.kinnisvara-uur');
-    Route::get('/konsultatsioon', [PageController::class, 'konsultatsioon'])->defaults('locale', 'ru')->name('ru.konsultatsioon');
-    Route::get('/kontaktid', [PageController::class, 'kontaktid'])->defaults('locale', 'ru')->name('ru.kontaktid');
+    Route::get('/',                [PageController::class, 'home'])->defaults('locale', 'ru')->name('ru.home');
+    Route::get('/kinnisvara-muuk', [PageController::class, 'sell'])->defaults('locale', 'ru')->name('ru.sell');
+    Route::get('/kinnisvara-uur',  [PageController::class, 'rent'])->defaults('locale', 'ru')->name('ru.rent');
+    Route::get('/konsultatsioon',  [PageController::class, 'consultation'])->defaults('locale', 'ru')->name('ru.consultation');
+    Route::get('/kontaktid',       [PageController::class, 'contacts'])->defaults('locale', 'ru')->name('ru.contacts');
+    Route::get('/pochemu-cityee',  [PageController::class, 'whyCityee'])->defaults('locale', 'ru')->name('ru.why');
 });
+
+// ─── English routes (en.cityee.ee — or /en prefix for local dev) ─
+Route::prefix('en')->group(function () {
+    Route::get('/',                [PageController::class, 'home'])->defaults('locale', 'en')->name('en.home');
+    Route::get('/sell-property',   [PageController::class, 'sell'])->defaults('locale', 'en')->name('en.sell');
+    Route::get('/rent-out-property', [PageController::class, 'rent'])->defaults('locale', 'en')->name('en.rent');
+    Route::get('/consultation',    [PageController::class, 'consultation'])->defaults('locale', 'en')->name('en.consultation');
+    Route::get('/contacts',        [PageController::class, 'contacts'])->defaults('locale', 'en')->name('en.contacts');
+    Route::get('/why-cityee',      [PageController::class, 'whyCityee'])->defaults('locale', 'en')->name('en.why');
+});
+
+
