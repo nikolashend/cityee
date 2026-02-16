@@ -2884,7 +2884,7 @@ img {
 .header__contacts {
   display: inline-block;
   vertical-align: top;
-  width: 25%;
+  width: 35%;
   position: relative;
   top: 0;
 }
@@ -2902,7 +2902,7 @@ img {
   text-align: right;
   display: inline-block;
   vertical-align: top;
-  width: 25%;
+  width: 35%;
   position: relative;
   top: -5px;
 }
@@ -2920,7 +2920,8 @@ img {
     transition: all 0.4s ease;
   }
   .header__phones {
-	visibility: hidden;
+	/* visibility: hidden; */
+    display: none;
   }
 }
 @media (max-width: 1047px) {
@@ -2931,13 +2932,13 @@ img {
     width: 31%;
   }
   .header__contacts {
-    width: 22%;
+    width: 32%;
   }
   .header__phones {
     width: 21%;
   }
   .header__main-phone {
-    width: 26%;
+    width: 36%;
   }
 }
 @media (max-width: 767px) {
