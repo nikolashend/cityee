@@ -5033,7 +5033,7 @@ img {
   position: absolute;
   right: 12px;
   bottom: 10px;
-  width: 100px;
+  width: 160px;
 }
 
 .languages a{
@@ -5048,11 +5048,13 @@ img {
 }
 
 .languages a.languages__est.active,
-.languages a.languages__rus.active{
+.languages a.languages__rus.active,
+.languages a.languages__eng.active{
   border-bottom: 3px solid #7b1f45;
 }
 .languages .languages__est:not(.active),
-.languages .languages__rus:not(.active){
+.languages .languages__rus:not(.active),
+.languages .languages__eng:not(.active){
    color: #ccc;
 }
 .languages__est:hover:before{
@@ -5071,6 +5073,15 @@ img {
   width: 28px;
   height: 20px;
   background: url(../img/russian-flag.png);
+  left: 50%;
+  margin-left: -15px;
+}
+.languages__eng:hover:before{
+  position: absolute;
+  content: '';
+  width: 28px;
+  height: 20px;
+  background: url(../img/GR-flag.png);
   left: 50%;
   margin-left: -15px;
 }
