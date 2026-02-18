@@ -31,9 +31,13 @@
     ];
     $titleMap = ['et' => 'Lühidalt', 'ru' => 'Кратко', 'en' => 'Quick Summary'];
 @endphp
-<section class="ai-summary" role="complementary" aria-label="Summary">
-  <div class="ai-summary__title">{{ $titleMap[$locale] ?? 'Quick Summary' }}</div>
-  <p>{{ $summaries[$locale] ?? $summaries['en'] }}</p>
+<section class="ai-summary" role="complementary" aria-label="Summary" itemscope itemtype="https://schema.org/CreativeWork">
+  <meta itemprop="about" content="{{ $locale === 'ru' ? 'Продажа и аренда недвижимости в Tallinn и Harjumaa' : ($locale === 'en' ? 'Property sale and rental in Tallinn and Harjumaa' : 'Kinnisvara müük ja üür Tallinn ja Harjumaa piirkonnas') }}">
+  <meta itemprop="audience" content="{{ $locale === 'ru' ? 'Собственники недвижимости' : ($locale === 'en' ? 'Property owners' : 'Kinnisvaraomanikud') }}">
+  <meta itemprop="author" content="CityEE">
+  <meta itemprop="inLanguage" content="{{ $locale }}">
+  <div class="ai-summary__title" itemprop="name">{{ $titleMap[$locale] ?? 'Quick Summary' }}</div>
+  <p itemprop="text">{{ $summaries[$locale] ?? $summaries['en'] }}</p>
   <ul>
     @foreach (($details[$locale] ?? $details['en']) as $item)
       <li>{{ $item }}</li>

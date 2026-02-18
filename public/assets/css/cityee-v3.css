@@ -25,7 +25,7 @@
   --ce-max-content: 800px;
 }
 
-/* ─── FAQ ACCORDION (Premium) ──────────────────────── */
+/* ─── FAQ ACCORDION (Premium Card Design) ──────────── */
 .faq-section {
   padding: 50px 0;
   background: var(--ce-light);
@@ -37,19 +37,18 @@
 .faq-item {
   background: #fff;
   border-radius: var(--ce-radius);
-  box-shadow: var(--ce-shadow);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
   margin-bottom: 12px;
   overflow: hidden;
-  transition: var(--ce-transition);
-  border: 1px solid transparent;
+  transition: box-shadow 0.3s cubic-bezier(0.4,0,0.2,1), border-color 0.3s cubic-bezier(0.4,0,0.2,1);
+  border: 1px solid var(--ce-border);
 }
 .faq-item:hover {
-  box-shadow: var(--ce-shadow-hover);
-  border-color: var(--ce-border);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
 }
 .faq-item.active {
   border-color: var(--ce-primary);
-  box-shadow: 0 4px 16px rgba(123,31,69,0.08);
+  box-shadow: 0 4px 20px rgba(123,31,69,0.1);
 }
 .faq-item h3 {
   margin: 0;
@@ -65,14 +64,14 @@
   font-weight: 600;
   font-size: 16px;
   color: var(--ce-dark);
-  transition: var(--ce-transition);
+  transition: color 0.15s ease, background 0.15s ease;
   user-select: none;
   gap: 16px;
   line-height: 1.4;
 }
 .faq-question:hover {
   color: var(--ce-primary);
-  background: var(--ce-light);
+  background: rgba(123,31,69,0.02);
 }
 .faq-question::after {
   content: '+';
@@ -88,7 +87,7 @@
   background: rgba(123,31,69,0.06);
   border-radius: 50%;
   flex-shrink: 0;
-  transition: var(--ce-transition);
+  transition: all 0.15s ease;
   line-height: 1;
 }
 .faq-item.active .faq-question::after {
@@ -100,7 +99,7 @@
 .faq-answer {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1), padding 0.4s cubic-bezier(0.4,0,0.2,1);
+  transition: max-height 0.3s cubic-bezier(0.4,0,0.2,1), padding 0.3s cubic-bezier(0.4,0,0.2,1);
   padding: 0 24px;
 }
 .faq-item.active .faq-answer {
@@ -562,7 +561,7 @@
   height: 56px;
   border-radius: 50%;
   box-shadow: 0 4px 16px rgba(0,0,0,0.18);
-  transition: var(--ce-transition);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
   text-decoration: none;
   border: none;
   cursor: pointer;
@@ -582,7 +581,7 @@
   height: 28px;
   fill: #fff;
 }
-/* Desktop: show label on hover */
+/* Desktop: pill buttons with labels */
 @media (min-width: 769px) {
   .sticky-btn {
     width: auto;
@@ -602,9 +601,45 @@
     white-space: nowrap;
   }
 }
+/* Mobile: horizontal sticky bar at bottom */
 @media (max-width: 768px) {
+  .sticky-buttons {
+    bottom: 0;
+    left: 0;
+    right: 0;
+    flex-direction: row;
+    gap: 0;
+    border-radius: 0;
+    padding: 0;
+    box-shadow: 0 -2px 12px rgba(0,0,0,0.15);
+  }
+  .sticky-btn {
+    flex: 1;
+    width: auto;
+    height: 52px;
+    border-radius: 0;
+    box-shadow: none;
+    gap: 8px;
+    padding: 0 12px;
+  }
+  .sticky-btn:hover {
+    transform: none;
+    box-shadow: none;
+  }
+  .sticky-btn svg {
+    width: 22px;
+    height: 22px;
+  }
   .sticky-btn__label {
-    display: none;
+    display: inline;
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+    white-space: nowrap;
+  }
+  /* Ensure footer doesn't overlap sticky bar */
+  body {
+    padding-bottom: 52px;
   }
 }
 
@@ -902,6 +937,9 @@ img[loading="lazy"] {
     min-width: 28px;
     font-size: 18px;
   }
+  .faq-item.active .faq-answer {
+    padding: 0 16px 20px;
+  }
   /* Comparison table scroll */
   .table__wrapp {
     overflow-x: auto;
@@ -945,19 +983,6 @@ img[loading="lazy"] {
   /* Section spacing */
   .main-h2 {
     font-size: 20px;
-  }
-  /* Sticky buttons */
-  .sticky-buttons {
-    bottom: 16px;
-    right: 16px;
-  }
-  .sticky-btn {
-    width: 48px;
-    height: 48px;
-  }
-  .sticky-btn svg {
-    width: 24px;
-    height: 24px;
   }
   /* WhatsApp text no wrap */
   .main-phone__whatsapp {

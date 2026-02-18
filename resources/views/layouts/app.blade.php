@@ -24,9 +24,14 @@
 <link rel="preconnect" href="https://ajax.googleapis.com" crossorigin>
 <link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
 <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="dns-prefetch" href="https://code.jivosite.com">
 
 {{-- Preload hero image --}}
-<link rel="preload" href="/assets/templates/offshors/img/offshors.jpg" as="image">
+<link rel="preload" href="/assets/templates/offshors/img/offshors.jpg" as="image" fetchpriority="high">
+
+{{-- Preload critical fonts --}}
+<link rel="preload" href="/assets/templates/offshors/fonts/PTSansNarrow-Bold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/templates/offshors/fonts/PTSansNarrow-Regular.woff2" as="font" type="font/woff2" crossorigin>
 
 {{-- Canonical + Hreflang --}}
 @if (isset($pageKey))
@@ -47,10 +52,29 @@
 <meta property="og:image" content="https://cityee.ee/assets/templates/offshors/img/about-foto.jpg">
 <meta property="og:locale" content="{{ $locale === 'ru' ? 'ru_EE' : ($locale === 'en' ? 'en_US' : 'et_EE') }}">
 
-<link href="/assets/templates/offshors/css/style.css?v=4" rel="stylesheet" media="screen">
-<link href="/assets/templates/offshors/css/font-awesome.min.css" rel="stylesheet" media="screen">
-<link href="/assets/templates/offshors/css/jquery.bxslider.css" rel="stylesheet" media="screen">
-<link href="/assets/css/cityee-v3.css?v=3" rel="stylesheet" media="screen">
+{{-- Critical CSS inline — above-the-fold rendering --}}
+<style>
+/* Critical: Reset + Header + Hero + Nav + Banner layout */
+*,*::before,*::after{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PT Sans Narrow',Roboto,sans-serif;-webkit-font-smoothing:antialiased;color:#333;background:#fff}img{max-width:100%;height:auto}a{text-decoration:none;color:inherit}.container{max-width:1200px;margin:0 auto;padding:0 15px}
+.header{background:#fff;position:relative;z-index:100}.header .container{display:flex;align-items:center;flex-wrap:wrap;padding:10px 15px}.header__logo{flex:0 0 auto}.logo{display:flex;align-items:center;gap:8px;text-decoration:none}.logo__img img{display:block}.logo__text{font-size:12px;text-transform:uppercase;color:#7b1f45;font-weight:600;letter-spacing:.02em;white-space:nowrap}
+.nav{background:#7b1f45}.nav .container{display:flex;align-items:center;justify-content:space-between}.nav__list{display:flex;list-style:none;margin:0;padding:0;flex-wrap:wrap}.nav__item a{display:block;padding:12px 16px;color:#fff;font-size:14px;text-transform:uppercase;letter-spacing:.04em;transition:background .2s}.nav__item a:hover,.nav__item.active a{background:rgba(255,255,255,.15)}
+.banners{position:relative;overflow:hidden}.banners__item{position:relative;background-size:cover;background-position:center;min-height:420px;display:flex;align-items:center;color:#fff}.banners__wrapp{position:relative;z-index:2;text-align:center;width:100%}.banners__title{font-size:clamp(28px,4.5vw,52px);font-weight:800;line-height:1.1;letter-spacing:-.02em;text-shadow:0 2px 16px rgba(0,0,0,.2);margin:0 0 12px}.banners__text{font-size:clamp(15px,2vw,18px);line-height:1.5;opacity:.92;max-width:640px;margin:0 auto}
+.banners__item::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(26,26,26,.55),rgba(26,26,26,.2) 60%,rgba(123,31,69,.15));z-index:1;pointer-events:none}
+.intent-buttons{display:flex;gap:14px;flex-wrap:wrap;margin-top:24px;justify-content:center}.intent-btn{display:inline-flex;align-items:center;gap:8px;padding:16px 32px;border-radius:8px;font-size:15px;font-weight:700;text-decoration:none;transition:all .25s;border:2px solid transparent;cursor:pointer}.intent-btn--primary{background:#7b1f45;color:#fff;font-size:16px;padding:18px 36px;box-shadow:0 4px 16px rgba(123,31,69,.25)}.intent-btn--secondary{background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.5)}.intent-btn--accent{background:#25D366;color:#fff}
+.hero-trust-line{display:flex;align-items:center;justify-content:center;gap:20px;margin-top:16px;flex-wrap:wrap}.hero-trust-line__item{font-size:14px;color:rgba(255,255,255,.85);display:flex;align-items:center;gap:6px}.hero-trust-line__divider{width:1px;height:16px;background:rgba(255,255,255,.3)}
+.page-title{position:relative;background-size:cover;background-position:center;min-height:260px;display:flex;align-items:center;color:#fff}.page-title::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(26,26,26,.55),rgba(26,26,26,.25));z-index:0;pointer-events:none}.page-title .container{position:relative;z-index:1}.page-title__name{font-size:clamp(28px,4.5vw,52px);font-weight:800;line-height:1.1;margin:0 0 12px}.page-title__text{font-size:clamp(15px,2vw,18px);opacity:.92;max-width:640px}
+.languages{display:flex;gap:4px}.languages a{padding:4px 10px;border-radius:4px;font-size:13px;color:rgba(255,255,255,.7)}.languages a.active{background:rgba(255,255,255,.2);color:#fff}
+@media(max-width:768px){.header .container{flex-direction:column;align-items:flex-start}.nav__list{flex-direction:column;width:100%}.banners__title{font-size:24px!important}.intent-buttons{flex-direction:column;align-items:stretch}.intent-btn{justify-content:center;width:100%}}
+</style>
+
+{{-- Non-critical CSS — deferred loading --}}
+<link rel="stylesheet" href="/assets/templates/offshors/css/style.css?v=4" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="/assets/templates/offshors/css/style.css?v=4"></noscript>
+<link rel="stylesheet" href="/assets/templates/offshors/css/font-awesome.min.css" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="/assets/templates/offshors/css/font-awesome.min.css"></noscript>
+<link rel="stylesheet" href="/assets/templates/offshors/css/jquery.bxslider.css" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="/assets/templates/offshors/css/jquery.bxslider.css"></noscript>
+<link href="/assets/css/cityee-v3.css?v=4" rel="stylesheet">
 
 {{-- JSON-LD --}}
 @stack('jsonld')
@@ -80,11 +104,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <noscript><div><img src="https://mc.yandex.ru/watch/{{ $metrikaId }}" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
 
-{{-- Font display swap for custom fonts --}}
-<style>@font-face{font-display:swap!important}</style>
+{{-- Font display:swap for all custom fonts --}}
+<style>
+@font-face{font-family:'PT Sans Narrow';font-style:normal;font-weight:400;font-display:swap;src:url('/assets/templates/offshors/fonts/PTSansNarrow-Regular.woff2') format('woff2')}
+@font-face{font-family:'PT Sans Narrow';font-style:normal;font-weight:700;font-display:swap;src:url('/assets/templates/offshors/fonts/PTSansNarrow-Bold.woff2') format('woff2')}
+@font-face{font-family:'fontello';font-style:normal;font-weight:400;font-display:swap;src:url('/assets/templates/offshors/fonts/fontello.woff?31919061') format('woff')}
+</style>
 
 </head>
 <body>
+<!-- Skip to content link for accessibility -->
+<a href="#main-content" class="sr-only" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">Skip to content</a>
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5DRRX5ZJ"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -135,7 +165,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   </div>
 
-  <nav class="nav">
+  <nav class="nav" aria-label="{{ $locale === 'ru' ? 'Главное меню' : ($locale === 'en' ? 'Main navigation' : 'Peamine navigatsioon') }}">
     <div class="container">
       <ul class="nav__list">
         @foreach ($nav as $i => $item)
@@ -165,9 +195,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </nav>
 </header>
 
+<main id="main-content">
 @yield('content')
+</main>
 
-<footer class="footer @yield('footer_class')">
+<footer class="footer @yield('footer_class')" role="contentinfo">>
   <div class="questions">
     <p>{{ $ui['questions_call'] ?? 'Kas Teil on küsimusi? Helistage!' }} <span>{{ $co['phone_display'] }}</span>&nbsp;
     <a href="{{ route("{$locale}.sell") }}" target="_blank" onclick="if(document.location.href.match('kinnisvara-muuk|sell')){$('#feedback').trigger('click'); return false;}"><font color="#fafae6" size="5">&nbsp;&nbsp;{{ $ui['how_sell'] ?? '' }}</font></a></p>
@@ -259,8 +291,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </form>
 </div>
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="/js/jquery.2.1.3.min.js"><\/script>')</script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js" defer></script>
+<script>window.jQuery || document.write('<script src="/js/jquery.2.1.3.min.js" defer><\/script>')</script>
 <script src="/assets/templates/offshors/js/main.js?v=2" defer></script>
 <script src="/assets/templates/offshors/js/jquery.bxslider.js" defer></script>
 
@@ -271,10 +303,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <link rel="stylesheet" href="/assets/magnific-popup/magnific-popup.css" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="/assets/magnific-popup/magnific-popup.css"></noscript>
 <script src="/assets/magnific-popup/jquery.magnific-popup.js" defer></script>
-<script type="text/javascript">
-  $(document).ready(function() {
-    $('.popup-gallery___').each(function() {
-      $(this).magnificPopup({
+<script defer>
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof jQuery === 'undefined') return;
+    jQuery('.popup-gallery___').each(function() {
+      jQuery(this).magnificPopup({
         delegate: 'a',
         type: 'image',
         tLoading: 'Loading image #%curr%...',
@@ -293,10 +326,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         },
         callbacks: {
           beforeOpen: function() {
-            $('jdiv:first').css({'display': 'none'});
+            var jdiv = document.querySelector('jdiv');
+            if (jdiv) jdiv.style.display = 'none';
           },
           beforeClose: function() {
-            $('jdiv:first').css({'display': 'inline'});
+            var jdiv = document.querySelector('jdiv');
+            if (jdiv) jdiv.style.display = 'inline';
           },
         },
       });
