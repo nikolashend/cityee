@@ -4,51 +4,59 @@ namespace App\Support;
 
 class SeoLinks
 {
+    private const BASE = 'https://cityee.ee';
+
     /**
      * Map logical page keys to per-language full URLs.
+     * Single domain, path-based language structure:
+     *   ET: https://cityee.ee/{slug}
+     *   RU: https://cityee.ee/ru/{slug}
+     *   EN: https://cityee.ee/en/{slug}
      */
     public static function pageUrls(string $pageKey): array
     {
+        $base = self::BASE;
+
         return match ($pageKey) {
             'home' => [
-                'et-EE' => 'https://cityee.ee/',
-                'ru-EE' => 'https://ru.cityee.ee/',
-                'en-EE' => 'https://en.cityee.ee/',
+                'et' => "{$base}/",
+                'ru' => "{$base}/ru/",
+                'en' => "{$base}/en/",
             ],
             'sell' => [
-                'et-EE' => 'https://cityee.ee/kinnisvara-muuk/',
-                'ru-EE' => 'https://ru.cityee.ee/kinnisvara-muuk/',
-                'en-EE' => 'https://en.cityee.ee/sell-property/',
+                'et' => "{$base}/kinnisvara-muuk/",
+                'ru' => "{$base}/ru/kinnisvara-muuk/",
+                'en' => "{$base}/en/sell-property/",
             ],
             'rent' => [
-                'et-EE' => 'https://cityee.ee/kinnisvara-uur/',
-                'ru-EE' => 'https://ru.cityee.ee/kinnisvara-uur/',
-                'en-EE' => 'https://en.cityee.ee/rent-out-property/',
+                'et' => "{$base}/kinnisvara-uur/",
+                'ru' => "{$base}/ru/kinnisvara-uur/",
+                'en' => "{$base}/en/rent-out-property/",
             ],
             'consultation' => [
-                'et-EE' => 'https://cityee.ee/konsultatsioon/',
-                'ru-EE' => 'https://ru.cityee.ee/konsultatsioon/',
-                'en-EE' => 'https://en.cityee.ee/consultation/',
+                'et' => "{$base}/konsultatsioon/",
+                'ru' => "{$base}/ru/konsultatsioon/",
+                'en' => "{$base}/en/consultation/",
             ],
             'contacts' => [
-                'et-EE' => 'https://cityee.ee/kontaktid/',
-                'ru-EE' => 'https://ru.cityee.ee/kontaktid/',
-                'en-EE' => 'https://en.cityee.ee/contacts/',
+                'et' => "{$base}/kontaktid/",
+                'ru' => "{$base}/ru/kontaktid/",
+                'en' => "{$base}/en/contacts/",
             ],
             'comparison', 'why' => [
-                'et-EE' => 'https://cityee.ee/miks-cityee/',
-                'ru-EE' => 'https://ru.cityee.ee/pochemu-cityee/',
-                'en-EE' => 'https://en.cityee.ee/why-cityee/',
+                'et' => "{$base}/miks-cityee/",
+                'ru' => "{$base}/ru/pochemu-cityee/",
+                'en' => "{$base}/en/why-cityee/",
             ],
             'audit' => [
-                'et-EE' => 'https://cityee.ee/audit/',
-                'ru-EE' => 'https://ru.cityee.ee/audit/',
-                'en-EE' => 'https://en.cityee.ee/audit/',
+                'et' => "{$base}/audit/",
+                'ru' => "{$base}/ru/audit/",
+                'en' => "{$base}/en/audit/",
             ],
             'knowledge' => [
-                'et-EE' => 'https://cityee.ee/knowledge/',
-                'ru-EE' => 'https://ru.cityee.ee/knowledge/',
-                'en-EE' => 'https://en.cityee.ee/knowledge/',
+                'et' => "{$base}/knowledge/",
+                'ru' => "{$base}/ru/knowledge/",
+                'en' => "{$base}/en/knowledge/",
             ],
             default => throw new \InvalidArgumentException("Unknown pageKey: {$pageKey}")
         };
@@ -59,8 +67,8 @@ class SeoLinks
      */
     public static function canonical(string $pageKey): string
     {
-        $lang = Lang::current();
-        return self::pageUrls($pageKey)[$lang];
+        $lang = app()->getLocale() ?: 'et';
+        return self::pageUrls($pageKey)[$lang] ?? self::pageUrls($pageKey)['et'];
     }
 
     /**
@@ -71,20 +79,20 @@ class SeoLinks
         $urls = self::pageUrls($pageKey);
 
         return [
-            ['hreflang' => 'et', 'href' => $urls['et-EE']],
-            ['hreflang' => 'ru', 'href' => $urls['ru-EE']],
-            ['hreflang' => 'en', 'href' => $urls['en-EE']],
-            ['hreflang' => 'x-default', 'href' => $urls['et-EE']],
+            ['hreflang' => 'et', 'href' => $urls['et']],
+            ['hreflang' => 'ru', 'href' => $urls['ru']],
+            ['hreflang' => 'en', 'href' => $urls['en']],
+            ['hreflang' => 'x-default', 'href' => $urls['et']],
         ];
     }
 
     /**
-     * Get alternates map (used for seo-links partial).
+     * Get alternates map.
      */
     public static function alternates(string $pageKey): array
     {
         $urls = self::pageUrls($pageKey);
-        $urls['x-default'] = $urls['et-EE'];
+        $urls['x-default'] = $urls['et'];
         return $urls;
     }
 }

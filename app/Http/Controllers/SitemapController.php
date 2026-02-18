@@ -2,32 +2,34 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Guide;
+use App\Models\AreaAudit;
 use Illuminate\Http\Response;
 
 class SitemapController extends Controller
 {
-    private const BASES = [
-        'et' => 'https://cityee.ee',
-        'ru' => 'https://ru.cityee.ee',
-        'en' => 'https://en.cityee.ee',
-    ];
+    private const BASE = 'https://cityee.ee';
 
     /**
-     * Sitemap index — links to per-language + section sitemaps.
+     * Sitemap index — points to section sitemaps (main, guides, audits).
+     * GET /sitemap.xml
      */
     public function index(): Response
     {
+        $today = now()->toDateString();
+        $base  = self::BASE;
+
         $sitemaps = [
-            self::BASES['et'] . '/sitemap-et.xml',
-            self::BASES['ru'] . '/sitemap-ru.xml',
-            self::BASES['en'] . '/sitemap-en.xml',
+            "{$base}/sitemap-main.xml",
+            "{$base}/sitemap-guides.xml",
+            "{$base}/sitemap-audits.xml",
         ];
 
         $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
         $xml .= '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
 
         foreach ($sitemaps as $loc) {
-            $xml .= "  <sitemap>\n    <loc>{$loc}</loc>\n    <lastmod>" . now()->toDateString() . "</lastmod>\n  </sitemap>\n";
+            $xml .= "  <sitemap>\n    <loc>{$loc}</loc>\n    <lastmod>{$today}</lastmod>\n  </sitemap>\n";
         }
 
         $xml .= '</sitemapindex>';
@@ -36,17 +38,29 @@ class SitemapController extends Controller
     }
 
     /**
-     * Per-language sitemap with hreflang alternates.
+     * Main sitemap — all static pages, all 3 languages, with hreflang alternates.
+     * GET /sitemap-main.xml
      */
-    public function lang(string $lang): Response
+    public function main(): Response
     {
-        $pages = $this->pagesForLang($lang);
+        $today = now()->toDateString();
+        $base  = self::BASE;
+
+        $hreflangMap = $this->buildHreflangMap();
+
+        // All pages across all 3 languages
+        $allPages = [];
+        foreach (['et', 'ru', 'en'] as $lang) {
+            foreach ($this->pagesForLang($lang) as $page) {
+                $allPages[] = $page;
+            }
+        }
 
         $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
         $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"' . "\n";
         $xml .= '        xmlns:xhtml="http://www.w3.org/1999/xhtml">' . "\n";
 
-        foreach ($pages as $page) {
+        foreach ($allPages as $page) {
             $xml .= "  <url>\n";
             $xml .= "    <loc>{$page['loc']}</loc>\n";
             $xml .= "    <lastmod>{$page['lastmod']}</lastmod>\n";
@@ -66,50 +80,165 @@ class SitemapController extends Controller
     }
 
     /**
-     * robots.txt — domain-aware with proper sitemaps per spec.
-     *
-     * cityee.ee     → all 3 sitemaps + Host: cityee.ee
-     * ru.cityee.ee  → own sitemap   + Host: ru.cityee.ee
-     * en.cityee.ee  → own sitemap   + Host: en.cityee.ee
+     * Guides sitemap — published guides from DB.
+     * GET /sitemap-guides.xml
+     */
+    public function guides(): Response
+    {
+        $base = self::BASE;
+
+        $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+        $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"' . "\n";
+        $xml .= '        xmlns:xhtml="http://www.w3.org/1999/xhtml">' . "\n";
+
+        try {
+            $allGuides = Guide::published()->get();
+            $grouped = $allGuides->groupBy('slug');
+
+            foreach ($grouped as $slug => $versions) {
+                foreach ($versions as $guide) {
+                    $prefix = match ($guide->locale) {
+                        'ru' => '/ru', 'en' => '/en', default => '',
+                    };
+                    $loc = "{$base}{$prefix}/guides/{$slug}/";
+
+                    $xml .= "  <url>\n";
+                    $xml .= "    <loc>{$loc}</loc>\n";
+                    $xml .= "    <lastmod>" . ($guide->updated_at ?? now())->toDateString() . "</lastmod>\n";
+                    $xml .= "    <priority>{$guide->priority}</priority>\n";
+
+                    // Add hreflang for all versions of this slug
+                    foreach ($versions as $alt) {
+                        $altPrefix = match ($alt->locale) {
+                            'ru' => '/ru', 'en' => '/en', default => '',
+                        };
+                        $xml .= '    <xhtml:link rel="alternate" hreflang="' . $alt->locale . '" href="' . $base . $altPrefix . '/guides/' . $slug . '/" />' . "\n";
+                    }
+                    // x-default = ET version
+                    $etVersion = $versions->firstWhere('locale', 'et');
+                    if ($etVersion) {
+                        $xml .= '    <xhtml:link rel="alternate" hreflang="x-default" href="' . $base . '/guides/' . $slug . '/" />' . "\n";
+                    }
+
+                    $xml .= "  </url>\n";
+                }
+            }
+        } catch (\Exception $e) {
+            // Table may not exist yet — return empty
+        }
+
+        $xml .= '</urlset>';
+
+        return response($xml, 200)->header('Content-Type', 'application/xml');
+    }
+
+    /**
+     * Audits sitemap — published area audits from DB.
+     * GET /sitemap-audits.xml
+     */
+    public function audits(): Response
+    {
+        $base = self::BASE;
+
+        $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+        $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"' . "\n";
+        $xml .= '        xmlns:xhtml="http://www.w3.org/1999/xhtml">' . "\n";
+
+        try {
+            $allAudits = AreaAudit::published()->get();
+            $grouped = $allAudits->groupBy('slug');
+
+            foreach ($grouped as $slug => $versions) {
+                foreach ($versions as $audit) {
+                    $prefix = match ($audit->locale) {
+                        'ru' => '/ru', 'en' => '/en', default => '',
+                    };
+                    $loc = "{$base}{$prefix}/audits/{$slug}/";
+
+                    $xml .= "  <url>\n";
+                    $xml .= "    <loc>{$loc}</loc>\n";
+                    $xml .= "    <lastmod>" . ($audit->updated_at ?? now())->toDateString() . "</lastmod>\n";
+                    $xml .= "    <priority>{$audit->priority}</priority>\n";
+
+                    foreach ($versions as $alt) {
+                        $altPrefix = match ($alt->locale) {
+                            'ru' => '/ru', 'en' => '/en', default => '',
+                        };
+                        $xml .= '    <xhtml:link rel="alternate" hreflang="' . $alt->locale . '" href="' . $base . $altPrefix . '/audits/' . $slug . '/" />' . "\n";
+                    }
+                    $etVersion = $versions->firstWhere('locale', 'et');
+                    if ($etVersion) {
+                        $xml .= '    <xhtml:link rel="alternate" hreflang="x-default" href="' . $base . '/audits/' . $slug . '/" />' . "\n";
+                    }
+
+                    $xml .= "  </url>\n";
+                }
+            }
+        } catch (\Exception $e) {
+            // Table may not exist yet — return empty
+        }
+
+        $xml .= '</urlset>';
+
+        return response($xml, 200)->header('Content-Type', 'application/xml');
+    }
+
+    /**
+     * robots.txt — single domain, ideal spec.
+     * GET /robots.txt
      */
     public function robots(): Response
     {
-        $host = request()->getHost();
+        $base = self::BASE;
 
-        // Determine which domain we're on (production or local fallback)
-        $isRu = str_starts_with($host, 'ru.');
-        $isEn = str_starts_with($host, 'en.');
-
-        $txt  = "User-agent: *\n";
-        $txt .= "Allow: /\n";
-        $txt .= "\n";
-
-        if ($isRu) {
-            $txt .= "Host: ru.cityee.ee\n";
-            $txt .= "\n";
-            $txt .= "Sitemap: https://ru.cityee.ee/sitemap.xml\n";
-        } elseif ($isEn) {
-            $txt .= "Host: en.cityee.ee\n";
-            $txt .= "\n";
-            $txt .= "Sitemap: https://en.cityee.ee/sitemap.xml\n";
-        } else {
-            // Main domain (cityee.ee) — reference all 3 sitemaps
-            $txt .= "Host: cityee.ee\n";
-            $txt .= "\n";
-            $txt .= "Sitemap: https://cityee.ee/sitemap.xml\n";
-            $txt .= "Sitemap: https://ru.cityee.ee/sitemap.xml\n";
-            $txt .= "Sitemap: https://en.cityee.ee/sitemap.xml\n";
-        }
+        $txt  = "# CityEE — Kinnisvaramaakler Tallinnas\n";
+        $txt .= "# Single domain: {$base}\n\n";
+        $txt .= "User-agent: *\n";
+        $txt .= "Allow: /\n\n";
+        $txt .= "# Disallow non-content paths\n";
+        $txt .= "Disallow: /admin\n";
+        $txt .= "Disallow: /login\n";
+        $txt .= "Disallow: /register\n";
+        $txt .= "Disallow: /storage/\n";
+        $txt .= "Disallow: /vendor/\n";
+        $txt .= "Disallow: /*?sort=\n";
+        $txt .= "Disallow: /*?utm_\n";
+        $txt .= "Disallow: /*?trk=\n";
+        $txt .= "Disallow: /*?page=\n";
+        $txt .= "Disallow: /*?ref=\n";
+        $txt .= "Disallow: /*?fbclid=\n\n";
+        $txt .= "# AI crawlers — welcome\n";
+        $txt .= "User-agent: GPTBot\n";
+        $txt .= "Allow: /\n\n";
+        $txt .= "User-agent: Google-Extended\n";
+        $txt .= "Allow: /\n\n";
+        $txt .= "User-agent: ChatGPT-User\n";
+        $txt .= "Allow: /\n\n";
+        $txt .= "User-agent: Bingbot\n";
+        $txt .= "Allow: /\n\n";
+        $txt .= "User-agent: PerplexityBot\n";
+        $txt .= "Allow: /\n\n";
+        $txt .= "Host: cityee.ee\n\n";
+        $txt .= "Sitemap: {$base}/sitemap.xml\n";
 
         return response($txt, 200)->header('Content-Type', 'text/plain');
     }
 
     // ──────────────────────────────────────────────
 
+    /**
+     * Build page list for a given language — all URLs are path-based on single domain.
+     */
     private function pagesForLang(string $lang): array
     {
         $today = now()->toDateString();
-        $base = self::BASES[$lang] ?? self::BASES['et'];
+        $base  = self::BASE;
+
+        $prefix = match ($lang) {
+            'ru' => '/ru',
+            'en' => '/en',
+            default => '',
+        };
 
         $slugs = match ($lang) {
             'et' => [
@@ -149,8 +278,13 @@ class SitemapController extends Controller
         $pages = [];
 
         foreach ($slugs as $u) {
+            $loc = $base . $prefix . $u['slug'];
+            // Normalize double slashes and ensure trailing slash
+            $loc = rtrim($loc, '/') . '/';
+            $loc = str_replace('cityee.ee//', 'cityee.ee/', $loc);
+
             $pages[] = [
-                'loc'        => $base . $u['slug'],
+                'loc'        => $loc,
                 'lastmod'    => $today,
                 'changefreq' => $u['f'],
                 'priority'   => $u['p'],
@@ -161,26 +295,31 @@ class SitemapController extends Controller
         return $pages;
     }
 
+    /**
+     * Hreflang alternate map for all pages — single domain, path-based.
+     */
     private function buildHreflangMap(): array
     {
+        $base = self::BASE;
+
         $pages = [
-            'home'         => ['et' => '/',               'ru' => '/',                'en' => '/'],
-            'sell'         => ['et' => '/kinnisvara-muuk', 'ru' => '/kinnisvara-muuk', 'en' => '/sell-property'],
-            'rent'         => ['et' => '/kinnisvara-uur',  'ru' => '/kinnisvara-uur',  'en' => '/rent-out-property'],
-            'consultation' => ['et' => '/konsultatsioon',  'ru' => '/konsultatsioon',  'en' => '/consultation'],
-            'contacts'     => ['et' => '/kontaktid',       'ru' => '/kontaktid',       'en' => '/contacts'],
-            'why'          => ['et' => '/miks-cityee',     'ru' => '/pochemu-cityee',  'en' => '/why-cityee'],
-            'audit'        => ['et' => '/audit',           'ru' => '/audit',           'en' => '/audit'],
-            'knowledge'    => ['et' => '/knowledge',       'ru' => '/knowledge',       'en' => '/knowledge'],
+            'home'         => ['et' => '/',               'ru' => '/ru/',                 'en' => '/en/'],
+            'sell'         => ['et' => '/kinnisvara-muuk/','ru' => '/ru/kinnisvara-muuk/', 'en' => '/en/sell-property/'],
+            'rent'         => ['et' => '/kinnisvara-uur/', 'ru' => '/ru/kinnisvara-uur/',  'en' => '/en/rent-out-property/'],
+            'consultation' => ['et' => '/konsultatsioon/', 'ru' => '/ru/konsultatsioon/',  'en' => '/en/consultation/'],
+            'contacts'     => ['et' => '/kontaktid/',      'ru' => '/ru/kontaktid/',       'en' => '/en/contacts/'],
+            'why'          => ['et' => '/miks-cityee/',    'ru' => '/ru/pochemu-cityee/',  'en' => '/en/why-cityee/'],
+            'audit'        => ['et' => '/audit/',          'ru' => '/ru/audit/',           'en' => '/en/audit/'],
+            'knowledge'    => ['et' => '/knowledge/',      'ru' => '/ru/knowledge/',       'en' => '/en/knowledge/'],
         ];
 
         $map = [];
         foreach ($pages as $key => $slugs) {
             $map[$key] = [
-                ['lang' => 'et',        'href' => self::BASES['et'] . $slugs['et']],
-                ['lang' => 'ru',        'href' => self::BASES['ru'] . $slugs['ru']],
-                ['lang' => 'en',        'href' => self::BASES['en'] . $slugs['en']],
-                ['lang' => 'x-default', 'href' => self::BASES['et'] . $slugs['et']],
+                ['lang' => 'et',        'href' => $base . $slugs['et']],
+                ['lang' => 'ru',        'href' => $base . $slugs['ru']],
+                ['lang' => 'en',        'href' => $base . $slugs['en']],
+                ['lang' => 'x-default', 'href' => $base . $slugs['et']],
             ];
         }
 

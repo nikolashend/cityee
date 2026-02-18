@@ -2,43 +2,60 @@
 
 namespace App\Support;
 
+/**
+ * Language helper — single-domain, path-based architecture.
+ * Language is always determined by app()->getLocale() set by route middleware.
+ * No subdomain detection needed.
+ */
 class Lang
 {
+    private const BASE = 'https://cityee.ee';
+
+    /**
+     * Current locale shortcode: 'et', 'ru', 'en'
+     */
     public static function current(): string
     {
-        $host = request()->getHost();
-
-        if (str_starts_with($host, 'ru.')) return 'ru-EE';
-        if (str_starts_with($host, 'en.')) return 'en-EE';
-
-        return 'et-EE';
+        return app()->getLocale() ?: 'et';
     }
 
+    /**
+     * Alias for current() — kept for backward compat.
+     */
     public static function short(?string $lang = null): string
     {
-        $lang = $lang ?: self::current();
-
-        return match ($lang) {
-            'ru-EE' => 'ru',
-            'en-EE' => 'en',
-            default => 'et',
-        };
+        return $lang ?: self::current();
     }
 
+    /**
+     * Base URL — always the single canonical domain.
+     */
     public static function baseUrl(?string $lang = null): string
     {
-        $lang = $lang ?: self::current();
+        return self::BASE;
+    }
 
-        return match ($lang) {
-            'ru-EE' => 'https://ru.cityee.ee',
-            'en-EE' => 'https://en.cityee.ee',
-            default => 'https://cityee.ee',
+    /**
+     * Build a full URL for a given locale and optional path.
+     * ET (default): https://cityee.ee/{path}
+     * RU: https://cityee.ee/ru/{path}
+     * EN: https://cityee.ee/en/{path}
+     */
+    public static function url(?string $lang = null, string $path = ''): string
+    {
+        $lang = $lang ?: self::current();
+        $prefix = match ($lang) {
+            'ru' => '/ru',
+            'en' => '/en',
+            default => '',
         };
+
+        $path = ltrim($path, '/');
+        return self::BASE . $prefix . ($path ? "/{$path}" : '/');
     }
 
     /**
      * Check if the current request is local/dev environment.
-     * In dev, we detect language from the route prefix instead of domain.
      */
     public static function isLocal(): bool
     {
@@ -47,21 +64,10 @@ class Lang
     }
 
     /**
-     * Get locale from route prefix for local development.
-     * Falls back to domain-based detection in production.
+     * Detect current locale — delegates to app locale (set by route prefix middleware).
      */
     public static function detect(): string
     {
-        // In production: domain-based
-        if (!self::isLocal()) {
-            return self::current();
-        }
-
-        // In local/dev: use app locale set by route middleware
-        return match (app()->getLocale()) {
-            'ru' => 'ru-EE',
-            'en' => 'en-EE',
-            default => 'et-EE',
-        };
+        return self::current();
     }
 }

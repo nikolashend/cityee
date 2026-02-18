@@ -69,23 +69,44 @@ class JsonLd
 
     /**
      * Article JSON-LD (for guides, audits).
+     * Accepts either an array of $t values or individual parameters.
      */
-    public static function article(array $t): string
-    {
-        $data = [
-            '@context'      => 'https://schema.org',
-            '@type'         => 'Article',
-            'headline'      => $t['h1'] ?? '',
-            'description'   => $t['meta_description'] ?? '',
-            'author'        => ['@id' => 'https://cityee.ee/#org'],
-            'publisher'     => ['@id' => 'https://cityee.ee/#org'],
-            'datePublished' => $t['date_published'] ?? now()->toIso8601String(),
-            'dateModified'  => $t['date_modified'] ?? now()->toIso8601String(),
-            'inLanguage'    => Lang::short(),
-        ];
-
-        if (!empty($t['image'])) {
-            $data['image'] = $t['image'];
+    public static function article(
+        string|array $titleOrT,
+        ?string $url = null,
+        ?string $description = null,
+        ?string $datePublished = null,
+        ?string $dateModified = null
+    ): string {
+        if (is_array($titleOrT)) {
+            $t = $titleOrT;
+            $data = [
+                '@context'      => 'https://schema.org',
+                '@type'         => 'Article',
+                'headline'      => $t['h1'] ?? '',
+                'description'   => $t['meta_description'] ?? '',
+                'author'        => ['@id' => 'https://cityee.ee/#org'],
+                'publisher'     => ['@id' => 'https://cityee.ee/#org'],
+                'datePublished' => $t['date_published'] ?? now()->toIso8601String(),
+                'dateModified'  => $t['date_modified'] ?? now()->toIso8601String(),
+                'inLanguage'    => Lang::short(),
+            ];
+            if (!empty($t['image'])) {
+                $data['image'] = $t['image'];
+            }
+        } else {
+            $data = [
+                '@context'      => 'https://schema.org',
+                '@type'         => 'Article',
+                'headline'      => $titleOrT,
+                'url'           => $url,
+                'description'   => $description ?? '',
+                'author'        => ['@id' => 'https://cityee.ee/#org'],
+                'publisher'     => ['@id' => 'https://cityee.ee/#org'],
+                'datePublished' => $datePublished ?? now()->toIso8601String(),
+                'dateModified'  => $dateModified ?? now()->toIso8601String(),
+                'inLanguage'    => Lang::short(),
+            ];
         }
 
         return self::scriptTag([$data, Schema::orgJsonLd()]);
@@ -144,10 +165,10 @@ class JsonLd
     {
         return array_map(fn($item) => [
             '@type'          => 'Question',
-            'name'           => $item['q'],
+            'name'           => $item['q'] ?? $item['question'] ?? '',
             'acceptedAnswer' => [
                 '@type' => 'Answer',
-                'text'  => $item['a'],
+                'text'  => strip_tags($item['a'] ?? $item['answer'] ?? ''),
             ],
         ], $faq);
     }
