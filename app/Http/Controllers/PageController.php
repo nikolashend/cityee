@@ -167,4 +167,18 @@ class PageController extends Controller
             'pageKey' => 'knowledge',
         ]);
     }
+
+    // ─── Dashboard (SEO/UX scorecard) ───────────────────────
+    public function dashboard(string $locale = 'et')
+    {
+        $locale = $this->locale($locale);
+        $ui     = $this->ui($locale);
+
+        return view('pages.dashboard', [
+            'locale'  => $locale,
+            'ui'      => $ui,
+            'nav'     => $this->nav($locale),
+            'pageKey' => 'dashboard',
+        ]);
+    }
 }

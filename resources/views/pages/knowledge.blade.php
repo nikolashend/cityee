@@ -11,10 +11,10 @@
 @section('lang_en_url', route('en.knowledge'))
 
 @push('jsonld')
-{!! \App\Support\JsonLd::webPage(
+{!! \App\Support\JsonLd::collectionPage(
     $locale === 'ru' ? 'База знаний CityEE' : ($locale === 'en' ? 'CityEE Knowledge Hub' : 'CityEE Teadmistebaas'),
     \App\Support\SeoLinks::canonical('knowledge'),
-    $locale === 'ru' ? 'Полная база знаний по недвижимости в Таллинне.' : ($locale === 'en' ? 'Complete real estate knowledge hub for Tallinn.' : 'Täielik kinnisvarateadmiste keskus Tallinnas.')
+    $locale === 'ru' ? 'Полная база знаний по недвижимости, SEO, GEO/AEO и UX в Таллинне.' : ($locale === 'en' ? 'Complete knowledge hub: real estate, SEO, GEO/AEO and UX for Tallinn.' : 'Täielik teadmistebaas: kinnisvara, SEO, GEO/AEO ja UX Tallinnas.')
 ) !!}
 {!! \App\Support\JsonLd::breadcrumbs([
     ['name' => $nav[0]['label'] ?? 'Home', 'url' => route("{$locale}.home")],
@@ -85,6 +85,57 @@ $cards = [
             'en' => 'Metro Plaza, Tallinn. Available 10:00–22:00, WhatsApp, Telegram.',
         ],
     ],
+    // ── Knowledge Machine: Guides & Strategy Cards ──
+    [
+        'icon' => '📚',
+        'route' => route("{$locale}.guides"),
+        'title' => ['et' => 'Juhendid', 'ru' => 'Гайды и руководства', 'en' => 'Guides & How-To'],
+        'desc' => [
+            'et' => 'Samm-sammulised juhendid: kinnisvara müük, ostmine, hindamine.',
+            'ru' => 'Пошаговые руководства: продажа, покупка, оценка недвижимости. SEO + GEO.',
+            'en' => 'Step-by-step guides: sell, buy, evaluate property. SEO + GEO insights.',
+        ],
+    ],
+    [
+        'icon' => '🤖',
+        'route' => route("{$locale}.guides.show", 'seo-strategii-2026'),
+        'title' => ['et' => 'SEO strateegiad 2026', 'ru' => 'SEO стратегии 2026', 'en' => 'SEO Strategies 2026'],
+        'desc' => [
+            'et' => 'Tehniline SEO, sisu, UX, AI-nähtavus, EEAT — täielik juhend.',
+            'ru' => 'Техническое SEO, контент, UX, AI-видимость, EEAT — полный гайд.',
+            'en' => 'Technical SEO, content, UX, AI visibility, EEAT — complete guide.',
+        ],
+    ],
+    [
+        'icon' => '🧠',
+        'route' => route("{$locale}.guides.show", 'geo-aeo-ai-optimizatsiya'),
+        'title' => ['et' => 'GEO / AEO optimeerimine', 'ru' => 'GEO / AEO оптимизация', 'en' => 'GEO / AEO Optimization'],
+        'desc' => [
+            'et' => 'Kuidas pääseda AI-vastustesse: Google SGE, ChatGPT, Perplexity.',
+            'ru' => 'Как попасть в ответы ИИ: Google SGE, ChatGPT, Perplexity. JSON-LD, Voice SEO.',
+            'en' => 'Get into AI answers: Google SGE, ChatGPT, Perplexity. JSON-LD, Voice SEO.',
+        ],
+    ],
+    [
+        'icon' => '⚡',
+        'route' => route("{$locale}.guides.show", 'ux-core-web-vitals-2026'),
+        'title' => ['et' => 'UX & Core Web Vitals', 'ru' => 'UX и Core Web Vitals', 'en' => 'UX & Core Web Vitals'],
+        'desc' => [
+            'et' => 'LCP, INP, CLS, Nielseni heuristikad, ligipääsetavus — SEO mõju.',
+            'ru' => 'LCP, INP, CLS, эвристики Нильсена, доступность — влияние на SEO.',
+            'en' => 'LCP, INP, CLS, Nielsen heuristics, accessibility — SEO impact.',
+        ],
+    ],
+    [
+        'icon' => '🛡️',
+        'route' => route("{$locale}.guides.show", 'eeat-ekspertiza-doverie-2026'),
+        'title' => ['et' => 'EEAT usaldus', 'ru' => 'EEAT доверие', 'en' => 'EEAT Trust Signals'],
+        'desc' => [
+            'et' => 'Kogemus, ekspertiis, autoriteetsus, usaldusväärsus — Google ja AI signaalid.',
+            'ru' => 'Опыт, экспертиза, авторитет, доверие — сигналы для Google и AI.',
+            'en' => 'Experience, expertise, authority, trust — signals for Google and AI.',
+        ],
+    ],
 ];
 @endphp
 
@@ -96,7 +147,7 @@ $cards = [
       {{ $locale === 'ru' ? 'База знаний' : ($locale === 'en' ? 'Knowledge Hub' : 'Teadmistebaas') }}
     </h1>
     <p class="page-title__text">
-      {{ $locale === 'ru' ? 'Всё о недвижимости Tallinn & Harjumaa в одном месте' : ($locale === 'en' ? 'Everything about real estate in Tallinn & Harjumaa in one place' : 'Kõik kinnisvara kohta Tallinn & Harjumaa ühes kohas') }}
+      {{ $locale === 'ru' ? 'Недвижимость, SEO, GEO/AEO, UX и экспертные руководства в одном месте' : ($locale === 'en' ? 'Real estate, SEO, GEO/AEO, UX and expert guides in one place' : 'Kinnisvara, SEO, GEO/AEO, UX ja ekspertjuhendid ühes kohas') }}
     </p>
   </div>
 </div>

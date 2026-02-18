@@ -157,6 +157,120 @@ class JsonLd
         return self::scriptTag([$data]);
     }
 
+    /**
+     * HowTo JSON-LD — step-by-step guides for AI/GEO.
+     * @param string $name  Title of the how-to
+     * @param array  $steps [['name' => '...', 'text' => '...'], ...]
+     * @param string|null $description
+     */
+    public static function howTo(string $name, array $steps, ?string $description = null): string
+    {
+        $howToSteps = array_map(fn($s, $i) => [
+            '@type'    => 'HowToStep',
+            'position' => $i + 1,
+            'name'     => $s['name'] ?? "Step " . ($i + 1),
+            'text'     => $s['text'] ?? '',
+        ], $steps, array_keys($steps));
+
+        $data = [
+            '@context' => 'https://schema.org',
+            '@type'    => 'HowTo',
+            'name'     => $name,
+            'step'     => $howToSteps,
+        ];
+
+        if ($description) {
+            $data['description'] = $description;
+        }
+
+        return self::scriptTag([$data]);
+    }
+
+    /**
+     * QAPage JSON-LD — single Q&A for voice search / conversational SEO.
+     */
+    public static function qaPage(string $question, string $answer, ?string $url = null): string
+    {
+        $data = [
+            '@context'   => 'https://schema.org',
+            '@type'      => 'QAPage',
+            'mainEntity' => [
+                '@type'          => 'Question',
+                'name'           => $question,
+                'text'           => $question,
+                'answerCount'    => 1,
+                'acceptedAnswer' => [
+                    '@type' => 'Answer',
+                    'text'  => strip_tags($answer),
+                ],
+            ],
+        ];
+
+        if ($url) {
+            $data['url'] = $url;
+        }
+
+        return self::scriptTag([$data]);
+    }
+
+    /**
+     * CollectionPage JSON-LD — for index/listing pages (guides hub, audits hub).
+     */
+    public static function collectionPage(string $name, string $url, ?string $description = null): string
+    {
+        $data = [
+            '@context'   => 'https://schema.org',
+            '@type'      => 'CollectionPage',
+            'name'       => $name,
+            'url'        => $url,
+            'inLanguage' => Lang::short(),
+            'isPartOf'   => ['@id' => 'https://cityee.ee/#org'],
+        ];
+
+        if ($description) {
+            $data['description'] = $description;
+        }
+
+        return self::scriptTag([$data]);
+    }
+
+    /**
+     * ItemList JSON-LD — ordered list of items (guides, audits, resources).
+     */
+    public static function itemList(array $items): string
+    {
+        $elements = array_map(fn($item, $i) => [
+            '@type'    => 'ListItem',
+            'position' => $i + 1,
+            'url'      => $item['url'] ?? '',
+            'name'     => $item['name'] ?? '',
+        ], $items, array_keys($items));
+
+        $data = [
+            '@context'        => 'https://schema.org',
+            '@type'           => 'ItemList',
+            'itemListElement' => $elements,
+        ];
+
+        return self::scriptTag([$data]);
+    }
+
+    /**
+     * ProfilePage JSON-LD — author/expert profile for EEAT signals.
+     */
+    public static function profilePage(string $name, string $url, array $expertise = []): string
+    {
+        $data = [
+            '@context'    => 'https://schema.org',
+            '@type'       => 'ProfilePage',
+            'mainEntity'  => Schema::personJsonLd(),
+            'name'        => $name,
+            'url'         => $url,
+        ];
+
+        return self::scriptTag([$data]);
+    }
+
     // ──────────────────────────────────────────────
     //  Helpers
     // ──────────────────────────────────────────────

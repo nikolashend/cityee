@@ -27,6 +27,7 @@ Route::get('/kontaktid',         [PageController::class, 'contacts'])->name('et.
 Route::get('/miks-cityee',       [PageController::class, 'whyCityee'])->name('et.why');
 Route::get('/audit',             [PageController::class, 'audit'])->name('et.audit');
 Route::get('/knowledge',         [PageController::class, 'knowledge'])->name('et.knowledge');
+Route::get('/dashboard',         [PageController::class, 'dashboard'])->name('et.dashboard');
 Route::get('/guides',            [GuideController::class, 'index'])->name('et.guides');
 Route::get('/guides/{slug}',     [GuideController::class, 'show'])->name('et.guides.show');
 Route::get('/audits/{slug}',     [AuditContentController::class, 'show'])->name('et.audits.show');
@@ -41,6 +42,7 @@ Route::prefix('ru')->group(function () {
     Route::get('/pochemu-cityee',  [PageController::class, 'whyCityee'])->defaults('locale', 'ru')->name('ru.why');
     Route::get('/audit',           [PageController::class, 'audit'])->defaults('locale', 'ru')->name('ru.audit');
     Route::get('/knowledge',       [PageController::class, 'knowledge'])->defaults('locale', 'ru')->name('ru.knowledge');
+    Route::get('/dashboard',       [PageController::class, 'dashboard'])->defaults('locale', 'ru')->name('ru.dashboard');
     Route::get('/guides',          [GuideController::class, 'index'])->defaults('locale', 'ru')->name('ru.guides');
     Route::get('/guides/{slug}',   [GuideController::class, 'show'])->defaults('locale', 'ru')->name('ru.guides.show');
     Route::get('/audits/{slug}',   [AuditContentController::class, 'show'])->defaults('locale', 'ru')->name('ru.audits.show');
@@ -56,6 +58,7 @@ Route::prefix('en')->group(function () {
     Route::get('/why-cityee',        [PageController::class, 'whyCityee'])->defaults('locale', 'en')->name('en.why');
     Route::get('/audit',             [PageController::class, 'audit'])->defaults('locale', 'en')->name('en.audit');
     Route::get('/knowledge',         [PageController::class, 'knowledge'])->defaults('locale', 'en')->name('en.knowledge');
+    Route::get('/dashboard',         [PageController::class, 'dashboard'])->defaults('locale', 'en')->name('en.dashboard');
     Route::get('/guides',            [GuideController::class, 'index'])->defaults('locale', 'en')->name('en.guides');
     Route::get('/guides/{slug}',     [GuideController::class, 'show'])->defaults('locale', 'en')->name('en.guides.show');
     Route::get('/audits/{slug}',     [AuditContentController::class, 'show'])->defaults('locale', 'en')->name('en.audits.show');
