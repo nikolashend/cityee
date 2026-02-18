@@ -41,6 +41,7 @@
 <link href="/assets/templates/offshors/css/style.css?v=4" rel="stylesheet" media="screen">
 <link href="/assets/templates/offshors/css/font-awesome.min.css" rel="stylesheet" media="screen">
 <link href="/assets/templates/offshors/css/jquery.bxslider.css" rel="stylesheet" media="screen">
+<link href="/assets/css/cityee-v3.css?v=1" rel="stylesheet" media="screen">
 
 {{-- JSON-LD --}}
 @stack('jsonld')
@@ -197,6 +198,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <p>
         © CityEE {{ date('Y') }} {{ $ui['copyright'] ?? '' }}
       </p>
+      <p style="font-size:12px;color:#999;margin-top:8px;">
+        CityEE — Property Sale & Rental Strategy Broker in Tallinn & Harjumaa.
+        {{ $co['address'] }}, {{ $co['city'] }} {{ $co['postal_code'] }}, Estonia.
+      </p>
     </div>
   </div>
 
@@ -207,6 +212,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- END JIVOSITE CODE -->
 
 </footer>
+
+@include('partials.sticky-buttons')
 
 <div class="backgroundPopup"></div>
 <div id="popupContact2" class="pop-up">

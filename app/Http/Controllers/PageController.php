@@ -137,4 +137,34 @@ class PageController extends Controller
             'pageKey' => 'why',
         ]);
     }
+
+    // ─── Audit (property audit landing page) ────────────────
+    public function audit(string $locale = 'et')
+    {
+        $locale = $this->locale($locale);
+        $t      = $this->texts('audit', $locale);
+        $ui     = $this->ui($locale);
+
+        return view('pages.audit', [
+            'locale'  => $locale,
+            't'       => $t,
+            'ui'      => $ui,
+            'nav'     => $this->nav($locale),
+            'pageKey' => 'audit',
+        ]);
+    }
+
+    // ─── Knowledge (AI index hub) ───────────────────────────
+    public function knowledge(string $locale = 'et')
+    {
+        $locale = $this->locale($locale);
+        $ui     = $this->ui($locale);
+
+        return view('pages.knowledge', [
+            'locale'  => $locale,
+            'ui'      => $ui,
+            'nav'     => $this->nav($locale),
+            'pageKey' => 'knowledge',
+        ]);
+    }
 }

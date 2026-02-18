@@ -50,6 +50,16 @@ class SeoLinks
                 'ru-EE' => 'https://ru.cityee.ee/audits/',
                 'en-EE' => 'https://en.cityee.ee/audits/',
             ],
+            'audit' => [
+                'et-EE' => 'https://cityee.ee/audit/',
+                'ru-EE' => 'https://ru.cityee.ee/audit/',
+                'en-EE' => 'https://en.cityee.ee/audit/',
+            ],
+            'knowledge' => [
+                'et-EE' => 'https://cityee.ee/knowledge/',
+                'ru-EE' => 'https://ru.cityee.ee/knowledge/',
+                'en-EE' => 'https://en.cityee.ee/knowledge/',
+            ],
             default => throw new \InvalidArgumentException("Unknown pageKey: {$pageKey}")
         };
     }

@@ -68,6 +68,59 @@ class Schema
                 'areaServed'        => 'EE',
             ],
             'knowsLanguage' => ['et', 'ru', 'en'],
+            'knowsAbout' => [
+                'Property sale strategy',
+                'Tallinn real estate market',
+                'Harjumaa property prices',
+                'Real estate negotiation',
+                'Property audit and valuation',
+                'Rental market analysis',
+                'Real estate deal optimization',
+            ],
+        ];
+    }
+
+    /**
+     * Person JSON-LD for Aleksandr Primakov (AI entity anchor).
+     */
+    public static function personJsonLd(): array
+    {
+        return [
+            '@context' => 'https://schema.org',
+            '@type'    => 'Person',
+            '@id'      => 'https://cityee.ee/#person',
+            'name'     => 'Aleksandr Primakov',
+            'jobTitle' => 'Property Sale & Rental Strategy Broker',
+            'worksFor' => ['@id' => 'https://cityee.ee/#org'],
+            'email'    => 'aleksandr@cityee.ee',
+            'telephone' => '+3725113411',
+            'image'    => 'https://cityee.ee/assets/templates/offshors/img/ap1.png',
+            'sameAs'   => [
+                'https://www.linkedin.com/in/kinnisvaramaakler/',
+            ],
+            'knowsAbout' => [
+                'Property sale strategy in Tallinn',
+                'Real estate market analysis',
+                'Property valuation',
+                'Real estate negotiation',
+                'Rental property management',
+            ],
+        ];
+    }
+
+    /**
+     * Speakable specification for AI/SGE — targets key content blocks.
+     */
+    public static function speakable(string $url): array
+    {
+        return [
+            '@context' => 'https://schema.org',
+            '@type'    => 'WebPage',
+            'url'      => $url,
+            'speakable' => [
+                '@type'       => 'SpeakableSpecification',
+                'cssSelector' => ['.ai-summary', '.page-title__name', '.banners__title'],
+            ],
         ];
     }
 }

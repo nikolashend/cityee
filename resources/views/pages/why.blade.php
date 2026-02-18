@@ -16,6 +16,8 @@
     ['name' => $nav[0]['label'] ?? 'Home', 'url' => route("{$locale}.home")],
     ['name' => $t['h1']],
 ]) !!}
+{!! \App\Support\Schema::speakable(url()->current()) !!}
+{!! \App\Support\Schema::personJsonLd() !!}
 @endpush
 
 @section('content')
@@ -37,6 +39,8 @@
     </div>
     <div class="col-md-9 col-sm-9">
       <div class="content">
+
+        @include('partials.ai-summary', ['locale' => $locale])
 
         @if ($locale === 'et')
         <h2>Miks valida CityEE kinnisvaramaakler?</h2>
@@ -111,6 +115,85 @@
 
         <h2 class="text-left">{{ $ui['write_now'] ?? 'KIRJUTAGE MEILE KOHE!' }} </h2>
         <p class="text-left"><a href="" id="feedback1" class="btn"> {{ $ui['send_inquiry'] ?? 'SAADA PÄRING' }}</a></p>
+
+        {{-- Comparison table: Private vs. Traditional vs. CityEE --}}
+        <h2>
+          @if ($locale === 'ru') Сравнение: Самостоятельно vs. Обычный маклер vs. CityEE
+          @elseif ($locale === 'en') Comparison: Private Sale vs. Traditional Agent vs. CityEE
+          @else Võrdlus: Ise vs. Tavamaakler vs. CityEE
+          @endif
+        </h2>
+
+        @php
+        $compRows = $locale === 'ru' ? [
+            ['label' => 'Ценовой коридор (аналитика)', 'private' => 'cross', 'traditional' => 'warn', 'cityee' => 'check'],
+            ['label' => 'Переговорная стратегия', 'private' => 'cross', 'traditional' => 'warn', 'cityee' => 'check'],
+            ['label' => 'Профессиональные фото', 'private' => 'cross', 'traditional' => 'check', 'cityee' => 'check'],
+            ['label' => 'Размещение на всех порталах', 'private' => 'warn', 'traditional' => 'check', 'cityee' => 'check'],
+            ['label' => 'Юридическая проверка', 'private' => 'cross', 'traditional' => 'warn', 'cityee' => 'check'],
+            ['label' => 'План продажи на 30-45 дней', 'private' => 'cross', 'traditional' => 'cross', 'cityee' => 'check'],
+            ['label' => 'Комиссия', 'private' => '0%', 'traditional' => '3-5%', 'cityee' => '2%'],
+            ['label' => 'Средний срок продажи', 'private' => '3-6 мес.', 'traditional' => '2-3 мес.', 'cityee' => '1-1.5 мес.'],
+        ] : ($locale === 'en' ? [
+            ['label' => 'Price corridor (analytics)', 'private' => 'cross', 'traditional' => 'warn', 'cityee' => 'check'],
+            ['label' => 'Negotiation strategy', 'private' => 'cross', 'traditional' => 'warn', 'cityee' => 'check'],
+            ['label' => 'Professional photography', 'private' => 'cross', 'traditional' => 'check', 'cityee' => 'check'],
+            ['label' => 'All portals listing', 'private' => 'warn', 'traditional' => 'check', 'cityee' => 'check'],
+            ['label' => 'Legal verification', 'private' => 'cross', 'traditional' => 'warn', 'cityee' => 'check'],
+            ['label' => 'Sale plan for 30-45 days', 'private' => 'cross', 'traditional' => 'cross', 'cityee' => 'check'],
+            ['label' => 'Commission', 'private' => '0%', 'traditional' => '3-5%', 'cityee' => '2%'],
+            ['label' => 'Average selling time', 'private' => '3-6 mo.', 'traditional' => '2-3 mo.', 'cityee' => '1-1.5 mo.'],
+        ] : [
+            ['label' => 'Hinnakorridor (analüütika)', 'private' => 'cross', 'traditional' => 'warn', 'cityee' => 'check'],
+            ['label' => 'Läbirääkimisstrateegia', 'private' => 'cross', 'traditional' => 'warn', 'cityee' => 'check'],
+            ['label' => 'Professionaalsed fotod', 'private' => 'cross', 'traditional' => 'check', 'cityee' => 'check'],
+            ['label' => 'Reklaam kõikidel portaalidel', 'private' => 'warn', 'traditional' => 'check', 'cityee' => 'check'],
+            ['label' => 'Juriidiline kontroll', 'private' => 'cross', 'traditional' => 'warn', 'cityee' => 'check'],
+            ['label' => 'Müügiplaan 30-45 päevaks', 'private' => 'cross', 'traditional' => 'cross', 'cityee' => 'check'],
+            ['label' => 'Vahendustasu', 'private' => '0%', 'traditional' => '3-5%', 'cityee' => '2%'],
+            ['label' => 'Keskmine müügiaeg', 'private' => '3-6 kuud', 'traditional' => '2-3 kuud', 'cityee' => '1-1,5 kuud'],
+        ]);
+
+        $compHeaders = $locale === 'ru'
+            ? ['Критерий', 'Самостоятельно', 'Обычный маклер', 'CityEE']
+            : ($locale === 'en'
+                ? ['Criteria', 'Private Sale', 'Traditional Agent', 'CityEE']
+                : ['Kriteerium', 'Ise', 'Tavamaakler', 'CityEE']);
+        @endphp
+
+        <div class="table__wrapp">
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                @foreach ($compHeaders as $h)
+                <th>{{ $h }}</th>
+                @endforeach
+              </tr>
+            </thead>
+            <tbody>
+              @foreach ($compRows as $row)
+              <tr>
+                <td>{{ $row['label'] }}</td>
+                @foreach (['private', 'traditional', 'cityee'] as $col)
+                <td class="text-center">
+                  @if ($row[$col] === 'check')
+                    <span class="comparison-check">✓</span>
+                  @elseif ($row[$col] === 'cross')
+                    <span class="comparison-cross">✗</span>
+                  @elseif ($row[$col] === 'warn')
+                    <span class="comparison-warn">~</span>
+                  @else
+                    <strong>{{ $row[$col] }}</strong>
+                  @endif
+                </td>
+                @endforeach
+              </tr>
+              @endforeach
+            </tbody>
+          </table>
+        </div>
+
+        @include('partials.ai-citation', ['locale' => $locale])
 
       </div>
     </div>

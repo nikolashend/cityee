@@ -42,6 +42,8 @@
     </div>
     <div class="col-md-9 col-sm-9">
       <div class="content">
+        @include('partials.ai-summary', ['locale' => $locale])
+
         {!! $t['intro'] !!}
 
         @if (!empty($t['services']))
@@ -87,6 +89,8 @@
         <h2 class="text-left">{{ $ui['write_now'] ?? 'KIRJUTAGE MEILE KOHE!' }} </h2>
 
         <p class="text-left"><a href="" id="feedback1" class="btn"> {{ $ui['send_inquiry'] ?? 'SAADA PÄRING' }}</a></p>
+
+        @include('partials.ai-citation', ['locale' => $locale])
 
       </div>
     </div>

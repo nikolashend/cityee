@@ -11,6 +11,7 @@ Route::post('/contact/inquiry', [ContactController::class, 'inquiry'])->name('co
 
 // ─── Sitemap & robots ───────────────────────────────────────
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
+Route::get('/sitemap-{lang}.xml', [SitemapController::class, 'lang'])->where('lang', 'et|ru|en')->name('sitemap.lang');
 Route::get('/robots.txt', [SitemapController::class, 'robots'])->name('robots');
 
 // ─── Estonian routes (cityee.ee) — default ──────────────────
@@ -20,6 +21,8 @@ Route::get('/kinnisvara-uur',    [PageController::class, 'rent'])->name('et.rent
 Route::get('/konsultatsioon',    [PageController::class, 'consultation'])->name('et.consultation');
 Route::get('/kontaktid',         [PageController::class, 'contacts'])->name('et.contacts');
 Route::get('/miks-cityee',       [PageController::class, 'whyCityee'])->name('et.why');
+Route::get('/audit',             [PageController::class, 'audit'])->name('et.audit');
+Route::get('/knowledge',         [PageController::class, 'knowledge'])->name('et.knowledge');
 
 
 // ─── Russian routes (ru.cityee.ee — or /ru prefix for local dev) ─
@@ -30,6 +33,8 @@ Route::prefix('ru')->group(function () {
     Route::get('/konsultatsioon',  [PageController::class, 'consultation'])->defaults('locale', 'ru')->name('ru.consultation');
     Route::get('/kontaktid',       [PageController::class, 'contacts'])->defaults('locale', 'ru')->name('ru.contacts');
     Route::get('/pochemu-cityee',  [PageController::class, 'whyCityee'])->defaults('locale', 'ru')->name('ru.why');
+    Route::get('/audit',             [PageController::class, 'audit'])->defaults('locale', 'ru')->name('ru.audit');
+    Route::get('/knowledge',         [PageController::class, 'knowledge'])->defaults('locale', 'ru')->name('ru.knowledge');
 });
 
 // ─── English routes (en.cityee.ee — or /en prefix for local dev) ─
@@ -40,6 +45,8 @@ Route::prefix('en')->group(function () {
     Route::get('/consultation',    [PageController::class, 'consultation'])->defaults('locale', 'en')->name('en.consultation');
     Route::get('/contacts',        [PageController::class, 'contacts'])->defaults('locale', 'en')->name('en.contacts');
     Route::get('/why-cityee',      [PageController::class, 'whyCityee'])->defaults('locale', 'en')->name('en.why');
+    Route::get('/audit',             [PageController::class, 'audit'])->defaults('locale', 'en')->name('en.audit');
+    Route::get('/knowledge',         [PageController::class, 'knowledge'])->defaults('locale', 'en')->name('en.knowledge');
 });
 
 

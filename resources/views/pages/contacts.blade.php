@@ -50,6 +50,8 @@
         <p><b class="pink">Facebook: </b><a href="{{ $co['facebook'] }}">facebook.com/cityee.ee</a></p>
         <p><b class="pink">Instagram: </b><a href="{{ $co['instagram'] }}">cityee_ee</a></p>
 
+        @include('partials.ai-citation', ['locale' => $locale])
+
         <h2>{{ $t['map_label'] }}</h2>
 
         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2841.693973851092!2d24.74187045400807!3d59.43609556972047!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x469293621d944e45%3A0x531f7293499d42cd!2sViru%20t%C3%A4nav%202%2C%2010140%20Tallinn%2C%20Estonia!5e0!3m2!1sen!2sus!4v1594240713115!5m2!1sen!2sus" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0" loading="lazy"></iframe>
