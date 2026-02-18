@@ -17,7 +17,7 @@
     ['name' => $t['h1']],
 ]) !!}
 {!! \App\Support\Schema::speakable(url()->current()) !!}
-{!! \App\Support\Schema::personJsonLd() !!}
+<script type="application/ld+json">{!! json_encode(\App\Support\Schema::personJsonLd(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}</script>
 @endpush
 
 @section('content')

@@ -18,6 +18,7 @@
     ['name' => $nav[0]['label'] ?? 'Home', 'url' => route("{$locale}.home")],
     ['name' => $t['h1']],
 ]) !!}
+{!! \App\Support\Schema::speakable(url()->current()) !!}
 @endpush
 
 @section('content')
@@ -49,6 +50,11 @@
         <p><b class="pink">{{ $t['email_label'] }} </b><a href="mailto:{{ $co['email'] }}">{{ $co['email'] }}</a></p>
         <p><b class="pink">Facebook: </b><a href="{{ $co['facebook'] }}">facebook.com/cityee.ee</a></p>
         <p><b class="pink">Instagram: </b><a href="{{ $co['instagram'] }}">cityee_ee</a></p>
+
+        <div style="margin:20px 0;">
+          <a href="{{ $co['whatsapp'] }}" target="_blank" rel="noopener" class="btn" style="background:#25D366;border-color:#25D366;">{{ $locale === 'ru' ? 'Написать в WhatsApp' : ($locale === 'en' ? 'Message on WhatsApp' : 'Kirjuta WhatsAppi') }}</a>
+          <a href="{{ $co['telegram'] }}" target="_blank" rel="noopener" class="btn" style="background:#0088cc;border-color:#0088cc;margin-left:8px;">Telegram</a>
+        </div>
 
         @include('partials.ai-citation', ['locale' => $locale])
 

@@ -749,3 +749,89 @@ img[loading="lazy"] {
 @media print {
   .sticky-buttons { display: none !important; }
 }
+
+/* ─── TYPOGRAPHY & READABILITY ─────────────────────── */
+.content {
+  max-width: 820px;
+}
+.content p,
+.content li {
+  line-height: 1.7;
+}
+
+/* Equal height cards */
+.services__wrapp {
+  display: flex;
+  flex-wrap: wrap;
+}
+.services__wrapp .services__item {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.offers__wrapp {
+  display: flex;
+  flex-wrap: wrap;
+}
+.offers__wrapp .offers__item {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+/* Consistent card border-radius */
+.services__item,
+.offers__item,
+.knowledge-card,
+.problem-card {
+  border-radius: var(--ce-radius);
+}
+
+/* Consistent section spacing */
+.trust-layer,
+.problem-solution,
+.faq-section,
+.ai-summary,
+.ai-citation {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+/* ─── MOBILE FINAL POLISH ──────────────────────────── */
+@media (max-width: 768px) {
+  .services__wrapp,
+  .offers__wrapp {
+    flex-direction: column;
+  }
+  .content {
+    max-width: 100%;
+    padding: 0 10px;
+  }
+  /* Hero text no overflow */
+  .banners__title {
+    font-size: 22px !important;
+    word-break: break-word;
+  }
+  .page-title__name {
+    font-size: 22px !important;
+    word-break: break-word;
+  }
+  /* Consistent button sizing */
+  .btn {
+    display: inline-block;
+    min-width: 200px;
+    text-align: center;
+  }
+  /* FAQ question padding */
+  .faq-question {
+    padding: 14px 16px;
+  }
+  /* Comparison table scroll */
+  .table__wrapp {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .comparison-table {
+    min-width: 520px;
+  }
+}

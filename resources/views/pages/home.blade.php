@@ -54,7 +54,7 @@
 @push('jsonld')
 <script type="application/ld+json">{!! json_encode(\App\Support\Schema::orgJsonLd(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}</script>
 <script type="application/ld+json">{!! json_encode(\App\Support\Schema::personJsonLd(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}</script>
-<script type="application/ld+json">{!! json_encode(\App\Support\Schema::speakable(\App\Support\SeoLinks::canonical('home')), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}</script>
+{!! \App\Support\Schema::speakable(\App\Support\SeoLinks::canonical('home')) !!}
 {!! \App\Support\JsonLd::breadcrumbs([
     ['name' => $t['h1'] ?? 'Home', 'url' => \App\Support\SeoLinks::canonical('home')],
 ]) !!}
@@ -229,7 +229,7 @@
   <h2 class="main-h2 bordeless">{{ $t['result_title'] }}
     <small style="display: block; text-transform: none; font-size: 17px; margin-bottom: 15px;">{{ $t['result_subtitle'] }}</small>
   </h2>
-  <div class="text-center" style="margin-bottom: 7px;"><img src="{{ $agent['photo'] }}" width="240" alt="{{ $agent['name'] }}" /></div>
+  <div class="text-center" style="margin-bottom: 7px;"><img src="{{ $agent['photo'] }}" width="240" height="320" alt="{{ $agent['name'] }} — Real Estate Deal Optimization Partner in Tallinn & Harjumaa" loading="lazy" /></div>
   <div class="text-center">
     <div style="color:#7b1f45; font-weight: bold;">{{ $agent['name'] }}</div>
     <div style="color: #777777; margin-bottom: 15px">{{ $t['result_agent_title'] }} | CITYEE Tallinn</div>

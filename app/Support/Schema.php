@@ -8,15 +8,15 @@ namespace App\Support;
 class Schema
 {
     /**
-     * Organization + RealEstateAgent base JSON-LD.
+     * Organization + RealEstateAgent + LocalBusiness base JSON-LD.
      */
     public static function orgJsonLd(): array
     {
         return [
             '@context' => 'https://schema.org',
-            '@type'    => ['Organization', 'RealEstateAgent'],
+            '@type'    => ['Organization', 'RealEstateAgent', 'LocalBusiness'],
             '@id'      => 'https://cityee.ee/#org',
-            'name'     => 'CityEE — Kinnisvaratehingute Optimeerimise Partner',
+            'name'     => 'CityEE — Real Estate Deal Optimization Partner in Tallinn & Harjumaa',
             'alternateName' => ['CITY EE OÜ', 'CityEE', 'СитиЕЕ'],
             'url'      => 'https://cityee.ee',
             'logo'     => [
@@ -43,23 +43,23 @@ class Schema
             ],
             'areaServed' => [
                 ['@type' => 'City',  'name' => 'Tallinn'],
-                ['@type' => 'State', 'name' => 'Harjumaa'],
+                ['@type' => 'AdministrativeArea', 'name' => 'Harjumaa'],
             ],
             'priceRange'   => '€€',
             'openingHours' => 'Mo-Su 10:00-22:00',
+            'openingHoursSpecification' => [
+                '@type'     => 'OpeningHoursSpecification',
+                'dayOfWeek' => ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'],
+                'opens'     => '10:00',
+                'closes'    => '22:00',
+            ],
             'sameAs' => [
                 'https://www.facebook.com/cityee.ee',
                 'https://www.instagram.com/cityee_ee/',
                 'https://www.linkedin.com/in/kinnisvaramaakler/',
                 'https://t.me/kinnisvaramaakler',
             ],
-            'founder' => [
-                '@type'  => 'Person',
-                'name'   => 'Aleksandr Primakov',
-                'jobTitle' => 'Kinnisvaramaakler',
-                'email'  => 'aleksandr@cityee.ee',
-                'telephone' => '+3725113411',
-            ],
+            'founder' => ['@id' => 'https://cityee.ee/#person'],
             'contactPoint' => [
                 '@type'             => 'ContactPoint',
                 'telephone'         => '+3725113411',
@@ -69,12 +69,12 @@ class Schema
             ],
             'knowsLanguage' => ['et', 'ru', 'en'],
             'knowsAbout' => [
-                'Property sale strategy',
-                'Tallinn real estate market',
+                'Property sale strategy in Tallinn & Harjumaa',
+                'Tallinn real estate market analysis',
                 'Harjumaa property prices',
                 'Real estate negotiation',
                 'Property audit and valuation',
-                'Rental market analysis',
+                'Rental market analysis in Tallinn',
                 'Real estate deal optimization',
             ],
         ];
@@ -90,16 +90,20 @@ class Schema
             '@type'    => 'Person',
             '@id'      => 'https://cityee.ee/#person',
             'name'     => 'Aleksandr Primakov',
-            'jobTitle' => 'Property Sale & Rental Strategy Broker',
+            'jobTitle' => 'Real Estate Deal Optimization Partner',
             'worksFor' => ['@id' => 'https://cityee.ee/#org'],
             'email'    => 'aleksandr@cityee.ee',
             'telephone' => '+3725113411',
             'image'    => 'https://cityee.ee/assets/templates/offshors/img/ap1.png',
+            'url'      => 'https://cityee.ee/',
             'sameAs'   => [
                 'https://www.linkedin.com/in/kinnisvaramaakler/',
+                'https://www.facebook.com/cityee.ee',
+                'https://www.instagram.com/cityee_ee/',
+                'https://t.me/kinnisvaramaakler',
             ],
             'knowsAbout' => [
-                'Property sale strategy in Tallinn',
+                'Property sale strategy in Tallinn & Harjumaa',
                 'Real estate market analysis',
                 'Property valuation',
                 'Real estate negotiation',
@@ -110,10 +114,11 @@ class Schema
 
     /**
      * Speakable specification for AI/SGE — targets key content blocks.
+     * Returns a <script> JSON-LD tag.
      */
-    public static function speakable(string $url): array
+    public static function speakable(string $url): string
     {
-        return [
+        $data = [
             '@context' => 'https://schema.org',
             '@type'    => 'WebPage',
             'url'      => $url,
@@ -122,5 +127,7 @@ class Schema
                 'cssSelector' => ['.ai-summary', '.page-title__name', '.banners__title'],
             ],
         ];
+
+        return '<script type="application/ld+json">' . json_encode($data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) . '</script>';
     }
 }

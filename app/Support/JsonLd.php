@@ -18,12 +18,13 @@ class JsonLd
         $data = [
             '@context' => 'https://schema.org',
             '@type'    => 'Service',
+            '@id'      => 'https://cityee.ee/#service-' . $pageKey,
             'name'     => $t['h1'] ?? '',
             'description' => $t['meta_description'] ?? '',
             'provider' => ['@id' => 'https://cityee.ee/#org'],
             'areaServed' => [
                 ['@type' => 'City',  'name' => 'Tallinn'],
-                ['@type' => 'State', 'name' => 'Harjumaa'],
+                ['@type' => 'AdministrativeArea', 'name' => 'Harjumaa'],
             ],
             'inLanguage' => $langCode,
             'url' => SeoLinks::canonical($pageKey),

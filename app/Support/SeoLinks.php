@@ -40,16 +40,6 @@ class SeoLinks
                 'ru-EE' => 'https://ru.cityee.ee/pochemu-cityee/',
                 'en-EE' => 'https://en.cityee.ee/why-cityee/',
             ],
-            'guides.index' => [
-                'et-EE' => 'https://cityee.ee/guides/',
-                'ru-EE' => 'https://ru.cityee.ee/guides/',
-                'en-EE' => 'https://en.cityee.ee/guides/',
-            ],
-            'audits.index' => [
-                'et-EE' => 'https://cityee.ee/audits/',
-                'ru-EE' => 'https://ru.cityee.ee/audits/',
-                'en-EE' => 'https://en.cityee.ee/audits/',
-            ],
             'audit' => [
                 'et-EE' => 'https://cityee.ee/audit/',
                 'ru-EE' => 'https://ru.cityee.ee/audit/',
@@ -81,9 +71,9 @@ class SeoLinks
         $urls = self::pageUrls($pageKey);
 
         return [
-            ['hreflang' => 'et-EE', 'href' => $urls['et-EE']],
-            ['hreflang' => 'ru-EE', 'href' => $urls['ru-EE']],
-            ['hreflang' => 'en-EE', 'href' => $urls['en-EE']],
+            ['hreflang' => 'et', 'href' => $urls['et-EE']],
+            ['hreflang' => 'ru', 'href' => $urls['ru-EE']],
+            ['hreflang' => 'en', 'href' => $urls['en-EE']],
             ['hreflang' => 'x-default', 'href' => $urls['et-EE']],
         ];
     }

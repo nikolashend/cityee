@@ -16,9 +16,14 @@
 <meta name="description" content="@yield('description')">
 <meta name="keywords" content="@yield('keywords', '')">
 <link rel="icon" href="/favicon.png" type="image/x-icon"/>
-<meta name="viewport" content="width=1000">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="csrf-token" content="{{ csrf_token() }}">
+
+{{-- Preload critical assets --}}
+<link rel="preload" href="/assets/templates/offshors/img/offshors.jpg" as="image">
+<link rel="preload" href="/assets/templates/offshors/css/style.css?v=4" as="style">
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://ajax.googleapis.com" crossorigin>
 
 {{-- Canonical + Hreflang --}}
 @if (isset($pageKey))
@@ -41,7 +46,7 @@
 <link href="/assets/templates/offshors/css/style.css?v=4" rel="stylesheet" media="screen">
 <link href="/assets/templates/offshors/css/font-awesome.min.css" rel="stylesheet" media="screen">
 <link href="/assets/templates/offshors/css/jquery.bxslider.css" rel="stylesheet" media="screen">
-<link href="/assets/css/cityee-v3.css?v=1" rel="stylesheet" media="screen">
+<link href="/assets/css/cityee-v3.css?v=2" rel="stylesheet" media="screen">
 
 {{-- JSON-LD --}}
 @stack('jsonld')
@@ -60,7 +65,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
 <!-- Yandex.Metrika counter -->
-<script type="text/javascript">
+<script type="text/javascript" defer>
    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
    m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
@@ -74,6 +79,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <noscript><div><img src="https://mc.yandex.ru/watch/{{ $metrikaId }}" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
 
+{{-- Font display swap for custom fonts --}}
+<style>@font-face{font-display:swap!important}</style>
+
 </head>
 <body>
 
@@ -82,7 +90,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <div class="header__logo">
       <div class="logo" href="/">
-        <div class="logo__img"><img src="/assets/templates/offshors/img/logo.png"></div>
+        <div class="logo__img"><img src="/assets/templates/offshors/img/logo.png" width="200" height="60" alt="CityEE"></div>
         <span class="logo__text">@yield('logo_text', $ui['logo_text'] ?? '')</span>
         <a class="logo__href" href="{{ route("{$locale}.home") }}"></a>
       </div>
@@ -248,14 +256,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="/js/jquery.2.1.3.min.js"><\/script>')</script>
-<script src="/assets/templates/offshors/js/main.js?v=2"></script>
-<script src="/assets/templates/offshors/js/jquery.bxslider.js"></script>
+<script src="/assets/templates/offshors/js/main.js?v=2" defer></script>
+<script src="/assets/templates/offshors/js/jquery.bxslider.js" defer></script>
 
-<link rel="stylesheet" href="/assets/lightboxed/lightboxed.css?v=1.31">
-<script src="/assets/lightboxed/lightboxed.js?v=1.1"></script>
+<link rel="stylesheet" href="/assets/lightboxed/lightboxed.css?v=1.31" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="/assets/lightboxed/lightboxed.css?v=1.31"></noscript>
+<script src="/assets/lightboxed/lightboxed.js?v=1.1" defer></script>
 
-<link rel="stylesheet" href="/assets/magnific-popup/magnific-popup.css">
-<script src="/assets/magnific-popup/jquery.magnific-popup.js"></script>
+<link rel="stylesheet" href="/assets/magnific-popup/magnific-popup.css" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="/assets/magnific-popup/magnific-popup.css"></noscript>
+<script src="/assets/magnific-popup/jquery.magnific-popup.js" defer></script>
 <script type="text/javascript">
   $(document).ready(function() {
     $('.popup-gallery___').each(function() {

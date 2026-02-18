@@ -6,7 +6,11 @@ use Illuminate\Http\Response;
 
 class SitemapController extends Controller
 {
-    private const BASE = 'https://cityee.ee';
+    private const BASES = [
+        'et' => 'https://cityee.ee',
+        'ru' => 'https://ru.cityee.ee',
+        'en' => 'https://en.cityee.ee',
+    ];
 
     /**
      * Sitemap index — links to per-language + section sitemaps.
@@ -14,9 +18,9 @@ class SitemapController extends Controller
     public function index(): Response
     {
         $sitemaps = [
-            self::BASE . '/sitemap-et.xml',
-            self::BASE . '/sitemap-ru.xml',
-            self::BASE . '/sitemap-en.xml',
+            self::BASES['et'] . '/sitemap-et.xml',
+            self::BASES['ru'] . '/sitemap-ru.xml',
+            self::BASES['en'] . '/sitemap-en.xml',
         ];
 
         $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
@@ -62,17 +66,28 @@ class SitemapController extends Controller
     }
 
     /**
-     * robots.txt — correct format with Host + Sitemap.
+     * robots.txt — domain-aware with proper sitemaps.
      */
     public function robots(): Response
     {
+        $host = request()->getHost();
+
         $txt  = "User-agent: *\n";
         $txt .= "Allow: /\n\n";
-        $txt .= "Disallow: /admin\n";
-        $txt .= "Disallow: /storage/\n";
-        $txt .= "Disallow: /vendor/\n\n";
-        $txt .= "Sitemap: https://cityee.ee/sitemap.xml\n\n";
-        $txt .= "Host: cityee.ee\n";
+
+        // Per-domain sitemap + host
+        if (str_starts_with($host, 'ru.')) {
+            $txt .= "Host: ru.cityee.ee\n";
+            $txt .= "Sitemap: https://ru.cityee.ee/sitemap.xml\n";
+        } elseif (str_starts_with($host, 'en.')) {
+            $txt .= "Host: en.cityee.ee\n";
+            $txt .= "Sitemap: https://en.cityee.ee/sitemap.xml\n";
+        } else {
+            $txt .= "Host: cityee.ee\n";
+            $txt .= "Sitemap: https://cityee.ee/sitemap.xml\n";
+            $txt .= "Sitemap: https://ru.cityee.ee/sitemap.xml\n";
+            $txt .= "Sitemap: https://en.cityee.ee/sitemap.xml\n";
+        }
 
         return response($txt, 200)->header('Content-Type', 'text/plain');
     }
@@ -82,6 +97,7 @@ class SitemapController extends Controller
     private function pagesForLang(string $lang): array
     {
         $today = now()->toDateString();
+        $base = self::BASES[$lang] ?? self::BASES['et'];
 
         $slugs = match ($lang) {
             'et' => [
@@ -95,24 +111,24 @@ class SitemapController extends Controller
                 ['slug' => '/knowledge',       'key' => 'knowledge',    'p' => '0.7', 'f' => 'monthly'],
             ],
             'ru' => [
-                ['slug' => '/ru/',                'key' => 'home',         'p' => '1.0', 'f' => 'weekly'],
-                ['slug' => '/ru/kinnisvara-muuk', 'key' => 'sell',         'p' => '0.9', 'f' => 'weekly'],
-                ['slug' => '/ru/kinnisvara-uur',  'key' => 'rent',         'p' => '0.9', 'f' => 'weekly'],
-                ['slug' => '/ru/konsultatsioon',  'key' => 'consultation', 'p' => '0.8', 'f' => 'monthly'],
-                ['slug' => '/ru/kontaktid',       'key' => 'contacts',     'p' => '0.7', 'f' => 'monthly'],
-                ['slug' => '/ru/pochemu-cityee',  'key' => 'why',          'p' => '0.8', 'f' => 'monthly'],
-                ['slug' => '/ru/audit',           'key' => 'audit',        'p' => '0.8', 'f' => 'monthly'],
-                ['slug' => '/ru/knowledge',       'key' => 'knowledge',    'p' => '0.7', 'f' => 'monthly'],
+                ['slug' => '/',                'key' => 'home',         'p' => '1.0', 'f' => 'weekly'],
+                ['slug' => '/kinnisvara-muuk', 'key' => 'sell',         'p' => '0.9', 'f' => 'weekly'],
+                ['slug' => '/kinnisvara-uur',  'key' => 'rent',         'p' => '0.9', 'f' => 'weekly'],
+                ['slug' => '/konsultatsioon',  'key' => 'consultation', 'p' => '0.8', 'f' => 'monthly'],
+                ['slug' => '/kontaktid',       'key' => 'contacts',     'p' => '0.7', 'f' => 'monthly'],
+                ['slug' => '/pochemu-cityee',  'key' => 'why',          'p' => '0.8', 'f' => 'monthly'],
+                ['slug' => '/audit',           'key' => 'audit',        'p' => '0.8', 'f' => 'monthly'],
+                ['slug' => '/knowledge',       'key' => 'knowledge',    'p' => '0.7', 'f' => 'monthly'],
             ],
             'en' => [
-                ['slug' => '/en/',                  'key' => 'home',         'p' => '1.0', 'f' => 'weekly'],
-                ['slug' => '/en/sell-property',     'key' => 'sell',         'p' => '0.9', 'f' => 'weekly'],
-                ['slug' => '/en/rent-out-property', 'key' => 'rent',         'p' => '0.9', 'f' => 'weekly'],
-                ['slug' => '/en/consultation',      'key' => 'consultation', 'p' => '0.8', 'f' => 'monthly'],
-                ['slug' => '/en/contacts',          'key' => 'contacts',     'p' => '0.7', 'f' => 'monthly'],
-                ['slug' => '/en/why-cityee',        'key' => 'why',          'p' => '0.8', 'f' => 'monthly'],
-                ['slug' => '/en/audit',             'key' => 'audit',        'p' => '0.8', 'f' => 'monthly'],
-                ['slug' => '/en/knowledge',         'key' => 'knowledge',    'p' => '0.7', 'f' => 'monthly'],
+                ['slug' => '/',                 'key' => 'home',         'p' => '1.0', 'f' => 'weekly'],
+                ['slug' => '/sell-property',     'key' => 'sell',         'p' => '0.9', 'f' => 'weekly'],
+                ['slug' => '/rent-out-property', 'key' => 'rent',         'p' => '0.9', 'f' => 'weekly'],
+                ['slug' => '/consultation',      'key' => 'consultation', 'p' => '0.8', 'f' => 'monthly'],
+                ['slug' => '/contacts',          'key' => 'contacts',     'p' => '0.7', 'f' => 'monthly'],
+                ['slug' => '/why-cityee',        'key' => 'why',          'p' => '0.8', 'f' => 'monthly'],
+                ['slug' => '/audit',             'key' => 'audit',        'p' => '0.8', 'f' => 'monthly'],
+                ['slug' => '/knowledge',         'key' => 'knowledge',    'p' => '0.7', 'f' => 'monthly'],
             ],
             default => [],
         };
@@ -122,7 +138,7 @@ class SitemapController extends Controller
 
         foreach ($slugs as $u) {
             $pages[] = [
-                'loc'        => self::BASE . $u['slug'],
+                'loc'        => $base . $u['slug'],
                 'lastmod'    => $today,
                 'changefreq' => $u['f'],
                 'priority'   => $u['p'],
@@ -136,23 +152,23 @@ class SitemapController extends Controller
     private function buildHreflangMap(): array
     {
         $pages = [
-            'home'         => ['et' => '/',               'ru' => '/ru/',                'en' => '/en/'],
-            'sell'         => ['et' => '/kinnisvara-muuk', 'ru' => '/ru/kinnisvara-muuk', 'en' => '/en/sell-property'],
-            'rent'         => ['et' => '/kinnisvara-uur',  'ru' => '/ru/kinnisvara-uur',  'en' => '/en/rent-out-property'],
-            'consultation' => ['et' => '/konsultatsioon',  'ru' => '/ru/konsultatsioon',  'en' => '/en/consultation'],
-            'contacts'     => ['et' => '/kontaktid',       'ru' => '/ru/kontaktid',       'en' => '/en/contacts'],
-            'why'          => ['et' => '/miks-cityee',     'ru' => '/ru/pochemu-cityee',  'en' => '/en/why-cityee'],
-            'audit'        => ['et' => '/audit',           'ru' => '/ru/audit',           'en' => '/en/audit'],
-            'knowledge'    => ['et' => '/knowledge',       'ru' => '/ru/knowledge',       'en' => '/en/knowledge'],
+            'home'         => ['et' => '/',               'ru' => '/',                'en' => '/'],
+            'sell'         => ['et' => '/kinnisvara-muuk', 'ru' => '/kinnisvara-muuk', 'en' => '/sell-property'],
+            'rent'         => ['et' => '/kinnisvara-uur',  'ru' => '/kinnisvara-uur',  'en' => '/rent-out-property'],
+            'consultation' => ['et' => '/konsultatsioon',  'ru' => '/konsultatsioon',  'en' => '/consultation'],
+            'contacts'     => ['et' => '/kontaktid',       'ru' => '/kontaktid',       'en' => '/contacts'],
+            'why'          => ['et' => '/miks-cityee',     'ru' => '/pochemu-cityee',  'en' => '/why-cityee'],
+            'audit'        => ['et' => '/audit',           'ru' => '/audit',           'en' => '/audit'],
+            'knowledge'    => ['et' => '/knowledge',       'ru' => '/knowledge',       'en' => '/knowledge'],
         ];
 
         $map = [];
         foreach ($pages as $key => $slugs) {
             $map[$key] = [
-                ['lang' => 'et',        'href' => self::BASE . $slugs['et']],
-                ['lang' => 'ru',        'href' => self::BASE . $slugs['ru']],
-                ['lang' => 'en',        'href' => self::BASE . $slugs['en']],
-                ['lang' => 'x-default', 'href' => self::BASE . $slugs['et']],
+                ['lang' => 'et',        'href' => self::BASES['et'] . $slugs['et']],
+                ['lang' => 'ru',        'href' => self::BASES['ru'] . $slugs['ru']],
+                ['lang' => 'en',        'href' => self::BASES['en'] . $slugs['en']],
+                ['lang' => 'x-default', 'href' => self::BASES['et'] . $slugs['et']],
             ];
         }
 
