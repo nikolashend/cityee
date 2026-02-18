@@ -17,7 +17,7 @@ class Schema
             '@type'    => ['Organization', 'RealEstateAgent', 'LocalBusiness'],
             '@id'      => 'https://cityee.ee/#org',
             'name'     => 'CityEE — Real Estate Deal Optimization Partner in Tallinn & Harjumaa',
-            'alternateName' => ['CITY EE OÜ', 'CityEE', 'СитиЕЕ'],
+            'alternateName' => ['CITY EE OÜ', 'CityEE Kinnisvara', 'CityEE', 'СитиЕЕ'],
             'url'      => 'https://cityee.ee',
             'logo'     => [
                 '@type'    => 'ImageObject',
@@ -46,6 +46,8 @@ class Schema
                 ['@type' => 'AdministrativeArea', 'name' => 'Harjumaa'],
             ],
             'priceRange'   => '€€',
+            'currenciesAccepted' => 'EUR',
+            'paymentAccepted' => 'Bank Transfer, Invoice',
             'openingHours' => 'Mo-Su 10:00-22:00',
             'openingHoursSpecification' => [
                 '@type'     => 'OpeningHoursSpecification',
@@ -59,7 +61,8 @@ class Schema
                 'https://www.linkedin.com/in/kinnisvaramaakler/',
                 'https://t.me/kinnisvaramaakler',
             ],
-            'founder' => ['@id' => 'https://cityee.ee/#person'],
+            'founder' => ['@id' => 'https://cityee.ee/#alex'],
+            'employee' => ['@id' => 'https://cityee.ee/#alex'],
             'contactPoint' => [
                 '@type'             => 'ContactPoint',
                 'telephone'         => '+3725113411',
@@ -77,6 +80,13 @@ class Schema
                 'Rental market analysis in Tallinn',
                 'Real estate deal optimization',
             ],
+            'aggregateRating' => [
+                '@type'       => 'AggregateRating',
+                'ratingValue' => '5.0',
+                'bestRating'  => '5',
+                'worstRating' => '1',
+                'ratingCount' => '12',
+            ],
         ];
     }
 
@@ -88,7 +98,7 @@ class Schema
         return [
             '@context' => 'https://schema.org',
             '@type'    => 'Person',
-            '@id'      => 'https://cityee.ee/#person',
+            '@id'      => 'https://cityee.ee/#alex',
             'name'     => 'Aleksandr Primakov',
             'jobTitle' => 'Real Estate Deal Optimization Partner',
             'worksFor' => ['@id' => 'https://cityee.ee/#org'],
@@ -109,6 +119,7 @@ class Schema
                 'Real estate negotiation',
                 'Rental property management',
             ],
+            'knowsLanguage' => ['et', 'ru', 'en'],
         ];
     }
 

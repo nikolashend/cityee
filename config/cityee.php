@@ -71,7 +71,7 @@ return [
     // ─── Common UI strings ─────────────────────────────────────
     'ui' => [
         'et' => [
-            'logo_text'       => 'TEIE KINNISVARAMAAKLER TALLINNAS',
+            'logo_text'       => 'KINNISVARATEHINGUTE PARTNER TALLINNAS',
             'order_call'      => 'Telli kõne',
             'send_inquiry'    => 'SAADA PÄRING',
             'send'            => 'Saada',
@@ -99,7 +99,7 @@ return [
             'read_more'       => 'Loe edasi',
         ],
         'ru' => [
-            'logo_text'       => 'ВАШ МАКЛЕР ПО НЕДВИЖИМОСТИ В ТАЛЛИННЕ',
+            'logo_text'       => 'ПАРТНЁР ПО СДЕЛКАМ С НЕДВИЖИМОСТЬЮ В ТАЛЛИННЕ',
             'order_call'      => 'Заказать звонок',
             'send_inquiry'    => 'ОТПРАВИТЬ ЗАЯВКУ',
             'send'            => 'Отправить',
@@ -127,7 +127,7 @@ return [
             'read_more'       => 'Читать далее',
         ],
         'en' => [
-            'logo_text'       => 'YOUR REAL ESTATE BROKER IN TALLINN',
+            'logo_text'       => 'YOUR REAL ESTATE PARTNER IN TALLINN',
             'order_call'      => 'Request a call',
             'send_inquiry'    => 'SEND INQUIRY',
             'send'            => 'Send',
@@ -159,7 +159,7 @@ return [
     // ─── SELL PAGE ─────────────────────────────────────────────
     'sell' => [
         'et' => [
-            'meta_title'       => 'Kinnisvara müük parima võimaliku hinna ja parima võimaliku ajaga ! - Teie Kinnisvaramaakler Tallinnas',
+            'meta_title'       => 'Kinnisvara müük Tallinnas | Audit ja strateegia | CityEE',
             'meta_description' => 'CityEE Kinnisvara pakub kvaliteetset vahendusteenust kinnisvara müümisel - Lühikese ajaga (1-1.5 kuud) ja parima hinnaga. Maakleriteenuste hind ( vahendustasu ) on minimaalne - 2% korteri maksumusest.',
             'h1'               => 'Kinnisvara vahendamine',
             'hero_subtitle'    => 'Kinnisvara müük parima võimaliku hinna ja parima võimaliku ajaga !',
@@ -189,7 +189,7 @@ return [
             ],
         ],
         'ru' => [
-            'meta_title'       => 'Продажа недвижимости по лучшей цене и в кратчайшие сроки! - Ваш маклер по недвижимости в Таллинне',
+            'meta_title'       => 'Продать недвижимость в Таллинне | Аудит цены и стратегия | CityEE',
             'meta_description' => 'CityEE предлагает качественные посреднические услуги при продаже недвижимости – за короткий срок (1-1.5 месяца) и по лучшей цене. Стоимость маклерских услуг (комиссия) минимальная — 2%.',
             'h1'               => 'Продажа недвижимости',
             'hero_subtitle'    => 'Продажа недвижимости по лучшей цене и в кратчайшие сроки!',
@@ -219,7 +219,7 @@ return [
             ],
         ],
         'en' => [
-            'meta_title'       => 'Sell Property at the Best Price in Shortest Time! — Your Real Estate Broker in Tallinn',
+            'meta_title'       => 'Sell Property in Tallinn | Price Audit & Strategy | CityEE',
             'meta_description' => 'CityEE offers quality brokerage services for property sales — in a short time (1-1.5 months) and at the best price. Broker fee (commission) is minimal — just 2%.',
             'h1'               => 'Property Sales Brokerage',
             'hero_subtitle'    => 'Sell property at the best price in the shortest time!',
@@ -253,7 +253,7 @@ return [
     // ─── RENT PAGE ─────────────────────────────────────────────
     'rent' => [
         'et' => [
-            'meta_title'       => 'Abi üürilepingu koostamisel - Teie Kinnisvaramaakler Tallinnas',
+            'meta_title'       => 'Kinnisvara üürileandmine Tallinnas | Usaldusväärne üürnik | CityEE',
             'meta_description' => 'Arvutame üüritootluse ja määrame õige hinna. Teeme professionaalseid fotosid ja käivitame aktiivse massireklaami. Vajadusel konsulteerime Teid huvitavates küsimustes, maksude ja muude kohustuste osas.',
             'h1'               => 'Kinnisvara üürileandmine',
             'hero_subtitle'    => 'Abi üürilepingu koostamisel',
@@ -282,7 +282,7 @@ return [
             ],
         ],
         'ru' => [
-            'meta_title'       => 'Помощь в составлении договора аренды - Ваш маклер по недвижимости в Таллинне',
+            'meta_title'       => 'Сдать недвижимость в Таллинне | Надёжный арендатор | CityEE',
             'meta_description' => 'Рассчитаем доходность аренды и определим правильную цену. Сделаем профессиональные фотографии и запустим активную массовую рекламу. Проконсультируем по вопросам налогов и обязательств.',
             'h1'               => 'Сдача недвижимости в аренду',
             'hero_subtitle'    => 'Помощь в составлении договора аренды',
@@ -311,7 +311,7 @@ return [
             ],
         ],
         'en' => [
-            'meta_title'       => 'Help with Lease Agreement — Your Real Estate Broker in Tallinn',
+            'meta_title'       => 'Rent Out Property in Tallinn | Reliable Tenant | CityEE',
             'meta_description' => 'We calculate rental yield, set the right price, take professional photos, and launch active advertising. We also consult on taxes and obligations.',
             'h1'               => 'Property Rental Services',
             'hero_subtitle'    => 'Help with lease agreement preparation',
@@ -344,7 +344,7 @@ return [
     // ─── CONSULTATION PAGE ─────────────────────────────────────
     'consultation' => [
         'et' => [
-            'meta_title'       => 'Konsulteerimine - Teie Kinnisvaramaakler Tallinnas',
+            'meta_title'       => 'Kinnisvara konsultatsioon Tallinnas | Hindamine ja juriidiline abi | CityEE',
             'meta_description' => 'CityEE kinnisvaravahendaja pakub konsultatsioone finants- ja varaõiguse küsimustes. Leiame Sulle parima kodu Tallinnas. Kinnisvara esmane kontroll ja dokumentatsiooni kontroll.',
             'h1'               => 'Konsulteerimine',
             'hero_subtitle'    => 'Konsulteerime kinnisvara ostu ja müügi korral.',
@@ -381,7 +381,7 @@ return [
             ],
         ],
         'ru' => [
-            'meta_title'       => 'Консультирование - Ваш маклер по недвижимости в Таллинне',
+            'meta_title'       => 'Консультация по недвижимости Таллинн | Оценка и юридическая помощь | CityEE',
             'meta_description' => 'Посредник CityEE предлагает консультации по финансовым и имущественным вопросам. Найдём лучшее жильё в Таллинне. Первичная проверка и проверка документации.',
             'h1'               => 'Консультирование',
             'hero_subtitle'    => 'Консультируем при покупке и продаже недвижимости.',
@@ -418,7 +418,7 @@ return [
             ],
         ],
         'en' => [
-            'meta_title'       => 'Real Estate Consultation — Your Broker in Tallinn',
+            'meta_title'       => 'Real Estate Consultation Tallinn | Valuation & Legal Help | CityEE',
             'meta_description' => 'CityEE offers consultations on financial and property matters. We find the best home in Tallinn for you. Initial inspection and documentation check.',
             'h1'               => 'Consultation',
             'hero_subtitle'    => 'We consult on buying and selling real estate.',
@@ -459,7 +459,7 @@ return [
     // ─── CONTACTS PAGE ─────────────────────────────────────────
     'contacts' => [
         'et' => [
-            'meta_title'       => 'Kontaktid - Teie Kinnisvaramaakler Tallinnas',
+            'meta_title'       => 'Kontaktid | CityEE Kinnisvara Tallinn | Viru väljak 2',
             'meta_description' => 'Meil on partnerid Venemaal, Rootsis, Soomes ja Eestis. Keskmiselt 1 kuu on korteri müügiaeg. Meie on üle 120000 kontakti reklaami võrgustikus.',
             'h1'               => 'Kontaktid',
             'office_label'     => 'Kinnisvarabüroo:',
@@ -470,7 +470,7 @@ return [
             'map_label'        => 'Kaardil:',
         ],
         'ru' => [
-            'meta_title'       => 'Контакты - Ваш маклер по недвижимости в Таллинне',
+            'meta_title'       => 'Контакты | CityEE Недвижимость Tallinn | Viru väljak 2',
             'meta_description' => 'У нас есть партнёры в России, Швеции, Финляндии и Эстонии. Средний срок продажи квартиры — 1 месяц. Более 120000 контактов в рекламной сети.',
             'h1'               => 'Контакты',
             'office_label'     => 'Агентство недвижимости:',
@@ -481,7 +481,7 @@ return [
             'map_label'        => 'На карте:',
         ],
         'en' => [
-            'meta_title'       => 'Contacts — Your Real Estate Broker in Tallinn',
+            'meta_title'       => 'Contacts | CityEE Real Estate Tallinn | Viru väljak 2',
             'meta_description' => 'We have partners in Russia, Sweden, Finland, and Estonia. Average apartment selling time is 1 month. Over 120,000 contacts in our advertising network.',
             'h1'               => 'Contacts',
             'office_label'     => 'Real Estate Office:',
@@ -496,8 +496,8 @@ return [
     // ─── HOME PAGE ─────────────────────────────────────────────
     'home' => [
         'et' => [
-            'meta_title'       => 'Pealeht - Teie Kinnisvaramaakler Tallinnas',
-            'meta_description' => 'Kui soovid müüa oma maja või korterit parima hinnaga, siis CityEE kinnisvaramaakler aitab Sind! Kiire müük ja kvaliteetne teenindus garanteeritud ! Korterite keskmine müügiaeg on 1 kuu | Helista ☎ (372) 511-34-11',
+            'meta_title'       => 'Kinnisvara müük ja üür Tallinn & Harjumaa | CityEE',
+            'meta_description' => 'CityEE — kinnisvaratehingute optimeerimise partner Tallinnas ja Harjumaal. Müügistrateegia, turuaudit, läbirääkimised. 10+ aastat, 300+ tehingut, 2% komisjon.',
             'h1'               => 'KAS SOOVITE OSTA VÕI MÜÜA',
             'h1_span'          => 'ANDA OMA KINNISVARA ÜÜRILE?',
             'banner_text'      => '<span>Meie spetsialistid aitavad Teid sellega.</span> Professionaalne online konsultatsioon!',
@@ -530,8 +530,8 @@ return [
             'team_title'       => 'MEIE TÖÖTAJAD',
         ],
         'ru' => [
-            'meta_title'       => 'Главная - Ваш маклер по недвижимости в Таллинне',
-            'meta_description' => 'Если вы хотите продать дом или квартиру по лучшей цене, маклер CityEE поможет вам! Быстрая продажа и качественное обслуживание гарантированы! Среднее время продажи квартиры — 1 месяц | Звоните ☎ (372) 511-34-11',
+            'meta_title'       => 'Продажа и аренда недвижимости Tallinn & Harjumaa | CityEE',
+            'meta_description' => 'CityEE — партнёр по оптимизации сделок с недвижимостью в Tallinn и Harjumaa. Стратегия продажи, аудит цены, переговоры. 10+ лет, 300+ сделок, комиссия 2%.',
             'h1'               => 'ХОТИТЕ КУПИТЬ ИЛИ ПРОДАТЬ',
             'h1_span'          => 'СДАТЬ ВАШУ НЕДВИЖИМОСТЬ В АРЕНДУ?',
             'banner_text'      => '<span>Наши специалисты помогут вам в этом.</span> Профессиональная онлайн-консультация!',
@@ -564,8 +564,8 @@ return [
             'team_title'       => 'НАШИ СОТРУДНИКИ',
         ],
         'en' => [
-            'meta_title'       => 'Home — Your Real Estate Broker in Tallinn',
-            'meta_description' => 'Looking to sell your house or apartment at the best price? CityEE real estate broker will help! Fast sales and quality service guaranteed! Average apartment selling time is 1 month | Call ☎ (372) 511-34-11',
+            'meta_title'       => 'Real Estate Sale & Rental Tallinn & Harjumaa | CityEE',
+            'meta_description' => 'CityEE — real estate deal optimization partner in Tallinn & Harjumaa. Sale strategy, price audit, negotiation. 10+ years, 300+ deals, 2% commission.',
             'h1'               => 'LOOKING TO BUY OR SELL',
             'h1_span'          => 'RENT OUT YOUR PROPERTY?',
             'banner_text'      => '<span>Our specialists will help you with that.</span> Professional online consultation!',
@@ -602,21 +602,21 @@ return [
     // ─── WHY CITYEE PAGE ──────────────────────────────────────
     'why' => [
         'et' => [
-            'meta_title'       => 'Miks CityEE? - Kinnisvara maakler Tallinnas',
+            'meta_title'       => 'Miks valida CityEE? | Võrdlus: ise vs maakler | CityEE Tallinn',
             'meta_description' => 'Miks valida CityEE kinnisvaramaakler? Struktureeritud turuaudit, läbirääkimisstrateegia, 2% vahendustasu, keskmiselt 1-1,5 kuu müügiaeg Tallinn & Harjumaa.',
             'h1'               => 'Miks CityEE?',
             'hero_subtitle'    => 'Kinnisvaratehingute optimeerimise partner Tallinnas ja Harjumaal',
             'hero_bg'          => '/assets/templates/offshors/img/offshors.jpg',
         ],
         'ru' => [
-            'meta_title'       => 'Почему CityEE? - Маклер по недвижимости в Таллинне',
+            'meta_title'       => 'Почему CityEE? | Сравнение: сам vs маклер | CityEE Tallinn',
             'meta_description' => 'Почему выбирают маклера CityEE? Структурированный аудит рынка, переговорная стратегия, комиссия 2%, средний срок продажи 1-1,5 месяца. Tallinn & Harjumaa.',
             'h1'               => 'Почему CityEE?',
             'hero_subtitle'    => 'Партнер по оптимизации сделок с недвижимостью в Таллинне и Харьюмаа',
             'hero_bg'          => '/assets/templates/offshors/img/offshors.jpg',
         ],
         'en' => [
-            'meta_title'       => 'Why CityEE? — Real Estate Broker in Tallinn',
+            'meta_title'       => 'Why CityEE? | Private vs Agent vs CityEE | CityEE Tallinn',
             'meta_description' => 'Why choose CityEE? Structured market audit, negotiation strategy, 2% commission, average selling time 1 month.',
             'h1'               => 'Why CityEE?',
             'hero_subtitle'    => 'Real estate deal optimization partner in Tallinn and Harjumaa',

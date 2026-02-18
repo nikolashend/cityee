@@ -46,7 +46,7 @@
           <li><span class="pink">Whatsapp: </span>+372 5113411</li>
           <li><span class="pink">Telegram: </span>+372 5113411</li>
         </ul>
-        <p><b class="pink">Skype: </b><a href="skype:aleksander.primakov?call">{{ $locale === 'en' ? 'call via Skype' : ($locale === 'ru' ? 'позвонить в Skype' : "helista Skype'i") }}</a></p>
+        <p><b class="pink">WhatsApp: </b><a href="{{ $co['whatsapp'] }}" target="_blank" rel="noopener">{{ $locale === 'en' ? 'Message on WhatsApp' : ($locale === 'ru' ? 'Написать в WhatsApp' : 'Kirjuta WhatsAppi') }}</a></p>
         <p><b class="pink">{{ $t['email_label'] }} </b><a href="mailto:{{ $co['email'] }}">{{ $co['email'] }}</a></p>
         <p><b class="pink">Facebook: </b><a href="{{ $co['facebook'] }}">facebook.com/cityee.ee</a></p>
         <p><b class="pink">Instagram: </b><a href="{{ $co['instagram'] }}">cityee_ee</a></p>

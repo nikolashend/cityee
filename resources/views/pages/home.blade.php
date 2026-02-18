@@ -13,14 +13,14 @@
     $co    = config('cityee.company');
     $agent = config('cityee.agent');
     $heroTitles = [
-        'et' => 'Müüge või üürige kinnisvara Tallinn & Harjumaa piirkonnas',
-        'ru' => 'Продайте или сдайте недвижимость в Tallinn & Harjumaa',
-        'en' => 'Sell or Rent Property in Tallinn & Harjumaa',
+        'et' => 'Müüge kinnisvara Tallinnas ja Harjumaal ilma hinnakaduta',
+        'ru' => 'Продажа недвижимости в Таллинне и Харьюмаа без потери в цене',
+        'en' => 'Sell Property in Tallinn & Harjumaa Without Price Loss',
     ];
     $heroSubs = [
-        'et' => 'Süsteemselt, turvaliselt ja reaalse turuhinnaga.',
-        'ru' => 'Системно, безопасно и по реальной рыночной цене.',
-        'en' => 'Strategically, safely and at real market price.',
+        'et' => 'Strateegia, audit ja läbirääkimised, mis kaitsevad Teie lõplikku summat.',
+        'ru' => 'Стратегия, аудит и переговоры, которые защищают вашу финальную сумму.',
+        'en' => 'Strategy, audit and negotiation that protect your final amount.',
     ];
     $heroProcess = [
         'et' => 'Audit → Strateegia → Läbirääkimised → Tehing',
@@ -29,18 +29,18 @@
     ];
     $intentBtns = [
         'et' => [
-            ['label' => 'Arvuta turuhind', 'class' => 'intent-btn--primary', 'href' => '#feedback', 'id' => 'feedback'],
+            ['label' => 'Arvuta reaalne turuhind', 'class' => 'intent-btn--primary', 'href' => '#feedback', 'id' => 'feedback'],
             ['label' => 'Telli kuulutuse audit', 'class' => 'intent-btn--secondary', 'href' => route("{$locale}.audit")],
-            ['label' => 'Anna üürile turvaliselt', 'class' => 'intent-btn--accent', 'href' => route("{$locale}.rent")],
+            ['label' => 'Üüri välja turvaliselt', 'class' => 'intent-btn--accent', 'href' => route("{$locale}.rent")],
         ],
         'ru' => [
-            ['label' => 'Рассчитать рыночную цену', 'class' => 'intent-btn--primary', 'href' => '#feedback', 'id' => 'feedback'],
+            ['label' => 'Рассчитать реальную стоимость', 'class' => 'intent-btn--primary', 'href' => '#feedback', 'id' => 'feedback'],
             ['label' => 'Заказать аудит объявления', 'class' => 'intent-btn--secondary', 'href' => route("{$locale}.audit")],
             ['label' => 'Сдать в аренду безопасно', 'class' => 'intent-btn--accent', 'href' => route("{$locale}.rent")],
         ],
         'en' => [
-            ['label' => 'Calculate Market Value', 'class' => 'intent-btn--primary', 'href' => '#feedback', 'id' => 'feedback'],
-            ['label' => 'Get Property Audit', 'class' => 'intent-btn--secondary', 'href' => route("{$locale}.audit")],
+            ['label' => 'Calculate Real Market Value', 'class' => 'intent-btn--primary', 'href' => '#feedback', 'id' => 'feedback'],
+            ['label' => 'Get Listing Audit', 'class' => 'intent-btn--secondary', 'href' => route("{$locale}.audit")],
             ['label' => 'Rent Out Safely', 'class' => 'intent-btn--accent', 'href' => route("{$locale}.rent")],
         ],
     ];

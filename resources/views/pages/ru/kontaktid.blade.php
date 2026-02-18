@@ -42,7 +42,7 @@
           <li><span class="pink">Whatsapp: </span>+372 5113411</li>
           <li><span class="pink">Telegram: </span>+372 5113411</li>
         </ul>
-        <p><b class="pink">Skype: </b><a href="skype:aleksander.primakov?call">позвонить в Skype</a></p>
+        <p><b class="pink">WhatsApp: </b><a href="https://wa.me/3725113411" target="_blank" rel="noopener">Написать в WhatsApp</a></p>
         <p><b class="pink">Email: </b><a href="mailto:info@cityee.ee">info@cityee.ee</a></p>
         <p><b class="pink">Facebook: </b><a href="https://www.facebook.com/cityee.ee">facebook.com/cityee.ee</a></p>
         <p><b class="pink">Instagram: </b><a href="https://www.instagram.com/cityee_ee">cityee_ee</a></p>

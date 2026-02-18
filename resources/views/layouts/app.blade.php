@@ -19,11 +19,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
-{{-- Preload critical assets --}}
-<link rel="preload" href="/assets/templates/offshors/img/offshors.jpg" as="image">
-<link rel="preload" href="/assets/templates/offshors/css/style.css?v=4" as="style">
+{{-- Preconnect to third-party origins --}}
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
 <link rel="preconnect" href="https://ajax.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+
+{{-- Preload hero image --}}
+<link rel="preload" href="/assets/templates/offshors/img/offshors.jpg" as="image">
 
 {{-- Canonical + Hreflang --}}
 @if (isset($pageKey))
@@ -41,12 +44,13 @@
 @if (isset($pageKey))
 <meta property="og:url" content="{{ \App\Support\SeoLinks::canonical($pageKey) }}">
 @endif
-<meta property="og:image" content="/assets/templates/offshors/img/about-foto.jpg">
+<meta property="og:image" content="https://cityee.ee/assets/templates/offshors/img/about-foto.jpg">
+<meta property="og:locale" content="{{ $locale === 'ru' ? 'ru_EE' : ($locale === 'en' ? 'en_US' : 'et_EE') }}">
 
 <link href="/assets/templates/offshors/css/style.css?v=4" rel="stylesheet" media="screen">
 <link href="/assets/templates/offshors/css/font-awesome.min.css" rel="stylesheet" media="screen">
 <link href="/assets/templates/offshors/css/jquery.bxslider.css" rel="stylesheet" media="screen">
-<link href="/assets/css/cityee-v3.css?v=2" rel="stylesheet" media="screen">
+<link href="/assets/css/cityee-v3.css?v=3" rel="stylesheet" media="screen">
 
 {{-- JSON-LD --}}
 @stack('jsonld')
@@ -59,10 +63,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-5DRRX5ZJ');</script>
 <!-- End Google Tag Manager -->
 
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5DRRX5ZJ"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
+{{-- GTM noscript moved to body --}}
 
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript" defer>
@@ -84,6 +85,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 </head>
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5DRRX5ZJ"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 
 <header class="header">
   <div class="container">
@@ -116,7 +121,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="main-phone">
         <span class="main-phone__item">{{ $co['phone_display'] }} </span>
         <span class="main-phone__time">{{ $ui['hours'] ?? '10.00 kuni 22.00' }}</span>
-        <a class="main-phone__skype" href="{{ $co['whatsapp'] }}" target="_blank">
+        <a class="main-phone__whatsapp" href="{{ $co['whatsapp'] }}" target="_blank" rel="noopener">
     {{ $ui['call_whatsapp'] ?? "helista WhatsApp'i" }}
 </a>
       </div>
@@ -195,7 +200,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="footer__phones">
       <div class="main-phone">
         <span class="main-phone__item">{{ $co['phone_display'] }}</span><br/>
-        <a class="main-phone__skype" href="{{ $co['whatsapp'] }}" target="_blank">
+        <a class="main-phone__whatsapp" href="{{ $co['whatsapp'] }}" target="_blank" rel="noopener">
     {{ $ui['call_whatsapp'] ?? "helista WhatsApp'i" }}
 </a>
       </div>

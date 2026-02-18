@@ -66,24 +66,36 @@ class SitemapController extends Controller
     }
 
     /**
-     * robots.txt — domain-aware with proper sitemaps.
+     * robots.txt — domain-aware with proper sitemaps per spec.
+     *
+     * cityee.ee     → all 3 sitemaps + Host: cityee.ee
+     * ru.cityee.ee  → own sitemap   + Host: ru.cityee.ee
+     * en.cityee.ee  → own sitemap   + Host: en.cityee.ee
      */
     public function robots(): Response
     {
         $host = request()->getHost();
 
-        $txt  = "User-agent: *\n";
-        $txt .= "Allow: /\n\n";
+        // Determine which domain we're on (production or local fallback)
+        $isRu = str_starts_with($host, 'ru.');
+        $isEn = str_starts_with($host, 'en.');
 
-        // Per-domain sitemap + host
-        if (str_starts_with($host, 'ru.')) {
+        $txt  = "User-agent: *\n";
+        $txt .= "Allow: /\n";
+        $txt .= "\n";
+
+        if ($isRu) {
             $txt .= "Host: ru.cityee.ee\n";
+            $txt .= "\n";
             $txt .= "Sitemap: https://ru.cityee.ee/sitemap.xml\n";
-        } elseif (str_starts_with($host, 'en.')) {
+        } elseif ($isEn) {
             $txt .= "Host: en.cityee.ee\n";
+            $txt .= "\n";
             $txt .= "Sitemap: https://en.cityee.ee/sitemap.xml\n";
         } else {
+            // Main domain (cityee.ee) — reference all 3 sitemaps
             $txt .= "Host: cityee.ee\n";
+            $txt .= "\n";
             $txt .= "Sitemap: https://cityee.ee/sitemap.xml\n";
             $txt .= "Sitemap: https://ru.cityee.ee/sitemap.xml\n";
             $txt .= "Sitemap: https://en.cityee.ee/sitemap.xml\n";

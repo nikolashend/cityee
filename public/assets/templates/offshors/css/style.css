@@ -3343,7 +3343,8 @@ img {
   color: #555555;
   line-height: 0.9;
 }
-.main-phone__skype {
+.main-phone__skype,
+.main-phone__whatsapp {
   margin-top: 2px;
   font-size: 22px;
   position: relative;
@@ -3351,7 +3352,8 @@ img {
   margin-bottom: 5px;
   color: #333333;
 }
-.main-phone__skype:before {
+.main-phone__skype:before,
+.main-phone__whatsapp:before {
   content: '\e803';
   font-family: 'fontello';
   color: #7b1f45;
@@ -3360,7 +3362,8 @@ img {
   left: -25px;
   top: 4px;
 }
-.main-phone__skype:hover {
+.main-phone__skype:hover,
+.main-phone__whatsapp:hover {
   color: #333333;
 }
 @media (max-width: 1047px) {
