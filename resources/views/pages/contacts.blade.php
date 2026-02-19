@@ -67,4 +67,19 @@
   </div>
 </div>
 
+{{-- ═══ v3: Forms (audit + calc) ═══ --}}
+@include('components.v3.form-audit', ['locale' => $locale])
+@include('components.v3.form-calc', ['locale' => $locale])
+
+{{-- ═══ v3: Agent trust ═══ --}}
+@include('components.v3.trust-agent', ['locale' => $locale])
+
+{{-- ═══ v3: FAQ for contacts ═══ --}}
+@if(!empty($contactsFaq))
+@include('partials.faq', ['faq' => $contactsFaq, 'faqTitle' => 'FAQ'])
+@endif
+
+{{-- ═══ v3: Form scripts ═══ --}}
+@include('components.v3.form-scripts')
+
 @endsection

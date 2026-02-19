@@ -1,0 +1,114 @@
+/**
+ * CityEE v3 — DESIGN TOKENS (ЭТАП 6: UI Discipline & Design Lock)
+ * Single source of truth for all visual variables.
+ * Loaded FIRST — before all other stylesheets.
+ *
+ * ┌─────────────────────────────────────────────────────────────┐
+ * │  RULE: never use raw hex / px in component CSS.            │
+ * │  Always reference a --ce-* token.                          │
+ * └─────────────────────────────────────────────────────────────┘
+ */
+
+:root {
+  /* ── Brand palette ─────────────────────────────────────── */
+  --ce-primary:       #7b1f45;          /* burgundy — links, accents, CTA */
+  --ce-primary-dark:  #611738;          /* hover shift for --ce-primary */
+  --ce-primary-light: #f8f0f4;         /* tint for light backgrounds */
+  --ce-accent:        #2c3e50;          /* dark graphite — secondary CTA */
+  --ce-accent-hover:  #34495e;
+  --ce-whatsapp:      #25D366;          /* WhatsApp green */
+  --ce-whatsapp-hover:#1fba59;
+
+  /* ── Neutrals ──────────────────────────────────────────── */
+  --ce-text:          #333;
+  --ce-text-soft:     #444;
+  --ce-muted:         #666;
+  --ce-subtle:        #888;
+  --ce-hint:          #999;
+  --ce-border:        #eee;
+  --ce-border-strong: #ccc;
+  --ce-bg:            #fff;
+  --ce-bg-warm:       #faf7f4;
+  --ce-bg-soft:       #f8f6f3;
+  --ce-bg-card:       #fff;
+
+  /* ── Typography ────────────────────────────────────────── */
+  --ce-font:          'PT Sans Narrow', 'Helvetica Neue', Arial, sans-serif;
+
+  --ce-fz-xs:         12px;
+  --ce-fz-sm:         14px;
+  --ce-fz-base:       15px;
+  --ce-fz-md:         16px;
+  --ce-fz-lg:         17px;
+  --ce-fz-xl:         20px;
+  --ce-fz-2xl:        22px;
+  --ce-fz-3xl:        clamp(22px, 3vw, 30px);
+  --ce-fz-hero:       clamp(26px, 4vw, 40px);
+
+  --ce-lh-tight:      1.2;
+  --ce-lh-normal:     1.5;
+  --ce-lh-relaxed:    1.6;
+
+  --ce-fw-normal:     400;
+  --ce-fw-semi:       600;
+  --ce-fw-bold:       700;
+  --ce-fw-heavy:      800;
+
+  /* ── Spacing (4px grid) ────────────────────────────────── */
+  --ce-space-1:       4px;
+  --ce-space-2:       8px;
+  --ce-space-3:       12px;
+  --ce-space-4:       16px;
+  --ce-space-5:       20px;
+  --ce-space-6:       24px;
+  --ce-space-7:       28px;
+  --ce-space-8:       32px;
+  --ce-space-10:      40px;
+  --ce-space-12:      48px;
+  --ce-space-16:      64px;
+
+  /* ── Radii ─────────────────────────────────────────────── */
+  --ce-r-sm:          6px;
+  --ce-r-md:          10px;
+  --ce-r-lg:          14px;
+  --ce-r-full:        9999px;
+
+  /* ── Shadows ───────────────────────────────────────────── */
+  --ce-sh-xs:         0 1px 3px rgba(0,0,0,.06);
+  --ce-sh-sm:         0 2px 8px rgba(0,0,0,.06);
+  --ce-sh-md:         0 4px 16px rgba(0,0,0,.08);
+  --ce-sh-lg:         0 6px 28px rgba(123,31,69,.08);
+  --ce-sh-brand-sm:   0 4px 16px rgba(123,31,69,.15);
+  --ce-sh-brand-md:   0 4px 16px rgba(123,31,69,.25);
+  --ce-sh-brand-lg:   0 6px 24px rgba(123,31,69,.35);
+
+  /* ── Transitions ───────────────────────────────────────── */
+  --ce-ease:          cubic-bezier(0.4, 0, 0.2, 1);
+  --ce-ease-bounce:   cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ce-dur-fast:      0.15s;
+  --ce-dur:           0.25s;
+  --ce-dur-slow:      0.4s;
+
+  /* ── Layout ────────────────────────────────────────────── */
+  --ce-container:     1170px;           /* matches theme .container max-width */
+  --ce-gutter:        15px;
+
+  /* ── Z-index stack ─────────────────────────────────────── */
+  --ce-z-base:        1;
+  --ce-z-dropdown:    100;
+  --ce-z-sticky:      500;
+  --ce-z-nav:         900;
+  --ce-z-jivo:        999;
+  --ce-z-floating:    1010;
+  --ce-z-modal:       2000;
+
+  /* ── JivoSite safe offset ──────────────────────────────── */
+  --ce-jivo-safe:     80px;
+}
+
+/* ── Responsive token overrides ──────────────────────────── */
+@media (max-width: 767px) {
+  :root {
+    --ce-jivo-safe: 70px;
+  }
+}

@@ -573,6 +573,9 @@
 .sticky-btn--whatsapp {
   background: #25D366;
 }
+.sticky-btn--calc {
+  background: #7b1f45;
+}
 .sticky-btn--telegram {
   background: #0088cc;
 }
@@ -1035,4 +1038,843 @@ img[loading="lazy"] {
   .audit-includes {
     grid-template-columns: 1fr;
   }
+}
+
+/* ─── BROWSER-DEFAULT BLUE UNDERLINE KILL ─────────── */
+a,
+a:visited,
+a:hover,
+a:focus,
+a:active {
+  text-decoration: none;
+  color: inherit;
+}
+a:hover {
+  text-decoration: none;
+}
+.footer a,
+.questions a,
+.pop-up a,
+.contacts a,
+.nav a {
+  text-decoration: none;
+}
+
+/* ─── ACCESSIBLE FOCUS STYLE (keyboard only) ────────── */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--ce-primary);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+button:focus,
+a:focus {
+  outline: none;
+}
+
+/* ─── CONTAINER SAFETY NET ─────────────────────────── */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ─── JIVOSITE Z-INDEX — below sticky buttons ─────── */
+jdiv {
+  z-index: 999 !important;
+}
+.sticky-buttons {
+  z-index: 1010 !important;
+}
+
+/* ─── ЭТАП 2: PREMIUM HERO & PAGE-TITLE OVERLAYS ───── */
+/* Gradient overlays — additive, theme handles base layout */
+.banners__item::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(26,26,26,.55), rgba(26,26,26,.2) 60%, rgba(123,31,69,.15));
+  z-index: 1;
+  pointer-events: none;
+}
+.page-title::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(26,26,26,.55), rgba(26,26,26,.25));
+  z-index: 0;
+  pointer-events: none;
+}
+.page-title {
+  position: relative;
+}
+.page-title .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Banner wrapper z-index for text above overlay */
+.banners__wrapp {
+  position: relative;
+  z-index: 2;
+}
+
+/* ─── ЭТАП 2: NAV HOVER — SMOOTH BURGUNDY UNDERLINE ── */
+.nav__item a {
+  transition: border-color 0.25s ease, color 0.2s ease;
+}
+.nav__item a:hover {
+  text-decoration: none;
+}
+
+/* ─── ЭТАП 2: WHATSAPP HEADER BUTTON ACCENT ─────────── */
+.main-phone__whatsapp {
+  display: inline-block;
+  color: #25D366;
+  font-weight: 700;
+  font-size: 14px;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.main-phone__whatsapp:hover {
+  color: #1fbe59;
+  text-decoration: none;
+}
+
+/* ─── ЭТАП 2: LANGUAGE SWITCHER REFINEMENT ──────────── */
+.languages {
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+}
+.languages a {
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 13px;
+  color: rgba(255,255,255,.65);
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+.languages a:hover {
+  color: #fff;
+  background: rgba(255,255,255,.12);
+}
+.languages a.active {
+  background: rgba(255,255,255,.2);
+  color: #fff;
+  font-weight: 600;
+}
+
+/* ─── ЭТАП 2: STICKY BUTTONS — iOS SAFE AREA ────────── */
+.sticky-buttons {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 1010;
+}
+.sticky-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  border-radius: 50px;
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.sticky-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+  text-decoration: none;
+  color: #fff;
+}
+.sticky-btn svg {
+  width: 22px;
+  height: 22px;
+  fill: currentColor;
+  flex-shrink: 0;
+}
+.sticky-btn--whatsapp {
+  background: #25D366;
+}
+.sticky-btn--calc {
+  background: #7b1f45;
+}
+.sticky-btn--telegram {
+  background: #0088cc;
+}
+.sticky-btn__label {
+  white-space: nowrap;
+}
+
+/* ─── ЭТАП 2: FOOTER POLISH ────────────────────────── */
+.footer__copy p:last-child {
+  font-size: 12px;
+  color: #999;
+  margin-top: 8px;
+}
+
+/* ─── ЭТАП 2: MOBILE REFINEMENTS ──────────────────── */
+@media (max-width: 767px) {
+  .sticky-btn__label {
+    display: none;
+  }
+  .sticky-btn {
+    padding: 12px;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    justify-content: center;
+  }
+  .sticky-btn svg {
+    width: 24px;
+    height: 24px;
+  }
+  .sticky-buttons {
+    right: 12px;
+    bottom: 12px;
+    bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+    gap: 8px;
+  }
+  /* Languages centered in mobile nav */
+  .languages {
+    justify-content: center;
+    margin-top: 8px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   ЭТАП 5: GUIDES & AUDITS CONTENT PAGES
+   ═══════════════════════════════════════════════════════ */
+
+/* ─── GUIDE / AUDIT HERO ──────────────────────────── */
+.guide-hero,
+.audit-hero {
+  background: linear-gradient(135deg, #f8f5f0 0%, #fff 100%);
+  padding: 48px 0 36px;
+  border-bottom: 1px solid #e8e0d8;
+}
+.guide-breadcrumb {
+  font-size: 13px;
+  color: #888;
+  margin-bottom: 16px;
+}
+.guide-breadcrumb a {
+  color: #7b1f45;
+  text-decoration: none;
+}
+.guide-breadcrumb a:hover {
+  text-decoration: underline;
+}
+.guide-hero h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  line-height: 1.25;
+  margin-bottom: 16px;
+}
+.guide-quick-answer {
+  background: #fff;
+  border-left: 4px solid #7b1f45;
+  padding: 16px 20px;
+  font-size: 1.05rem;
+  color: #333;
+  border-radius: 0 8px 8px 0;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.04);
+}
+.guide-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 20px;
+}
+.guide-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.guide-hero__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.guide-eeat-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 12px 0 0;
+  border-top: 1px solid #e8e0d8;
+}
+.eeat-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #555;
+}
+
+/* ─── AI SUMMARY BOX ──────────────────────────────── */
+.guide-ai-summary {
+  padding: 40px 0;
+}
+.ai-summary-box {
+  background: linear-gradient(135deg, #f0f4ff 0%, #f8f5ff 100%);
+  border: 1px solid #d8dff8;
+  border-radius: 12px;
+  padding: 24px 28px;
+  position: relative;
+}
+.ai-summary-box::before {
+  content: "🤖";
+  position: absolute;
+  top: -14px;
+  left: 20px;
+  font-size: 24px;
+  background: #fff;
+  padding: 0 6px;
+  border-radius: 50%;
+}
+.ai-summary-box h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10px;
+}
+.ai-summary-box p {
+  font-size: 1rem;
+  color: #444;
+  line-height: 1.7;
+}
+
+/* ─── KEY TAKEAWAYS ─────────────────────────────────── */
+.guide-takeaways-section {
+  padding: 0 0 40px;
+}
+.guide-takeaways-box {
+  background: #fff;
+  border: 1px solid #e8e0d8;
+  border-radius: 12px;
+  padding: 24px 28px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.03);
+}
+.guide-takeaways-box h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 14px;
+}
+.guide-takeaways {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.guide-takeaways li {
+  padding: 8px 0 8px 28px;
+  position: relative;
+  font-size: 0.97rem;
+  color: #333;
+  line-height: 1.5;
+  border-bottom: 1px solid #f4f0ec;
+}
+.guide-takeaways li:last-child {
+  border-bottom: 0;
+}
+.guide-takeaways li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  color: #25D366;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+/* ─── CONTENT SECTIONS ────────────────────────────── */
+.guide-content {
+  padding: 40px 0;
+}
+.guide-section {
+  margin-bottom: 36px;
+}
+.guide-section h2,
+.guide-section h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 12px;
+}
+.guide-snippet-answer {
+  background: #fffbf0;
+  border-left: 3px solid #e6a817;
+  padding: 12px 16px;
+  font-size: 0.95rem;
+  color: #555;
+  border-radius: 0 6px 6px 0;
+  margin-bottom: 16px;
+}
+.guide-section__body {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: #333;
+}
+.guide-section__body p {
+  margin-bottom: 14px;
+}
+.guide-section__micro-cta {
+  margin-top: 12px;
+}
+.guide-section__micro-cta .intent-btn {
+  font-size: 0.85rem;
+  padding: 8px 16px;
+}
+
+/* ─── HOWTO STEPS ─────────────────────────────────── */
+.guide-howto {
+  padding: 0 0 40px;
+}
+.guide-howto h2 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+.guide-howto-step {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 20px;
+  align-items: flex-start;
+}
+.guide-howto-step__number {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #7b1f45;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+.guide-howto-step__text h3 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 4px;
+}
+.guide-howto-step__text p {
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.6;
+}
+
+/* ─── FAQ in GUIDES/AUDITS ────────────────────────── */
+.guide-faq {
+  padding: 40px 0;
+  background: #faf8f6;
+}
+.guide-faq h2 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+/* ─── INTERNAL LINKS ──────────────────────────────── */
+.guide-internal-links {
+  padding: 40px 0;
+}
+.guide-internal-links h2 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+.internal-links-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+.internal-link-card {
+  background: #fff;
+  border: 1px solid #e8e0d8;
+  border-radius: 10px;
+  padding: 20px;
+  text-decoration: none;
+  color: inherit;
+  transition: box-shadow .2s, transform .15s;
+}
+.internal-link-card:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,.08);
+  transform: translateY(-2px);
+}
+.internal-link-card__type {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .6px;
+  color: #7b1f45;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.internal-link-card__title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  line-height: 1.3;
+}
+
+/* ─── SOURCES ─────────────────────────────────────── */
+.guide-sources {
+  padding: 32px 0;
+  border-top: 1px solid #e8e0d8;
+}
+.guide-sources h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+.guide-sources ul {
+  list-style: none;
+  padding: 0;
+}
+.guide-sources li {
+  padding: 6px 0;
+  font-size: 0.9rem;
+}
+.guide-sources a {
+  color: #7b1f45;
+}
+.guide-source-note {
+  color: #999;
+  font-size: 0.8rem;
+  margin-left: 4px;
+}
+
+/* ─── CTA SECTION (GUIDE/AUDIT) ───────────────────── */
+.guide-cta-section {
+  padding: 48px 0;
+  background: linear-gradient(135deg, #7b1f45 0%, #5a1633 100%);
+  color: #fff;
+  text-align: center;
+}
+.guide-cta-section h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+.guide-cta-section p {
+  font-size: 1rem;
+  opacity: .9;
+  margin-bottom: 24px;
+}
+.guide-cta-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+.guide-cta-buttons .intent-btn {
+  min-width: 200px;
+}
+.intent-btn--dark {
+  background: rgba(255,255,255,.15);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,.3);
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: background .2s;
+}
+.intent-btn--dark:hover {
+  background: rgba(255,255,255,.25);
+}
+.guide-geo-line {
+  margin-top: 16px;
+  font-size: 0.85rem;
+  opacity: .7;
+}
+
+/* ─── INDEX PAGES: FILTER PILLS ───────────────────── */
+.guide-filters {
+  padding: 32px 0 0;
+}
+.guide-filter-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.guide-filter-pill {
+  display: inline-block;
+  padding: 8px 18px;
+  border: 1px solid #d8d0c8;
+  border-radius: 20px;
+  background: #fff;
+  font-size: 0.9rem;
+  color: #555;
+  text-decoration: none;
+  transition: all .2s;
+}
+.guide-filter-pill:hover {
+  border-color: #7b1f45;
+  color: #7b1f45;
+}
+.guide-filter-pill.active {
+  background: #7b1f45;
+  color: #fff;
+  border-color: #7b1f45;
+}
+
+/* ─── INDEX PAGES: KNOWLEDGE CARDS ────────────────── */
+.knowledge-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+  padding: 32px 0;
+}
+.knowledge-card {
+  background: #fff;
+  border: 1px solid #e8e0d8;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: box-shadow .2s, transform .15s;
+}
+.knowledge-card:hover {
+  box-shadow: 0 6px 20px rgba(0,0,0,.08);
+  transform: translateY(-2px);
+}
+.knowledge-card__link {
+  display: block;
+  padding: 24px;
+  text-decoration: none;
+  color: inherit;
+}
+.knowledge-card__cat {
+  display: inline-block;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .6px;
+  color: #7b1f45;
+  font-weight: 600;
+  background: rgba(123, 31, 69, .08);
+  padding: 3px 10px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+}
+.knowledge-card--audit .knowledge-card__cat {
+  color: #0088cc;
+  background: rgba(0, 136, 204, .08);
+}
+.knowledge-card__title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  line-height: 1.3;
+  margin-bottom: 8px;
+}
+.knowledge-card__desc {
+  font-size: 0.9rem;
+  color: #666;
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+.knowledge-card__meta {
+  display: flex;
+  gap: 12px;
+  font-size: 12px;
+  color: #999;
+  margin-bottom: 12px;
+}
+.knowledge-card__cta {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #7b1f45;
+}
+.knowledge-card--audit .knowledge-card__cta {
+  color: #0088cc;
+}
+
+/* ─── AUDIT-SPECIFIC STATS ────────────────────────── */
+.audit-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 16px;
+  margin: 24px 0;
+}
+.audit-stat {
+  text-align: center;
+  padding: 16px;
+  background: #faf8f6;
+  border-radius: 10px;
+  border: 1px solid #e8e0d8;
+}
+.audit-stat__value {
+  display: block;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #7b1f45;
+  margin-bottom: 4px;
+}
+.audit-stat__label {
+  display: block;
+  font-size: 0.8rem;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: .4px;
+}
+
+/* ─── GUIDES/AUDITS MOBILE ────────────────────────── */
+@media (max-width: 767px) {
+  .guide-hero h1 {
+    font-size: 1.5rem;
+  }
+  .guide-eeat-bar {
+    gap: 12px;
+  }
+  .eeat-badge {
+    font-size: 12px;
+  }
+  .ai-summary-box {
+    padding: 20px;
+  }
+  .guide-takeaways-box {
+    padding: 20px;
+  }
+  .guide-hero__ctas {
+    flex-direction: column;
+  }
+  .guide-cta-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  .knowledge-cards {
+    grid-template-columns: 1fr;
+  }
+  .internal-links-grid {
+    grid-template-columns: 1fr;
+  }
+  .audit-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .guide-cta-section h2 {
+    font-size: 1.2rem;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   ЭТАП 10 — AI DOMINATION COMPONENTS
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── Answer Block (AI / SGE citeable) ──────────────────────── */
+.v3-answer-block {
+  background: linear-gradient(135deg, #faf8f5 0%, #f5f0eb 100%);
+  border-left: 4px solid var(--ce-primary, #7b1f45);
+  border-radius: var(--ce-r-md, 10px);
+  padding: var(--ce-space-6, 24px) var(--ce-space-7, 28px);
+  margin: var(--ce-space-8, 32px) 0;
+  box-shadow: var(--ce-sh-xs, 0 1px 3px rgba(0,0,0,.06));
+}
+.v3-answer-block__header {
+  display: flex;
+  align-items: center;
+  gap: var(--ce-space-2, 8px);
+  margin-bottom: var(--ce-space-3, 12px);
+}
+.v3-answer-block__icon {
+  font-size: 1.4rem;
+  line-height: 1;
+}
+.v3-answer-block__label {
+  font-size: var(--ce-fz-xs, 12px);
+  font-weight: var(--ce-fw-bold, 700);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ce-primary, #7b1f45);
+}
+.v3-answer-block__question {
+  font-size: var(--ce-fz-lg, 18px);
+  font-weight: var(--ce-fw-bold, 700);
+  color: var(--ce-text, #1a1a1a);
+  margin: 0 0 var(--ce-space-3, 12px);
+  line-height: var(--ce-lh-tight, 1.3);
+}
+.v3-answer-block__text {
+  font-size: var(--ce-fz-base, 15px);
+  color: var(--ce-text-soft, #444);
+  line-height: var(--ce-lh-base, 1.65);
+}
+.v3-answer-block__text p {
+  margin: 0 0 var(--ce-space-3, 12px);
+}
+.v3-answer-block__facts {
+  margin: var(--ce-space-3, 12px) 0 0;
+  padding-left: var(--ce-space-5, 20px);
+}
+.v3-answer-block__facts li {
+  margin-bottom: var(--ce-space-1, 4px);
+  line-height: 1.5;
+}
+.v3-answer-block__source {
+  font-size: var(--ce-fz-xs, 12px);
+  color: var(--ce-muted, #999);
+  margin: var(--ce-space-4, 16px) 0 0;
+  font-style: italic;
+}
+
+/* ── Voice Search Q&A ──────────────────────────────────────── */
+.v3-voice-qa {
+  padding: var(--ce-space-10, 40px) 0;
+}
+.v3-voice-qa__list {
+  display: grid;
+  gap: var(--ce-space-5, 20px);
+  max-width: 800px;
+  margin: 0 auto;
+}
+.v3-voice-qa__item {
+  background: #fff;
+  border: 1px solid rgba(0,0,0,.06);
+  border-radius: var(--ce-r-md, 10px);
+  padding: var(--ce-space-5, 20px) var(--ce-space-6, 24px);
+  box-shadow: var(--ce-sh-xs, 0 1px 3px rgba(0,0,0,.06));
+  transition: box-shadow 0.2s ease;
+}
+.v3-voice-qa__item:hover {
+  box-shadow: var(--ce-sh-sm, 0 2px 8px rgba(0,0,0,.1));
+}
+.v3-voice-qa__question {
+  font-size: var(--ce-fz-base, 15px);
+  font-weight: var(--ce-fw-bold, 700);
+  color: var(--ce-text, #1a1a1a);
+  margin: 0 0 var(--ce-space-2, 8px);
+  line-height: var(--ce-lh-tight, 1.3);
+}
+.v3-voice-qa__question::before {
+  content: '🎤 ';
+  font-size: 0.9em;
+}
+.v3-voice-qa__answer p {
+  font-size: var(--ce-fz-sm, 14px);
+  color: var(--ce-text-soft, #444);
+  line-height: var(--ce-lh-base, 1.65);
+  margin: 0;
 }

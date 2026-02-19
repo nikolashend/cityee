@@ -34,7 +34,14 @@
 <link rel="preload" href="/assets/templates/offshors/fonts/PTSansNarrow-Regular.woff2" as="font" type="font/woff2" crossorigin>
 
 {{-- Canonical + Hreflang --}}
-@if (isset($pageKey))
+@if (!empty($canonicalUrl))
+<link rel="canonical" href="{{ $canonicalUrl }}">
+@if (!empty($hreflangLinks))
+@foreach ($hreflangLinks as $alt)
+<link rel="alternate" hreflang="{{ $alt['hreflang'] }}" href="{{ $alt['href'] }}">
+@endforeach
+@endif
+@elseif (isset($pageKey))
 <link rel="canonical" href="{{ \App\Support\SeoLinks::canonical($pageKey) }}">
 @foreach (\App\Support\SeoLinks::hreflang($pageKey) as $alt)
 <link rel="alternate" hreflang="{{ $alt['hreflang'] }}" href="{{ $alt['href'] }}">
@@ -46,35 +53,41 @@
 <meta property="og:title" content="@yield('title')">
 <meta property="og:description" content="@yield('description')">
 <meta property="og:type" content="website">
-@if (isset($pageKey))
+@if (!empty($canonicalUrl))
+<meta property="og:url" content="{{ $canonicalUrl }}">
+@elseif (isset($pageKey))
 <meta property="og:url" content="{{ \App\Support\SeoLinks::canonical($pageKey) }}">
 @endif
 <meta property="og:image" content="https://cityee.ee/assets/templates/offshors/img/about-foto.jpg">
 <meta property="og:locale" content="{{ $locale === 'ru' ? 'ru_EE' : ($locale === 'en' ? 'en_US' : 'et_EE') }}">
 
-{{-- Critical CSS inline — above-the-fold rendering --}}
+{{-- WebSite + SearchAction JSON-LD (global, every page) --}}
+{!! \App\Support\Schema::webSiteJsonLd() !!}
+
+{{-- Minimal critical CSS — only what the theme doesn't cover --}}
 <style>
-/* Critical: Reset + Header + Hero + Nav + Banner layout */
-*,*::before,*::after{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PT Sans Narrow',Roboto,sans-serif;-webkit-font-smoothing:antialiased;color:#333;background:#fff}img{max-width:100%;height:auto}a{text-decoration:none;color:inherit}.container{max-width:1200px;margin:0 auto;padding:0 15px}
-.header{background:#fff;position:relative;z-index:100}.header .container{display:flex;align-items:center;flex-wrap:wrap;padding:10px 15px}.header__logo{flex:0 0 auto}.logo{display:flex;align-items:center;gap:8px;text-decoration:none}.logo__img img{display:block}.logo__text{font-size:12px;text-transform:uppercase;color:#7b1f45;font-weight:600;letter-spacing:.02em;white-space:nowrap}
-.nav{background:#7b1f45}.nav .container{display:flex;align-items:center;justify-content:space-between}.nav__list{display:flex;list-style:none;margin:0;padding:0;flex-wrap:wrap}.nav__item a{display:block;padding:12px 16px;color:#fff;font-size:14px;text-transform:uppercase;letter-spacing:.04em;transition:background .2s}.nav__item a:hover,.nav__item.active a{background:rgba(255,255,255,.15)}
-.banners{position:relative;overflow:hidden}.banners__item{position:relative;background-size:cover;background-position:center;min-height:420px;display:flex;align-items:center;color:#fff}.banners__wrapp{position:relative;z-index:2;text-align:center;width:100%}.banners__title{font-size:clamp(28px,4.5vw,52px);font-weight:800;line-height:1.1;letter-spacing:-.02em;text-shadow:0 2px 16px rgba(0,0,0,.2);margin:0 0 12px}.banners__text{font-size:clamp(15px,2vw,18px);line-height:1.5;opacity:.92;max-width:640px;margin:0 auto}
-.banners__item::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(26,26,26,.55),rgba(26,26,26,.2) 60%,rgba(123,31,69,.15));z-index:1;pointer-events:none}
-.intent-buttons{display:flex;gap:14px;flex-wrap:wrap;margin-top:24px;justify-content:center}.intent-btn{display:inline-flex;align-items:center;gap:8px;padding:16px 32px;border-radius:8px;font-size:15px;font-weight:700;text-decoration:none;transition:all .25s;border:2px solid transparent;cursor:pointer}.intent-btn--primary{background:#7b1f45;color:#fff;font-size:16px;padding:18px 36px;box-shadow:0 4px 16px rgba(123,31,69,.25)}.intent-btn--secondary{background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.5)}.intent-btn--accent{background:#25D366;color:#fff}
-.hero-trust-line{display:flex;align-items:center;justify-content:center;gap:20px;margin-top:16px;flex-wrap:wrap}.hero-trust-line__item{font-size:14px;color:rgba(255,255,255,.85);display:flex;align-items:center;gap:6px}.hero-trust-line__divider{width:1px;height:16px;background:rgba(255,255,255,.3)}
-.page-title{position:relative;background-size:cover;background-position:center;min-height:260px;display:flex;align-items:center;color:#fff}.page-title::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(26,26,26,.55),rgba(26,26,26,.25));z-index:0;pointer-events:none}.page-title .container{position:relative;z-index:1}.page-title__name{font-size:clamp(28px,4.5vw,52px);font-weight:800;line-height:1.1;margin:0 0 12px}.page-title__text{font-size:clamp(15px,2vw,18px);opacity:.92;max-width:640px}
-.languages{display:flex;gap:4px}.languages a{padding:4px 10px;border-radius:4px;font-size:13px;color:rgba(255,255,255,.7)}.languages a.active{background:rgba(255,255,255,.2);color:#fff}
-@media(max-width:768px){.header .container{flex-direction:column;align-items:flex-start}.nav__list{flex-direction:column;width:100%}.banners__title{font-size:24px!important}.intent-buttons{flex-direction:column;align-items:stretch}.intent-btn{justify-content:center;width:100%}}
+/* Prevent FOUC for v3 components only — theme handles all core layout */
+.intent-buttons{display:flex;gap:14px;flex-wrap:wrap;margin-top:24px;justify-content:center}
+.intent-btn{display:inline-flex;align-items:center;gap:8px;padding:16px 32px;border-radius:8px;font-size:15px;font-weight:700;text-decoration:none;transition:all .25s;border:2px solid transparent;cursor:pointer}
+.intent-btn--primary{background:#7b1f45;color:#fff;font-size:16px;padding:18px 36px;box-shadow:0 4px 16px rgba(123,31,69,.25)}
+.intent-btn--secondary{background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.5)}
+.intent-btn--accent{background:linear-gradient(135deg,#2c3e50,#3a3f47);color:#fff;border:2px solid rgba(123,31,69,.45)}
+.hero-trust-line{display:flex;align-items:center;justify-content:center;gap:20px;margin-top:16px;flex-wrap:wrap}
+.hero-trust-line__item{font-size:14px;color:rgba(255,255,255,.85);display:flex;align-items:center;gap:6px}
+.hero-trust-line__divider{width:1px;height:16px;background:rgba(255,255,255,.3)}
 </style>
 
-{{-- Non-critical CSS — deferred loading --}}
-<link rel="stylesheet" href="/assets/templates/offshors/css/style.css?v=4" media="print" onload="this.media='all'">
-<noscript><link rel="stylesheet" href="/assets/templates/offshors/css/style.css?v=4"></noscript>
+{{-- Design tokens — single source of truth for all UI variables --}}
+<link rel="stylesheet" href="/assets/css/tokens.css?v=6">
+
+{{-- Core theme CSS — loaded synchronously to prevent FOUC --}}
+<link rel="stylesheet" href="/assets/templates/offshors/css/style.css?v=4">
 <link rel="stylesheet" href="/assets/templates/offshors/css/font-awesome.min.css" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="/assets/templates/offshors/css/font-awesome.min.css"></noscript>
 <link rel="stylesheet" href="/assets/templates/offshors/css/jquery.bxslider.css" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="/assets/templates/offshors/css/jquery.bxslider.css"></noscript>
-<link href="/assets/css/cityee-v3.css?v=4" rel="stylesheet">
+<link href="/assets/css/cityee-v3.css?v=5" rel="stylesheet">
+<link href="/assets/css/cityee-v3-overrides.css?v=10" rel="stylesheet">
 
 {{-- JSON-LD --}}
 @stack('jsonld')
@@ -112,7 +125,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </style>
 
 </head>
-<body>
+<body class="v3">
 <!-- Skip to content link for accessibility -->
 <a href="#main-content" class="sr-only" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">Skip to content</a>
 <!-- Google Tag Manager (noscript) -->
@@ -149,7 +162,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <div class="header__main-phone">
       <div class="main-phone">
-        <span class="main-phone__item">{{ $co['phone_display'] }} </span>
+        <a class="main-phone__item" href="tel:{{ $co['phone'] }}">{{ $co['phone_display'] }}</a>
         <span class="main-phone__time">{{ $ui['hours'] ?? '10.00 kuni 22.00' }}</span>
         <a class="main-phone__whatsapp" href="{{ $co['whatsapp'] }}" target="_blank" rel="noopener">
     {{ $ui['call_whatsapp'] ?? "helista WhatsApp'i" }}
@@ -199,7 +212,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 @yield('content')
 </main>
 
-<footer class="footer @yield('footer_class')" role="contentinfo">>
+<footer class="footer @yield('footer_class')" role="contentinfo">
   <div class="questions">
     <p>{{ $ui['questions_call'] ?? 'Kas Teil on küsimusi? Helistage!' }} <span>{{ $co['phone_display'] }}</span>&nbsp;
     <a href="{{ route("{$locale}.sell") }}" target="_blank" onclick="if(document.location.href.match('kinnisvara-muuk|sell')){$('#feedback').trigger('click'); return false;}"><font color="#fafae6" size="5">&nbsp;&nbsp;{{ $ui['how_sell'] ?? '' }}</font></a></p>
@@ -231,10 +244,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <div class="footer__phones">
       <div class="main-phone">
-        <span class="main-phone__item">{{ $co['phone_display'] }}</span><br/>
+        <a class="main-phone__item" href="tel:{{ $co['phone'] }}">{{ $co['phone_display'] }}</a><br/>
         <a class="main-phone__whatsapp" href="{{ $co['whatsapp'] }}" target="_blank" rel="noopener">
     {{ $ui['call_whatsapp'] ?? "helista WhatsApp'i" }}
 </a>
+        <br/>
+        <a class="main-phone__telegram" href="{{ $co['telegram'] ?? 'https://t.me/kinnisvaramaakler' }}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:4px;color:#0088cc;font-size:14px;font-weight:600;margin-top:4px;">
+          <i class="fa fa-telegram" aria-hidden="true"></i> Telegram
+        </a>
       </div>
       <div class="phones"></div>
     </div>
@@ -292,7 +309,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js" defer></script>
-<script>window.jQuery || document.write('<script src="/js/jquery.2.1.3.min.js" defer><\/script>')</script>
 <script src="/assets/templates/offshors/js/main.js?v=2" defer></script>
 <script src="/assets/templates/offshors/js/jquery.bxslider.js" defer></script>
 

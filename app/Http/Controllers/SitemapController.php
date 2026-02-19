@@ -23,6 +23,7 @@ class SitemapController extends Controller
             "{$base}/sitemap-main.xml",
             "{$base}/sitemap-guides.xml",
             "{$base}/sitemap-audits.xml",
+            "{$base}/sitemap-locations.xml",
         ];
 
         $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
@@ -105,14 +106,16 @@ class SitemapController extends Controller
                     $xml .= "  <url>\n";
                     $xml .= "    <loc>{$loc}</loc>\n";
                     $xml .= "    <lastmod>" . ($guide->updated_at ?? now())->toDateString() . "</lastmod>\n";
+                    $xml .= "    <changefreq>monthly</changefreq>\n";
                     $xml .= "    <priority>{$guide->priority}</priority>\n";
 
                     // Add hreflang for all versions of this slug
+                    $hreflangCode = fn($l) => match($l) { 'et' => 'et-EE', 'ru' => 'ru-EE', 'en' => 'en-EE', default => $l };
                     foreach ($versions as $alt) {
                         $altPrefix = match ($alt->locale) {
                             'ru' => '/ru', 'en' => '/en', default => '',
                         };
-                        $xml .= '    <xhtml:link rel="alternate" hreflang="' . $alt->locale . '" href="' . $base . $altPrefix . '/guides/' . $slug . '/" />' . "\n";
+                        $xml .= '    <xhtml:link rel="alternate" hreflang="' . $hreflangCode($alt->locale) . '" href="' . $base . $altPrefix . '/guides/' . $slug . '/" />' . "\n";
                     }
                     // x-default = ET version
                     $etVersion = $versions->firstWhere('locale', 'et');
@@ -158,13 +161,15 @@ class SitemapController extends Controller
                     $xml .= "  <url>\n";
                     $xml .= "    <loc>{$loc}</loc>\n";
                     $xml .= "    <lastmod>" . ($audit->updated_at ?? now())->toDateString() . "</lastmod>\n";
+                    $xml .= "    <changefreq>monthly</changefreq>\n";
                     $xml .= "    <priority>{$audit->priority}</priority>\n";
 
+                    $hreflangCode = fn($l) => match($l) { 'et' => 'et-EE', 'ru' => 'ru-EE', 'en' => 'en-EE', default => $l };
                     foreach ($versions as $alt) {
                         $altPrefix = match ($alt->locale) {
                             'ru' => '/ru', 'en' => '/en', default => '',
                         };
-                        $xml .= '    <xhtml:link rel="alternate" hreflang="' . $alt->locale . '" href="' . $base . $altPrefix . '/audits/' . $slug . '/" />' . "\n";
+                        $xml .= '    <xhtml:link rel="alternate" hreflang="' . $hreflangCode($alt->locale) . '" href="' . $base . $altPrefix . '/audits/' . $slug . '/" />' . "\n";
                     }
                     $etVersion = $versions->firstWhere('locale', 'et');
                     if ($etVersion) {
@@ -176,6 +181,49 @@ class SitemapController extends Controller
             }
         } catch (\Exception $e) {
             // Table may not exist yet — return empty
+        }
+
+        $xml .= '</urlset>';
+
+        return response($xml, 200)->header('Content-Type', 'application/xml');
+    }
+
+    /**
+     * Locations sitemap — static location pages from config.
+     * GET /sitemap-locations.xml
+     */
+    public function locations(): Response
+    {
+        $base = self::BASE;
+        $locations = config('cityee-v3.locations', []);
+
+        $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+        $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"' . "\n";
+        $xml .= '        xmlns:xhtml="http://www.w3.org/1999/xhtml">' . "\n";
+
+        $hreflangCode = fn($l) => match($l) { 'et' => 'et-EE', 'ru' => 'ru-EE', 'en' => 'en-EE', default => $l };
+        $prefixMap = ['et' => '', 'ru' => '/ru', 'en' => '/en'];
+
+        foreach ($locations as $slug => $locData) {
+            $availableLocales = array_intersect(['et', 'ru', 'en'], array_keys($locData));
+
+            foreach ($availableLocales as $locale) {
+                $prefix = $prefixMap[$locale] ?? '';
+                $loc = "{$base}{$prefix}/locations/{$slug}/";
+
+                $xml .= "  <url>\n";
+                $xml .= "    <loc>{$loc}</loc>\n";
+                $xml .= "    <changefreq>monthly</changefreq>\n";
+                $xml .= "    <priority>0.7</priority>\n";
+
+                foreach ($availableLocales as $altLocale) {
+                    $altPrefix = $prefixMap[$altLocale] ?? '';
+                    $xml .= '    <xhtml:link rel="alternate" hreflang="' . $hreflangCode($altLocale) . '" href="' . $base . $altPrefix . '/locations/' . $slug . '/" />' . "\n";
+                }
+                $xml .= '    <xhtml:link rel="alternate" hreflang="x-default" href="' . $base . '/locations/' . $slug . '/" />' . "\n";
+
+                $xml .= "  </url>\n";
+            }
         }
 
         $xml .= '</urlset>';
@@ -201,12 +249,23 @@ class SitemapController extends Controller
         $txt .= "Disallow: /register\n";
         $txt .= "Disallow: /storage/\n";
         $txt .= "Disallow: /vendor/\n";
+        $txt .= "Disallow: /node_modules/\n";
+        $txt .= "Disallow: /resources/\n";
+        $txt .= "Disallow: /bootstrap/\n";
+        $txt .= "Disallow: /config/\n";
+        $txt .= "Disallow: /database/\n";
+        $txt .= "Disallow: /tests/\n";
+        $txt .= "Disallow: /index\n";
+        $txt .= "Disallow: /index.html\n";
+        $txt .= "Disallow: /index.php\n";
         $txt .= "Disallow: /*?sort=\n";
         $txt .= "Disallow: /*?utm_\n";
         $txt .= "Disallow: /*?trk=\n";
         $txt .= "Disallow: /*?page=\n";
         $txt .= "Disallow: /*?ref=\n";
-        $txt .= "Disallow: /*?fbclid=\n\n";
+        $txt .= "Disallow: /*?fbclid=\n";
+        $txt .= "Disallow: /*?gclid=\n";
+        $txt .= "Disallow: /*?yclid=\n\n";
         $txt .= "# AI crawlers — welcome\n";
         $txt .= "User-agent: GPTBot\n";
         $txt .= "Allow: /\n\n";
@@ -250,6 +309,9 @@ class SitemapController extends Controller
                 ['slug' => '/miks-cityee',     'key' => 'why',          'p' => '0.8', 'f' => 'monthly'],
                 ['slug' => '/audit',           'key' => 'audit',        'p' => '0.8', 'f' => 'monthly'],
                 ['slug' => '/knowledge',       'key' => 'knowledge',    'p' => '0.7', 'f' => 'monthly'],
+                ['slug' => '/dashboard',       'key' => 'dashboard',    'p' => '0.6', 'f' => 'monthly'],
+                ['slug' => '/guides',          'key' => 'guides',       'p' => '0.8', 'f' => 'weekly'],
+                ['slug' => '/audits',          'key' => 'audits',       'p' => '0.8', 'f' => 'weekly'],
             ],
             'ru' => [
                 ['slug' => '/',                'key' => 'home',         'p' => '1.0', 'f' => 'weekly'],
@@ -260,6 +322,9 @@ class SitemapController extends Controller
                 ['slug' => '/pochemu-cityee',  'key' => 'why',          'p' => '0.8', 'f' => 'monthly'],
                 ['slug' => '/audit',           'key' => 'audit',        'p' => '0.8', 'f' => 'monthly'],
                 ['slug' => '/knowledge',       'key' => 'knowledge',    'p' => '0.7', 'f' => 'monthly'],
+                ['slug' => '/dashboard',       'key' => 'dashboard',    'p' => '0.6', 'f' => 'monthly'],
+                ['slug' => '/guides',          'key' => 'guides',       'p' => '0.8', 'f' => 'weekly'],
+                ['slug' => '/audits',          'key' => 'audits',       'p' => '0.8', 'f' => 'weekly'],
             ],
             'en' => [
                 ['slug' => '/',                 'key' => 'home',         'p' => '1.0', 'f' => 'weekly'],
@@ -270,6 +335,9 @@ class SitemapController extends Controller
                 ['slug' => '/why-cityee',        'key' => 'why',          'p' => '0.8', 'f' => 'monthly'],
                 ['slug' => '/audit',             'key' => 'audit',        'p' => '0.8', 'f' => 'monthly'],
                 ['slug' => '/knowledge',         'key' => 'knowledge',    'p' => '0.7', 'f' => 'monthly'],
+                ['slug' => '/dashboard',         'key' => 'dashboard',    'p' => '0.6', 'f' => 'monthly'],
+                ['slug' => '/guides',            'key' => 'guides',       'p' => '0.8', 'f' => 'weekly'],
+                ['slug' => '/audits',            'key' => 'audits',       'p' => '0.8', 'f' => 'weekly'],
             ],
             default => [],
         };
@@ -311,14 +379,17 @@ class SitemapController extends Controller
             'why'          => ['et' => '/miks-cityee/',    'ru' => '/ru/pochemu-cityee/',  'en' => '/en/why-cityee/'],
             'audit'        => ['et' => '/audit/',          'ru' => '/ru/audit/',           'en' => '/en/audit/'],
             'knowledge'    => ['et' => '/knowledge/',      'ru' => '/ru/knowledge/',       'en' => '/en/knowledge/'],
+            'dashboard'    => ['et' => '/dashboard/',      'ru' => '/ru/dashboard/',       'en' => '/en/dashboard/'],
+            'guides'       => ['et' => '/guides/',         'ru' => '/ru/guides/',          'en' => '/en/guides/'],
+            'audits'       => ['et' => '/audits/',         'ru' => '/ru/audits/',          'en' => '/en/audits/'],
         ];
 
         $map = [];
         foreach ($pages as $key => $slugs) {
             $map[$key] = [
-                ['lang' => 'et',        'href' => $base . $slugs['et']],
-                ['lang' => 'ru',        'href' => $base . $slugs['ru']],
-                ['lang' => 'en',        'href' => $base . $slugs['en']],
+                ['lang' => 'et-EE',     'href' => $base . $slugs['et']],
+                ['lang' => 'ru-EE',     'href' => $base . $slugs['ru']],
+                ['lang' => 'en-EE',     'href' => $base . $slugs['en']],
                 ['lang' => 'x-default', 'href' => $base . $slugs['et']],
             ];
         }

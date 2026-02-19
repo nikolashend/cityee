@@ -98,7 +98,7 @@
     <h2 class="main-h2">CityEE - TEIE KINNISVARA MÜÜGIPARTNER</h2>
     <div class="row">
       <div class="col-xs-12">
-        <img  class="about__mobile-img" src="/assets/templates/offshors/img/about-foto-mobile.jpg" alt="">
+        <img  class="about__mobile-img" src="/assets/templates/offshors/img/about-foto-mobile.jpg" alt="CITY EE — kinnisvara üür" loading="lazy" width="600" height="400">
       </div>
       <div class="col-sm-6 col-xs-12">
         <p>Meie abiga on võimalik müüa kinnisvara või anda üürile kiiresti ja soodsalt, kuna me kasutame kõige tõhusamat strateegiat ja turukanaleid.</p>
@@ -106,7 +106,7 @@
         <p>Parima teenuse garanteerimiseks soovitame sõlmida meiega ainuesinduslepingu.</p>
       </div>
       <div class="col-sm-6 col-xs-12">
-        <img  class="about__desctop-img" src="/assets/templates/offshors/img/about-foto.jpg" alt="">
+        <img  class="about__desctop-img" src="/assets/templates/offshors/img/about-foto.jpg" alt="CITY EE — kinnisvara üür" loading="lazy" width="555" height="740">
       </div>
     </div>
   </article>

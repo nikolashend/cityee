@@ -58,6 +58,21 @@ class SeoLinks
                 'ru' => "{$base}/ru/knowledge/",
                 'en' => "{$base}/en/knowledge/",
             ],
+            'dashboard' => [
+                'et' => "{$base}/dashboard/",
+                'ru' => "{$base}/ru/dashboard/",
+                'en' => "{$base}/en/dashboard/",
+            ],
+            'guides' => [
+                'et' => "{$base}/guides/",
+                'ru' => "{$base}/ru/guides/",
+                'en' => "{$base}/en/guides/",
+            ],
+            'audits' => [
+                'et' => "{$base}/audits/",
+                'ru' => "{$base}/ru/audits/",
+                'en' => "{$base}/en/audits/",
+            ],
             default => throw new \InvalidArgumentException("Unknown pageKey: {$pageKey}")
         };
     }
@@ -79,9 +94,9 @@ class SeoLinks
         $urls = self::pageUrls($pageKey);
 
         return [
-            ['hreflang' => 'et', 'href' => $urls['et']],
-            ['hreflang' => 'ru', 'href' => $urls['ru']],
-            ['hreflang' => 'en', 'href' => $urls['en']],
+            ['hreflang' => 'et-EE', 'href' => $urls['et']],
+            ['hreflang' => 'ru-EE', 'href' => $urls['ru']],
+            ['hreflang' => 'en-EE', 'href' => $urls['en']],
             ['hreflang' => 'x-default', 'href' => $urls['et']],
         ];
     }

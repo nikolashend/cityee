@@ -144,6 +144,11 @@
 {{-- ═══ TRUST LAYER ═══ --}}
 @include('partials.trust-layer', ['locale' => $locale])
 
+{{-- ═══ v3: JTBD block ("For whom") ═══ --}}
+@if(!empty($homeJtbd))
+@include('components.v3.jtbd', ['v3' => ['jtbd_title' => $homeJtbd['title'], 'jtbd' => $homeJtbd['items']]])
+@endif
+
 {{-- ═══ PROBLEM → SOLUTION ═══ --}}
 @include('partials.problem-solution', ['locale' => $locale])
 
@@ -370,6 +375,24 @@
     </div>
   </div>
 </section>
+
+{{-- ═══ v3: Agent trust block ═══ --}}
+@include('components.v3.trust-agent', ['locale' => $locale])
+
+{{-- ═══ v3: AI/SGE chunks (home) ═══ --}}
+@if(!empty($homeAi))
+@include('components.v3.ai-chunks', ['v3' => $homeAi])
+@endif
+
+{{-- ═══ v3: Expanded FAQ for home ═══ --}}
+@if(!empty($homeFaq))
+@include('partials.faq', ['faq' => $homeFaq, 'faqTitle' => 'FAQ'])
+@endif
+
+{{-- ═══ v3: Forms ═══ --}}
+@include('components.v3.form-audit', ['locale' => $locale])
+@include('components.v3.form-calc', ['locale' => $locale])
+@include('components.v3.form-scripts')
 
 @endsection
 

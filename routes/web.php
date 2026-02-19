@@ -5,17 +5,21 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\GuideController;
 use App\Http\Controllers\AuditContentController;
+use App\Http\Controllers\LocationController;
 use Illuminate\Support\Facades\Route;
 
 // ─── Form submission routes (shared) ────────────────────────
 Route::post('/contact/callback', [ContactController::class, 'callback'])->name('contact.callback');
 Route::post('/contact/inquiry', [ContactController::class, 'inquiry'])->name('contact.inquiry');
+Route::post('/contact/audit-request', [ContactController::class, 'auditRequest'])->name('contact.audit-request');
+Route::post('/contact/price-calculator', [ContactController::class, 'priceCalculator'])->name('contact.price-calculator');
 
 // ─── Sitemap & robots ───────────────────────────────────────
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 Route::get('/sitemap-main.xml', [SitemapController::class, 'main'])->name('sitemap.main');
 Route::get('/sitemap-guides.xml', [SitemapController::class, 'guides'])->name('sitemap.guides');
 Route::get('/sitemap-audits.xml', [SitemapController::class, 'audits'])->name('sitemap.audits');
+Route::get('/sitemap-locations.xml', [SitemapController::class, 'locations'])->name('sitemap.locations');
 Route::get('/robots.txt', [SitemapController::class, 'robots'])->name('robots');
 
 // ─── Estonian routes (cityee.ee) — default ──────────────────
@@ -30,7 +34,9 @@ Route::get('/knowledge',         [PageController::class, 'knowledge'])->name('et
 Route::get('/dashboard',         [PageController::class, 'dashboard'])->name('et.dashboard');
 Route::get('/guides',            [GuideController::class, 'index'])->name('et.guides');
 Route::get('/guides/{slug}',     [GuideController::class, 'show'])->name('et.guides.show');
+Route::get('/audits',            [AuditContentController::class, 'index'])->name('et.audits');
 Route::get('/audits/{slug}',     [AuditContentController::class, 'show'])->name('et.audits.show');
+Route::get('/locations/{slug}',  [LocationController::class, 'show'])->name('et.location');
 
 // ─── Russian routes (/ru prefix) ────────────────────────────
 Route::prefix('ru')->group(function () {
@@ -45,7 +51,9 @@ Route::prefix('ru')->group(function () {
     Route::get('/dashboard',       [PageController::class, 'dashboard'])->defaults('locale', 'ru')->name('ru.dashboard');
     Route::get('/guides',          [GuideController::class, 'index'])->defaults('locale', 'ru')->name('ru.guides');
     Route::get('/guides/{slug}',   [GuideController::class, 'show'])->defaults('locale', 'ru')->name('ru.guides.show');
+    Route::get('/audits',          [AuditContentController::class, 'index'])->defaults('locale', 'ru')->name('ru.audits');
     Route::get('/audits/{slug}',   [AuditContentController::class, 'show'])->defaults('locale', 'ru')->name('ru.audits.show');
+    Route::get('/locations/{slug}', [LocationController::class, 'show'])->defaults('locale', 'ru')->name('ru.location');
 });
 
 // ─── English routes (/en prefix) ────────────────────────────
@@ -61,7 +69,9 @@ Route::prefix('en')->group(function () {
     Route::get('/dashboard',         [PageController::class, 'dashboard'])->defaults('locale', 'en')->name('en.dashboard');
     Route::get('/guides',            [GuideController::class, 'index'])->defaults('locale', 'en')->name('en.guides');
     Route::get('/guides/{slug}',     [GuideController::class, 'show'])->defaults('locale', 'en')->name('en.guides.show');
+    Route::get('/audits',            [AuditContentController::class, 'index'])->defaults('locale', 'en')->name('en.audits');
     Route::get('/audits/{slug}',     [AuditContentController::class, 'show'])->defaults('locale', 'en')->name('en.audits.show');
+    Route::get('/locations/{slug}',  [LocationController::class, 'show'])->defaults('locale', 'en')->name('en.location');
 });
 
 

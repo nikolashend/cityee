@@ -50,11 +50,14 @@ class PageController extends Controller
         $ui     = $this->ui($locale);
 
         return view('pages.home', [
-            'locale'  => $locale,
-            't'       => $t,
-            'ui'      => $ui,
-            'nav'     => $this->nav($locale),
-            'pageKey' => 'home',
+            'locale'   => $locale,
+            't'        => $t,
+            'ui'       => $ui,
+            'nav'      => $this->nav($locale),
+            'pageKey'  => 'home',
+            'homeFaq'  => config("cityee-v3.home_faq.{$locale}", []),
+            'homeJtbd' => config("cityee-v3.home_jtbd.{$locale}", []),
+            'homeAi'   => config("cityee-v3.home_ai.{$locale}", []),
         ]);
     }
 
@@ -65,12 +68,14 @@ class PageController extends Controller
         $t      = $this->texts('sell', $locale);
         $ui     = $this->ui($locale);
 
-        return view('pages.service', [
+        return view('pages.service-v3', [
             'locale'  => $locale,
             't'       => $t,
             'ui'      => $ui,
             'nav'     => $this->nav($locale),
             'pageKey' => 'sell',
+            'v3'      => config("cityee-v3.sell.{$locale}", []),
+            'v3Faq'   => config("cityee-v3.sell_faq.{$locale}", []),
         ]);
     }
 
@@ -81,12 +86,14 @@ class PageController extends Controller
         $t      = $this->texts('rent', $locale);
         $ui     = $this->ui($locale);
 
-        return view('pages.service', [
+        return view('pages.service-v3', [
             'locale'  => $locale,
             't'       => $t,
             'ui'      => $ui,
             'nav'     => $this->nav($locale),
             'pageKey' => 'rent',
+            'v3'      => config("cityee-v3.rent.{$locale}", []),
+            'v3Faq'   => config("cityee-v3.rent_faq.{$locale}", []),
         ]);
     }
 
@@ -97,12 +104,14 @@ class PageController extends Controller
         $t      = $this->texts('consultation', $locale);
         $ui     = $this->ui($locale);
 
-        return view('pages.consultation', [
+        return view('pages.service-v3', [
             'locale'  => $locale,
             't'       => $t,
             'ui'      => $ui,
             'nav'     => $this->nav($locale),
             'pageKey' => 'consultation',
+            'v3'      => config("cityee-v3.consultation.{$locale}", []),
+            'v3Faq'   => config("cityee-v3.consultation_faq.{$locale}", []),
         ]);
     }
 
@@ -114,11 +123,12 @@ class PageController extends Controller
         $ui     = $this->ui($locale);
 
         return view('pages.contacts', [
-            'locale'  => $locale,
-            't'       => $t,
-            'ui'      => $ui,
-            'nav'     => $this->nav($locale),
-            'pageKey' => 'contacts',
+            'locale'      => $locale,
+            't'           => $t,
+            'ui'          => $ui,
+            'nav'         => $this->nav($locale),
+            'pageKey'     => 'contacts',
+            'contactsFaq' => config("cityee-v3.contacts_faq.{$locale}", []),
         ]);
     }
 

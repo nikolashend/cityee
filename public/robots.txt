@@ -10,12 +10,23 @@ Disallow: /login
 Disallow: /register
 Disallow: /storage/
 Disallow: /vendor/
+Disallow: /node_modules/
+Disallow: /resources/
+Disallow: /bootstrap/
+Disallow: /config/
+Disallow: /database/
+Disallow: /tests/
+Disallow: /index
+Disallow: /index.html
+Disallow: /index.php
 Disallow: /*?sort=
 Disallow: /*?utm_
 Disallow: /*?trk=
 Disallow: /*?page=
 Disallow: /*?ref=
 Disallow: /*?fbclid=
+Disallow: /*?gclid=
+Disallow: /*?yclid=
 
 # AI crawlers — welcome
 User-agent: GPTBot

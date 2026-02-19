@@ -127,7 +127,7 @@
     <h2 class="main-h2">CityEE - Teie Kinnisvara Müügipartner</h2>
     <div class="row">
       <div class="col-xs-12">
-        <img  class="about__mobile-img" src="/assets/templates/offshors/img/about-foto-mobile.jpg" alt="">
+        <img  class="about__mobile-img" src="/assets/templates/offshors/img/about-foto-mobile.jpg" alt="CITY EE — kinnisvaramaakler Tallinnas" loading="lazy" width="600" height="400">
       </div>
       <div class="col-sm-6 col-xs-12">
         <p>Meie abiga on võimalik müüa kinnisvara või anda üürile kiiresti ja soodsalt, kuna me kasutame kõige tõhusamat strateegiat ja turukanaleid.</p>
@@ -135,7 +135,7 @@
         <p>Parima teenuse garanteerimiseks soovitame sõlmida meiega ainuesinduslepingu.</p>
       </div>
       <div class="col-sm-6 col-xs-12">
-        <img  class="about__desctop-img" src="/assets/templates/offshors/img/about-foto.jpg" alt="">
+        <img  class="about__desctop-img" src="/assets/templates/offshors/img/about-foto.jpg" alt="CITY EE — kinnisvaramaakler Tallinnas" loading="lazy" width="555" height="740">
       </div>
     </div>
   </article>
@@ -181,7 +181,7 @@
   <h2 class="main-h2 bordeless">SOOVID TULEMUST?
     <small style="display: block; text-transform: none; font-size: 17px; margin-bottom: 15px;">Väga professionaalne ja kiire teenindus!</small>
   </h2>
-  <div class="text-center" style="margin-bottom: 7px;"><img src="/assets/templates/offshors/img/ap1.png" width="240" /></div>
+  <div class="text-center" style="margin-bottom: 7px;"><img src="/assets/templates/offshors/img/ap1.png" width="240" height="320" alt="Aleksandr Primakov — maakler CITY EE Tallinn" loading="lazy" /></div>
   <div class="text-center">
     <div style="color:#7b1f45; font-weight: bold;">Aleksandr Primakov</div>
     <div style="color: #777777; margin-bottom: 15px">Maakler | CITYEE Tallinn</div>

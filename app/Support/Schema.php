@@ -60,6 +60,7 @@ class Schema
                 'https://www.instagram.com/cityee_ee/',
                 'https://www.linkedin.com/in/kinnisvaramaakler/',
                 'https://t.me/kinnisvaramaakler',
+                'https://g.page/cityee',
             ],
             'founder' => ['@id' => 'https://cityee.ee/#alex'],
             'employee' => ['@id' => 'https://cityee.ee/#alex'],
@@ -73,12 +74,13 @@ class Schema
             'knowsLanguage' => ['et', 'ru', 'en'],
             'knowsAbout' => [
                 'Property sale strategy in Tallinn & Harjumaa',
-                'Tallinn real estate market analysis',
-                'Harjumaa property prices',
-                'Real estate negotiation',
-                'Property audit and valuation',
+                'Tallinn real estate market analysis 2026',
+                'Harjumaa property prices 2026',
+                'Real estate negotiation strategy',
+                'Property audit and market valuation',
                 'Rental market analysis in Tallinn',
                 'Real estate deal optimization',
+                'Strategic real estate partnership',
             ],
             'aggregateRating' => [
                 '@type'       => 'AggregateRating',
@@ -111,13 +113,15 @@ class Schema
                 'https://www.facebook.com/cityee.ee',
                 'https://www.instagram.com/cityee_ee/',
                 'https://t.me/kinnisvaramaakler',
+                'https://g.page/cityee',
             ],
             'knowsAbout' => [
                 'Property sale strategy in Tallinn & Harjumaa',
-                'Real estate market analysis',
-                'Property valuation',
-                'Real estate negotiation',
+                'Real estate market analysis 2026',
+                'Property valuation and market audit',
+                'Real estate negotiation strategy',
                 'Rental property management',
+                'Strategic real estate partnership',
             ],
             'knowsLanguage' => ['et', 'ru', 'en'],
         ];
@@ -135,7 +139,30 @@ class Schema
             'url'      => $url,
             'speakable' => [
                 '@type'       => 'SpeakableSpecification',
-                'cssSelector' => ['.ai-summary', '.page-title__name', '.banners__title'],
+                'cssSelector' => ['.ai-summary-box', '.guide-quick-answer', '.guide-takeaways-box', '.page-title__name', '.banners__title'],
+            ],
+        ];
+
+        return '<script type="application/ld+json">' . json_encode($data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) . '</script>';
+    }
+
+    /**
+     * WebSite + SearchAction JSON-LD (spec 5.4.3).
+     */
+    public static function webSiteJsonLd(): string
+    {
+        $data = [
+            '@context' => 'https://schema.org',
+            '@type'    => 'WebSite',
+            '@id'      => 'https://cityee.ee/#website',
+            'name'     => 'CityEE',
+            'url'      => 'https://cityee.ee',
+            'publisher' => ['@id' => 'https://cityee.ee/#org'],
+            'inLanguage' => ['et', 'ru', 'en'],
+            'potentialAction' => [
+                '@type'       => 'SearchAction',
+                'target'      => 'https://cityee.ee/guides?q={search_term_string}',
+                'query-input' => 'required name=search_term_string',
             ],
         ];
 

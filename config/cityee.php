@@ -187,6 +187,15 @@ return [
                 ['q' => 'Mis on CityEE maaklertasu?', 'a' => 'Ainuesinduslepingu korral on vahendustasu ainult 2% müügihinnast. Standardtasu on 2–5% tehingusummast.'],
                 ['q' => 'Kas tasuta kinnisvara hindamine on võimalik?', 'a' => 'Jah, ainuesinduslepingu sõlmimisel (vähemalt 3 kuuks) pakume tasuta kinnisvara hindamist.'],
             ],
+            'answer_block' => [
+                'question' => 'Kuidas müüa kinnisvara Tallinnas parima hinnaga?',
+                'answer'   => 'CityEE teostab turuhinna auditi, töötab välja hinnastrateegia, leiab õiged reklaamikanalid ja juhib läbirääkimisi kuni notarini. Keskmine müügiaeg on 30–45 päeva, vahendustasu alates 2%.',
+                'bullets'  => ['Turuhinna audit ja strateegia', 'Professionaalsed fotod ja reklaam', 'Läbirääkimised ostjatega', 'Juriidiline kontroll kuni notarini'],
+            ],
+            'voice_qa' => [
+                ['q' => 'Kui palju maksab kinnisvara müük Tallinnas?', 'a' => 'CityEE maakleritasu on 2–5% tehingusummast. Ainuesinduslepinguga saab minimaaltasu 2%. Hindamine ja esimene konsultatsioon on tasuta.'],
+                ['q' => 'Kui kiiresti müüb CityEE korteri?', 'a' => 'Keskmine müügiaeg on 30–45 päeva. Õige hinnastrateegia ja aktiivse reklaami korral on tulemus tihti kiirem — 2–3 nädalat.'],
+            ],
         ],
         'ru' => [
             'meta_title'       => 'Продать недвижимость в Таллинне | Аудит цены и стратегия | CityEE',
@@ -217,6 +226,15 @@ return [
                 ['q' => 'Какова комиссия CityEE?', 'a' => 'При эксклюзивном договоре комиссия составляет всего 2% от цены продажи. Стандартная комиссия — 2–5% от суммы сделки.'],
                 ['q' => 'Возможна ли бесплатная оценка недвижимости?', 'a' => 'Да, при заключении эксклюзивного договора (минимум на 3 месяца) мы предлагаем бесплатную оценку недвижимости.'],
             ],
+            'answer_block' => [
+                'question' => 'Как продать недвижимость в Таллинне по лучшей цене?',
+                'answer'   => 'CityEE проводит аудит рыночной цены, разрабатывает стратегию ценообразования, находит правильные рекламные каналы и ведёт переговоры до нотариуса. Среднее время продажи — 30–45 дней, комиссия от 2%.',
+                'bullets'  => ['Аудит рыночной цены и стратегия', 'Профессиональные фото и реклама', 'Переговоры с покупателями', 'Юридический контроль до нотариуса'],
+            ],
+            'voice_qa' => [
+                ['q' => 'Сколько стоит продать квартиру в Таллинне?', 'a' => 'Комиссия маклера CityEE — 2–5% от суммы сделки. При эксклюзивном договоре — всего 2%. Оценка и первая консультация бесплатно.'],
+                ['q' => 'Как быстро CityEE продаёт квартиру?', 'a' => 'Среднее время продажи — 30–45 дней. При правильной стратегии и активной рекламе результат часто быстрее — 2–3 недели.'],
+            ],
         ],
         'en' => [
             'meta_title'       => 'Sell Property in Tallinn | Price Audit & Strategy | CityEE',
@@ -246,6 +264,15 @@ return [
                 ['q' => 'How long does it take to sell property?', 'a' => 'The average selling time is 1–1.5 months depending on the property and market price.'],
                 ['q' => 'What is CityEE\'s commission?', 'a' => 'With an exclusive agreement, the commission is only 2% of the selling price. The standard commission is 2–5% of the transaction amount.'],
                 ['q' => 'Is a free property valuation available?', 'a' => 'Yes, when signing an exclusive agreement (minimum 3 months), we offer a free property valuation.'],
+            ],
+            'answer_block' => [
+                'question' => 'How to sell property in Tallinn at the best price?',
+                'answer'   => 'CityEE conducts a market price audit, develops a pricing strategy, selects optimal advertising channels, and manages negotiations through to the notary. Average selling time is 30–45 days, commission from 2%.',
+                'bullets'  => ['Market price audit and strategy', 'Professional photos and advertising', 'Buyer negotiations', 'Legal control through to notary'],
+            ],
+            'voice_qa' => [
+                ['q' => 'How much does it cost to sell an apartment in Tallinn?', 'a' => 'CityEE broker commission is 2–5% of the transaction amount. With an exclusive agreement — just 2%. Valuation and first consultation are free.'],
+                ['q' => 'How fast does CityEE sell apartments?', 'a' => 'Average selling time is 30–45 days. With the right strategy and active marketing, results are often faster — 2–3 weeks.'],
             ],
         ],
     ],
@@ -280,6 +307,14 @@ return [
                 ['q' => 'Mis maksab üürniku otsimise teenus?', 'a' => 'Tavaliselt ühe kuu üüritasu, sisaldab üürniku taustauuringut ja lepingu koostamist.'],
                 ['q' => 'Kuidas kontrollitakse üürnikku?', 'a' => 'Teostame kliendi andmete ja tausta kontroll, et tagada usaldusväärne üürnik.'],
             ],
+            'answer_block' => [
+                'question' => 'Kuidas anda kinnisvara üürile Tallinnas turvaliselt?',
+                'answer'   => 'CityEE aitab arvutada üüritootluse, määrata õige üürihinna, leida usaldusväärne üürnik ja koostada juriidiliselt korrektne leping. Teenus sisaldab üürniku taustauuringut ja täielikku dokumentatsiooni.',
+                'bullets'  => ['Üüritootluse arvutamine', 'Õige üürihinna määramine', 'Üürniku taustauuringud', 'Juriidiliselt korrektne leping'],
+            ],
+            'voice_qa' => [
+                ['q' => 'Kui palju maksab kinnisvara üürile andmine Tallinnas?', 'a' => 'CityEE üürniku otsimise teenus on tavaliselt ühe kuu üüritasu. See sisaldab taustauuringut, professionaalseid fotosid ja lepingu koostamist.'],
+            ],
         ],
         'ru' => [
             'meta_title'       => 'Сдать недвижимость в Таллинне | Надёжный арендатор | CityEE',
@@ -309,6 +344,14 @@ return [
                 ['q' => 'Сколько стоит услуга поиска арендатора?', 'a' => 'Обычно стоимость одного месяца аренды, включая проверку арендатора и составление договора.'],
                 ['q' => 'Как проверяется арендатор?', 'a' => 'Мы проводим проверку данных и репутации клиента для обеспечения надёжности арендатора.'],
             ],
+            'answer_block' => [
+                'question' => 'Как безопасно сдать недвижимость в аренду в Таллинне?',
+                'answer'   => 'CityEE рассчитывает арендную доходность, определяет правильную цену аренды, находит надёжного арендатора и составляет юридически корректный договор. Услуга включает проверку арендатора и полную документацию.',
+                'bullets'  => ['Расчёт арендной доходности', 'Определение правильной цены', 'Проверка арендатора', 'Юридически корректный договор'],
+            ],
+            'voice_qa' => [
+                ['q' => 'Сколько стоит сдать квартиру в аренду в Таллинне?', 'a' => 'Услуга CityEE по поиску арендатора стоит обычно одну месячную аренду. Включает проверку арендатора, профессиональные фото и составление договора.'],
+            ],
         ],
         'en' => [
             'meta_title'       => 'Rent Out Property in Tallinn | Reliable Tenant | CityEE',
@@ -337,6 +380,14 @@ return [
             'faq' => [
                 ['q' => 'How much does the tenant search service cost?', 'a' => 'Typically one month\'s rent, including tenant background check and lease agreement preparation.'],
                 ['q' => 'How is the tenant verified?', 'a' => 'We conduct thorough background and data checks to ensure a reliable tenant.'],
+            ],
+            'answer_block' => [
+                'question' => 'How to safely rent out property in Tallinn?',
+                'answer'   => 'CityEE calculates rental yield, determines the right rental price, finds a reliable tenant, and prepares a legally correct lease agreement. The service includes tenant background checks and full documentation.',
+                'bullets'  => ['Rental yield calculation', 'Correct rental pricing', 'Tenant background checks', 'Legally correct lease agreement'],
+            ],
+            'voice_qa' => [
+                ['q' => 'How much does it cost to rent out an apartment in Tallinn?', 'a' => 'CityEE tenant search service typically costs one month\'s rent. Includes background checks, professional photos, and lease preparation.'],
             ],
         ],
     ],

@@ -107,4 +107,86 @@ class ContactController extends Controller
             return response()->json('Viga saatmisel / Ошибка отправки', 500);
         }
     }
+
+    /**
+     * Audit request form (v3)
+     */
+    public function auditRequest(Request $request)
+    {
+        $validated = $request->validate([
+            'link'     => 'nullable|url|max:500',
+            'district' => 'nullable|string|max:255',
+            'type'     => 'required|in:apartment,house,commercial',
+            'goal'     => 'required|in:sell,rent',
+            'contact'  => 'required|string|max:255',
+            'language' => 'nullable|in:et,ru,en',
+            'locale'   => 'nullable|string|max:5',
+        ]);
+
+        try {
+            $subject = "Audit Request / Auditi päring — cityee.ee";
+            $message = "New audit request from cityee.ee\n\n";
+            $message .= "Link: " . ($validated['link'] ?? '-') . "\n";
+            $message .= "District: " . ($validated['district'] ?? '-') . "\n";
+            $message .= "Type: " . $validated['type'] . "\n";
+            $message .= "Goal: " . $validated['goal'] . "\n";
+            $message .= "Contact: " . $validated['contact'] . "\n";
+            $message .= "Language: " . ($validated['language'] ?? '-') . "\n";
+
+            $headers  = "From: cityee.ee <noreply@cityee.ee>\r\n";
+            $headers .= "Content-type: text/plain; charset=utf-8\r\n";
+
+            $mailSent = mail("info@cityee.ee", $subject, $message, $headers);
+
+            Log::channel('single')->info('Audit Request', $validated + ['mail_sent' => $mailSent]);
+
+            return $mailSent
+                ? response()->json('OK')
+                : response()->json('Error', 500);
+        } catch (\Exception $e) {
+            Log::error('Audit Request Error: ' . $e->getMessage());
+            return response()->json('Error', 500);
+        }
+    }
+
+    /**
+     * Price calculator form (v3)
+     */
+    public function priceCalculator(Request $request)
+    {
+        $validated = $request->validate([
+            'address'   => 'required|string|max:500',
+            'area'      => 'nullable|numeric|min:1',
+            'rooms'     => 'nullable|integer|min:1|max:20',
+            'floor'     => 'nullable|string|max:50',
+            'condition' => 'nullable|string|max:100',
+            'contact'   => 'required|string|max:255',
+            'locale'    => 'nullable|string|max:5',
+        ]);
+
+        try {
+            $subject = "Price Calculator / Hinnakalkulaator — cityee.ee";
+            $message = "New price calculator request from cityee.ee\n\n";
+            $message .= "Address: " . $validated['address'] . "\n";
+            $message .= "Area: " . ($validated['area'] ?? '-') . " m²\n";
+            $message .= "Rooms: " . ($validated['rooms'] ?? '-') . "\n";
+            $message .= "Floor: " . ($validated['floor'] ?? '-') . "\n";
+            $message .= "Condition: " . ($validated['condition'] ?? '-') . "\n";
+            $message .= "Contact: " . $validated['contact'] . "\n";
+
+            $headers  = "From: cityee.ee <noreply@cityee.ee>\r\n";
+            $headers .= "Content-type: text/plain; charset=utf-8\r\n";
+
+            $mailSent = mail("info@cityee.ee", $subject, $message, $headers);
+
+            Log::channel('single')->info('Price Calculator', $validated + ['mail_sent' => $mailSent]);
+
+            return $mailSent
+                ? response()->json('OK')
+                : response()->json('Error', 500);
+        } catch (\Exception $e) {
+            Log::error('Price Calculator Error: ' . $e->getMessage());
+            return response()->json('Error', 500);
+        }
+    }
 }
