@@ -87,7 +87,7 @@
 <link rel="stylesheet" href="/assets/templates/offshors/css/jquery.bxslider.css" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="/assets/templates/offshors/css/jquery.bxslider.css"></noscript>
 <link href="/assets/css/cityee-v3.css?v=5" rel="stylesheet">
-<link href="/assets/css/cityee-v3-overrides.css?v=12" rel="stylesheet">
+<link href="/assets/css/cityee-v3-overrides.css?v=14" rel="stylesheet">
 
 {{-- JSON-LD --}}
 @stack('jsonld')

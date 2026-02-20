@@ -45,8 +45,8 @@
 }
 /* Preserve nav / button colours — don't let generic hover leak */
 .v3 .nav__list a,
-.v3 .nav__list a:hover { color: inherit; }
-.v3 .nav__item.active a { color: inherit; }
+.v3 .nav__list a:hover { /* color: inherit; */ color: #fff}
+.v3 .nav__item.active a { /* color: inherit; */ color: #fff;}
 /* White-on-dark links keep white on hover */
 .v3 .banners a,
 .v3 .banners a:hover,
@@ -68,19 +68,23 @@
    ════════════════════════════════════════════════════════ */
 .v3 .languages {
   display: inline-flex;
-  gap: 2px;
+  gap: 1px;
   background: rgba(255,255,255,.08);
   border-radius: var(--ce-r-sm);
   padding: 2px;
+  /* Override base theme: width:160px causes overlap with last nav item */
+  width: auto !important;
+  flex-shrink: 0;
 }
 .v3 .languages a {
   border-bottom: none !important;
   border-color: transparent !important;
-  padding: var(--ce-space-1) var(--ce-space-3);
+  padding: 3px 7px;
   border-radius: var(--ce-r-sm);
   transition: background var(--ce-dur) var(--ce-ease), color var(--ce-dur) var(--ce-ease), box-shadow var(--ce-dur) var(--ce-ease);
-  font-size: var(--ce-fz-sm);
+  font-size: 13px;
   color: rgba(255,255,255,.7);
+  white-space: nowrap;
 }
 .v3 .languages a:hover {
   background: rgba(255, 255, 255, 0.15);
