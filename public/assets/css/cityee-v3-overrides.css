@@ -134,7 +134,9 @@
 }
 @media (max-width: 767px) {
   .v3 .banners__item {
-    padding-bottom: 40px;
+    /* Увеличен с 40→100px: intent-buttons переносятся на ≥2 строки,
+       advantages с белым фоном начинался раньше последней строки кнопок */
+    padding-bottom: 100px;
   }
   .v3 .advantages {
     margin-top: 0;
@@ -1402,7 +1404,42 @@
   .v3 .header__btn-wrapp { width: auto; margin: 0; }
   .v3 .header__contacts,
   .v3 .header__phones { display: none; }
-  .v3 .header { padding-bottom: 42px; }
+  /* M1+M2 FIX: nav теперь в нормальном потоке — padding-bottom не нужен */
+  .v3 .header { padding-bottom: 0 !important; }
+
+  /* M2: nav выводим как блок в потоке, не position:absolute */
+  .v3 .nav {
+    position: static !important;
+    bottom: auto !important;
+    width: 100%;
+  }
+
+  /* M1: nav .container — flexbox, hamburger справа, языки слева */
+  .v3 .nav .container {
+    display: flex !important;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+
+  /* M1: языковая панель — убираем absolute-позиционирование (F2 делал top:50%),
+     возвращаем в нормальный поток в левой части flex-ряда */
+  .v3 .languages {
+    position: static !important;
+    top: auto !important;
+    right: auto !important;
+    transform: none !important;
+    display: inline-flex !important;
+    order: 1;
+  }
+
+  /* M1: hamburger — явно в правой части flex-ряда */
+  .v3 .nav__btn {
+    order: 2;
+    flex-shrink: 0;
+  }
 }
 
 /* ── E9.10: Mobile footer — stacked, centred ──────────────── */
