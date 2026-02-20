@@ -1557,3 +1557,72 @@ html {
   }
 }
 
+/* ╔══════════════════════════════════════════════════════════════╗
+   ║  FIX — Desktop UI Bugs (Feb 2026)                           ║
+   ║  F1: v3-hero padding too small → hidden under fixed header  ║
+   ║  F2: .languages vertical alignment in nav bar               ║
+   ║  F3: sticky nav position:absolute overlaps logo             ║
+   ║  F4: footer position:absolute clips into page content       ║
+   ╚══════════════════════════════════════════════════════════════╝ */
+
+/* ── F1: Fixed header offset for subpage hero ────────────────
+   Header total height: padding-top(15) + content(~70) + padding-bottom(50) ≈ 135px
+   v3-hero had padding-top: 56px — content was hidden behind the header.
+   Location pages use inline style padding:3rem — override with !important.     ── */
+@media (min-width: 1048px) {
+  .v3 .v3-hero {
+    padding-top: 208px !important;
+  }
+}
+@media (min-width: 768px) and (max-width: 1047px) {
+  .v3 .v3-hero {
+    padding-top: 192px !important; /* header: 15+70+45=130px */
+  }
+}
+
+/* Scroll-margin: anchor links (#v3-form-audit etc.) clear the fixed header */
+@media (min-width: 768px) {
+  .v3 [id] {
+    scroll-margin-top: 140px;
+  }
+}
+
+/* ── F2: Language switcher — vertically centred in nav bar ───
+   Base: position:absolute; bottom:10px within .nav .container.
+   Change to top:50% + transform to guarantee vertical centre
+   regardless of nav item font-size / padding changes.           ── */
+.v3 .languages {
+  top: 50%;
+  bottom: auto;
+  transform: translateY(-50%);
+}
+
+/* ── F3: Sticky mode — nav flows below logo, no overlap ──────
+   Problem: .nav { position:absolute; bottom:15px } inside a
+   compact sticky header causes nav to overlap the logo area.
+   Fix: in sticky state make .nav position:relative so it stacks
+   naturally below the logo row.                                 ── */
+@media (min-width: 768px) {
+  .v3 .header.header--sticky {
+    padding-bottom: 0;
+  }
+  .v3 .header.header--sticky .nav {
+    position: relative !important;
+    bottom: auto !important;
+    padding: 3px 0;
+    margin-top: 3px;
+    background: rgba(20, 20, 20, 0.22) !important;
+  }
+}
+
+/* ── F4: Footer — restore normal document flow ───────────────
+   Original theme: .footer { position:absolute; bottom:0 }
+   This placed the footer at viewport bottom (initial containing
+   block), not page-content bottom — causing overlap on tall pages.
+   Fix: position:relative puts the footer in normal flow, after
+   all <main> content.                                           ── */
+.v3 .footer {
+  position: relative;
+  bottom: auto;
+}
+
