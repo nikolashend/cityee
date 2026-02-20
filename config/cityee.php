@@ -33,7 +33,7 @@ return [
         'name'  => 'Aleksandr Primakov',
         'email' => 'aleksandr@cityee.ee',
         'phone' => '+372 511 3411',
-        'photo' => '/assets/templates/offshors/img/ap1.png',
+        'photo' => '/assets/templates/offshors/img/ap-new.png',
     ],
 
     // ─── Per-language navigation ───────────────────────────────

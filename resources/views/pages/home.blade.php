@@ -101,7 +101,7 @@
         <div class="banners__wrapp">
           <h2 class="banners__title">{{ $t['banner2_h2'] }}<span> {{ $t['banner2_span'] }}</span></h2>
           <p class="banners__text">{!! $t['banner2_text'] !!}</p>
-          <a href="" id="feedback2" class="btn">{{ $ui['send_inquiry'] }}</a> <a href="/#spec-link" class="btn btn--spec">{{ $locale === 'en' ? 'Offers' : ($locale === 'ru' ? 'Предложения' : 'Pakkumised') }}</a>
+          <a href="" id="feedback2" class="btn">{{ $ui['send_inquiry'] }}</a> <a href="" id="feedback2b" class="btn btn--spec">{{ $locale === 'en' ? 'Order Property Review' : ($locale === 'ru' ? 'Заказать разбор объекта' : 'Telli objekti analüüs') }}</a>
         </div>
       </div>
     </li>
@@ -110,7 +110,7 @@
         <div class="banners__wrapp">
           <h2 class="banners__title">{{ $t['banner3_h2'] }}<span>{{ $t['banner3_span'] }}</span></h2>
           <p class="banners__text">{!! $t['banner3_text'] !!}</p>
-          <a href="" id="feedback3" class="btn">{{ $ui['send_inquiry'] }}</a> <a href="/#spec-link" class="btn btn--spec">{{ $locale === 'en' ? 'Offers' : ($locale === 'ru' ? 'Предложения' : 'Pakkumised') }}</a>
+          <a href="" id="feedback3" class="btn">{{ $ui['send_inquiry'] }}</a> <a href="" id="feedback3b" class="btn btn--spec">{{ $locale === 'en' ? 'Order Property Review' : ($locale === 'ru' ? 'Заказать разбор объекта' : 'Telli objekti analüüs') }}</a>
         </div>
       </div>
     </li>
@@ -234,7 +234,7 @@
   <h2 class="main-h2 bordeless">{{ $t['result_title'] }}
     <small style="display: block; text-transform: none; font-size: 17px; margin-bottom: 15px;">{{ $t['result_subtitle'] }}</small>
   </h2>
-  <div class="text-center" style="margin-bottom: 7px;"><img src="{{ $agent['photo'] }}" width="240" height="320" alt="{{ $agent['name'] }} — Real Estate Deal Optimization Partner in Tallinn & Harjumaa" loading="lazy" /></div>
+  <div class="text-center" style="margin-bottom: 7px;"><img src="/assets/templates/offshors/img/ap1.png" width="240" height="320" alt="{{ $agent['name'] }} — Real Estate Deal Optimization Partner in Tallinn & Harjumaa" loading="lazy" /></div>
   <div class="text-center">
     <div style="color:#7b1f45; font-weight: bold;">{{ $agent['name'] }}</div>
     <div style="color: #777777; margin-bottom: 15px">{{ $t['result_agent_title'] }} | CITYEE Tallinn</div>

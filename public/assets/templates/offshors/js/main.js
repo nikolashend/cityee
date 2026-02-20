@@ -51,7 +51,7 @@ $(document).ready(function () {
     return false;
   });
 
-  $("#feedback1,#feedback2,#feedback3,#feedback,.zakaz").click(function () {
+  $("#feedback1,#feedback2,#feedback2b,#feedback3,#feedback3b,#feedback,.zakaz").click(function () {
     loadPopup("#popupContact1");
     return false;
   });

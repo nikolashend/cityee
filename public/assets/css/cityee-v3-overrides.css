@@ -1558,7 +1558,9 @@ jdiv.__jivoMobileButton {
 .v3 .offers__img {
   aspect-ratio: 16 / 9;
   min-height: 180px;
-  background-size: cover;
+  background-size: auto !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
 }
 /* Agent photo explicit dimensions */
 .v3 .text-center img[alt*="Real Estate"],
@@ -1686,3 +1688,141 @@ html {
   bottom: auto;
 }
 
+
+/* ╔══════════════════════════════════════════════════════════════╗
+   ║  FIX-2 — UI Polish Batch (Feb 2026)                         ║
+   ║  P0: Logo slogan text-align                                 ║
+   ║  P1: Restore original spritesheet icons in advantages       ║
+   ║  P3: risk-reversal text lighter on dark hero                ║
+   ║  P5: problem-card__cta force white                         ║
+   ║  P6: services__img ensure visible                          ║
+   ║  P7: ai-summary::before → kratko-icon.png                  ║
+   ║  P8: about__desctop-img — prevent stretch                  ║
+   ║  P10: FAQ answer add top padding (vertical balance)         ║
+   ╚══════════════════════════════════════════════════════════════╝ */
+
+/* P0 — Logo slogan centered under logo image */
+.v3 .logo__text {
+  text-align: center;
+}
+
+/* P1 — Restore original pink spritesheet icons in advantages block
+   (override the emoji ::before approach from C7) */
+.v3 .advantages__img {
+  border-radius: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  width: 120px !important;
+  height: 120px !important;
+  font-size: 0 !important;
+}
+.v3 .advantages__img::before {
+  content: none !important;
+}
+.v3 .advantages__img--speed {
+  background-image: url('../templates/offshors/img/spritesheet.png') !important;
+  background-repeat: no-repeat !important;
+  background-position: -299px -135px !important;
+}
+.v3 .advantages__img--availability {
+  background-image: url('../templates/offshors/img/spritesheet.png') !important;
+  background-repeat: no-repeat !important;
+  background-position: -121px -5px !important;
+}
+.v3 .advantages__img--confidentiality {
+  background-image: url('../templates/offshors/img/spritesheet.png') !important;
+  background-repeat: no-repeat !important;
+  background-position: -5px -135px !important;
+}
+.v3 .advantages__img--reliability {
+  background-image: url('../templates/offshors/img/spritesheet.png') !important;
+  background-repeat: no-repeat !important;
+  background-position: -301px -5px !important;
+}
+
+/* P3 — "Без аванса..." text lighter on dark hero background */
+.v3 .banners .risk-reversal {
+  opacity: 0.75;
+}
+.v3 .banners .risk-reversal span {
+  color: rgba(255,255,255,0.85);
+}
+
+/* P5 — problem-card CTA buttons: force white text */
+.v3 .problem-card__cta,
+.v3 .problem-card__cta:hover,
+.v3 .problem-card__cta:visited,
+.v3 .problem-card__cta:focus,
+.v3 .problem-card__cta:active {
+  color: #fff !important;
+  text-decoration: none !important;
+}
+
+/* P5b — problem-card icon: ensure PNG images display correctly */
+.v3 .problem-card__icon img {
+  display: block;
+  margin: 0 auto;
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+}
+
+/* P6 — МЫ ПРЕДЛАГАЕМ: ensure services images are visible */
+.v3 .services__item .services__img {
+  height: 110px;
+  min-height: 110px;
+  flex-shrink: 0;           /* prevent flex column from collapsing the empty div */
+  flex-grow: 0;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+}
+.v3 .services__item--offshors .services__img {
+  background-image: url('../templates/offshors/img/sale1.jpg') !important;
+}
+.v3 .services__item--europe .services__img {
+  background-image: url('../templates/offshors/img/rent1.jpg') !important;
+}
+.v3 .services__item--banks .services__img {
+  background-image: url('../templates/offshors/img/banks.jpg') !important;
+}
+.v3 .services__item--offshors:hover .services__img {
+  background-image: url('../templates/offshors/img/sale2.jpg') !important;
+}
+.v3 .services__item--europe:hover .services__img {
+  background-image: url('../templates/offshors/img/rent2.jpg') !important;
+}
+.v3 .services__item--banks:hover .services__img {
+  background-image: url('../templates/offshors/img/banks1.jpg') !important;
+}
+
+/* P7 — "Кратко" block: replace emoji lightbulb with kratko-icon.png */
+.v3 .ai-summary::before {
+  content: '' !important;
+  background-image: url('../templates/offshors/img/kratko-icon.png') !important;
+  background-repeat: no-repeat !important;
+  background-size: contain !important;
+  background-position: center !important;
+  width: 36px !important;
+  height: 36px !important;
+  font-size: 0 !important;
+  padding: 0 !important;
+}
+
+/* P8 — About block image: prevent stretching/blurring */
+.v3 .about__desctop-img {
+  max-width: 100%;
+  height: auto !important;
+  object-fit: contain;
+  object-position: top;
+}
+
+/* P10 — FAQ answer: add top padding so text is vertically balanced */
+.v3 .faq-item.active .faq-answer {
+  padding-top: var(--ce-space-4) !important;
+}
+.v3 .faq-answer p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
