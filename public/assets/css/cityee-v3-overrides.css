@@ -127,6 +127,12 @@
 .v3 .banners__item {
   padding-bottom: 180px;
 }
+.v3 .banners__title,
+.v3 .banners__title span,
+.v3 .banners__text,
+.v3 .banners__text span {
+  color: #fff;
+}
 @media (max-width: 1047px) {
   .v3 .banners__item {
     padding-bottom: 140px;
