@@ -120,6 +120,11 @@
   padding-bottom: 30px;
   margin-top: -100px;
 }
+/* On service pages the advantages block follows v3-cases, not the hero — no negative margin */
+.v3 .advantages.advantages--page {
+  margin-top: 0;
+  background: var(--ce-bg);
+}
 .v3 .banners {
   overflow: visible;
   padding-bottom: 0;
@@ -551,6 +556,8 @@
 .v3 .v3-cases {
   background: var(--ce-bg-warm);
   padding: var(--ce-space-12) 0;
+  position: relative;
+  z-index: 1;
 }
 .v3 .v3-cases__grid {
   display: grid;

@@ -26,8 +26,8 @@
 
         @if(!empty($v3['cases_cta']))
         <div class="v3-cases__cta-row">
-            <a href="{{ $wa }}" target="_blank" rel="noopener" class="v3-btn v3-btn--primary">
-                <i class="fa fa-whatsapp"></i> {{ $v3['cases_cta'] }}
+            <a href="" id="feedback-cases" class="v3-btn v3-btn--primary">
+                {{ $v3['cases_cta'] }}
             </a>
         </div>
         @endif
