@@ -1157,6 +1157,19 @@
   transform: translateY(-1px);
   color: #fff !important;
 }
+/* btn--spec (Предложения / Pakkumised / Offers) — green CTA on slider */
+.v3 .btn--spec {
+  background: #1e7e47;
+  border-color: #1e7e47;
+  color: #fff !important;
+}
+.v3 .btn--spec:hover {
+  background: #166037;
+  border-color: #166037;
+  box-shadow: 0 6px 20px rgba(30,126,71,0.35);
+  transform: translateY(-2px);
+  color: #fff !important;
+}
 /* Consistent hover for ALL CTA variations */
 .v3 .btn:hover,
 .v3 .mini-btn:hover {
