@@ -60,20 +60,20 @@ class GuideController extends Controller
         // Build per-page canonical + hreflang for this specific guide
         $base = 'https://cityee.ee';
         $prefixMap = ['et' => '', 'ru' => '/ru', 'en' => '/en'];
-        $canonicalUrl = $base . ($prefixMap[$locale] ?? '') . "/guides/{$slug}/";
+        $canonicalUrl = $base . ($prefixMap[$locale] ?? '') . "/guides/{$slug}";
 
         $hreflangLinks = [];
         $hreflangCodeMap = ['et' => 'et-EE', 'ru' => 'ru-EE', 'en' => 'en-EE'];
         foreach ($alternates as $altLocale => $altGuide) {
             $hreflangLinks[] = [
                 'hreflang' => $hreflangCodeMap[$altLocale] ?? $altLocale,
-                'href'     => $base . ($prefixMap[$altLocale] ?? '') . "/guides/{$slug}/",
+                'href'     => $base . ($prefixMap[$altLocale] ?? '') . "/guides/{$slug}",
             ];
         }
         if ($alternates->has('et')) {
             $hreflangLinks[] = [
                 'hreflang' => 'x-default',
-                'href'     => $base . "/guides/{$slug}/",
+                'href'     => $base . "/guides/{$slug}",
             ];
         }
 

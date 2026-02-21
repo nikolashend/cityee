@@ -35,7 +35,11 @@ class SitemapController extends Controller
 
         $xml .= '</sitemapindex>';
 
-        return response($xml, 200)->header('Content-Type', 'application/xml');
+        return response($xml, 200)->withHeaders([
+            'Content-Type'  => 'application/xml; charset=UTF-8',
+            'Cache-Control' => 'public, max-age=3600, s-maxage=3600',
+            'X-Robots-Tag'  => 'noindex',
+        ]);
     }
 
     /**
@@ -77,7 +81,11 @@ class SitemapController extends Controller
 
         $xml .= '</urlset>';
 
-        return response($xml, 200)->header('Content-Type', 'application/xml');
+        return response($xml, 200)->withHeaders([
+            'Content-Type'  => 'application/xml; charset=UTF-8',
+            'Cache-Control' => 'public, max-age=3600, s-maxage=3600',
+            'X-Robots-Tag'  => 'noindex',
+        ]);
     }
 
     /**
@@ -101,7 +109,7 @@ class SitemapController extends Controller
                     $prefix = match ($guide->locale) {
                         'ru' => '/ru', 'en' => '/en', default => '',
                     };
-                    $loc = "{$base}{$prefix}/guides/{$slug}/";
+                    $loc = "{$base}{$prefix}/guides/{$slug}";
 
                     $xml .= "  <url>\n";
                     $xml .= "    <loc>{$loc}</loc>\n";
@@ -115,12 +123,12 @@ class SitemapController extends Controller
                         $altPrefix = match ($alt->locale) {
                             'ru' => '/ru', 'en' => '/en', default => '',
                         };
-                        $xml .= '    <xhtml:link rel="alternate" hreflang="' . $hreflangCode($alt->locale) . '" href="' . $base . $altPrefix . '/guides/' . $slug . '/" />' . "\n";
+                        $xml .= '    <xhtml:link rel="alternate" hreflang="' . $hreflangCode($alt->locale) . '" href="' . $base . $altPrefix . '/guides/' . $slug . '" />' . "\n";
                     }
                     // x-default = ET version
                     $etVersion = $versions->firstWhere('locale', 'et');
                     if ($etVersion) {
-                        $xml .= '    <xhtml:link rel="alternate" hreflang="x-default" href="' . $base . '/guides/' . $slug . '/" />' . "\n";
+                        $xml .= '    <xhtml:link rel="alternate" hreflang="x-default" href="' . $base . '/guides/' . $slug . '" />' . "\n";
                     }
 
                     $xml .= "  </url>\n";
@@ -132,7 +140,11 @@ class SitemapController extends Controller
 
         $xml .= '</urlset>';
 
-        return response($xml, 200)->header('Content-Type', 'application/xml');
+        return response($xml, 200)->withHeaders([
+            'Content-Type'  => 'application/xml; charset=UTF-8',
+            'Cache-Control' => 'public, max-age=3600, s-maxage=3600',
+            'X-Robots-Tag'  => 'noindex',
+        ]);
     }
 
     /**
@@ -156,7 +168,7 @@ class SitemapController extends Controller
                     $prefix = match ($audit->locale) {
                         'ru' => '/ru', 'en' => '/en', default => '',
                     };
-                    $loc = "{$base}{$prefix}/audits/{$slug}/";
+                    $loc = "{$base}{$prefix}/audits/{$slug}";
 
                     $xml .= "  <url>\n";
                     $xml .= "    <loc>{$loc}</loc>\n";
@@ -169,11 +181,11 @@ class SitemapController extends Controller
                         $altPrefix = match ($alt->locale) {
                             'ru' => '/ru', 'en' => '/en', default => '',
                         };
-                        $xml .= '    <xhtml:link rel="alternate" hreflang="' . $hreflangCode($alt->locale) . '" href="' . $base . $altPrefix . '/audits/' . $slug . '/" />' . "\n";
+                        $xml .= '    <xhtml:link rel="alternate" hreflang="' . $hreflangCode($alt->locale) . '" href="' . $base . $altPrefix . '/audits/' . $slug . '" />' . "\n";
                     }
                     $etVersion = $versions->firstWhere('locale', 'et');
                     if ($etVersion) {
-                        $xml .= '    <xhtml:link rel="alternate" hreflang="x-default" href="' . $base . '/audits/' . $slug . '/" />' . "\n";
+                        $xml .= '    <xhtml:link rel="alternate" hreflang="x-default" href="' . $base . '/audits/' . $slug . '" />' . "\n";
                     }
 
                     $xml .= "  </url>\n";
@@ -185,7 +197,11 @@ class SitemapController extends Controller
 
         $xml .= '</urlset>';
 
-        return response($xml, 200)->header('Content-Type', 'application/xml');
+        return response($xml, 200)->withHeaders([
+            'Content-Type'  => 'application/xml; charset=UTF-8',
+            'Cache-Control' => 'public, max-age=3600, s-maxage=3600',
+            'X-Robots-Tag'  => 'noindex',
+        ]);
     }
 
     /**
@@ -209,7 +225,7 @@ class SitemapController extends Controller
 
             foreach ($availableLocales as $locale) {
                 $prefix = $prefixMap[$locale] ?? '';
-                $loc = "{$base}{$prefix}/locations/{$slug}/";
+                $loc = "{$base}{$prefix}/locations/{$slug}";
 
                 $xml .= "  <url>\n";
                 $xml .= "    <loc>{$loc}</loc>\n";
@@ -218,9 +234,9 @@ class SitemapController extends Controller
 
                 foreach ($availableLocales as $altLocale) {
                     $altPrefix = $prefixMap[$altLocale] ?? '';
-                    $xml .= '    <xhtml:link rel="alternate" hreflang="' . $hreflangCode($altLocale) . '" href="' . $base . $altPrefix . '/locations/' . $slug . '/" />' . "\n";
+                    $xml .= '    <xhtml:link rel="alternate" hreflang="' . $hreflangCode($altLocale) . '" href="' . $base . $altPrefix . '/locations/' . $slug . '" />' . "\n";
                 }
-                $xml .= '    <xhtml:link rel="alternate" hreflang="x-default" href="' . $base . '/locations/' . $slug . '/" />' . "\n";
+                $xml .= '    <xhtml:link rel="alternate" hreflang="x-default" href="' . $base . '/locations/' . $slug . '" />' . "\n";
 
                 $xml .= "  </url>\n";
             }
@@ -228,7 +244,11 @@ class SitemapController extends Controller
 
         $xml .= '</urlset>';
 
-        return response($xml, 200)->header('Content-Type', 'application/xml');
+        return response($xml, 200)->withHeaders([
+            'Content-Type'  => 'application/xml; charset=UTF-8',
+            'Cache-Control' => 'public, max-age=3600, s-maxage=3600',
+            'X-Robots-Tag'  => 'noindex',
+        ]);
     }
 
     /**
@@ -280,7 +300,10 @@ class SitemapController extends Controller
         $txt .= "Host: cityee.ee\n\n";
         $txt .= "Sitemap: {$base}/sitemap.xml\n";
 
-        return response($txt, 200)->header('Content-Type', 'text/plain');
+        return response($txt, 200)->withHeaders([
+            'Content-Type'  => 'text/plain; charset=UTF-8',
+            'Cache-Control' => 'public, max-age=86400, s-maxage=86400',
+        ]);
     }
 
     // ──────────────────────────────────────────────
@@ -347,9 +370,12 @@ class SitemapController extends Controller
 
         foreach ($slugs as $u) {
             $loc = $base . $prefix . $u['slug'];
-            // Normalize double slashes and ensure trailing slash
-            $loc = rtrim($loc, '/') . '/';
-            $loc = str_replace('cityee.ee//', 'cityee.ee/', $loc);
+            // Collapse double slashes (except in protocol) and normalize
+            $loc = preg_replace('#(?<!:)/{2,}#', '/', $loc);
+            // Remove trailing slash unless it's the site root
+            if ($loc !== $base . '/') {
+                $loc = rtrim($loc, '/');
+            }
 
             $pages[] = [
                 'loc'        => $loc,
@@ -371,17 +397,17 @@ class SitemapController extends Controller
         $base = self::BASE;
 
         $pages = [
-            'home'         => ['et' => '/',               'ru' => '/ru/',                 'en' => '/en/'],
-            'sell'         => ['et' => '/kinnisvara-muuk/','ru' => '/ru/kinnisvara-muuk/', 'en' => '/en/sell-property/'],
-            'rent'         => ['et' => '/kinnisvara-uur/', 'ru' => '/ru/kinnisvara-uur/',  'en' => '/en/rent-out-property/'],
-            'consultation' => ['et' => '/konsultatsioon/', 'ru' => '/ru/konsultatsioon/',  'en' => '/en/consultation/'],
-            'contacts'     => ['et' => '/kontaktid/',      'ru' => '/ru/kontaktid/',       'en' => '/en/contacts/'],
-            'why'          => ['et' => '/miks-cityee/',    'ru' => '/ru/pochemu-cityee/',  'en' => '/en/why-cityee/'],
-            'audit'        => ['et' => '/audit/',          'ru' => '/ru/audit/',           'en' => '/en/audit/'],
-            'knowledge'    => ['et' => '/knowledge/',      'ru' => '/ru/knowledge/',       'en' => '/en/knowledge/'],
-            'dashboard'    => ['et' => '/dashboard/',      'ru' => '/ru/dashboard/',       'en' => '/en/dashboard/'],
-            'guides'       => ['et' => '/guides/',         'ru' => '/ru/guides/',          'en' => '/en/guides/'],
-            'audits'       => ['et' => '/audits/',         'ru' => '/ru/audits/',          'en' => '/en/audits/'],
+            'home'         => ['et' => '/',              'ru' => '/ru',                'en' => '/en'],
+            'sell'         => ['et' => '/kinnisvara-muuk','ru' => '/ru/kinnisvara-muuk','en' => '/en/sell-property'],
+            'rent'         => ['et' => '/kinnisvara-uur', 'ru' => '/ru/kinnisvara-uur', 'en' => '/en/rent-out-property'],
+            'consultation' => ['et' => '/konsultatsioon', 'ru' => '/ru/konsultatsioon', 'en' => '/en/consultation'],
+            'contacts'     => ['et' => '/kontaktid',      'ru' => '/ru/kontaktid',      'en' => '/en/contacts'],
+            'why'          => ['et' => '/miks-cityee',    'ru' => '/ru/pochemu-cityee', 'en' => '/en/why-cityee'],
+            'audit'        => ['et' => '/audit',          'ru' => '/ru/audit',          'en' => '/en/audit'],
+            'knowledge'    => ['et' => '/knowledge',      'ru' => '/ru/knowledge',      'en' => '/en/knowledge'],
+            'dashboard'    => ['et' => '/dashboard',      'ru' => '/ru/dashboard',      'en' => '/en/dashboard'],
+            'guides'       => ['et' => '/guides',         'ru' => '/ru/guides',         'en' => '/en/guides'],
+            'audits'       => ['et' => '/audits',         'ru' => '/ru/audits',         'en' => '/en/audits'],
         ];
 
         $map = [];

@@ -30,7 +30,7 @@ class LocationController extends Controller
         // Build canonical + hreflang for this location
         $base = 'https://cityee.ee';
         $prefixMap = ['et' => '', 'ru' => '/ru', 'en' => '/en'];
-        $canonicalUrl = $base . ($prefixMap[$locale] ?? '') . "/locations/{$slug}/";
+        $canonicalUrl = $base . ($prefixMap[$locale] ?? '') . "/locations/{$slug}";
 
         $hreflangLinks = [];
         $hreflangCodeMap = ['et' => 'et-EE', 'ru' => 'ru-EE', 'en' => 'en-EE'];
@@ -38,13 +38,13 @@ class LocationController extends Controller
             if (!empty($location[$altLocale])) {
                 $hreflangLinks[] = [
                     'hreflang' => $hreflangCodeMap[$altLocale],
-                    'href'     => $base . ($prefixMap[$altLocale] ?? '') . "/locations/{$slug}/",
+                    'href'     => $base . ($prefixMap[$altLocale] ?? '') . "/locations/{$slug}",
                 ];
             }
         }
         $hreflangLinks[] = [
             'hreflang' => 'x-default',
-            'href'     => $base . "/locations/{$slug}/",
+            'href'     => $base . "/locations/{$slug}",
         ];
 
         return view('pages.location', [

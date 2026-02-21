@@ -20,6 +20,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->prepend(\App\Http\Middleware\RedirectOldUrls::class);
         $middleware->web(append: [
             \App\Http\Middleware\NoIndexQueryParams::class,
+            \App\Http\Middleware\SeoHeaders::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

@@ -60,20 +60,20 @@ class AuditContentController extends Controller
         // Build per-page canonical + hreflang for this specific audit
         $base = 'https://cityee.ee';
         $prefixMap = ['et' => '', 'ru' => '/ru', 'en' => '/en'];
-        $canonicalUrl = $base . ($prefixMap[$locale] ?? '') . "/audits/{$slug}/";
+        $canonicalUrl = $base . ($prefixMap[$locale] ?? '') . "/audits/{$slug}";
 
         $hreflangLinks = [];
         $hreflangCodeMap = ['et' => 'et-EE', 'ru' => 'ru-EE', 'en' => 'en-EE'];
         foreach ($alternates as $altLocale => $altAudit) {
             $hreflangLinks[] = [
                 'hreflang' => $hreflangCodeMap[$altLocale] ?? $altLocale,
-                'href'     => $base . ($prefixMap[$altLocale] ?? '') . "/audits/{$slug}/",
+                'href'     => $base . ($prefixMap[$altLocale] ?? '') . "/audits/{$slug}",
             ];
         }
         if ($alternates->has('et')) {
             $hreflangLinks[] = [
                 'hreflang' => 'x-default',
-                'href'     => $base . "/audits/{$slug}/",
+                'href'     => $base . "/audits/{$slug}",
             ];
         }
 

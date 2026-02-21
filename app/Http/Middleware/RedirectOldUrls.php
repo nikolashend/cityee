@@ -28,18 +28,18 @@ class RedirectOldUrls
         '/xmlrpc.php'        => '/',
 
         // Old Estonian pages (if URLs changed)
-        '/teenused'          => '/kinnisvara-muuk/',
-        '/kontakt'           => '/kontaktid/',
+        '/teenused'          => '/kinnisvara-muuk',
+        '/kontakt'           => '/kontaktid',
 
         // Old Russian pages without prefix (moved to /ru/)
-        '/prodazha-nedvizhimosti' => '/ru/kinnisvara-muuk/',
-        '/arenda-nedvizhimosti'   => '/ru/kinnisvara-uur/',
+        '/prodazha-nedvizhimosti' => '/ru/kinnisvara-muuk',
+        '/arenda-nedvizhimosti'   => '/ru/kinnisvara-uur',
 
         // Old English pages without prefix (moved to /en/)
-        '/sell'         => '/en/sell-property/',
-        '/rent'         => '/en/rent-out-property/',
-        '/consultation' => '/en/consultation/',
-        '/contacts'     => '/en/contacts/',
+        '/sell'         => '/en/sell-property',
+        '/rent'         => '/en/rent-out-property',
+        '/consultation' => '/en/consultation',
+        '/contacts'     => '/en/contacts',
     ];
 
     public function handle(Request $request, Closure $next): Response
@@ -53,7 +53,7 @@ class RedirectOldUrls
 
         // 2. Strip trailing /index.php or /index.html from any path
         if (preg_match('#^(.+?)/index\.(php|html)$#', $path, $m)) {
-            $target = rtrim($m[1], '/') . '/';
+            $target = rtrim($m[1], '/') ?: '/';
             return redirect($target, 301);
         }
 
