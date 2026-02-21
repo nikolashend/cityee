@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Контакты - Маклер Таллинн')
-@section('description', 'Контактная информация агенства недвижимости CityEE в Таллинне. Адрес: Viru-väljak 2, Metro Plaza, 3 этаж. Телефон: (+372)5113411. Email: info@cityee.ee')
+@section('description', 'Контактная информация агентства недвижимости CityEE в Таллинне. Адрес: Viru väljak 2, Tallinn. Телефон: (+372)5113411. Email: info@cityee.ee')
 @section('keywords', 'контакты маклер таллинн, агенство недвижимости таллинн контакты, cityee контакты')
 @section('logo_text', 'ВАШ МАКЛЕР ПО НЕДВИЖИМОСТИ В ТАЛЛИННЕ')
 @section('lang_et_url', '/kontaktid')
@@ -34,7 +34,7 @@
     <div class="col-md-9 col-sm-9">
       <div class="content">
         <p><b class="pink">Агентство недвижимости: </b>CITY EE OÜ</p>
-        <p><b class="pink">Адрес: </b>Viru-väljak 2, Metro Plaza (3 этаж), 10111</p>
+        <p><b class="pink">Адрес: </b>Viru väljak 2, Tallinn, 10111</p>
         <p><b class="pink">Номер телефона: </b>(+372)5113411</p>
         <p><b class="pink">Телефоны для приложений: </b></p>
         <ul>

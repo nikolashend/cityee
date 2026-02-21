@@ -297,7 +297,6 @@ class SitemapController extends Controller
         $txt .= "Allow: /\n\n";
         $txt .= "User-agent: PerplexityBot\n";
         $txt .= "Allow: /\n\n";
-        $txt .= "Host: cityee.ee\n\n";
         $txt .= "Sitemap: {$base}/sitemap.xml\n";
 
         return response($txt, 200)->withHeaders([

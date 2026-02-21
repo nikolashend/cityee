@@ -251,6 +251,6 @@
 
 {{-- Geo reinforcement --}}
 <div class="container guide-geo-line">
-    <p><small>{{ $locale === 'ru' ? '📍 CityEE — Таллинн, Харьюмаа, Эстония. Viru väljak 2, Metro Plaza, 3 этаж.' : ($locale === 'en' ? '📍 CityEE — Tallinn, Harjumaa, Estonia. Viru väljak 2, Metro Plaza, 3rd floor.' : '📍 CityEE — Tallinn, Harjumaa, Eesti. Viru väljak 2, Metro Plaza, 3. korrus.') }}</small></p>
+    <p><small>{{ $locale === 'ru' ? '📍 CityEE — Таллинн, Харьюмаа, Эстония. Viru väljak 2, Tallinn 10111.' : ($locale === 'en' ? '📍 CityEE — Tallinn, Harjumaa, Estonia. Viru väljak 2, Tallinn 10111.' : '📍 CityEE — Tallinn, Harjumaa, Eesti. Viru väljak 2, Tallinn 10111.') }}</small></p>
 </div>
 @endsection

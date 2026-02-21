@@ -14,7 +14,7 @@ return [
         'phone'       => '+3725113411',
         'phone_display' => '(+372)5113411',
         'email'       => 'info@cityee.ee',
-        'address'     => 'Viru väljak 2, Metro Plaza (3. korrus)',
+        'address'     => 'Viru väljak 2',
         'city'        => 'Tallinn',
         'postal_code' => '10111',
         'region'      => 'Harjumaa',

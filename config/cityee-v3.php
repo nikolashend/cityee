@@ -738,7 +738,7 @@ return [
     // ══════════════════════════════════════════════════════════
     'contacts_faq' => [
         'et' => [
-            ['q' => 'Kus asub CityEE kontor?', 'a' => 'Viru väljak 2, Metro Plaza (3. korrus), Tallinn 10111. Kesklinnas, Viru keskuse kõrval.'],
+            ['q' => 'Kus asub CityEE kontor?', 'a' => 'Viru väljak 2, Tallinn 10111. Kesklinnas, Viru keskuse kõrval.'],
             ['q' => 'Millal saab helistada?', 'a' => 'Kell 10.00–22.00 iga päev. Samuti saab kirjutada WhatsAppi või Telegrami.'],
             ['q' => 'Kui kiiresti vastatakse?', 'a' => 'WhatsApp ja Telegram — tavaliselt 1–2 tunni jooksul. E-mail — samal tööpäeval.'],
             ['q' => 'Kas saab kohtuda kontoris?', 'a' => 'Jah, broneerimine telefoni, WhatsAppi, e-maili või Telegrami teel.'],
@@ -746,7 +746,7 @@ return [
             ['q' => 'Millistes keeltes teenindatakse?', 'a' => 'Eesti, vene ja inglise keeles.'],
         ],
         'ru' => [
-            ['q' => 'Где находится офис CityEE?', 'a' => 'Viru väljak 2, Metro Plaza (3 этаж), Tallinn 10111. В центре, рядом с Viru Keskus.'],
+            ['q' => 'Где находится офис CityEE?', 'a' => 'Viru väljak 2, Tallinn 10111. В центре, рядом с Viru Keskus.'],
             ['q' => 'Когда можно звонить?', 'a' => 'С 10:00 до 22:00 каждый день. Также можно писать в WhatsApp или Telegram.'],
             ['q' => 'Как быстро отвечаете?', 'a' => 'WhatsApp и Telegram — обычно в течение 1–2 часов. Email — в тот же рабочий день.'],
             ['q' => 'Можно встретиться в офисе?', 'a' => 'Да, запись по телефону, WhatsApp, email или Telegram.'],
@@ -756,7 +756,7 @@ return [
             ['q' => 'Работаете ли вы по выходным?', 'a' => 'Да, показы и консультации доступны в том числе в выходные по записи.'],
         ],
         'en' => [
-            ['q' => 'Where is the CityEE office?', 'a' => 'Viru väljak 2, Metro Plaza (3rd floor), Tallinn 10111. City Centre, near Viru Keskus.'],
+            ['q' => 'Where is the CityEE office?', 'a' => 'Viru väljak 2, Tallinn 10111. City Centre, near Viru Keskus.'],
             ['q' => 'When can I call?', 'a' => 'From 10:00 to 22:00 every day. You can also message via WhatsApp or Telegram.'],
             ['q' => 'How fast do you respond?', 'a' => 'WhatsApp and Telegram — usually within 1–2 hours. Email — same business day.'],
             ['q' => 'Can we meet at the office?', 'a' => 'Yes, by appointment via phone, WhatsApp, email or Telegram.'],

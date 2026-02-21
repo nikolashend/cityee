@@ -80,9 +80,9 @@ $cards = [
         'route' => route("{$locale}.contacts"),
         'title' => ['et' => 'Kontaktid', 'ru' => 'Контакты', 'en' => 'Contacts'],
         'desc' => [
-            'et' => 'Metro Plaza, Tallinn. Kättesaadav 10:00–22:00, WhatsApp, Telegram.',
-            'ru' => 'Metro Plaza, Tallinn. Доступен 10:00–22:00, WhatsApp, Telegram.',
-            'en' => 'Metro Plaza, Tallinn. Available 10:00–22:00, WhatsApp, Telegram.',
+            'et' => 'Viru väljak 2, Tallinn. Kättesaadav 10:00–22:00, WhatsApp, Telegram.',
+            'ru' => 'Viru väljak 2, Tallinn. Доступен 10:00–22:00, WhatsApp, Telegram.',
+            'en' => 'Viru väljak 2, Tallinn. Available 10:00–22:00, WhatsApp, Telegram.',
         ],
     ],
     // ── Knowledge Machine: Guides & Strategy Cards ──

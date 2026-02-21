@@ -30,7 +30,7 @@ class Schema
             'email'     => 'info@cityee.ee',
             'address'   => [
                 '@type'           => 'PostalAddress',
-                'streetAddress'   => 'Viru väljak 2, Metro Plaza (3. korrus)',
+                'streetAddress'   => 'Viru väljak 2',
                 'addressLocality' => 'Tallinn',
                 'postalCode'      => '10111',
                 'addressRegion'   => 'Harjumaa',

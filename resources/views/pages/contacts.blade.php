@@ -38,7 +38,7 @@
     <div class="col-md-9 col-sm-9">
       <div class="content">
         <p><b class="pink">{{ $t['office_label'] }} </b>{{ $co['name'] }}</p>
-        <p><b class="pink">{{ $t['address_label'] }} </b>Viru-väljak 2, Metro Plaza (3 Korrus), {{ $co['city'] }}, {{ $co['postal_code'] }}</p>
+        <p><b class="pink">{{ $t['address_label'] }} </b>Viru väljak 2, {{ $co['city'] }}, {{ $co['postal_code'] }}</p>
         <p><b class="pink">{{ $t['phone_label'] }} </b>{{ $co['phone_display'] }}</p>
         <p><b class="pink">{{ $t['app_phones'] }} </b></p>
         <ul>

@@ -34,7 +34,7 @@
     <div class="col-md-9 col-sm-9">
       <div class="content">
         <p><b class="pink">Kinnisvarabüroo: </b>CITY EE OÜ</p>
-        <p><b class="pink">Aadres: </b>Viru-väljak 2, Metro Plaza (3 Korrus), Tallinn, 10111</p>
+        <p><b class="pink">Aadres: </b>Viru väljak 2, Tallinn, 10111</p>
         <p><b class="pink">Telefoni number: </b>(+372)5113411</p>
         <p><b class="pink">Rakenduste telefonid: </b></p>
         <ul>
