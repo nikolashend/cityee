@@ -45,8 +45,14 @@
 }
 /* Preserve nav / button colours — don't let generic hover leak */
 .v3 .nav__list a,
-.v3 .nav__list a:hover { /* color: inherit; */ color: #fff}
-.v3 .nav__item.active a { /* color: inherit; */ color: #fff;}
+.v3 .nav__list a:hover { color: #fff; }
+.v3 .nav__item.active a { color: #fff; }
+/* Mobile: dropdown has white bg — restore dark text so it's readable */
+@media (max-width: 767px) {
+  .v3 .nav__list a,
+  .v3 .nav__list a:hover { color: #333333 !important; }
+  .v3 .nav__item.active a { color: #333333 !important; }
+}
 /* White-on-dark links keep white on hover */
 .v3 .banners a,
 .v3 .banners a:hover,
