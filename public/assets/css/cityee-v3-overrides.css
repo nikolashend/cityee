@@ -750,6 +750,7 @@
 /* ── Responsive (token-ised) ────────────────────────────── */
 @media (max-width: 768px) {
   .v3 .v3-hero { padding: 36px 0 var(--ce-space-8); }
+  .v3 .v3-hero { padding-top: 308px !important;}
   .v3 .v3-hero__ctas { flex-direction: column; }
   .v3 .v3-hero__trust { flex-direction: column; gap: var(--ce-space-2); }
   .v3 .v3-trust-agent__inner { flex-direction: column; align-items: center; text-align: center; }
