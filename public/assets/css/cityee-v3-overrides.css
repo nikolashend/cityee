@@ -1816,13 +1816,31 @@ html {
   font-size: 0 !important;
   padding: 0 !important;
 }
+/* Mobile: push icon fully above the box so it doesn't bleed onto the text */
+@media (max-width: 768px) {
+  .v3 .ai-summary {
+    padding-top: 30px !important;
+    margin-top: 28px !important;
+  }
+  .v3 .ai-summary::before {
+    top: -18px !important;
+    left: 12px !important;
+  }
+}
 
-/* P8 — About block image: prevent stretching/blurring */
+/* P8 — About block images: prevent stretching/blurring */
 .v3 .about__desctop-img {
   max-width: 100%;
   height: auto !important;
   object-fit: contain;
   object-position: top;
+}
+.v3 .about__mobile-img {
+  max-width: 100%;
+  height: auto !important;
+  object-fit: contain;
+  object-position: top;
+  display: block;
 }
 
 /* P10 — FAQ answer: add top padding so text is vertically balanced */

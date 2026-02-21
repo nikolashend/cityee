@@ -614,7 +614,7 @@
     gap: 0;
     border-radius: 0;
     padding: 0;
-    box-shadow: 0 -2px 12px rgba(0,0,0,0.15);
+    /* box-shadow: 0 -2px 12px rgba(0,0,0,0.15); */
   }
   .sticky-btn {
     flex: 1;
