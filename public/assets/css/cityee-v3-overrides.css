@@ -267,6 +267,7 @@
   flex-direction: column;
   gap: var(--ce-space-2);
   align-items: flex-end;
+  pointer-events: none; /* container не блокирует клики по контенту */
 }
 .v3 .sticky-btn {
   display: flex;
@@ -280,6 +281,7 @@
   color: #fff !important;
   box-shadow: var(--ce-sh-md);
   transition: transform var(--ce-dur-fast) var(--ce-ease), box-shadow var(--ce-dur-fast) var(--ce-ease);
+  pointer-events: auto; /* кнопки остаются кликабельными */
 }
 .v3 .sticky-btn:hover {
   transform: translateY(-2px);
