@@ -5,12 +5,11 @@
 
     RewriteEngine On
 
-    # ── 1. Force HTTPS ──
-    RewriteCond %{HTTPS} !=on
-    RewriteCond %{HTTP:X-Forwarded-Proto} !https
-    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+    # ── NOTE: HTTPS is managed at the hosting/server level, NOT here ──
+    # (Forcing HTTPS via .htaccess breaks language routing on hosts
+    #  with SSL offloading where %{HTTPS} is always "off" inside Apache)
 
-    # ── 2. Force non-www (canonical domain) ──
+    # ── 1. Force non-www (canonical domain) ──
     RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
     RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
 
