@@ -13,8 +13,10 @@
     RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
     RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
 
-    # ── 2b. Remove index.php / index.html ──
+    # ── 2b. Remove index.php / index.html (only on ACTUAL requests, not internal rewrites) ──
+    RewriteCond %{THE_REQUEST} \s/index\.php[\s?]
     RewriteRule ^index\.php$ / [R=301,L]
+    RewriteCond %{THE_REQUEST} \s/index\.html[\s?]
     RewriteRule ^index\.html$ / [R=301,L]
 
     # Handle Authorization Header
