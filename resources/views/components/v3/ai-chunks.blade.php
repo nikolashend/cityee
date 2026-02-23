@@ -5,9 +5,9 @@
 <section class="v3-ai-chunks" aria-labelledby="v3-ai-short-title" data-nosnippet>
     <div class="container">
         {{-- Quick answer --}}
-        <div class="v3-ai-chunk" itemscope itemtype="https://schema.org/FAQPage">
+        <div class="v3-ai-chunk">
             <h2 id="v3-ai-short-title" class="v3-ai-chunk__title">{{ $v3['ai_short_title'] }}</h2>
-            <p class="v3-ai-chunk__text" itemprop="abstract">{{ $v3['ai_short'] }}</p>
+            <p class="v3-ai-chunk__text">{{ $v3['ai_short'] }}</p>
         </div>
 
         {{-- Summary bullets --}}

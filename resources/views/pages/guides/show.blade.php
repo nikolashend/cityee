@@ -206,15 +206,15 @@
 
 {{-- ═══════════════════════  5.3.5  FAQ (8-12 items)  ═══════════════════════ --}}
 @if(!empty($faqItems))
-    <section class="section-padding faq-section" itemscope itemtype="https://schema.org/FAQPage">
+    <section class="section-padding faq-section">
         <div class="container">
             <h2>{{ $locale === 'ru' ? 'Часто задаваемые вопросы' : ($locale === 'en' ? 'Frequently Asked Questions' : 'Korduma kippuvad küsimused') }}</h2>
             <div class="faq-list">
                 @foreach($faqItems as $faq)
-                    <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-                        <button class="faq-question" itemprop="name" aria-expanded="false">{{ $faq['question'] }}</button>
-                        <div class="faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" hidden>
-                            <div itemprop="text">{!! $faq['answer'] !!}</div>
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">{{ $faq['question'] }}</button>
+                        <div class="faq-answer" hidden>
+                            <div>{!! $faq['answer'] !!}</div>
                         </div>
                     </div>
                 @endforeach
