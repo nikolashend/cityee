@@ -17,20 +17,6 @@
     ['name' => $t['h1']],
 ]) !!}
 {!! \App\Support\Schema::speakable(url()->current()) !!}
-@php
-    $__faq = [];
-    if (!empty($v3['ai_short'])) {
-        $__faq[] = ['q' => $v3['ai_short_title'], 'a' => $v3['ai_short']];
-    }
-    if (!empty($v3Faq)) {
-        $__faq = array_merge($__faq, $v3Faq);
-    } elseif (!empty($t['faq'])) {
-        $__faq = array_merge($__faq, $t['faq']);
-    }
-@endphp
-@if(count($__faq))
-<x-faq-schema :items="$__faq" />
-@endif
 @endpush
 
 @section('content')

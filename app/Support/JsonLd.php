@@ -30,10 +30,6 @@ class JsonLd
             'url' => SeoLinks::canonical($pageKey),
         ];
 
-        if (!empty($t['faq'])) {
-            $data['mainEntity'] = self::faqEntities($t['faq']);
-        }
-
         return self::scriptTag([$data, Schema::orgJsonLd()]);
     }
 

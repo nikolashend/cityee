@@ -18,9 +18,6 @@
 ]) !!}
 {!! \App\Support\Schema::speakable(url()->current()) !!}
 <script type="application/ld+json">{!! json_encode(\App\Support\Schema::personJsonLd(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}</script>
-@if(!empty($t['faq']))
-<x-faq-schema :items="$t['faq']" />
-@endif
 @endpush
 
 @section('content')

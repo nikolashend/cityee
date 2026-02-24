@@ -58,18 +58,6 @@
 {!! \App\Support\JsonLd::breadcrumbs([
     ['name' => $t['h1'] ?? 'Home', 'url' => \App\Support\SeoLinks::canonical('home')],
 ]) !!}
-@php
-    $__faq = [];
-    if (!empty($homeAi['ai_short'])) {
-        $__faq[] = ['q' => $homeAi['ai_short_title'], 'a' => $homeAi['ai_short']];
-    }
-    if (!empty($homeFaq)) {
-        $__faq = array_merge($__faq, $homeFaq);
-    }
-@endphp
-@if(count($__faq))
-<x-faq-schema :items="$__faq" />
-@endif
 @endpush
 
 @section('content')

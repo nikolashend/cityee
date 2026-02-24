@@ -57,9 +57,6 @@
     ],
 ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) !!}
 </script>
-@if(!empty($t['faq']))
-<x-faq-schema :items="$t['faq']" />
-@endif
 @endpush
 
 @section('content')

@@ -17,9 +17,6 @@
     ['name' => $t['h1']],
 ]) !!}
 {!! \App\Support\Schema::speakable(url()->current()) !!}
-@if(!empty($t['faq']))
-<x-faq-schema :items="$t['faq']" />
-@endif
 @endpush
 
 @section('content')
