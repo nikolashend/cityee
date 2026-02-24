@@ -35,7 +35,7 @@
     $faqItems = $audit->faq_json ?? $blocks['faq'] ?? [];
 @endphp
 @if(!empty($faqItems))
-{!! \App\Support\JsonLd::faqPage($faqItems) !!}
+<x-faq-schema :items="$faqItems" />
 @endif
 @endpush
 

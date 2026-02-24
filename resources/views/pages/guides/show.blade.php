@@ -36,7 +36,7 @@
     $howToSteps = $blocks['howto_steps'] ?? [];
 @endphp
 @if(!empty($faqItems))
-{!! \App\Support\JsonLd::faqPage($faqItems) !!}
+<x-faq-schema :items="$faqItems" />
 @endif
 @if(!empty($howToSteps))
 {!! \App\Support\JsonLd::howTo($guide->title, $howToSteps, $guide->excerpt) !!}

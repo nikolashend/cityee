@@ -6,18 +6,13 @@
 --}}
 @props([
     'items'  => [],
-    'schema' => false,          // add FAQPage Schema.org
     'id'     => 'faq-section',
 ])
 
 @if (count($items))
-<div class="ui-accordion" id="{{ $id }}"
-    @if($schema) itemscope itemtype="https://schema.org/FAQPage" @endif
->
+<div class="ui-accordion" id="{{ $id }}">
     @foreach ($items as $i => $item)
-    <div class="ui-accordion__item"
-        @if($schema) itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" @endif
-    >
+    <div class="ui-accordion__item">
         <button
             class="ui-accordion__trigger"
             type="button"
@@ -25,7 +20,7 @@
             aria-controls="{{ $id }}-panel-{{ $i }}"
             onclick="this.parentElement.classList.toggle('open');this.setAttribute('aria-expanded',this.parentElement.classList.contains('open'))"
         >
-            <h3 class="ui-accordion__title" @if($schema) itemprop="name" @endif>{{ $item['q'] }}</h3>
+            <h3 class="ui-accordion__title">{{ $item['q'] }}</h3>
             <span class="ui-accordion__chevron" aria-hidden="true">
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </span>
@@ -34,9 +29,8 @@
             class="ui-accordion__panel"
             id="{{ $id }}-panel-{{ $i }}"
             role="region"
-            @if($schema) itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer" @endif
         >
-            <div class="ui-accordion__content" @if($schema) itemprop="text" @endif>
+            <div class="ui-accordion__content">
                 {!! $item['a'] !!}
             </div>
         </div>
