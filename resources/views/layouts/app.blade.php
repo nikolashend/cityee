@@ -74,13 +74,6 @@
 body{margin:0;font-family:'PT Sans Narrow',Arial,Helvetica,sans-serif;-webkit-text-size-adjust:100%}
 .container{max-width:1200px;margin:0 auto;padding:0 15px}
 img{max-width:100%;height:auto}
-/* Header skeleton — prevent CLS */
-.header{background:#1a1a2e;color:#fff;position:relative;z-index:100}
-.header .container{display:flex;align-items:center;flex-wrap:wrap;min-height:80px}
-.nav{background:#222}
-.nav .container{display:flex;align-items:center;justify-content:space-between}
-.nav__list{list-style:none;margin:0;padding:0;display:flex}
-.nav__item a{display:block;padding:12px 14px;color:#fff;text-decoration:none;font-size:15px}
 /* Hero skeleton — reserve space = prevent CLS */
 .banners__item{min-height:786px;padding-top:170px;padding-bottom:310px;background-size:cover;background-position:center top;background-repeat:no-repeat}
 .banners__list{list-style:none;padding:0;margin:0}
@@ -96,9 +89,6 @@ img{max-width:100%;height:auto}
 .hero-trust-line{display:flex;align-items:center;justify-content:center;gap:20px;margin-top:16px;flex-wrap:wrap}
 .hero-trust-line__item{font-size:14px;color:rgba(255,255,255,.85);display:flex;align-items:center;gap:6px}
 .hero-trust-line__divider{width:1px;height:16px;background:rgba(255,255,255,.3)}
-/* Sticky header — reserve height to prevent jump */
-.header--sticky{position:fixed;top:0;left:0;right:0;z-index:1000;animation:slideDown .3s ease}
-@keyframes slideDown{from{transform:translateY(-100%)}to{transform:translateY(0)}}
 </style>
 
 {{-- Design tokens — single source of truth for all UI variables --}}
