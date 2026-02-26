@@ -1849,7 +1849,11 @@ html {
   height: auto !important;
   object-fit: contain;
   object-position: top;
-  display: block;
+}
+@media (max-width: 767px) {
+  .v3 .about__mobile-img {
+    display: block;
+  }
 }
 
 /* P10 — FAQ answer: add top padding so text is vertically balanced */

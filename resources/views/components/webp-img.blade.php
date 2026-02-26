@@ -2,7 +2,7 @@
 @php
     $webp = preg_replace('/\.(jpe?g|png)$/i', '.webp', $src);
 @endphp
-<picture>
+<picture @if($class) class="{{ $class }}" @endif>
     <source srcset="{{ $webp }}" type="image/webp">
     <img src="{{ $src }}"
          alt="{{ $alt }}"
