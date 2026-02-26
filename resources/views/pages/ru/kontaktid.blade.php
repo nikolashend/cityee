@@ -10,7 +10,7 @@
 
 @section('content')
 
-<div class="page-title" style="background: url(/assets/templates/offshors/img/map-bg.jpg) no-repeat; background-position: center bottom; background-size: cover;">
+<div class="page-title page-title--map">
   <div class="container">
       <h1 class="page-title__name">Маклер Таллинн</h1>
   </div>

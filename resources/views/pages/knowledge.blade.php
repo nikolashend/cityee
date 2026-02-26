@@ -141,7 +141,7 @@ $cards = [
 
 @section('content')
 
-<div class="page-title" style="background: url(/assets/templates/offshors/img/offshors.jpg) no-repeat; background-position: center top; background-size: cover;">
+<div class="page-title">
   <div class="container">
     <h1 class="page-title__name">
       {{ $locale === 'ru' ? 'База знаний' : ($locale === 'en' ? 'Knowledge Hub' : 'Teadmistebaas') }}

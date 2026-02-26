@@ -10,7 +10,7 @@
 
 @section('content')
 
-<div class="page-title" style="background: url(/assets/templates/offshors/img/banks-bg.jpg) no-repeat; background-position: center top; background-size: cover;">
+<div class="page-title page-title--banks">
   <div class="container">
     <h1 class="page-title__name">Консультирование</h1>
       <p class="page-title__text">Kонсультируем при покупке и продаже недвижимости.</p>
@@ -130,7 +130,7 @@
     <h2 class="main-h2">CityEE - ВАШ РИЭЛТОР-МАКЛЕР НЕДВИЖИМОСТИ В ТАЛЛИННЕ</h2>
     <div class="row">
       <div class="col-xs-12">
-        <img  class="about__mobile-img" src="/assets/templates/offshors/img/about-foto-mobile.jpg" alt="CITY EE — консультация" loading="lazy" width="600" height="400">
+        <x-webp-img class="about__mobile-img" src="/assets/templates/offshors/img/about-foto-mobile.jpg" alt="CITY EE — консультация" width="600" height="400" />
       </div>
       <div class="col-sm-6 col-xs-12">
         <p>С нашей помощью можно продать или сдать в аренду недвижимость быстро и выгодно, поскольку мы используем самую эффективную стратегию и каналы рынка.</p>
@@ -138,7 +138,7 @@
         <p>Для гарантирования получения наилучшего качества услуги рекомендуем заключить с нами договор об единоличном представительстве.</p>
       </div>
       <div class="col-sm-6 col-xs-12">
-        <img  class="about__desctop-img" src="/assets/templates/offshors/img/about-foto.jpg" alt="CITY EE — консультация" loading="lazy" width="555" height="740">
+        <x-webp-img class="about__desctop-img" src="/assets/templates/offshors/img/about-foto.jpg" alt="CITY EE — консультация" width="555" height="740" />
       </div>
     </div>
   </article>

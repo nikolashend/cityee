@@ -189,7 +189,7 @@ $(document).ready(function () {
   });
 });
 
-$(window).scroll(function () {
+$(window).on('scroll', function () {
   if ($(this).scrollTop() > 1) {
     $("header").addClass("header--sticky");
   } else {

@@ -5335,3 +5335,25 @@ img {
     margin: auto;
   }
 }
+
+/* ═══ WebP background overrides — auto-detected via JS class on <html> ═══ */
+/* Hero carousel */
+.webp .banners__item{background-image:url(../img/banner-mans.webp)}
+.webp .banners__item.banners__item--tallinn{background-image:url(../img/tallinn-city.webp)}
+.webp .banners__item.banners__item--city{background-image:url(../img/city-ban.webp)}
+/* Sections */
+.webp .services{background-image:url(../img/offers-bg.webp)}
+.webp .jurisdiction{background-image:url(../img/juris-bg.webp)}
+.webp .page-title{background-image:url(../img/offshors.webp)}
+/* Page title variants */
+.page-title--map{background:url(../img/map-bg.jpg) no-repeat;background-position:center bottom;background-size:cover}
+.page-title--banks{background:url(../img/banks-bg.jpg) no-repeat;background-position:center top;background-size:cover}
+.page-title--city{background:url(../img/city.jpg) no-repeat;background-position:center top;background-size:cover}
+.webp .page-title--map{background-image:url(../img/map-bg.webp)}
+.webp .page-title--banks{background-image:url(../img/banks-bg.webp)}
+.webp .page-title--city{background-image:url(../img/city.webp)}
+/* Service cards */
+.webp .services__item.services__item--offshors .services__img{background-image:url(../img/sale1.webp)}
+.webp .services__item.services__item--europe .services__img{background-image:url(../img/rent1.webp)}
+.webp .services__item.services__item--offshors:hover .services__img{background-image:url(../img/sale2.webp)}
+.webp .services__item.services__item--europe:hover .services__img{background-image:url(../img/rent2.webp)}

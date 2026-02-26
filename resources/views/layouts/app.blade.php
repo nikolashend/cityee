@@ -19,15 +19,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
+{{-- WebP feature detection — adds 'webp' class to <html> for CSS bg swap --}}
+<script>document.documentElement.className+=' '+((function(){var e=document.createElement('canvas');return e.toDataURL&&e.toDataURL('image/webp').indexOf('data:image/webp')===0})()?"webp":"no-webp")</script>
+
 {{-- Preconnect to third-party origins --}}
-<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
 <link rel="preconnect" href="https://ajax.googleapis.com" crossorigin>
 <link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
 <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
 <link rel="dns-prefetch" href="https://code.jivosite.com">
 
-{{-- Preload hero image --}}
-<link rel="preload" href="/assets/templates/offshors/img/offshors.jpg" as="image" fetchpriority="high">
+{{-- Preload actual hero background (first slide) — WebP only, with type hint --}}
+{{-- Non-WebP browsers (<1%) skip this preload but still get the JPG from CSS --}}
+<link rel="preload" href="/assets/templates/offshors/img/banner-mans.webp" as="image" type="image/webp" fetchpriority="high">
 
 {{-- Preload critical fonts --}}
 <link rel="preload" href="/assets/templates/offshors/fonts/PTSansNarrow-Bold.woff2" as="font" type="font/woff2" crossorigin>
@@ -64,9 +67,27 @@
 {{-- WebSite + SearchAction JSON-LD (global, every page) --}}
 {!! \App\Support\Schema::webSiteJsonLd() !!}
 
-{{-- Minimal critical CSS — only what the theme doesn't cover --}}
+{{-- Critical CSS — above-fold layout + hero to prevent FOUC & CLS --}}
 <style>
-/* Prevent FOUC for v3 components only — theme handles all core layout */
+/* Core layout — prevent layout shift */
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;font-family:'PT Sans Narrow',Arial,Helvetica,sans-serif;-webkit-text-size-adjust:100%}
+.container{max-width:1200px;margin:0 auto;padding:0 15px}
+img{max-width:100%;height:auto}
+/* Header skeleton — prevent CLS */
+.header{background:#1a1a2e;color:#fff;position:relative;z-index:100}
+.header .container{display:flex;align-items:center;flex-wrap:wrap;min-height:80px}
+.nav{background:#222}
+.nav .container{display:flex;align-items:center;justify-content:space-between}
+.nav__list{list-style:none;margin:0;padding:0;display:flex}
+.nav__item a{display:block;padding:12px 14px;color:#fff;text-decoration:none;font-size:15px}
+/* Hero skeleton — reserve space = prevent CLS */
+.banners__item{min-height:786px;padding-top:170px;padding-bottom:310px;background-size:cover;background-position:center top;background-repeat:no-repeat}
+.banners__list{list-style:none;padding:0;margin:0}
+.banners__wrapp{max-width:800px;margin-top:80px;margin-bottom:40px}
+.banners__title{font-weight:700;text-transform:uppercase;font-size:40px;line-height:1;color:#fff}
+.banners__text{color:rgba(255,255,255,.9);font-size:18px;line-height:1.5}
+/* V3 intent buttons */
 .intent-buttons{display:flex;gap:14px;flex-wrap:wrap;margin-top:24px;justify-content:center}
 .intent-btn{display:inline-flex;align-items:center;gap:8px;padding:16px 32px;border-radius:8px;font-size:15px;font-weight:700;text-decoration:none;transition:all .25s;border:2px solid transparent;cursor:pointer}
 .intent-btn--primary{background:#7b1f45;color:#fff;font-size:16px;padding:18px 36px;box-shadow:0 4px 16px rgba(123,31,69,.25)}
@@ -75,13 +96,16 @@
 .hero-trust-line{display:flex;align-items:center;justify-content:center;gap:20px;margin-top:16px;flex-wrap:wrap}
 .hero-trust-line__item{font-size:14px;color:rgba(255,255,255,.85);display:flex;align-items:center;gap:6px}
 .hero-trust-line__divider{width:1px;height:16px;background:rgba(255,255,255,.3)}
+/* Sticky header — reserve height to prevent jump */
+.header--sticky{position:fixed;top:0;left:0;right:0;z-index:1000;animation:slideDown .3s ease}
+@keyframes slideDown{from{transform:translateY(-100%)}to{transform:translateY(0)}}
 </style>
 
 {{-- Design tokens — single source of truth for all UI variables --}}
 <link rel="stylesheet" href="/assets/css/tokens.css?v=6">
 
 {{-- Core theme CSS — loaded synchronously to prevent FOUC --}}
-<link rel="stylesheet" href="/assets/templates/offshors/css/style.css?v=4">
+<link rel="stylesheet" href="/assets/templates/offshors/css/style.css?v=5">
 <link rel="stylesheet" href="/assets/templates/offshors/css/font-awesome.min.css" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="/assets/templates/offshors/css/font-awesome.min.css"></noscript>
 <link rel="stylesheet" href="/assets/templates/offshors/css/jquery.bxslider.css" media="print" onload="this.media='all'">
@@ -92,7 +116,7 @@
 {{-- JSON-LD --}}
 @stack('jsonld')
 
-<!-- Google Tag Manager -->
+<!-- Google Tag Manager — async, non-blocking -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
@@ -100,28 +124,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-5DRRX5ZJ');</script>
 <!-- End Google Tag Manager -->
 
-{{-- GTM noscript moved to body --}}
-
-<!-- Yandex.Metrika counter -->
-<script type="text/javascript" defer>
-   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-   m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
-   ym({{ $metrikaId }}, "init", {
-        clickmap:true,
-        trackLinks:true,
-        accurateTrackBounce:true,
-        webvisor:true
-   });
-</script>
-<noscript><div><img src="https://mc.yandex.ru/watch/{{ $metrikaId }}" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-<!-- /Yandex.Metrika counter -->
-
-{{-- Font display:swap for all custom fonts --}}
+{{-- Font display:swap — woff2 only (legacy formats stripped) --}}
 <style>
 @font-face{font-family:'PT Sans Narrow';font-style:normal;font-weight:400;font-display:swap;src:url('/assets/templates/offshors/fonts/PTSansNarrow-Regular.woff2') format('woff2')}
 @font-face{font-family:'PT Sans Narrow';font-style:normal;font-weight:700;font-display:swap;src:url('/assets/templates/offshors/fonts/PTSansNarrow-Bold.woff2') format('woff2')}
 @font-face{font-family:'fontello';font-style:normal;font-weight:400;font-display:swap;src:url('/assets/templates/offshors/fonts/fontello.woff?31919061') format('woff')}
+@font-face{font-family:'FontAwesome';font-display:swap;src:url('/assets/templates/offshors/fonts/fontawesome-webfont.woff2?v=4.6.3') format('woff2'),url('/assets/templates/offshors/fonts/fontawesome-webfont.woff?v=4.6.3') format('woff')}
 </style>
 
 </head>
@@ -138,7 +146,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <div class="header__logo">
       <div class="logo" href="/">
-        <div class="logo__img"><img src="/assets/templates/offshors/img/logo.png" width="200" height="60" alt="CityEE"></div>
+        <div class="logo__img"><img src="/assets/templates/offshors/img/logo.png" width="200" height="60" alt="CityEE" decoding="async"></div>
         <span class="logo__text">@yield('logo_text', $ui['logo_text'] ?? '')</span>
         <a class="logo__href" href="{{ route("{$locale}.home") }}"></a>
       </div>
@@ -267,11 +275,27 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </div>
 
-<!-- BEGIN JIVOSITE CODE {lazy} -->
+<!-- BEGIN JIVOSITE CODE {lazy — loads on window.load} -->
 <script type='text/javascript'>
 (function(){ var widget_id = 'aQH4gFFc3a';var d=document;function l(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='//code.jivosite.com/script/widget/'+widget_id;var ss=d.getElementsByTagName('script')[0];ss.parentNode.insertBefore(s,ss);}if(d.readyState==='complete'){l();}else if(window.addEventListener){window.addEventListener('load',l,false);}else if(window.attachEvent){window.attachEvent('onload',l);}})();
 </script>
 <!-- END JIVOSITE CODE -->
+
+<!-- Yandex.Metrika — deferred to window.load for zero render impact -->
+<script type="text/javascript">
+window.addEventListener('load', function() {
+  (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+  m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+  (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+  ym({{ $metrikaId }}, "init", {
+    clickmap:true,
+    trackLinks:true,
+    accurateTrackBounce:true,
+    webvisor:true
+  });
+});
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/{{ $metrikaId }}" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 
 </footer>
 
@@ -309,13 +333,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js" defer></script>
-<script src="/assets/templates/offshors/js/main.js?v=2" defer></script>
+<script src="/assets/templates/offshors/js/main.js?v=3" defer></script>
 <script src="/assets/templates/offshors/js/jquery.bxslider.js" defer></script>
 
+{{-- Lightboxed — deferred CSS + JS --}}
 <link rel="stylesheet" href="/assets/lightboxed/lightboxed.css?v=1.31" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="/assets/lightboxed/lightboxed.css?v=1.31"></noscript>
 <script src="/assets/lightboxed/lightboxed.js?v=1.1" defer></script>
 
+{{-- Magnific Popup — deferred CSS + JS --}}
 <link rel="stylesheet" href="/assets/magnific-popup/magnific-popup.css" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="/assets/magnific-popup/magnific-popup.css"></noscript>
 <script src="/assets/magnific-popup/jquery.magnific-popup.js" defer></script>

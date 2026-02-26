@@ -92,7 +92,7 @@ $eeatSignals = [
 
 @section('content')
 
-<div class="page-title" style="background: url(/assets/templates/offshors/img/offshors.jpg) no-repeat; background-position: center top; background-size: cover;">
+<div class="page-title">
   <div class="container">
     <h1 class="page-title__name">{{ $t['heading'][$locale] ?? $t['heading']['en'] }}</h1>
     <p class="page-title__text">{{ $t['subtitle'][$locale] ?? $t['subtitle']['en'] }}</p>
