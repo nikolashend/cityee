@@ -145,6 +145,9 @@
 @include('partials.faq', ['faq' => $t['faq'], 'faqTitle' => 'FAQ'])
 @endif
 
+{{-- ======= D1: Internal cross-links (services ↔ guides ↔ audits) ======= --}}
+@include('partials.service-crosslinks', ['locale' => $locale, 'pageKey' => $pageKey])
+
 {{-- ======= D2: Forms — audit + calculator ======= --}}
 @include('components.v3.form-audit', ['locale' => $locale])
 @include('components.v3.form-calc', ['locale' => $locale])

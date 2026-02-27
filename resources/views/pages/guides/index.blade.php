@@ -13,7 +13,7 @@
 @push('jsonld')
 {!! \App\Support\JsonLd::webPage(
     $locale === 'ru' ? 'Гиды CityEE' : ($locale === 'en' ? 'CityEE Guides' : 'CityEE Juhised'),
-    url()->current(),
+    \App\Support\SeoLinks::canonical('guides'),
     $locale === 'ru' ? 'Экспертные гиды по недвижимости.' : ($locale === 'en' ? 'Expert real estate guides.' : 'Ekspert kinnisvarajuhised.')
 ) !!}
 {!! \App\Support\JsonLd::breadcrumbs([

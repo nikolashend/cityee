@@ -136,4 +136,6 @@ function buildAuditWhatsApp(form) {
 }
 </script>
 
+@include('partials.service-crosslinks', ['locale' => $locale, 'pageKey' => 'audit'])
+
 @endsection

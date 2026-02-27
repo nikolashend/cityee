@@ -109,7 +109,7 @@ class SitemapController extends Controller
                     $prefix = match ($guide->locale) {
                         'ru' => '/ru', 'en' => '/en', default => '',
                     };
-                    $loc = "{$base}{$prefix}/guides/{$slug}";
+                    $loc = "{$base}{$prefix}/guides/{$slug}/";
 
                     $xml .= "  <url>\n";
                     $xml .= "    <loc>{$loc}</loc>\n";
@@ -123,12 +123,12 @@ class SitemapController extends Controller
                         $altPrefix = match ($alt->locale) {
                             'ru' => '/ru', 'en' => '/en', default => '',
                         };
-                        $xml .= '    <xhtml:link rel="alternate" hreflang="' . $hreflangCode($alt->locale) . '" href="' . $base . $altPrefix . '/guides/' . $slug . '" />' . "\n";
+                        $xml .= '    <xhtml:link rel="alternate" hreflang="' . $hreflangCode($alt->locale) . '" href="' . $base . $altPrefix . '/guides/' . $slug . '/" />' . "\n";
                     }
                     // x-default = ET version
                     $etVersion = $versions->firstWhere('locale', 'et');
                     if ($etVersion) {
-                        $xml .= '    <xhtml:link rel="alternate" hreflang="x-default" href="' . $base . '/guides/' . $slug . '" />' . "\n";
+                        $xml .= '    <xhtml:link rel="alternate" hreflang="x-default" href="' . $base . '/guides/' . $slug . '/" />' . "\n";
                     }
 
                     $xml .= "  </url>\n";
@@ -168,7 +168,7 @@ class SitemapController extends Controller
                     $prefix = match ($audit->locale) {
                         'ru' => '/ru', 'en' => '/en', default => '',
                     };
-                    $loc = "{$base}{$prefix}/audits/{$slug}";
+                    $loc = "{$base}{$prefix}/audits/{$slug}/";
 
                     $xml .= "  <url>\n";
                     $xml .= "    <loc>{$loc}</loc>\n";
@@ -181,11 +181,11 @@ class SitemapController extends Controller
                         $altPrefix = match ($alt->locale) {
                             'ru' => '/ru', 'en' => '/en', default => '',
                         };
-                        $xml .= '    <xhtml:link rel="alternate" hreflang="' . $hreflangCode($alt->locale) . '" href="' . $base . $altPrefix . '/audits/' . $slug . '" />' . "\n";
+                        $xml .= '    <xhtml:link rel="alternate" hreflang="' . $hreflangCode($alt->locale) . '" href="' . $base . $altPrefix . '/audits/' . $slug . '/" />' . "\n";
                     }
                     $etVersion = $versions->firstWhere('locale', 'et');
                     if ($etVersion) {
-                        $xml .= '    <xhtml:link rel="alternate" hreflang="x-default" href="' . $base . '/audits/' . $slug . '" />' . "\n";
+                        $xml .= '    <xhtml:link rel="alternate" hreflang="x-default" href="' . $base . '/audits/' . $slug . '/" />' . "\n";
                     }
 
                     $xml .= "  </url>\n";
@@ -225,7 +225,7 @@ class SitemapController extends Controller
 
             foreach ($availableLocales as $locale) {
                 $prefix = $prefixMap[$locale] ?? '';
-                $loc = "{$base}{$prefix}/locations/{$slug}";
+                $loc = "{$base}{$prefix}/locations/{$slug}/";
 
                 $xml .= "  <url>\n";
                 $xml .= "    <loc>{$loc}</loc>\n";
@@ -234,9 +234,9 @@ class SitemapController extends Controller
 
                 foreach ($availableLocales as $altLocale) {
                     $altPrefix = $prefixMap[$altLocale] ?? '';
-                    $xml .= '    <xhtml:link rel="alternate" hreflang="' . $hreflangCode($altLocale) . '" href="' . $base . $altPrefix . '/locations/' . $slug . '" />' . "\n";
+                    $xml .= '    <xhtml:link rel="alternate" hreflang="' . $hreflangCode($altLocale) . '" href="' . $base . $altPrefix . '/locations/' . $slug . '/" />' . "\n";
                 }
-                $xml .= '    <xhtml:link rel="alternate" hreflang="x-default" href="' . $base . '/locations/' . $slug . '" />' . "\n";
+                $xml .= '    <xhtml:link rel="alternate" hreflang="x-default" href="' . $base . '/locations/' . $slug . '/" />' . "\n";
 
                 $xml .= "  </url>\n";
             }
@@ -285,7 +285,10 @@ class SitemapController extends Controller
         $txt .= "Disallow: /*?ref=\n";
         $txt .= "Disallow: /*?fbclid=\n";
         $txt .= "Disallow: /*?gclid=\n";
-        $txt .= "Disallow: /*?yclid=\n\n";
+        $txt .= "Disallow: /*?yclid=\n";
+        $txt .= "Disallow: /*?category=\n";
+        $txt .= "Disallow: /*?type=\n";
+        $txt .= "Disallow: /*?q=\n\n";
         $txt .= "# AI crawlers — welcome\n";
         $txt .= "User-agent: GPTBot\n";
         $txt .= "Allow: /\n\n";
@@ -323,43 +326,43 @@ class SitemapController extends Controller
 
         $slugs = match ($lang) {
             'et' => [
-                ['slug' => '/',               'key' => 'home',         'p' => '1.0', 'f' => 'weekly'],
-                ['slug' => '/kinnisvara-muuk', 'key' => 'sell',         'p' => '0.9', 'f' => 'weekly'],
-                ['slug' => '/kinnisvara-uur',  'key' => 'rent',         'p' => '0.9', 'f' => 'weekly'],
-                ['slug' => '/konsultatsioon',  'key' => 'consultation', 'p' => '0.8', 'f' => 'monthly'],
-                ['slug' => '/kontaktid',       'key' => 'contacts',     'p' => '0.7', 'f' => 'monthly'],
-                ['slug' => '/miks-cityee',     'key' => 'why',          'p' => '0.8', 'f' => 'monthly'],
-                ['slug' => '/audit',           'key' => 'audit',        'p' => '0.8', 'f' => 'monthly'],
-                ['slug' => '/knowledge',       'key' => 'knowledge',    'p' => '0.7', 'f' => 'monthly'],
-                ['slug' => '/dashboard',       'key' => 'dashboard',    'p' => '0.6', 'f' => 'monthly'],
-                ['slug' => '/guides',          'key' => 'guides',       'p' => '0.8', 'f' => 'weekly'],
-                ['slug' => '/audits',          'key' => 'audits',       'p' => '0.8', 'f' => 'weekly'],
+                ['slug' => '/',                'key' => 'home',         'p' => '1.0', 'f' => 'weekly'],
+                ['slug' => '/kinnisvara-muuk/', 'key' => 'sell',         'p' => '0.9', 'f' => 'weekly'],
+                ['slug' => '/kinnisvara-uur/',  'key' => 'rent',         'p' => '0.9', 'f' => 'weekly'],
+                ['slug' => '/konsultatsioon/',  'key' => 'consultation', 'p' => '0.8', 'f' => 'monthly'],
+                ['slug' => '/kontaktid/',       'key' => 'contacts',     'p' => '0.7', 'f' => 'monthly'],
+                ['slug' => '/miks-cityee/',     'key' => 'why',          'p' => '0.8', 'f' => 'monthly'],
+                ['slug' => '/audit/',           'key' => 'audit',        'p' => '0.8', 'f' => 'monthly'],
+                ['slug' => '/knowledge/',       'key' => 'knowledge',    'p' => '0.7', 'f' => 'monthly'],
+                ['slug' => '/dashboard/',       'key' => 'dashboard',    'p' => '0.6', 'f' => 'monthly'],
+                ['slug' => '/guides/',          'key' => 'guides',       'p' => '0.8', 'f' => 'weekly'],
+                ['slug' => '/audits/',          'key' => 'audits',       'p' => '0.8', 'f' => 'weekly'],
             ],
             'ru' => [
-                ['slug' => '/',                'key' => 'home',         'p' => '1.0', 'f' => 'weekly'],
-                ['slug' => '/kinnisvara-muuk', 'key' => 'sell',         'p' => '0.9', 'f' => 'weekly'],
-                ['slug' => '/kinnisvara-uur',  'key' => 'rent',         'p' => '0.9', 'f' => 'weekly'],
-                ['slug' => '/konsultatsioon',  'key' => 'consultation', 'p' => '0.8', 'f' => 'monthly'],
-                ['slug' => '/kontaktid',       'key' => 'contacts',     'p' => '0.7', 'f' => 'monthly'],
-                ['slug' => '/pochemu-cityee',  'key' => 'why',          'p' => '0.8', 'f' => 'monthly'],
-                ['slug' => '/audit',           'key' => 'audit',        'p' => '0.8', 'f' => 'monthly'],
-                ['slug' => '/knowledge',       'key' => 'knowledge',    'p' => '0.7', 'f' => 'monthly'],
-                ['slug' => '/dashboard',       'key' => 'dashboard',    'p' => '0.6', 'f' => 'monthly'],
-                ['slug' => '/guides',          'key' => 'guides',       'p' => '0.8', 'f' => 'weekly'],
-                ['slug' => '/audits',          'key' => 'audits',       'p' => '0.8', 'f' => 'weekly'],
+                ['slug' => '/',                 'key' => 'home',         'p' => '1.0', 'f' => 'weekly'],
+                ['slug' => '/kinnisvara-muuk/', 'key' => 'sell',         'p' => '0.9', 'f' => 'weekly'],
+                ['slug' => '/kinnisvara-uur/',  'key' => 'rent',         'p' => '0.9', 'f' => 'weekly'],
+                ['slug' => '/konsultatsioon/',  'key' => 'consultation', 'p' => '0.8', 'f' => 'monthly'],
+                ['slug' => '/kontaktid/',       'key' => 'contacts',     'p' => '0.7', 'f' => 'monthly'],
+                ['slug' => '/pochemu-cityee/',  'key' => 'why',          'p' => '0.8', 'f' => 'monthly'],
+                ['slug' => '/audit/',           'key' => 'audit',        'p' => '0.8', 'f' => 'monthly'],
+                ['slug' => '/knowledge/',       'key' => 'knowledge',    'p' => '0.7', 'f' => 'monthly'],
+                ['slug' => '/dashboard/',       'key' => 'dashboard',    'p' => '0.6', 'f' => 'monthly'],
+                ['slug' => '/guides/',          'key' => 'guides',       'p' => '0.8', 'f' => 'weekly'],
+                ['slug' => '/audits/',          'key' => 'audits',       'p' => '0.8', 'f' => 'weekly'],
             ],
             'en' => [
-                ['slug' => '/',                 'key' => 'home',         'p' => '1.0', 'f' => 'weekly'],
-                ['slug' => '/sell-property',     'key' => 'sell',         'p' => '0.9', 'f' => 'weekly'],
-                ['slug' => '/rent-out-property', 'key' => 'rent',         'p' => '0.9', 'f' => 'weekly'],
-                ['slug' => '/consultation',      'key' => 'consultation', 'p' => '0.8', 'f' => 'monthly'],
-                ['slug' => '/contacts',          'key' => 'contacts',     'p' => '0.7', 'f' => 'monthly'],
-                ['slug' => '/why-cityee',        'key' => 'why',          'p' => '0.8', 'f' => 'monthly'],
-                ['slug' => '/audit',             'key' => 'audit',        'p' => '0.8', 'f' => 'monthly'],
-                ['slug' => '/knowledge',         'key' => 'knowledge',    'p' => '0.7', 'f' => 'monthly'],
-                ['slug' => '/dashboard',         'key' => 'dashboard',    'p' => '0.6', 'f' => 'monthly'],
-                ['slug' => '/guides',            'key' => 'guides',       'p' => '0.8', 'f' => 'weekly'],
-                ['slug' => '/audits',            'key' => 'audits',       'p' => '0.8', 'f' => 'weekly'],
+                ['slug' => '/',                  'key' => 'home',         'p' => '1.0', 'f' => 'weekly'],
+                ['slug' => '/sell-property/',     'key' => 'sell',         'p' => '0.9', 'f' => 'weekly'],
+                ['slug' => '/rent-out-property/', 'key' => 'rent',         'p' => '0.9', 'f' => 'weekly'],
+                ['slug' => '/consultation/',      'key' => 'consultation', 'p' => '0.8', 'f' => 'monthly'],
+                ['slug' => '/contacts/',          'key' => 'contacts',     'p' => '0.7', 'f' => 'monthly'],
+                ['slug' => '/why-cityee/',        'key' => 'why',          'p' => '0.8', 'f' => 'monthly'],
+                ['slug' => '/audit/',             'key' => 'audit',        'p' => '0.8', 'f' => 'monthly'],
+                ['slug' => '/knowledge/',         'key' => 'knowledge',    'p' => '0.7', 'f' => 'monthly'],
+                ['slug' => '/dashboard/',         'key' => 'dashboard',    'p' => '0.6', 'f' => 'monthly'],
+                ['slug' => '/guides/',            'key' => 'guides',       'p' => '0.8', 'f' => 'weekly'],
+                ['slug' => '/audits/',            'key' => 'audits',       'p' => '0.8', 'f' => 'weekly'],
             ],
             default => [],
         };
@@ -371,10 +374,8 @@ class SitemapController extends Controller
             $loc = $base . $prefix . $u['slug'];
             // Collapse double slashes (except in protocol) and normalize
             $loc = preg_replace('#(?<!:)/{2,}#', '/', $loc);
-            // Remove trailing slash unless it's the site root
-            if ($loc !== $base . '/') {
-                $loc = rtrim($loc, '/');
-            }
+            // Ensure trailing slash (canonical format)
+            $loc = rtrim($loc, '/') . '/';
 
             $pages[] = [
                 'loc'        => $loc,
@@ -396,17 +397,17 @@ class SitemapController extends Controller
         $base = self::BASE;
 
         $pages = [
-            'home'         => ['et' => '/',              'ru' => '/ru',                'en' => '/en'],
-            'sell'         => ['et' => '/kinnisvara-muuk','ru' => '/ru/kinnisvara-muuk','en' => '/en/sell-property'],
-            'rent'         => ['et' => '/kinnisvara-uur', 'ru' => '/ru/kinnisvara-uur', 'en' => '/en/rent-out-property'],
-            'consultation' => ['et' => '/konsultatsioon', 'ru' => '/ru/konsultatsioon', 'en' => '/en/consultation'],
-            'contacts'     => ['et' => '/kontaktid',      'ru' => '/ru/kontaktid',      'en' => '/en/contacts'],
-            'why'          => ['et' => '/miks-cityee',    'ru' => '/ru/pochemu-cityee', 'en' => '/en/why-cityee'],
-            'audit'        => ['et' => '/audit',          'ru' => '/ru/audit',          'en' => '/en/audit'],
-            'knowledge'    => ['et' => '/knowledge',      'ru' => '/ru/knowledge',      'en' => '/en/knowledge'],
-            'dashboard'    => ['et' => '/dashboard',      'ru' => '/ru/dashboard',      'en' => '/en/dashboard'],
-            'guides'       => ['et' => '/guides',         'ru' => '/ru/guides',         'en' => '/en/guides'],
-            'audits'       => ['et' => '/audits',         'ru' => '/ru/audits',         'en' => '/en/audits'],
+            'home'         => ['et' => '/',               'ru' => '/ru/',                'en' => '/en/'],
+            'sell'         => ['et' => '/kinnisvara-muuk/','ru' => '/ru/kinnisvara-muuk/','en' => '/en/sell-property/'],
+            'rent'         => ['et' => '/kinnisvara-uur/', 'ru' => '/ru/kinnisvara-uur/', 'en' => '/en/rent-out-property/'],
+            'consultation' => ['et' => '/konsultatsioon/', 'ru' => '/ru/konsultatsioon/', 'en' => '/en/consultation/'],
+            'contacts'     => ['et' => '/kontaktid/',      'ru' => '/ru/kontaktid/',      'en' => '/en/contacts/'],
+            'why'          => ['et' => '/miks-cityee/',    'ru' => '/ru/pochemu-cityee/', 'en' => '/en/why-cityee/'],
+            'audit'        => ['et' => '/audit/',          'ru' => '/ru/audit/',          'en' => '/en/audit/'],
+            'knowledge'    => ['et' => '/knowledge/',      'ru' => '/ru/knowledge/',      'en' => '/en/knowledge/'],
+            'dashboard'    => ['et' => '/dashboard/',      'ru' => '/ru/dashboard/',      'en' => '/en/dashboard/'],
+            'guides'       => ['et' => '/guides/',         'ru' => '/ru/guides/',         'en' => '/en/guides/'],
+            'audits'       => ['et' => '/audits/',         'ru' => '/ru/audits/',         'en' => '/en/audits/'],
         ];
 
         $map = [];

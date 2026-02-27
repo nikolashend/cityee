@@ -15,14 +15,23 @@ class JsonLd
         $lang     = Lang::current();
         $langCode = Lang::short();
 
+        $serviceTypeMap = [
+            'sell'         => 'Real Estate Sale Service',
+            'rent'         => 'Property Rental Management Service',
+            'consultation' => 'Real Estate Consultation Service',
+            'audit'        => 'Property Listing Audit Service',
+        ];
+
         $data = [
             '@context' => 'https://schema.org',
             '@type'    => 'Service',
             '@id'      => 'https://cityee.ee/#service-' . $pageKey,
             'name'     => $t['h1'] ?? '',
             'description' => $t['meta_description'] ?? '',
+            'serviceType' => $serviceTypeMap[$pageKey] ?? 'Real Estate Service',
             'provider' => ['@id' => 'https://cityee.ee/#org'],
             'areaServed' => [
+                ['@type' => 'Country', 'name' => 'Estonia'],
                 ['@type' => 'City',  'name' => 'Tallinn'],
                 ['@type' => 'AdministrativeArea', 'name' => 'Harjumaa'],
             ],

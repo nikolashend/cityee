@@ -82,4 +82,6 @@
 {{-- ═══ v3: Form scripts ═══ --}}
 @include('components.v3.form-scripts')
 
+@include('partials.service-crosslinks', ['locale' => $locale, 'pageKey' => 'contacts'])
+
 @endsection

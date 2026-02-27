@@ -27,10 +27,14 @@
     RewriteCond %{HTTP:x-xsrf-token} .
     RewriteRule .* - [E=HTTP_X_XSRF_TOKEN:%{HTTP:X-XSRF-Token}]
 
-    # ── 3. Redirect Trailing Slashes If Not A Folder ──
+    # ── 3. Add Trailing Slash (canonical format: /ru/) ──
+    # Only GET requests; skip files with extensions (.xml, .txt, .css, etc.)
+    RewriteCond %{REQUEST_METHOD} GET [NC]
+    RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_URI} (.+)/$
-    RewriteRule ^ %1 [L,R=301]
+    RewriteCond %{REQUEST_URI} !(\.[a-zA-Z0-9]{1,5})$
+    RewriteCond %{REQUEST_URI} !/$
+    RewriteRule ^(.+)$ /$1/ [L,R=301]
 
     # ── 4. Send Requests To Front Controller ──
     RewriteCond %{REQUEST_FILENAME} !-d

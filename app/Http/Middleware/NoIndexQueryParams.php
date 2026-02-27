@@ -29,6 +29,9 @@ class NoIndexQueryParams
         'campaign',
         'mc_cid',
         'mc_eid',
+        'category',
+        'type',
+        'q',
     ];
 
     public function handle(Request $request, Closure $next): Response
