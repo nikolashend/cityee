@@ -115,6 +115,10 @@
       </div>
     </li>
   </ul>
+
+  {{-- Trust Metrics Bar --}}
+  @include('partials.trust-metrics', ['locale' => $locale])
+
   <section class="advantages">
   <div class="container">
     <h2 class="advantages__title">{{ $t['advantages_title'] }}</h2>

@@ -16,7 +16,7 @@
     ['name' => $nav[0]['label'] ?? 'Home', 'url' => route("{$locale}.home")],
     ['name' => $t['h1']],
 ]) !!}
-{!! \App\Support\Schema::speakable(url()->current()) !!}
+{!! \App\Support\Schema::speakable(\App\Support\SeoLinks::canonical('consultation')) !!}
 @endpush
 
 @section('content')

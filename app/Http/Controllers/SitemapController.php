@@ -337,6 +337,7 @@ class SitemapController extends Controller
                 ['slug' => '/dashboard/',       'key' => 'dashboard',    'p' => '0.6', 'f' => 'monthly'],
                 ['slug' => '/guides/',          'key' => 'guides',       'p' => '0.8', 'f' => 'weekly'],
                 ['slug' => '/audits/',          'key' => 'audits',       'p' => '0.8', 'f' => 'weekly'],
+                ['slug' => '/aleksandr-primakov/', 'key' => 'profile',  'p' => '0.7', 'f' => 'monthly'],
             ],
             'ru' => [
                 ['slug' => '/',                 'key' => 'home',         'p' => '1.0', 'f' => 'weekly'],
@@ -350,6 +351,7 @@ class SitemapController extends Controller
                 ['slug' => '/dashboard/',       'key' => 'dashboard',    'p' => '0.6', 'f' => 'monthly'],
                 ['slug' => '/guides/',          'key' => 'guides',       'p' => '0.8', 'f' => 'weekly'],
                 ['slug' => '/audits/',          'key' => 'audits',       'p' => '0.8', 'f' => 'weekly'],
+                ['slug' => '/aleksandr-primakov/', 'key' => 'profile',  'p' => '0.7', 'f' => 'monthly'],
             ],
             'en' => [
                 ['slug' => '/',                  'key' => 'home',         'p' => '1.0', 'f' => 'weekly'],
@@ -363,6 +365,7 @@ class SitemapController extends Controller
                 ['slug' => '/dashboard/',         'key' => 'dashboard',    'p' => '0.6', 'f' => 'monthly'],
                 ['slug' => '/guides/',            'key' => 'guides',       'p' => '0.8', 'f' => 'weekly'],
                 ['slug' => '/audits/',            'key' => 'audits',       'p' => '0.8', 'f' => 'weekly'],
+                ['slug' => '/aleksandr-primakov/', 'key' => 'profile',    'p' => '0.7', 'f' => 'monthly'],
             ],
             default => [],
         };
@@ -408,6 +411,7 @@ class SitemapController extends Controller
             'dashboard'    => ['et' => '/dashboard/',      'ru' => '/ru/dashboard/',      'en' => '/en/dashboard/'],
             'guides'       => ['et' => '/guides/',         'ru' => '/ru/guides/',         'en' => '/en/guides/'],
             'audits'       => ['et' => '/audits/',         'ru' => '/ru/audits/',         'en' => '/en/audits/'],
+            'profile'      => ['et' => '/aleksandr-primakov/', 'ru' => '/ru/aleksandr-primakov/', 'en' => '/en/aleksandr-primakov/'],
         ];
 
         $map = [];

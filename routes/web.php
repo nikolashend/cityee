@@ -37,6 +37,7 @@ Route::get('/guides/{slug}',     [GuideController::class, 'show'])->name('et.gui
 Route::get('/audits',            [AuditContentController::class, 'index'])->name('et.audits');
 Route::get('/audits/{slug}',     [AuditContentController::class, 'show'])->name('et.audits.show');
 Route::get('/locations/{slug}',  [LocationController::class, 'show'])->name('et.location');
+Route::get('/aleksandr-primakov', [PageController::class, 'profile'])->name('et.profile');
 
 // ─── Russian routes (/ru prefix) ────────────────────────────
 Route::prefix('ru')->group(function () {
@@ -54,6 +55,7 @@ Route::prefix('ru')->group(function () {
     Route::get('/audits',          [AuditContentController::class, 'index'])->defaults('locale', 'ru')->name('ru.audits');
     Route::get('/audits/{slug}',   [AuditContentController::class, 'show'])->defaults('locale', 'ru')->name('ru.audits.show');
     Route::get('/locations/{slug}', [LocationController::class, 'show'])->defaults('locale', 'ru')->name('ru.location');
+    Route::get('/aleksandr-primakov', [PageController::class, 'profile'])->defaults('locale', 'ru')->name('ru.profile');
 });
 
 // ─── English routes (/en prefix) ────────────────────────────
@@ -72,6 +74,7 @@ Route::prefix('en')->group(function () {
     Route::get('/audits',            [AuditContentController::class, 'index'])->defaults('locale', 'en')->name('en.audits');
     Route::get('/audits/{slug}',     [AuditContentController::class, 'show'])->defaults('locale', 'en')->name('en.audits.show');
     Route::get('/locations/{slug}',  [LocationController::class, 'show'])->defaults('locale', 'en')->name('en.location');
+    Route::get('/aleksandr-primakov', [PageController::class, 'profile'])->defaults('locale', 'en')->name('en.profile');
 });
 
 

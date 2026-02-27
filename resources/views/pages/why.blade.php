@@ -16,7 +16,7 @@
     ['name' => $nav[0]['label'] ?? 'Home', 'url' => route("{$locale}.home")],
     ['name' => $t['h1']],
 ]) !!}
-{!! \App\Support\Schema::speakable(url()->current()) !!}
+{!! \App\Support\Schema::speakable(\App\Support\SeoLinks::canonical('why')) !!}
 <script type="application/ld+json">{!! json_encode(\App\Support\Schema::personJsonLd(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}</script>
 @endpush
 

@@ -191,4 +191,18 @@ class PageController extends Controller
             'pageKey' => 'dashboard',
         ]);
     }
+
+    // ─── Aleksandr Primakov (EEAT Profile) ──────────────────
+    public function profile(string $locale = 'et')
+    {
+        $locale = $this->locale($locale);
+        $ui     = $this->ui($locale);
+
+        return view('pages.profile', [
+            'locale'  => $locale,
+            'ui'      => $ui,
+            'nav'     => $this->nav($locale),
+            'pageKey' => 'profile',
+        ]);
+    }
 }

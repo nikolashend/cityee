@@ -20,7 +20,7 @@
     ['name' => $nav[0]['label'] ?? 'Home', 'url' => route("{$locale}.home")],
     ['name' => $locale === 'ru' ? 'База знаний' : ($locale === 'en' ? 'Knowledge Hub' : 'Teadmistebaas')],
 ]) !!}
-{!! \App\Support\Schema::speakable(url()->current()) !!}
+{!! \App\Support\Schema::speakable(\App\Support\SeoLinks::canonical('knowledge')) !!}
 @endpush
 
 @php

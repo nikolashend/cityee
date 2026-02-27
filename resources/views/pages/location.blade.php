@@ -19,44 +19,8 @@
     ['name' => $nav[0]['label'] ?? 'Home', 'url' => route("{$locale}.home")],
     ['name' => $t['breadcrumb'] ?? $t['h1'] ?? $slug],
 ]) !!}
-{!! \App\Support\Schema::speakable(url()->current()) !!}
-<script type="application/ld+json">
-{!! json_encode([
-    '@context' => 'https://schema.org',
-    '@type'    => 'LocalBusiness',
-    '@id'      => 'https://cityee.ee/#organization',
-    'name'     => 'CITY EE OÜ — Kinnisvaramaakler',
-    'url'      => $canonicalUrl,
-    'telephone'=> '+372 511 3411',
-    'email'    => 'info@cityee.ee',
-    'image'    => 'https://cityee.ee/assets/kinnisvara/primakov-maakler.webp',
-    'address'  => [
-        '@type'           => 'PostalAddress',
-        'streetAddress'   => 'Viru väljak 2',
-        'addressLocality' => 'Tallinn',
-        'postalCode'      => '10111',
-        'addressCountry'  => 'EE',
-    ],
-    'geo' => [
-        '@type'     => 'GeoCoordinates',
-        'latitude'  => 59.4370,
-        'longitude' => 24.7536,
-    ],
-    'areaServed' => [
-        '@type' => 'Place',
-        'name'  => $t['area_served'] ?? $t['h1'] ?? $slug,
-    ],
-    'priceRange'  => '€€',
-    'openingHours' => 'Mo-Fr 09:00-18:00',
-    'aggregateRating' => [
-        '@type'       => 'AggregateRating',
-        'ratingValue' => '5.0',
-        'reviewCount' => '47',
-        'bestRating'  => '5',
-        'worstRating' => '1',
-    ],
-], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) !!}
-</script>
+{!! \App\Support\Schema::speakable($canonicalUrl) !!}
+<script type="application/ld+json">{!! json_encode(\App\Support\Schema::orgJsonLd(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}</script>
 @endpush
 
 @section('content')

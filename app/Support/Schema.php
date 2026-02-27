@@ -4,6 +4,12 @@ namespace App\Support;
 
 /**
  * Build JSON-LD structured data for CityEE pages.
+ *
+ * Master Entity Graph:
+ *   #organization  — RealEstateAgent / Organization / LocalBusiness
+ *   #aleksandr     — Person (founder)
+ *   #website       — WebSite
+ *   #sell-service, #rent-service, #consultation-service, #audit-service — Service nodes
  */
 class Schema
 {
@@ -15,9 +21,11 @@ class Schema
         return [
             '@context' => 'https://schema.org',
             '@type'    => ['Organization', 'RealEstateAgent', 'LocalBusiness'],
-            '@id'      => 'https://cityee.ee/#org',
-            'name'     => 'CityEE — Real Estate Deal Optimization Partner in Tallinn & Harjumaa',
-            'alternateName' => ['CITY EE OÜ', 'CityEE Kinnisvara', 'CityEE', 'СитиЕЕ'],
+            '@id'      => 'https://cityee.ee/#organization',
+            'name'     => 'CityEE',
+            'legalName' => 'CITY EE OÜ',
+            'alternateName' => ['CITY EE OÜ', 'CityEE Kinnisvara', 'СитиЕЕ'],
+            'description' => 'Real estate deal optimization partner in Tallinn & Harjumaa — property sale strategy, rental management, market audit and negotiation.',
             'url'      => 'https://cityee.ee',
             'logo'     => [
                 '@type'    => 'ImageObject',
@@ -42,9 +50,11 @@ class Schema
                 'longitude' => 24.7537,
             ],
             'areaServed' => [
+                ['@type' => 'Country', 'name' => 'Estonia'],
                 ['@type' => 'City',  'name' => 'Tallinn'],
                 ['@type' => 'AdministrativeArea', 'name' => 'Harjumaa'],
             ],
+            'foundingDate' => '2014',
             'priceRange'   => '€€',
             'currenciesAccepted' => 'EUR',
             'paymentAccepted' => 'Bank Transfer, Invoice',
@@ -62,8 +72,22 @@ class Schema
                 'https://t.me/kinnisvaramaakler',
                 'https://g.page/cityee',
             ],
-            'founder' => ['@id' => 'https://cityee.ee/#alex'],
-            'employee' => ['@id' => 'https://cityee.ee/#alex'],
+            'founder'  => ['@id' => 'https://cityee.ee/#aleksandr'],
+            'employee' => [['@id' => 'https://cityee.ee/#aleksandr']],
+            'numberOfEmployees' => [
+                '@type'    => 'QuantitativeValue',
+                'value'    => 1,
+            ],
+            'hasOfferCatalog' => [
+                '@type' => 'OfferCatalog',
+                'name'  => 'Real Estate Services',
+                'itemListElement' => [
+                    ['@type' => 'Offer', 'itemOffered' => ['@id' => 'https://cityee.ee/#sell-service']],
+                    ['@type' => 'Offer', 'itemOffered' => ['@id' => 'https://cityee.ee/#rent-service']],
+                    ['@type' => 'Offer', 'itemOffered' => ['@id' => 'https://cityee.ee/#consultation-service']],
+                    ['@type' => 'Offer', 'itemOffered' => ['@id' => 'https://cityee.ee/#audit-service']],
+                ],
+            ],
             'contactPoint' => [
                 '@type'             => 'ContactPoint',
                 'telephone'         => '+3725113411',
@@ -74,13 +98,12 @@ class Schema
             'knowsLanguage' => ['et', 'ru', 'en'],
             'knowsAbout' => [
                 'Property sale strategy in Tallinn & Harjumaa',
-                'Tallinn real estate market analysis 2026',
-                'Harjumaa property prices 2026',
+                'Tallinn real estate market analysis',
+                'Harjumaa property valuation',
                 'Real estate negotiation strategy',
                 'Property audit and market valuation',
                 'Rental market analysis in Tallinn',
                 'Real estate deal optimization',
-                'Strategic real estate partnership',
             ],
             'aggregateRating' => [
                 '@type'       => 'AggregateRating',
@@ -100,14 +123,15 @@ class Schema
         return [
             '@context' => 'https://schema.org',
             '@type'    => 'Person',
-            '@id'      => 'https://cityee.ee/#alex',
+            '@id'      => 'https://cityee.ee/#aleksandr',
             'name'     => 'Aleksandr Primakov',
             'jobTitle' => 'Real Estate Deal Optimization Partner',
-            'worksFor' => ['@id' => 'https://cityee.ee/#org'],
+            'worksFor' => ['@id' => 'https://cityee.ee/#organization'],
+            'memberOf' => ['@id' => 'https://cityee.ee/#organization'],
             'email'    => 'aleksandr@cityee.ee',
             'telephone' => '+3725113411',
             'image'    => 'https://cityee.ee/assets/templates/offshors/img/ap1.png',
-            'url'      => 'https://cityee.ee/',
+            'url'      => 'https://cityee.ee/aleksandr-primakov/',
             'sameAs'   => [
                 'https://www.linkedin.com/in/kinnisvaramaakler/',
                 'https://www.facebook.com/cityee.ee',
@@ -117,13 +141,19 @@ class Schema
             ],
             'knowsAbout' => [
                 'Property sale strategy in Tallinn & Harjumaa',
-                'Real estate market analysis 2026',
-                'Property valuation and market audit',
-                'Real estate negotiation strategy',
+                'Real estate market analysis and valuation',
+                'Real estate negotiation and deal optimization',
                 'Rental property management',
-                'Strategic real estate partnership',
+                'Tallinn district-level market expertise',
             ],
             'knowsLanguage' => ['et', 'ru', 'en'],
+            'hasCredential' => [
+                [
+                    '@type' => 'EducationalOccupationalCredential',
+                    'credentialCategory' => 'Professional Experience',
+                    'name' => '10+ years in Tallinn & Harjumaa real estate market',
+                ],
+            ],
         ];
     }
 
@@ -136,10 +166,13 @@ class Schema
         $data = [
             '@context' => 'https://schema.org',
             '@type'    => 'WebPage',
+            '@id'      => $url . '#webpage',
             'url'      => $url,
+            'isPartOf' => ['@id' => 'https://cityee.ee/#website'],
+            'about'    => ['@id' => 'https://cityee.ee/#organization'],
             'speakable' => [
                 '@type'       => 'SpeakableSpecification',
-                'cssSelector' => ['.ai-summary-box', '.guide-quick-answer', '.guide-takeaways-box', '.page-title__name', '.banners__title'],
+                'cssSelector' => ['.ai-summary', '.ai-summary-box', '.guide-quick-answer', '.guide-takeaways-box', '.page-title__name', '.banners__title'],
             ],
         ];
 
@@ -147,7 +180,7 @@ class Schema
     }
 
     /**
-     * WebSite + SearchAction JSON-LD (spec 5.4.3).
+     * WebSite + SearchAction JSON-LD (global, every page).
      */
     public static function webSiteJsonLd(): string
     {
@@ -157,7 +190,7 @@ class Schema
             '@id'      => 'https://cityee.ee/#website',
             'name'     => 'CityEE',
             'url'      => 'https://cityee.ee',
-            'publisher' => ['@id' => 'https://cityee.ee/#org'],
+            'publisher' => ['@id' => 'https://cityee.ee/#organization'],
             'inLanguage' => ['et', 'ru', 'en'],
             'potentialAction' => [
                 '@type'       => 'SearchAction',

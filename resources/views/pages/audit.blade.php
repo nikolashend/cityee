@@ -16,8 +16,11 @@
     ['name' => $nav[0]['label'] ?? 'Home', 'url' => route("{$locale}.home")],
     ['name' => $t['h1']],
 ]) !!}
-{!! \App\Support\Schema::speakable(url()->current()) !!}
+{!! \App\Support\Schema::speakable(\App\Support\SeoLinks::canonical('audit')) !!}
 <script type="application/ld+json">{!! json_encode(\App\Support\Schema::personJsonLd(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}</script>
+@if(!empty($t['faq']))
+<x-faq-schema :items="$t['faq']" />
+@endif
 @endpush
 
 @section('content')
@@ -38,7 +41,7 @@
     <div class="col-md-9 col-sm-9">
       <div class="content">
 
-        @include('partials.ai-summary', ['locale' => $locale])
+        @include('partials.ai-summary', ['locale' => $locale, 'pageKey' => 'audit'])
 
         {{-- Problem statement --}}
         <div class="trust-layer" style="margin-bottom:30px;">

@@ -73,6 +73,11 @@ class SeoLinks
                 'ru' => "{$base}/ru/audits/",
                 'en' => "{$base}/en/audits/",
             ],
+            'profile' => [
+                'et' => "{$base}/aleksandr-primakov/",
+                'ru' => "{$base}/ru/aleksandr-primakov/",
+                'en' => "{$base}/en/aleksandr-primakov/",
+            ],
             default => throw new \InvalidArgumentException("Unknown pageKey: {$pageKey}")
         };
     }

@@ -36,6 +36,8 @@
     $guidesDesc  = ['et' => 'Kasulikud artiklid kinnisvara teemal', 'ru' => 'Полезные статьи о недвижимости', 'en' => 'Useful articles about real estate'];
     $auditsLabel = ['et' => 'Kinnisvara auditid', 'ru' => 'Разборы объектов', 'en' => 'Property Audits'];
     $auditsDesc  = ['et' => 'Reaalsed analüüsid ja juhtumid', 'ru' => 'Реальные разборы и кейсы', 'en' => 'Real case studies and analyses'];
+    $profileLabel = ['et' => 'Aleksandr Primakov', 'ru' => 'Александр Примаков', 'en' => 'Aleksandr Primakov'];
+    $profileDesc  = ['et' => 'Maakler Tallinnas — 10+ aastat kogemust', 'ru' => 'Маклер в Таллинне — 10+ лет опыта', 'en' => 'Broker in Tallinn — 10+ years experience'];
 @endphp
 
 <section class="section-padding" style="background:#f9f9f9;">
@@ -64,6 +66,14 @@
           <span style="font-size:14px;color:#666;">{{ $auditsDesc[$locale] ?? $auditsDesc['et'] }}</span>
         </a>
       </div>
+      @if($currentPageKey !== 'profile')
+      <div class="col-md-3 col-sm-6 col-xs-12" style="margin-bottom:20px;">
+        <a href="{{ route("{$locale}.profile") }}" style="display:block;background:#fff;padding:20px 15px;border-radius:8px;text-decoration:none;color:#333;box-shadow:0 2px 8px rgba(0,0,0,.06);height:100%;">
+          <strong style="display:block;font-size:17px;color:#7b1f45;margin-bottom:6px;">{{ $profileLabel[$locale] ?? $profileLabel['et'] }}</strong>
+          <span style="font-size:14px;color:#666;">{{ $profileDesc[$locale] ?? $profileDesc['et'] }}</span>
+        </a>
+      </div>
+      @endif
     </div>
   </div>
 </section>

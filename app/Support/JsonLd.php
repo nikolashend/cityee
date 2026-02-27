@@ -4,11 +4,17 @@ namespace App\Support;
 
 /**
  * Build per-page JSON-LD structured data.
+ *
+ * All entities reference the master graph:
+ *   #organization  — Organization / RealEstateAgent
+ *   #aleksandr     — Person (founder)
+ *   #website       — WebSite
+ *   #{key}-service — Service nodes
  */
 class JsonLd
 {
     /**
-     * Service page JSON-LD (sell / rent / consultation).
+     * Service page JSON-LD (sell / rent / consultation / audit).
      */
     public static function servicePage(string $pageKey, array $t): string
     {
@@ -25,11 +31,11 @@ class JsonLd
         $data = [
             '@context' => 'https://schema.org',
             '@type'    => 'Service',
-            '@id'      => 'https://cityee.ee/#service-' . $pageKey,
+            '@id'      => 'https://cityee.ee/#' . $pageKey . '-service',
             'name'     => $t['h1'] ?? '',
             'description' => $t['meta_description'] ?? '',
             'serviceType' => $serviceTypeMap[$pageKey] ?? 'Real Estate Service',
-            'provider' => ['@id' => 'https://cityee.ee/#org'],
+            'provider' => ['@id' => 'https://cityee.ee/#organization'],
             'areaServed' => [
                 ['@type' => 'Country', 'name' => 'Estonia'],
                 ['@type' => 'City',  'name' => 'Tallinn'],
@@ -52,7 +58,7 @@ class JsonLd
             '@type'    => 'ContactPage',
             'name'     => $t['h1'] ?? 'Kontaktid',
             'url'      => SeoLinks::canonical('contacts'),
-            'mainEntity' => ['@id' => 'https://cityee.ee/#org'],
+            'mainEntity' => ['@id' => 'https://cityee.ee/#organization'],
         ];
 
         return self::scriptTag([$page, Schema::orgJsonLd()]);
@@ -74,7 +80,7 @@ class JsonLd
 
     /**
      * Article JSON-LD (for guides, audits).
-     * Accepts either an array of $t values or individual parameters.
+     * Author is Person (EEAT), publisher is Organization.
      */
     public static function article(
         string|array $titleOrT,
@@ -90,8 +96,8 @@ class JsonLd
                 '@type'         => 'Article',
                 'headline'      => $t['h1'] ?? '',
                 'description'   => $t['meta_description'] ?? '',
-                'author'        => ['@id' => 'https://cityee.ee/#org'],
-                'publisher'     => ['@id' => 'https://cityee.ee/#org'],
+                'author'        => ['@id' => 'https://cityee.ee/#aleksandr'],
+                'publisher'     => ['@id' => 'https://cityee.ee/#organization'],
                 'datePublished' => $t['date_published'] ?? now()->toIso8601String(),
                 'dateModified'  => $t['date_modified'] ?? now()->toIso8601String(),
                 'inLanguage'    => Lang::short(),
@@ -106,15 +112,15 @@ class JsonLd
                 'headline'      => $titleOrT,
                 'url'           => $url,
                 'description'   => $description ?? '',
-                'author'        => ['@id' => 'https://cityee.ee/#org'],
-                'publisher'     => ['@id' => 'https://cityee.ee/#org'],
+                'author'        => ['@id' => 'https://cityee.ee/#aleksandr'],
+                'publisher'     => ['@id' => 'https://cityee.ee/#organization'],
                 'datePublished' => $datePublished ?? now()->toIso8601String(),
                 'dateModified'  => $dateModified ?? now()->toIso8601String(),
                 'inLanguage'    => Lang::short(),
             ];
         }
 
-        return self::scriptTag([$data, Schema::orgJsonLd()]);
+        return self::scriptTag([$data, Schema::orgJsonLd(), Schema::personJsonLd()]);
     }
 
     /**
@@ -152,7 +158,8 @@ class JsonLd
             'name'        => $name,
             'url'         => $url,
             'inLanguage'  => Lang::short(),
-            'isPartOf'    => ['@id' => 'https://cityee.ee/#org'],
+            'isPartOf'    => ['@id' => 'https://cityee.ee/#website'],
+            'about'       => ['@id' => 'https://cityee.ee/#organization'],
         ];
 
         if ($description) {
@@ -164,9 +171,6 @@ class JsonLd
 
     /**
      * HowTo JSON-LD — step-by-step guides for AI/GEO.
-     * @param string $name  Title of the how-to
-     * @param array  $steps [['name' => '...', 'text' => '...'], ...]
-     * @param string|null $description
      */
     public static function howTo(string $name, array $steps, ?string $description = null): string
     {
@@ -219,7 +223,7 @@ class JsonLd
     }
 
     /**
-     * CollectionPage JSON-LD — for index/listing pages (guides hub, audits hub).
+     * CollectionPage JSON-LD — for index/listing pages.
      */
     public static function collectionPage(string $name, string $url, ?string $description = null): string
     {
@@ -229,7 +233,8 @@ class JsonLd
             'name'       => $name,
             'url'        => $url,
             'inLanguage' => Lang::short(),
-            'isPartOf'   => ['@id' => 'https://cityee.ee/#org'],
+            'isPartOf'   => ['@id' => 'https://cityee.ee/#website'],
+            'about'      => ['@id' => 'https://cityee.ee/#organization'],
         ];
 
         if ($description) {
@@ -261,19 +266,27 @@ class JsonLd
     }
 
     /**
-     * ProfilePage JSON-LD — author/expert profile for EEAT signals.
+     * ProfilePage JSON-LD — author/expert profile page for EEAT.
      */
-    public static function profilePage(string $name, string $url, array $expertise = []): string
+    public static function profilePage(string $name, string $url): string
     {
         $data = [
             '@context'    => 'https://schema.org',
             '@type'       => 'ProfilePage',
-            'mainEntity'  => Schema::personJsonLd(),
             'name'        => $name,
             'url'         => $url,
+            'mainEntity'  => ['@id' => 'https://cityee.ee/#aleksandr'],
+            'isPartOf'    => ['@id' => 'https://cityee.ee/#website'],
+            'about'       => ['@id' => 'https://cityee.ee/#aleksandr'],
+            'relatedLink' => [
+                'https://cityee.ee/kinnisvara-muuk/',
+                'https://cityee.ee/kinnisvara-uur/',
+                'https://cityee.ee/konsultatsioon/',
+                'https://cityee.ee/audit/',
+            ],
         ];
 
-        return self::scriptTag([$data]);
+        return self::scriptTag([$data, Schema::personJsonLd(), Schema::orgJsonLd()]);
     }
 
     // ──────────────────────────────────────────────

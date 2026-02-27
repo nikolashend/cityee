@@ -16,13 +16,22 @@
     ['name' => $nav[0]['label'] ?? 'Home', 'url' => route("{$locale}.home")],
     ['name' => $t['h1']],
 ]) !!}
-{!! \App\Support\Schema::speakable(url()->current()) !!}
+{!! \App\Support\Schema::speakable(\App\Support\SeoLinks::canonical($pageKey)) !!}
+@php
+    $faqForSchema = $v3Faq ?? $t['faq'] ?? [];
+@endphp
+@if(!empty($faqForSchema))
+<x-faq-schema :items="$faqForSchema" />
+@endif
 @endpush
 
 @section('content')
 
 {{-- ======= C1: Hero v3 ======= --}}
 @include('components.v3.hero', ['v3' => $v3, 'company' => config('cityee.company')])
+
+{{-- Trust Metrics Bar --}}
+@include('partials.trust-metrics', ['locale' => $locale])
 
 {{-- ======= C2: JTBD "For whom" ======= --}}
 @include('components.v3.jtbd', ['v3' => $v3])
@@ -35,7 +44,7 @@
     </div>
     <div class="col-md-9 col-sm-9">
       <div class="content">
-        @include('partials.ai-summary', ['locale' => $locale])
+        @include('partials.ai-summary', ['locale' => $locale, 'pageKey' => $pageKey])
 
         {!! $t['intro'] !!}
 
