@@ -8,6 +8,15 @@
     $metrikaId = config("cityee.metrika.{$locale}", '87598929');
     $pageKey = $pageKey ?? 'home';
     $langMap = ['et' => 'et', 'ru' => 'ru', 'en' => 'en'];
+    $pageTypeMap = [
+        'home' => 'homepage',
+        'sell' => 'service', 'rent' => 'service', 'consultation' => 'service', 'audit' => 'service',
+        'contacts' => 'contacts',
+        'guides_index' => 'blog', 'guides_show' => 'blog',
+        'audits_index' => 'blog', 'audits_show' => 'blog',
+        'knowledge' => 'blog',
+    ];
+    $dlPageType = $pageTypeMap[$pageKey] ?? 'other';
 @endphp
 <html class="no-js" lang="{{ $locale }}">
 <head>
@@ -123,7 +132,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </style>
 
 </head>
-<body class="v3">
+<body class="v3" data-page-type="{{ $dlPageType }}">
 <!-- Skip to content link for accessibility -->
 <a href="#main-content" class="sr-only" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">Skip to content</a>
 <!-- Google Tag Manager (noscript) -->
@@ -371,5 +380,6 @@ window.addEventListener('load', function() {
   });
 </script>
 
+@include('partials.datalayer-leads')
 </body>
 </html>

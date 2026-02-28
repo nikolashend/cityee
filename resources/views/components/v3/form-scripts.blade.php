@@ -22,6 +22,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (r.ok) {
                     form.reset();
                     if (msg) msg.style.display = 'block';
+                    /* dataLayer lead tracking */
+                    if (typeof cityeeTrackLead === 'function') {
+                        var src = form.dataset.leadSource || 'form_inline';
+                        cityeeTrackLead('form', src);
+                    }
                 } else {
                     alert('Error. Please try again.');
                 }

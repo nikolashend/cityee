@@ -89,6 +89,10 @@ $(document).ready(function () {
             '<div class="ok-message">Teie päring saadetud. Võtame Teiega ühendust esimesel võimalusel.</div>'
           );
           form.css("background-image", "none");
+          /* dataLayer lead tracking */
+          if (typeof cityeeTrackLead === 'function') {
+            cityeeTrackLead('form', 'form_popup');
+          }
         } else {
           form.find(".error").html(msg);
         }

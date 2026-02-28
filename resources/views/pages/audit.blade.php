@@ -135,6 +135,10 @@ function buildAuditWhatsApp(form) {
   if (form.link.value) msg += 'Link: ' + form.link.value + '\n';
   msg += '{{ $t["form_phone"] }}: ' + form.phone.value;
   window.open('https://wa.me/3725113411?text=' + encodeURIComponent(msg), '_blank');
+  /* dataLayer lead tracking — audit WhatsApp form */
+  if (typeof cityeeTrackLead === 'function') {
+    cityeeTrackLead('messenger', 'whatsapp');
+  }
   return false;
 }
 </script>
