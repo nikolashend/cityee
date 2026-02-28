@@ -17,7 +17,7 @@
     </div>
     <div class="jtbd-30-cta">
       <p>{{ $locale === 'ru' ? 'CityEE берёт все 30 задач на себя.' : ($locale === 'en' ? 'CityEE handles all 30 tasks for you.' : 'CityEE võtab kõik 30 ülesannet enda peale.') }}</p>
-      <a href="#audit-form" class="btn btn-primary">{{ $locale === 'ru' ? 'Узнать подробнее' : ($locale === 'en' ? 'Learn more' : 'Loe lähemalt') }}</a>
+      <a href="#v3-form-audit" class="btn btn-primary">{{ $locale === 'ru' ? 'Узнать подробнее' : ($locale === 'en' ? 'Learn more' : 'Loe lähemalt') }}</a>
     </div>
   </div>
 </section>

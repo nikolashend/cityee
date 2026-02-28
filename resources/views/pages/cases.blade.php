@@ -44,7 +44,7 @@
 <section class="guide-cta">
   <div class="container text-center">
     <h2>{{ $locale === 'ru' ? 'Хотите такой же результат?' : ($locale === 'en' ? 'Want the same result?' : 'Soovite sama tulemust?') }}</h2>
-    <a href="#audit-form" class="btn btn-primary btn-lg">{{ $locale === 'ru' ? 'Бесплатный аудит' : ($locale === 'en' ? 'Free audit' : 'Tasuta audit') }}</a>
+    <a href="#v3-form-audit" class="btn btn-primary btn-lg">{{ $locale === 'ru' ? 'Бесплатный аудит' : ($locale === 'en' ? 'Free audit' : 'Tasuta audit') }}</a>
   </div>
 </section>
 

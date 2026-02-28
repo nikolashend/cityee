@@ -128,7 +128,7 @@
 <section class="guide-cta">
   <div class="container text-center">
     <h2>{{ $guide['cta_title'] }}</h2>
-    <a href="#audit-form" class="btn btn-primary btn-lg">{{ $guide['cta_btn'] }}</a>
+    <a href="#v3-form-audit" class="btn btn-primary btn-lg">{{ $guide['cta_btn'] }}</a>
   </div>
 </section>
 @endif

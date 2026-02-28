@@ -34,7 +34,7 @@
     <div class="micro-cta-box">
       <p>{{ $mc['inline'] }}</p>
       <div class="micro-cta-actions">
-        <a href="#audit-form" class="btn btn-primary">{{ $mc['btn'] }}</a>
+        <a href="#v3-form-audit" class="btn btn-primary">{{ $mc['btn'] }}</a>
         <a href="tel:{{ $phone }}" class="btn btn-outline" data-track-lead="phone">{{ $mc['phone'] }}</a>
         <a href="{{ $wa }}" target="_blank" rel="noopener" class="btn btn-outline btn--wa" data-track-lead="whatsapp">{{ $mc['wa'] }}</a>
       </div>

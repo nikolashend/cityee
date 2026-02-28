@@ -113,7 +113,7 @@
 <section class="intent-cta">
   <div class="container text-center">
     <h2>{{ $intent['cta_title'] }}</h2>
-    <a href="#audit-form" class="btn btn-primary btn-lg">{{ $intent['cta_btn'] }}</a>
+    <a href="#v3-form-audit" class="btn btn-primary btn-lg">{{ $intent['cta_btn'] }}</a>
   </div>
 </section>
 @endif
