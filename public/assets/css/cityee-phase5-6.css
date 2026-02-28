@@ -459,6 +459,8 @@
 .sticky-cta.sticky-cta--visible {
   transform: translateY(0);
 }
+/* Reserve space at bottom so sticky bar doesn't cover footer */
+body { padding-bottom: 52px; }
 .sticky-cta__inner {
   max-width: 900px;
   margin: 0 auto;
