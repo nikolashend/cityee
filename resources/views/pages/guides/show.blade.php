@@ -100,7 +100,7 @@
 
         {{-- Two CTA buttons --}}
         <div class="guide-hero__ctas">
-            <a href="https://wa.me/+37258829892?text={{ urlencode($locale === 'ru' ? 'Здравствуйте! Прочитал гайд «'.$guide->title.'». Хочу обсудить мою ситуацию.' : ($locale === 'en' ? 'Hello! I read the guide "'.$guide->title.'". I want to discuss my situation.' : 'Tere! Lugesin juhendit «'.$guide->title.'». Sooviksin oma olukorda arutada.')) }}" target="_blank" rel="noopener" class="intent-btn intent-btn--primary">
+            <a href="{{ config('cityee.company.whatsapp') }}?text={{ urlencode($locale === 'ru' ? 'Здравствуйте! Прочитал гайд «'.$guide->title.'». Хочу обсудить мою ситуацию.' : ($locale === 'en' ? 'Hello! I read the guide "'.$guide->title.'". I want to discuss my situation.' : 'Tere! Lugesin juhendit «'.$guide->title.'». Sooviksin oma olukorda arutada.')) }}" target="_blank" rel="noopener" class="intent-btn intent-btn--primary">
                 <i class="fa fa-whatsapp"></i> {{ $locale === 'ru' ? 'Обсудить в WhatsApp' : ($locale === 'en' ? 'Discuss on WhatsApp' : 'Arutame WhatsAppis') }}
             </a>
             <a href="https://t.me/cityee_tallinn" target="_blank" rel="noopener" class="intent-btn intent-btn--secondary intent-btn--dark">
@@ -281,7 +281,7 @@
         <h2>{{ $blocks['cta']['heading'] ?? ($locale === 'ru' ? 'Готовы действовать?' : ($locale === 'en' ? 'Ready to take action?' : 'Valmis tegutsema?')) }}</h2>
         <p>{{ $blocks['cta']['text'] ?? ($locale === 'ru' ? 'Обсудите вашу ситуацию с экспертом — бесплатно и без обязательств.' : ($locale === 'en' ? 'Discuss your situation with an expert — free, no obligation.' : 'Arutage oma olukorda eksperdiga — tasuta ja kohustuseta.')) }}</p>
         <div class="guide-cta-buttons">
-            <a href="https://wa.me/+37258829892" target="_blank" rel="noopener" class="intent-btn intent-btn--primary">
+            <a href="{{ config('cityee.company.whatsapp') }}" target="_blank" rel="noopener" class="intent-btn intent-btn--primary">
                 <i class="fa fa-whatsapp"></i> {{ $locale === 'ru' ? 'WhatsApp' : 'WhatsApp' }}
             </a>
             <a href="https://t.me/cityee_tallinn" target="_blank" rel="noopener" class="intent-btn intent-btn--accent">

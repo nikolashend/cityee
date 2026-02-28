@@ -101,7 +101,7 @@
         <h2>{{ $locale === 'ru' ? 'Не нашли ответ?' : ($locale === 'en' ? 'Didn\'t find your answer?' : 'Ei leidnud vastust?') }}</h2>
         <p>{{ $locale === 'ru' ? 'Задайте вопрос напрямую — ответим за 30 минут.' : ($locale === 'en' ? 'Ask directly — we respond within 30 minutes.' : 'Küsige otse — vastame 30 minuti jooksul.') }}</p>
         <div class="guide-cta-buttons">
-            <a href="https://wa.me/+37258829892" target="_blank" rel="noopener" class="intent-btn intent-btn--primary">
+            <a href="{{ config('cityee.company.whatsapp') }}" target="_blank" rel="noopener" class="intent-btn intent-btn--primary">
                 <i class="fa fa-whatsapp"></i> WhatsApp
             </a>
             <a href="https://t.me/cityee_tallinn" target="_blank" rel="noopener" class="intent-btn intent-btn--accent">

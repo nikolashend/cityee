@@ -1,7 +1,7 @@
 {{-- Case studies block --}}
 @props(['v3', 'company'])
 @php
-    $wa = config('cityee-v3.social_links.whatsapp_audit', 'https://wa.me/+37258829892');
+    $wa = config('cityee.company.whatsapp', 'https://wa.me/3725113411');
 @endphp
 
 @if(!empty($v3['cases']))

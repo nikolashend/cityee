@@ -99,7 +99,7 @@
         <h2>{{ $locale === 'ru' ? 'Хотите такой же разбор для вашего объекта?' : ($locale === 'en' ? 'Want the same audit for your property?' : 'Soovite sama auditi oma kinnisvarale?') }}</h2>
         <p>{{ $locale === 'ru' ? 'Бесплатный анализ рынка и стратегия за 24 часа.' : ($locale === 'en' ? 'Free market analysis and strategy within 24 hours.' : 'Tasuta turuanalüüs ja strateegia 24 tunni jooksul.') }}</p>
         <div class="guide-cta-buttons">
-            <a href="https://wa.me/+37258829892" target="_blank" rel="noopener" class="intent-btn intent-btn--primary">
+            <a href="{{ config('cityee.company.whatsapp') }}" target="_blank" rel="noopener" class="intent-btn intent-btn--primary">
                 <i class="fa fa-whatsapp"></i> WhatsApp
             </a>
             <a href="https://t.me/cityee_tallinn" target="_blank" rel="noopener" class="intent-btn intent-btn--accent">

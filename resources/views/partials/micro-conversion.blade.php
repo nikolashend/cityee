@@ -24,8 +24,8 @@
         ],
     ];
     $mc = $microCopy[$locale] ?? $microCopy['et'];
-    $phone = config('cityee.company.phone', '+3725033224');
-    $wa    = config('cityee.company.whatsapp', 'https://wa.me/3725033224');
+    $phone = config('cityee.company.phone', '+3725113411');
+    $wa    = config('cityee.company.whatsapp', 'https://wa.me/3725113411');
 @endphp
 
 {{-- Inline micro-CTA --}}
