@@ -117,8 +117,8 @@ img{max-width:100%;height:auto}
 <noscript><link rel="stylesheet" href="/assets/templates/offshors/css/jquery.bxslider.css"></noscript>
 <link href="/assets/css/cityee-v3.css?v=5" rel="stylesheet">
 <link href="/assets/css/cityee-v3-overrides.css?v=25" rel="stylesheet">
-<link href="/assets/css/cityee-phase4.css?v=1" rel="stylesheet">
-<link href="/assets/css/cityee-phase5-6.css?v=1" rel="stylesheet">
+<link href="/assets/css/cityee-phase4.css?v=2" rel="stylesheet">
+<link href="/assets/css/cityee-phase5-6.css?v=2" rel="stylesheet">
 
 {{-- JSON-LD --}}
 @stack('jsonld')
