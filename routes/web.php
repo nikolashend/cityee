@@ -39,6 +39,19 @@ Route::get('/audits/{slug}',     [AuditContentController::class, 'show'])->name(
 Route::get('/locations/{slug}',  [LocationController::class, 'show'])->name('et.location');
 Route::get('/aleksandr-primakov', [PageController::class, 'profile'])->name('et.profile');
 
+// ─── Estonian pillar guides + cases (Phase 5) ───────────────
+Route::get('/knowledge/cases',  [PageController::class, 'casesPage'])->name('et.cases');
+Route::get('/knowledge/{slug}', [PageController::class, 'pillarGuide'])->name('et.pillar');
+
+// ─── Estonian intent pages (Phase 4) ────────────────────────
+Route::get('/muud-ise-keegi-ei-helista',      [PageController::class, 'intentPage'])->defaults('intentKey', 'no_calls')->name('et.no_calls');
+Route::get('/vaatamised-aga-pakkumisi-pole',   [PageController::class, 'intentPage'])->defaults('intentKey', 'no_offers')->name('et.no_offers');
+Route::get('/kinnisvara-hinnaanaluus-tallinn', [PageController::class, 'intentPage'])->defaults('intentKey', 'price_analysis')->name('et.price_analysis');
+Route::get('/vead-kinnisvara-muugil',          [PageController::class, 'intentPage'])->defaults('intentKey', 'mistakes')->name('et.mistakes');
+Route::get('/kuidas-muua-kiiremini',           [PageController::class, 'intentPage'])->defaults('intentKey', 'sell_faster')->name('et.sell_faster');
+Route::get('/kuulutuse-audit',                 [PageController::class, 'intentPage'])->defaults('intentKey', 'listing_audit')->name('et.listing_audit');
+Route::get('/muua-ise-vs-strateegiline-partner', [PageController::class, 'intentPage'])->defaults('intentKey', 'comparison')->name('et.comparison');
+
 // ─── Russian routes (/ru prefix) ────────────────────────────
 Route::prefix('ru')->group(function () {
     Route::get('/',                [PageController::class, 'home'])->defaults('locale', 'ru')->name('ru.home');
@@ -56,6 +69,19 @@ Route::prefix('ru')->group(function () {
     Route::get('/audits/{slug}',   [AuditContentController::class, 'show'])->defaults('locale', 'ru')->name('ru.audits.show');
     Route::get('/locations/{slug}', [LocationController::class, 'show'])->defaults('locale', 'ru')->name('ru.location');
     Route::get('/aleksandr-primakov', [PageController::class, 'profile'])->defaults('locale', 'ru')->name('ru.profile');
+
+    // Russian pillar guides + cases (Phase 5)
+    Route::get('/knowledge/cases',  [PageController::class, 'casesPage'])->defaults('locale', 'ru')->name('ru.cases');
+    Route::get('/knowledge/{slug}', [PageController::class, 'pillarGuide'])->defaults('locale', 'ru')->name('ru.pillar');
+
+    // Russian intent pages (Phase 4)
+    Route::get('/prodayu-sam-nikto-ne-zvonit',       [PageController::class, 'intentPage'])->defaults('locale', 'ru')->defaults('intentKey', 'no_calls')->name('ru.no_calls');
+    Route::get('/prosmotry-est-predlozheniy-net',    [PageController::class, 'intentPage'])->defaults('locale', 'ru')->defaults('intentKey', 'no_offers')->name('ru.no_offers');
+    Route::get('/analiz-ceny-nedvizhimosti-tallinn', [PageController::class, 'intentPage'])->defaults('locale', 'ru')->defaults('intentKey', 'price_analysis')->name('ru.price_analysis');
+    Route::get('/oshibki-pri-prodazhe',              [PageController::class, 'intentPage'])->defaults('locale', 'ru')->defaults('intentKey', 'mistakes')->name('ru.mistakes');
+    Route::get('/kak-prodat-bystree',                [PageController::class, 'intentPage'])->defaults('locale', 'ru')->defaults('intentKey', 'sell_faster')->name('ru.sell_faster');
+    Route::get('/audit-obyavleniya',                 [PageController::class, 'intentPage'])->defaults('locale', 'ru')->defaults('intentKey', 'listing_audit')->name('ru.listing_audit');
+    Route::get('/prodat-samomu-vs-partner',          [PageController::class, 'intentPage'])->defaults('locale', 'ru')->defaults('intentKey', 'comparison')->name('ru.comparison');
 });
 
 // ─── English routes (/en prefix) ────────────────────────────
@@ -75,6 +101,19 @@ Route::prefix('en')->group(function () {
     Route::get('/audits/{slug}',     [AuditContentController::class, 'show'])->defaults('locale', 'en')->name('en.audits.show');
     Route::get('/locations/{slug}',  [LocationController::class, 'show'])->defaults('locale', 'en')->name('en.location');
     Route::get('/aleksandr-primakov', [PageController::class, 'profile'])->defaults('locale', 'en')->name('en.profile');
+
+    // English pillar guides + cases (Phase 5)
+    Route::get('/knowledge/cases',  [PageController::class, 'casesPage'])->defaults('locale', 'en')->name('en.cases');
+    Route::get('/knowledge/{slug}', [PageController::class, 'pillarGuide'])->defaults('locale', 'en')->name('en.pillar');
+
+    // English intent pages (Phase 4)
+    Route::get('/selling-yourself-no-calls',          [PageController::class, 'intentPage'])->defaults('locale', 'en')->defaults('intentKey', 'no_calls')->name('en.no_calls');
+    Route::get('/viewings-but-no-offers',             [PageController::class, 'intentPage'])->defaults('locale', 'en')->defaults('intentKey', 'no_offers')->name('en.no_offers');
+    Route::get('/property-price-analysis-tallinn',    [PageController::class, 'intentPage'])->defaults('locale', 'en')->defaults('intentKey', 'price_analysis')->name('en.price_analysis');
+    Route::get('/mistakes-selling-property',          [PageController::class, 'intentPage'])->defaults('locale', 'en')->defaults('intentKey', 'mistakes')->name('en.mistakes');
+    Route::get('/how-to-sell-faster',                 [PageController::class, 'intentPage'])->defaults('locale', 'en')->defaults('intentKey', 'sell_faster')->name('en.sell_faster');
+    Route::get('/listing-audit',                      [PageController::class, 'intentPage'])->defaults('locale', 'en')->defaults('intentKey', 'listing_audit')->name('en.listing_audit');
+    Route::get('/sell-yourself-vs-strategy-partner',  [PageController::class, 'intentPage'])->defaults('locale', 'en')->defaults('intentKey', 'comparison')->name('en.comparison');
 });
 
 

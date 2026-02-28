@@ -1,0 +1,515 @@
+/* ═══════════════════════════════════════════════════════════
+   CityEE Phase 5+6 — Pillar Guides, Cases, Trust Architecture
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Pillar Guide Hero ─────────────────────────────────── */
+.hero--guide {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  color: #fff;
+  padding: 3rem 0 2.5rem;
+  text-align: center;
+}
+.hero--guide h1 {
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  font-weight: 700;
+  margin-bottom: .75rem;
+  line-height: 1.2;
+}
+.guide-hero-meta {
+  font-size: 1rem;
+  opacity: .8;
+  margin-bottom: .5rem;
+}
+.guide-updated {
+  font-size: .85rem;
+  opacity: .6;
+}
+.guide-author-line {
+  font-size: .85rem;
+  opacity: .6;
+  margin-top: .25rem;
+}
+
+/* ── AI Summary Box ────────────────────────────────────── */
+.guide-ai-summary {
+  background: #f0f4ff;
+  border: 1px solid #c7d2fe;
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin: 2rem 0;
+}
+.guide-ai-summary h3 {
+  font-size: 1.1rem;
+  margin: 0 0 1rem;
+  color: #2563eb;
+}
+.guide-ai-summary dl {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: .4rem 1rem;
+  margin: 0;
+}
+.guide-ai-summary dt {
+  font-weight: 600;
+  font-size: .9rem;
+}
+.guide-ai-summary dd {
+  font-size: .9rem;
+  margin: 0;
+}
+
+/* ── Table of Contents ─────────────────────────────────── */
+.guide-toc {
+  background: #fafafa;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 1.25rem 1.5rem;
+  margin: 1.5rem 0 2rem;
+}
+.guide-toc h3 {
+  font-size: 1rem;
+  margin: 0 0 .75rem;
+}
+.guide-toc ol {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+.guide-toc li {
+  padding: .25rem 0;
+  font-size: .9rem;
+}
+.guide-toc a {
+  color: #2563eb;
+  text-decoration: none;
+}
+.guide-toc a:hover {
+  text-decoration: underline;
+}
+
+/* ── Guide Content Sections ────────────────────────────── */
+.guide-content {
+  max-width: 760px;
+}
+.guide-section {
+  margin-bottom: 2.5rem;
+}
+.guide-section h2 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: .75rem;
+  padding-bottom: .5rem;
+  border-bottom: 2px solid #2563eb;
+}
+.guide-section p,
+.guide-section li {
+  font-size: .95rem;
+  line-height: 1.7;
+}
+
+/* ── Guide CTA ─────────────────────────────────────────── */
+.guide-cta {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  color: #fff;
+  padding: 3rem 0;
+  text-align: center;
+}
+.guide-cta h2 {
+  color: #fff;
+  margin-bottom: 1.25rem;
+}
+
+/* ── Data Authority Block ──────────────────────────────── */
+.data-authority {
+  background: #f8fafc;
+  padding: 2.5rem 0;
+}
+.data-authority h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+.data-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+.data-metric-card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 1.25rem;
+  text-align: center;
+}
+.data-metric-card .metric-value {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #2563eb;
+  display: block;
+}
+.data-metric-card .metric-label {
+  font-size: .9rem;
+  font-weight: 600;
+  margin-top: .25rem;
+  display: block;
+}
+.data-metric-card .metric-note {
+  font-size: .75rem;
+  opacity: .6;
+  display: block;
+  margin-top: .25rem;
+}
+
+/* ── Districts Table ───────────────────────────────────── */
+.data-districts-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .9rem;
+}
+.data-districts-table th,
+.data-districts-table td {
+  padding: .6rem .75rem;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+}
+.data-districts-table th {
+  background: #f1f5f9;
+  font-weight: 600;
+  font-size: .85rem;
+  text-transform: uppercase;
+  letter-spacing: .03em;
+}
+.data-districts-table tr:hover td {
+  background: #f8fafc;
+}
+
+/* ── Case Intelligence Cards ───────────────────────────── */
+.case-intelligence {
+  padding: 2.5rem 0;
+}
+.case-intelligence h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+.cases-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+.case-card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: box-shadow .2s, transform .2s;
+  position: relative;
+}
+.case-card:hover {
+  box-shadow: 0 8px 24px rgba(0,0,0,.08);
+  transform: translateY(-2px);
+}
+.case-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: .75rem;
+}
+.case-card__object {
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+.case-card__timeframe {
+  background: #dbeafe;
+  color: #1e40af;
+  font-size: .75rem;
+  font-weight: 600;
+  padding: .2rem .6rem;
+  border-radius: 20px;
+}
+.case-card__label {
+  font-weight: 600;
+  font-size: .8rem;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  color: #6b7280;
+  margin: .75rem 0 .25rem;
+}
+.case-card__text {
+  font-size: .9rem;
+  line-height: 1.5;
+}
+.case-card__result {
+  background: #ecfdf5;
+  border-radius: 6px;
+  padding: .75rem;
+  margin-top: .75rem;
+}
+.case-card__result .case-card__text {
+  font-weight: 600;
+  color: #059669;
+}
+.case-card__price-diff {
+  display: inline-block;
+  background: #f0fdf4;
+  border: 1px solid #86efac;
+  color: #166534;
+  font-weight: 700;
+  font-size: .85rem;
+  padding: .2rem .6rem;
+  border-radius: 4px;
+  margin-top: .5rem;
+}
+.cases-all-link {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+.cases-all-link a {
+  color: #2563eb;
+  font-weight: 600;
+  text-decoration: none;
+}
+.cases-all-link a:hover {
+  text-decoration: underline;
+}
+
+/* ── Trust Protection (Phase 6) ────────────────────────── */
+.trust-protection {
+  background: #f0fdf4;
+  padding: 2.5rem 0;
+}
+.trust-protection h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+.trust-protection-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.25rem;
+}
+.trust-prot-card {
+  background: #fff;
+  border: 1px solid #bbf7d0;
+  border-radius: 10px;
+  padding: 1.25rem;
+  text-align: center;
+}
+.trust-prot-card .tp-icon {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: .5rem;
+}
+.trust-prot-card h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: .5rem;
+}
+.trust-prot-card p {
+  font-size: .85rem;
+  opacity: .75;
+  margin: 0;
+}
+
+/* ── Inaction Risks (Phase 6) ──────────────────────────── */
+.inaction-risks {
+  background: #fef2f2;
+  padding: 2.5rem 0;
+}
+.inaction-risks h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+.inaction-risks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.25rem;
+}
+.risk-card {
+  background: #fff;
+  border: 1px solid #fecaca;
+  border-radius: 10px;
+  padding: 1.25rem;
+  position: relative;
+  padding-left: 3.5rem;
+}
+.risk-card .risk-number {
+  position: absolute;
+  left: 1rem;
+  top: 1.2rem;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #ef4444;
+  opacity: .3;
+}
+.risk-card h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: .4rem;
+  color: #991b1b;
+}
+.risk-card p {
+  font-size: .85rem;
+  margin: 0;
+  opacity: .8;
+}
+
+/* ── Before / After ────────────────────────────────────── */
+.before-after {
+  padding: 2.5rem 0;
+}
+.before-after h2 {
+  margin-bottom: 1.5rem;
+}
+.ba-grid {
+  max-width: 700px;
+  margin: 0 auto;
+}
+.ba-row {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  margin-bottom: .75rem;
+}
+.ba-cell {
+  flex: 1;
+  padding: .75rem 1rem;
+  border-radius: 8px;
+  font-size: .9rem;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+.ba-before {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+}
+.ba-after {
+  background: #ecfdf5;
+  border: 1px solid #86efac;
+}
+.ba-label {
+  font-weight: 700;
+  font-size: .7rem;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  white-space: nowrap;
+}
+.ba-before .ba-label { color: #dc2626; }
+.ba-after .ba-label { color: #059669; }
+.ba-arrow {
+  font-size: 1.2rem;
+  color: #6b7280;
+  flex-shrink: 0;
+}
+
+/* ── Knowledge Crosslinks ──────────────────────────────── */
+.knowledge-crosslinks {
+  background: #f8fafc;
+  padding: 2.5rem 0;
+}
+.knowledge-crosslinks h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+.crosslinks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem;
+}
+.crosslink-card {
+  display: block;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  text-decoration: none;
+  color: inherit;
+  transition: box-shadow .2s, border-color .2s;
+}
+.crosslink-card:hover {
+  border-color: #2563eb;
+  box-shadow: 0 4px 12px rgba(37,99,235,.12);
+}
+.crosslink-card h3 {
+  font-size: .95rem;
+  margin: 0 0 .25rem;
+  color: #2563eb;
+}
+.crosslink-card p {
+  font-size: .8rem;
+  margin: 0;
+  opacity: .65;
+}
+.crosslink-card--primary {
+  border-color: #2563eb;
+  background: #eff6ff;
+}
+
+/* ── Sticky CTA (Phase 6) ─────────────────────────────── */
+.sticky-cta {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: #fff;
+  border-top: 1px solid #e5e7eb;
+  box-shadow: 0 -4px 20px rgba(0,0,0,.08);
+  transform: translateY(100%);
+  transition: transform .3s ease;
+}
+.sticky-cta.sticky-cta--visible {
+  transform: translateY(0);
+}
+.sticky-cta__inner {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: .6rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+.sticky-cta__phone,
+.sticky-cta__wa {
+  display: flex;
+  align-items: center;
+  gap: .35rem;
+  font-size: .85rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: #1f2937;
+  white-space: nowrap;
+}
+.sticky-cta__wa {
+  color: #25d366;
+}
+.sticky-cta__btn {
+  font-size: .85rem;
+  padding: .4rem 1.2rem;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+/* ── Knowledge card accent ─────────────────────────────── */
+.knowledge-card--accent {
+  border: 2px solid #2563eb;
+  background: #eff6ff;
+}
+
+/* ── Responsive ────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .data-metrics-grid { grid-template-columns: 1fr 1fr; }
+  .cases-grid { grid-template-columns: 1fr; }
+  .trust-protection-grid { grid-template-columns: 1fr 1fr; }
+  .inaction-risks-grid { grid-template-columns: 1fr; }
+  .ba-row { flex-direction: column; }
+  .ba-arrow { transform: rotate(90deg); }
+  .crosslinks-grid { grid-template-columns: 1fr; }
+  .sticky-cta__inner { gap: .5rem; font-size: .8rem; }
+  .guide-ai-summary dl { grid-template-columns: 1fr; }
+}
+@media (max-width: 480px) {
+  .data-metrics-grid { grid-template-columns: 1fr; }
+  .trust-protection-grid { grid-template-columns: 1fr; }
+}
+
+/* ── Sticky CTA show on scroll (JS) ───────────────────── */

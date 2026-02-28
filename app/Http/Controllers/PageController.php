@@ -205,4 +205,81 @@ class PageController extends Controller
             'pageKey' => 'profile',
         ]);
     }
+
+    // ─── Intent Pages (Phase 4) ─────────────────────────────
+    public function intentPage(string $locale = 'et', string $intentKey = '')
+    {
+        $locale = $this->locale($locale);
+        $ui     = $this->ui($locale);
+        $intent = config("cityee-intent.{$intentKey}.{$locale}", []);
+
+        return view('pages.intent', [
+            'locale'  => $locale,
+            'ui'      => $ui,
+            'nav'     => $this->nav($locale),
+            'pageKey' => $intentKey,
+            'intent'  => $intent,
+        ]);
+    }
+
+    // ─── Pillar Guide (Phase 5) ─────────────────────────────
+    public function pillarGuide(string $slug, string $locale = 'et')
+    {
+        $locale = $this->locale($locale);
+        $ui     = $this->ui($locale);
+
+        // Find guide by slug across all guide keys
+        $guideKeys = [
+            'guide_sell_tallinn', 'guide_rent', 'guide_pricing',
+            'guide_negotiation', 'guide_staging', 'guide_market_2026', 'guide_mistakes',
+        ];
+
+        $slugField = match ($locale) {
+            'ru' => 'slug_ru',
+            'en' => 'slug_en',
+            default => 'slug',
+        };
+
+        $guideKey    = null;
+        $guideConfig = null;
+
+        foreach ($guideKeys as $key) {
+            $cfg = config("cityee-knowledge.pillar_guides.{$key}");
+            if ($cfg && $cfg[$slugField] === $slug) {
+                $guideKey    = $key;
+                $guideConfig = $cfg;
+                break;
+            }
+        }
+
+        if (! $guideConfig) {
+            abort(404);
+        }
+
+        $guide = $guideConfig[$locale] ?? $guideConfig['et'];
+
+        return view('pages.pillar-guide', [
+            'locale'      => $locale,
+            'ui'          => $ui,
+            'nav'         => $this->nav($locale),
+            'pageKey'     => 'pillar',
+            'guideKey'    => $guideKey,
+            'guideConfig' => $guideConfig,
+            'guide'       => $guide,
+        ]);
+    }
+
+    // ─── Cases Page (Phase 5) ───────────────────────────────
+    public function casesPage(string $locale = 'et')
+    {
+        $locale = $this->locale($locale);
+        $ui     = $this->ui($locale);
+
+        return view('pages.cases', [
+            'locale'  => $locale,
+            'ui'      => $ui,
+            'nav'     => $this->nav($locale),
+            'pageKey' => 'cases',
+        ]);
+    }
 }

@@ -15,6 +15,12 @@
         'guides_index' => 'blog', 'guides_show' => 'blog',
         'audits_index' => 'blog', 'audits_show' => 'blog',
         'knowledge' => 'blog',
+        // Phase 4 intent pages
+        'no_calls' => 'intent', 'no_offers' => 'intent', 'price_analysis' => 'intent',
+        'mistakes' => 'intent', 'sell_faster' => 'intent', 'listing_audit' => 'intent',
+        'comparison' => 'intent',
+        // Phase 5 pillar guides + cases
+        'pillar' => 'guide', 'cases' => 'cases',
     ];
     $dlPageType = $pageTypeMap[$pageKey] ?? 'other';
 @endphp
@@ -111,6 +117,8 @@ img{max-width:100%;height:auto}
 <noscript><link rel="stylesheet" href="/assets/templates/offshors/css/jquery.bxslider.css"></noscript>
 <link href="/assets/css/cityee-v3.css?v=5" rel="stylesheet">
 <link href="/assets/css/cityee-v3-overrides.css?v=25" rel="stylesheet">
+<link href="/assets/css/cityee-phase4.css?v=1" rel="stylesheet">
+<link href="/assets/css/cityee-phase5-6.css?v=1" rel="stylesheet">
 
 {{-- JSON-LD --}}
 @stack('jsonld')
@@ -381,5 +389,9 @@ window.addEventListener('load', function() {
 </script>
 
 @include('partials.datalayer-leads')
+@include('partials.sticky-cta', ['locale' => $locale])
+<script>
+(function(){var s=document.getElementById('sticky-cta');if(!s)return;var shown=false;window.addEventListener('scroll',function(){if(window.scrollY>600){if(!shown){s.classList.add('sticky-cta--visible');shown=true}}else{if(shown){s.classList.remove('sticky-cta--visible');shown=false}}},{passive:true});})();
+</script>
 </body>
 </html>

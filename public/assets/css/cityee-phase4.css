@@ -1,0 +1,471 @@
+/* ══════════════════════════════════════════════════════════
+   Phase 4 — Intent Domination Engine — CSS
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Intent Hero ── */
+.hero--intent {
+  background: linear-gradient(135deg, #7b1f45 0%, #5a1633 100%);
+  color: #fff;
+  padding: 60px 0 40px;
+  text-align: center;
+}
+.hero--intent h1 {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: #fff;
+}
+.intent-hero-summary {
+  font-size: 18px;
+  opacity: 0.9;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* ── AI Summary Box ── */
+.intent-ai-summary {
+  padding: 40px 0 30px;
+  background: #f9f9f9;
+}
+.ai-box {
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  padding: 30px;
+  max-width: 800px;
+  margin: 0 auto;
+  box-shadow: 0 2px 12px rgba(0,0,0,.04);
+}
+.ai-box__title {
+  font-size: 20px;
+  color: #7b1f45;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+.ai-box__list {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 8px 15px;
+}
+.ai-box__list dt {
+  font-weight: 600;
+  color: #7b1f45;
+  font-size: 14px;
+}
+.ai-box__list dd {
+  margin: 0;
+  font-size: 15px;
+  color: #333;
+}
+
+/* ── Intent Sections ── */
+.intent-content .intent-section {
+  margin-bottom: 30px;
+}
+.intent-content .intent-section h2 {
+  font-size: 22px;
+  color: #333;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+.intent-content .intent-section p {
+  font-size: 16px;
+  line-height: 1.7;
+  color: #555;
+}
+
+/* ── CTA Block ── */
+.intent-cta {
+  background: linear-gradient(135deg, #7b1f45 0%, #5a1633 100%);
+  color: #fff;
+  padding: 50px 0;
+  margin: 40px 0;
+}
+.intent-cta h2 {
+  font-size: 26px;
+  color: #fff;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+.intent-cta .btn {
+  font-size: 18px;
+  padding: 14px 40px;
+}
+
+/* ── Comparison Table ── */
+.comparison-table-wrap {
+  margin-bottom: 35px;
+}
+.comparison-table th,
+.comparison-table td {
+  text-align: left;
+  vertical-align: top;
+}
+.comparison-highlight {
+  background: #f0ffe0;
+  font-weight: 600;
+}
+
+/* ── Intent Cross-links ── */
+.intent-crosslinks {
+  padding: 50px 0;
+  background: #fafafa;
+}
+.intent-crosslinks h2 {
+  font-size: 22px;
+  margin-bottom: 25px;
+  color: #333;
+}
+.crosslinks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 15px;
+}
+.crosslink-card {
+  display: block;
+  background: #fff;
+  padding: 18px 15px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #333;
+  box-shadow: 0 2px 8px rgba(0,0,0,.06);
+  transition: box-shadow .2s, transform .2s;
+}
+.crosslink-card:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,.12);
+  transform: translateY(-2px);
+  text-decoration: none;
+  color: #333;
+}
+.crosslink-card--primary {
+  border-left: 4px solid #7b1f45;
+}
+.crosslink-card__icon {
+  display: block;
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+.crosslink-card__title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #7b1f45;
+}
+
+/* ── Micro-conversion ── */
+.micro-cta-inline {
+  padding: 35px 0;
+  background: #fff3e0;
+}
+.micro-cta-box {
+  text-align: center;
+}
+.micro-cta-box p {
+  font-size: 18px;
+  margin-bottom: 15px;
+  color: #333;
+}
+.micro-cta-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.micro-cta-actions .btn-outline {
+  border: 2px solid #7b1f45;
+  color: #7b1f45;
+  background: transparent;
+}
+.micro-cta-actions .btn-outline:hover {
+  background: #7b1f45;
+  color: #fff;
+}
+.micro-cta-actions .btn--wa {
+  border-color: #25d366;
+  color: #25d366;
+}
+.micro-cta-actions .btn--wa:hover {
+  background: #25d366;
+  color: #fff;
+}
+
+/* ── Zero-click Answers ── */
+.zero-click-answers {
+  padding: 50px 0;
+  background: #f4f4f4;
+}
+.zero-click-answers h2 {
+  font-size: 22px;
+  margin-bottom: 25px;
+  color: #333;
+}
+.zero-click-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+.zero-click-card {
+  background: #fff;
+  padding: 22px 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.05);
+}
+.zero-click-card h3 {
+  font-size: 16px;
+  color: #7b1f45;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+.zero-click-card p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #555;
+  margin: 0;
+}
+
+/* ══════════════════════════════════════════════════════════
+   Sell Page Phase 4 Blocks
+   ══════════════════════════════════════════════════════════ */
+
+/* ── JTBD 30 ── */
+.sell-jtbd-30 {
+  padding: 50px 0;
+  background: #fafafa;
+}
+.sell-jtbd-30 h2 {
+  font-size: 24px;
+  margin-bottom: 30px;
+  color: #333;
+  text-align: center;
+}
+.jtbd-30-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 12px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.jtbd-30-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 12px;
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(0,0,0,.04);
+}
+.jtbd-30-num {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  background: #7b1f45;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+}
+.jtbd-30-text {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #444;
+}
+.jtbd-30-cta {
+  text-align: center;
+  margin-top: 30px;
+}
+.jtbd-30-cta p {
+  font-size: 18px;
+  font-weight: 600;
+  color: #7b1f45;
+  margin-bottom: 15px;
+}
+
+/* ── Fears 30 ── */
+.sell-fears-30 {
+  padding: 50px 0;
+}
+.sell-fears-30 h2 {
+  font-size: 24px;
+  margin-bottom: 25px;
+  color: #333;
+  text-align: center;
+}
+.fears-accordion {
+  max-width: 800px;
+  margin: 0 auto;
+}
+.fear-item {
+  border-bottom: 1px solid #eee;
+}
+.fear-item summary {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 0;
+  cursor: pointer;
+  font-size: 15px;
+  color: #333;
+  list-style: none;
+}
+.fear-item summary::-webkit-details-marker { display: none; }
+.fear-item summary::after {
+  content: '+';
+  margin-left: auto;
+  font-size: 18px;
+  color: #999;
+  transition: transform .2s;
+}
+.fear-item[open] summary::after {
+  content: '−';
+  color: #7b1f45;
+}
+.fear-num {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  background: #ffebee;
+  color: #c62828;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+}
+.fear-title {
+  font-weight: 600;
+}
+.fear-solution {
+  padding: 0 0 14px 36px;
+  font-size: 14px;
+  color: #555;
+  line-height: 1.6;
+}
+.fear-solution strong {
+  color: #2e7d32;
+}
+
+/* ── Value 20 ── */
+.sell-value-20 {
+  padding: 50px 0;
+  background: #f5f5f5;
+}
+.sell-value-20 h2 {
+  font-size: 24px;
+  margin-bottom: 30px;
+  color: #333;
+  text-align: center;
+}
+.value-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 18px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.value-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 22px 18px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.05);
+  position: relative;
+}
+.value-card__num {
+  position: absolute;
+  top: -10px;
+  left: 15px;
+  width: 28px;
+  height: 28px;
+  background: #7b1f45;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+}
+.value-card__title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+  margin-top: 6px;
+}
+.value-card__desc {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #666;
+  margin: 0;
+}
+
+/* ── Strategies 20 ── */
+.sell-strategies-20 {
+  padding: 50px 0;
+}
+.sell-strategies-20 h2 {
+  font-size: 24px;
+  margin-bottom: 30px;
+  color: #333;
+  text-align: center;
+}
+.strategies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 18px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.strategy-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 22px 18px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.05);
+  border-left: 3px solid #7b1f45;
+  position: relative;
+}
+.strategy-card__num {
+  position: absolute;
+  top: -10px;
+  right: 15px;
+  width: 28px;
+  height: 28px;
+  background: #e8eaf6;
+  color: #3949ab;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+}
+.strategy-card__title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+}
+.strategy-card__desc {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #666;
+  margin: 0;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .hero--intent h1 { font-size: 24px; }
+  .ai-box__list { grid-template-columns: 1fr; }
+  .crosslinks-grid { grid-template-columns: 1fr 1fr; }
+  .jtbd-30-grid { grid-template-columns: 1fr; }
+  .value-grid { grid-template-columns: 1fr; }
+  .strategies-grid { grid-template-columns: 1fr; }
+  .zero-click-grid { grid-template-columns: 1fr; }
+  .micro-cta-actions { flex-direction: column; align-items: center; }
+}
+
+@media (max-width: 480px) {
+  .crosslinks-grid { grid-template-columns: 1fr; }
+}

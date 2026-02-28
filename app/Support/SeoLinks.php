@@ -78,6 +78,83 @@ class SeoLinks
                 'ru' => "{$base}/ru/aleksandr-primakov/",
                 'en' => "{$base}/en/aleksandr-primakov/",
             ],
+            'no_calls' => [
+                'et' => "{$base}/muud-ise-keegi-ei-helista/",
+                'ru' => "{$base}/ru/prodayu-sam-nikto-ne-zvonit/",
+                'en' => "{$base}/en/selling-yourself-no-calls/",
+            ],
+            'no_offers' => [
+                'et' => "{$base}/vaatamised-aga-pakkumisi-pole/",
+                'ru' => "{$base}/ru/prosmotry-est-predlozheniy-net/",
+                'en' => "{$base}/en/viewings-but-no-offers/",
+            ],
+            'price_analysis' => [
+                'et' => "{$base}/kinnisvara-hinnaanaluus-tallinn/",
+                'ru' => "{$base}/ru/analiz-ceny-nedvizhimosti-tallinn/",
+                'en' => "{$base}/en/property-price-analysis-tallinn/",
+            ],
+            'mistakes' => [
+                'et' => "{$base}/vead-kinnisvara-muugil/",
+                'ru' => "{$base}/ru/oshibki-pri-prodazhe/",
+                'en' => "{$base}/en/mistakes-selling-property/",
+            ],
+            'sell_faster' => [
+                'et' => "{$base}/kuidas-muua-kiiremini/",
+                'ru' => "{$base}/ru/kak-prodat-bystree/",
+                'en' => "{$base}/en/how-to-sell-faster/",
+            ],
+            'listing_audit' => [
+                'et' => "{$base}/kuulutuse-audit/",
+                'ru' => "{$base}/ru/audit-obyavleniya/",
+                'en' => "{$base}/en/listing-audit/",
+            ],
+            'comparison' => [
+                'et' => "{$base}/muua-ise-vs-strateegiline-partner/",
+                'ru' => "{$base}/ru/prodat-samomu-vs-partner/",
+                'en' => "{$base}/en/sell-yourself-vs-strategy-partner/",
+            ],
+            // Phase 5 — cases page
+            'cases' => [
+                'et' => "{$base}/knowledge/cases/",
+                'ru' => "{$base}/ru/knowledge/cases/",
+                'en' => "{$base}/en/knowledge/cases/",
+            ],
+            // Phase 5 — pillar guides
+            'guide_sell_tallinn' => [
+                'et' => "{$base}/knowledge/terviklik-juhend-kinnisvara-muugiks-tallinnas/",
+                'ru' => "{$base}/ru/knowledge/polnoe-rukovodstvo-prodazha-nedvizhimosti-tallinn/",
+                'en' => "{$base}/en/knowledge/complete-guide-selling-property-tallinn/",
+            ],
+            'guide_rent' => [
+                'et' => "{$base}/knowledge/juhend-kinnisvara-uurimine/",
+                'ru' => "{$base}/ru/knowledge/rukovodstvo-sdacha-v-arendu/",
+                'en' => "{$base}/en/knowledge/guide-renting-out-property/",
+            ],
+            'guide_pricing' => [
+                'et' => "{$base}/knowledge/kuidas-maarata-kinnisvara-turuhind/",
+                'ru' => "{$base}/ru/knowledge/kak-opredelit-rynochnuyu-cenu/",
+                'en' => "{$base}/en/knowledge/how-to-determine-market-price/",
+            ],
+            'guide_negotiation' => [
+                'et' => "{$base}/knowledge/labirakimiste-strateegia-kinnisvara/",
+                'ru' => "{$base}/ru/knowledge/peregovornaya-strategiya-nedvizhimost/",
+                'en' => "{$base}/en/knowledge/negotiation-strategy-property/",
+            ],
+            'guide_staging' => [
+                'et' => "{$base}/knowledge/kuidas-valmistada-korter-muugiks/",
+                'ru' => "{$base}/ru/knowledge/kak-podgotovit-kvartiru-k-prodazhe/",
+                'en' => "{$base}/en/knowledge/how-to-prepare-apartment-for-sale/",
+            ],
+            'guide_market_2026' => [
+                'et' => "{$base}/knowledge/kinnisvara-turu-analuus-tallinn-2026/",
+                'ru' => "{$base}/ru/knowledge/analiz-rynka-nedvizhimosti-tallinn-2026/",
+                'en' => "{$base}/en/knowledge/real-estate-market-analysis-tallinn-2026/",
+            ],
+            'guide_mistakes' => [
+                'et' => "{$base}/knowledge/vead-mille-parast-kaotate-raha/",
+                'ru' => "{$base}/ru/knowledge/oshibki-iz-za-kotorykh-teryayut-dengi/",
+                'en' => "{$base}/en/knowledge/mistakes-that-cost-money/",
+            ],
             default => throw new \InvalidArgumentException("Unknown pageKey: {$pageKey}")
         };
     }

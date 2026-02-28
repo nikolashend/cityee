@@ -174,6 +174,32 @@ $cards = [
 
         @include('partials.trust-layer', ['locale' => $locale])
 
+        {{-- Phase 5: Pillar Guides Section --}}
+        <h2 class="section-title" style="margin-top:2.5rem">{{ $locale === 'ru' ? 'Экспертные руководства' : ($locale === 'en' ? 'Expert Guides' : 'Ekspertjuhendid') }}</h2>
+        <div class="knowledge-grid">
+          @php
+            $guideKeys = ['guide_sell_tallinn','guide_rent','guide_pricing','guide_negotiation','guide_staging','guide_market_2026','guide_mistakes'];
+            $guideIcons = ['🏠','🔑','💰','🤝','🎨','📈','⚠️'];
+            $slugField = match($locale) { 'ru' => 'slug_ru', 'en' => 'slug_en', default => 'slug' };
+          @endphp
+          @foreach ($guideKeys as $idx => $gk)
+            @php $gc = config("cityee-knowledge.pillar_guides.{$gk}"); @endphp
+            @if ($gc)
+            <a href="{{ route("{$locale}.pillar", $gc[$slugField]) }}" class="knowledge-card">
+              <span class="knowledge-card__icon">{{ $guideIcons[$idx] }}</span>
+              <h3 class="knowledge-card__title">{{ $gc[$locale]['h1'] ?? '' }}</h3>
+              <p class="knowledge-card__desc">{{ $gc[$locale]['meta_description'] ?? '' }}</p>
+            </a>
+            @endif
+          @endforeach
+          {{-- Cases link --}}
+          <a href="{{ route("{$locale}.cases") }}" class="knowledge-card knowledge-card--accent">
+            <span class="knowledge-card__icon">📋</span>
+            <h3 class="knowledge-card__title">{{ $locale === 'ru' ? 'Реальные кейсы' : ($locale === 'en' ? 'Real Cases' : 'Tegelikud juhtumid') }}</h3>
+            <p class="knowledge-card__desc">{{ $locale === 'ru' ? '10 реальных примеров: проблемы, решения и результаты.' : ($locale === 'en' ? '10 real examples: problems, solutions and results.' : '10 tegelikku näidet: probleemid, lahendused ja tulemused.') }}</p>
+          </a>
+        </div>
+
         @include('partials.ai-citation', ['locale' => $locale])
 
       </div>

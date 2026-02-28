@@ -175,6 +175,31 @@
     </div>
 </section>
 
+{{-- ═══ Expert Methodology (Phase 5+6) ═══ --}}
+@php $em = config("cityee-knowledge.expert_methodology.{$locale}", []); @endphp
+@if (!empty($em))
+<section style="padding:3rem 0;background:#fff">
+    <div class="container" style="max-width:800px">
+        <h2>{{ $em['approach'] ?? '' }}</h2>
+        @if (!empty($em['methodology']))
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.25rem;margin:1.5rem 0">
+            @foreach ($em['methodology'] as $step)
+            <div style="background:#f8f9fa;padding:1.25rem;border-radius:8px;border-left:3px solid #2563eb">
+                <strong>{{ $step['step'] }}</strong>
+                <p style="margin:.5rem 0 0;font-size:.9rem;opacity:.8">{{ $step['detail'] }}</p>
+            </div>
+            @endforeach
+        </div>
+        @endif
+        @if (!empty($em['why_most_lose']))
+        <div style="background:#fff3cd;border:1px solid #ffc107;border-radius:8px;padding:1.25rem;margin-top:1.5rem">
+            <strong>⚠️ {{ $em['why_most_lose'] }}</strong>
+        </div>
+        @endif
+    </div>
+</section>
+@endif
+
 {{-- ═══ CTA ═══ --}}
 <section style="padding:3rem 0;text-align:center">
     <div class="container" style="max-width:600px">

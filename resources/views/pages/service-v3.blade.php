@@ -114,6 +114,24 @@
 {{-- ======= C6: Case Studies ======= --}}
 @include('components.v3.cases', ['v3' => $v3, 'company' => config('cityee.company')])
 
+{{-- ======= Phase 4: Sell page intent blocks (JTBD 30, Fears 30, Value 20, Strategies 20) ======= --}}
+@if($pageKey === 'sell')
+@include('partials.sell-jtbd-30', ['locale' => $locale])
+@include('partials.sell-fears-30', ['locale' => $locale])
+@include('partials.sell-value-20', ['locale' => $locale])
+@include('partials.sell-strategies-20', ['locale' => $locale])
+@include('partials.zero-click', ['locale' => $locale])
+@include('partials.micro-conversion', ['locale' => $locale])
+@endif
+
+{{-- ======= Phase 5+6: Trust protection, inaction risks, data authority (sell page) ======= --}}
+@if($pageKey === 'sell')
+@include('partials.trust-protection', ['locale' => $locale])
+@include('partials.inaction-risks', ['locale' => $locale])
+@include('partials.data-authority', ['locale' => $locale])
+@include('partials.before-after', ['locale' => $locale])
+@endif
+
 {{-- ======= Trust layer (existing) ======= --}}
 @include('partials.advantages', ['ui' => $ui, 'isPage' => true])
 
@@ -156,6 +174,11 @@
 
 {{-- ======= D1: Internal cross-links (services ↔ guides ↔ audits) ======= --}}
 @include('partials.service-crosslinks', ['locale' => $locale, 'pageKey' => $pageKey])
+
+{{-- ======= Phase 4: Intent silo links (sell page only) ======= --}}
+@if($pageKey === 'sell')
+@include('partials.intent-crosslinks', ['locale' => $locale, 'pageKey' => $pageKey])
+@endif
 
 {{-- ======= D2: Forms — audit + calculator ======= --}}
 @include('components.v3.form-audit', ['locale' => $locale])
