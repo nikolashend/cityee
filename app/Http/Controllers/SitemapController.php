@@ -24,6 +24,7 @@ class SitemapController extends Controller
             "{$base}/sitemap-guides.xml",
             "{$base}/sitemap-audits.xml",
             "{$base}/sitemap-locations.xml",
+            "{$base}/sitemap-phase3.xml",
         ];
 
         $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
@@ -240,6 +241,54 @@ class SitemapController extends Controller
 
                 $xml .= "  </url>\n";
             }
+        }
+
+        $xml .= '</urlset>';
+
+        return response($xml, 200)->withHeaders([
+            'Content-Type'  => 'application/xml; charset=UTF-8',
+            'Cache-Control' => 'public, max-age=3600, s-maxage=3600',
+            'X-Robots-Tag'  => 'noindex',
+        ]);
+    }
+
+    /**
+     * Phase 3 sitemap — RU-only intent landings, district pages, cases.
+     * GET /sitemap-phase3.xml
+     */
+    public function phase3(): Response
+    {
+        $base  = self::BASE;
+        $today = now()->toDateString();
+
+        $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+        $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
+
+        // Intent landing pages
+        $landings = config('cityee-phase3.landings', []);
+        foreach ($landings as $slug => $data) {
+            $loc = "{$base}/ru/{$slug}/";
+            $xml .= "  <url>\n    <loc>{$loc}</loc>\n    <lastmod>{$today}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.9</priority>\n  </url>\n";
+        }
+
+        // GEO hub
+        $xml .= "  <url>\n    <loc>{$base}/ru/tallinn/</loc>\n    <lastmod>{$today}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.8</priority>\n  </url>\n";
+
+        // District pages
+        $districts = config('cityee-phase3.districts', []);
+        foreach ($districts as $slug => $data) {
+            $loc = "{$base}/ru/tallinn/{$slug}/";
+            $xml .= "  <url>\n    <loc>{$loc}</loc>\n    <lastmod>{$today}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.8</priority>\n  </url>\n";
+        }
+
+        // Cases hub
+        $xml .= "  <url>\n    <loc>{$base}/ru/cases/</loc>\n    <lastmod>{$today}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>0.8</priority>\n  </url>\n";
+
+        // Individual case pages
+        $cases = config('cityee-phase3.cases', []);
+        foreach ($cases as $slug => $data) {
+            $loc = "{$base}/ru/cases/{$slug}/";
+            $xml .= "  <url>\n    <loc>{$loc}</loc>\n    <lastmod>{$today}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.7</priority>\n  </url>\n";
         }
 
         $xml .= '</urlset>';

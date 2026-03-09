@@ -6,6 +6,7 @@ use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\GuideController;
 use App\Http\Controllers\AuditContentController;
 use App\Http\Controllers\LocationController;
+use App\Http\Controllers\Phase3Controller;
 use Illuminate\Support\Facades\Route;
 
 // ─── Form submission routes (shared) ────────────────────────
@@ -20,6 +21,7 @@ Route::get('/sitemap-main.xml', [SitemapController::class, 'main'])->name('sitem
 Route::get('/sitemap-guides.xml', [SitemapController::class, 'guides'])->name('sitemap.guides');
 Route::get('/sitemap-audits.xml', [SitemapController::class, 'audits'])->name('sitemap.audits');
 Route::get('/sitemap-locations.xml', [SitemapController::class, 'locations'])->name('sitemap.locations');
+Route::get('/sitemap-phase3.xml', [SitemapController::class, 'phase3'])->name('sitemap.phase3');
 Route::get('/robots.txt', [SitemapController::class, 'robots'])->name('robots');
 
 // ─── Estonian routes (cityee.ee) — default ──────────────────
@@ -82,6 +84,24 @@ Route::prefix('ru')->group(function () {
     Route::get('/kak-prodat-bystree',                [PageController::class, 'intentPage'])->defaults('locale', 'ru')->defaults('intentKey', 'sell_faster')->name('ru.sell_faster');
     Route::get('/audit-obyavleniya',                 [PageController::class, 'intentPage'])->defaults('locale', 'ru')->defaults('intentKey', 'listing_audit')->name('ru.listing_audit');
     Route::get('/prodat-samomu-vs-partner',          [PageController::class, 'intentPage'])->defaults('locale', 'ru')->defaults('intentKey', 'comparison')->name('ru.comparison');
+
+    // ─── Phase 3 — SEO/AI/GEO landing pages (RU only) ──────
+    Route::get('/prodat-kvartiru-v-tallinne',         [Phase3Controller::class, 'landing'])->defaults('landingKey', 'prodat-kvartiru-v-tallinne')->name('ru.phase3.prodat-kvartiru');
+    Route::get('/sdat-kvartiru-v-tallinne',           [Phase3Controller::class, 'landing'])->defaults('landingKey', 'sdat-kvartiru-v-tallinne')->name('ru.phase3.sdat-kvartiru');
+    Route::get('/makler-v-tallinne',                  [Phase3Controller::class, 'landing'])->defaults('landingKey', 'makler-v-tallinne')->name('ru.phase3.makler');
+    Route::get('/agentstvo-nedvizhimosti-tallinn',    [Phase3Controller::class, 'landing'])->defaults('landingKey', 'agentstvo-nedvizhimosti-tallinn')->name('ru.phase3.agentstvo');
+    Route::get('/ocenka-kvartiry-v-tallinne',         [Phase3Controller::class, 'landing'])->defaults('landingKey', 'ocenka-kvartiry-v-tallinne')->name('ru.phase3.ocenka');
+    Route::get('/ne-prodaetsya-kvartira-v-tallinne',  [Phase3Controller::class, 'landing'])->defaults('landingKey', 'ne-prodaetsya-kvartira-v-tallinne')->name('ru.phase3.ne-prodaetsya');
+    Route::get('/audit-nedvizhimosti-tallinn',        [Phase3Controller::class, 'landing'])->defaults('landingKey', 'audit-nedvizhimosti-tallinn')->name('ru.phase3.audit');
+    Route::get('/o-kompanii',                         [Phase3Controller::class, 'landing'])->defaults('landingKey', 'o-kompanii')->name('ru.phase3.o-kompanii');
+
+    // Phase 3 — GEO hub + districts
+    Route::get('/tallinn',                            [Phase3Controller::class, 'geoHub'])->name('ru.phase3.geo-hub');
+    Route::get('/tallinn/{slug}',                     [Phase3Controller::class, 'district'])->name('ru.phase3.district');
+
+    // Phase 3 — Cases hub + individual cases
+    Route::get('/cases',                              [Phase3Controller::class, 'casesHub'])->name('ru.phase3.cases-hub');
+    Route::get('/cases/{slug}',                       [Phase3Controller::class, 'caseDetail'])->name('ru.phase3.case');
 });
 
 // ─── English routes (/en prefix) ────────────────────────────

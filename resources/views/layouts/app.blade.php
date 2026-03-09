@@ -246,7 +246,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <li class="{{ trim($classes) }}"><a href="{{ route($routeName) }}" title="{{ $item['title'] }}">{{ $item['label'] }}</a></li>
         @endforeach
       </ul>
-      <ul class="footer__list"></ul>
+      <ul class="footer__list">
+        {{-- Phase 3 footer links (RU SEO pages) --}}
+        @if($locale === 'ru')
+        <li><a href="/ru/prodat-kvartiru-v-tallinne/">Продать квартиру</a></li>
+        <li><a href="/ru/makler-v-tallinne/">Маклер в Таллине</a></li>
+        <li><a href="/ru/ocenka-kvartiry-v-tallinne/">Оценка квартиры</a></li>
+        <li><a href="/ru/audit-nedvizhimosti-tallinn/">Аудит недвижимости</a></li>
+        <li><a href="/ru/tallinn/">Районы Таллина</a></li>
+        <li><a href="/ru/cases/">Кейсы</a></li>
+        @endif
+      </ul>
     </div>
 
     <div class="footer__contacts">
