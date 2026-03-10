@@ -6,7 +6,9 @@
 @section('logo_text', $ui['logo_text'] ?? '')
 @section('footer_class', 'footer--page')
 
+@section('lang_et_url', route('et.home'))
 @section('lang_ru_url', url()->current())
+@section('lang_en_url', route('en.home'))
 
 @push('jsonld')
 {!! \App\Support\JsonLd::webPage($landing['meta_title'] ?? '', url()->current(), $landing['meta_description'] ?? '') !!}

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-@php
+<?php
     $locale = $locale ?? app()->getLocale();
     $ui     = $ui ?? config("cityee.ui.{$locale}", []);
     $nav    = $nav ?? config("cityee.nav.{$locale}", []);
@@ -23,66 +23,67 @@
         'pillar' => 'guide', 'cases' => 'cases',
     ];
     $dlPageType = $pageTypeMap[$pageKey] ?? 'other';
-@endphp
-<html class="no-js" lang="{{ $locale }}">
+?>
+<html class="no-js" lang="<?php echo e($locale); ?>">
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<title>@yield('title')</title>
-<meta name="description" content="@yield('description')">
-<meta name="keywords" content="@yield('keywords', '')">
+<title><?php echo $__env->yieldContent('title'); ?></title>
+<meta name="description" content="<?php echo $__env->yieldContent('description'); ?>">
+<meta name="keywords" content="<?php echo $__env->yieldContent('keywords', ''); ?>">
 <link rel="icon" href="/favicon.png" type="image/x-icon"/>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="csrf-token" content="{{ csrf_token() }}">
+<meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
 
-{{-- WebP feature detection — adds 'webp' class to <html> for CSS bg swap --}}
+
 <script>document.documentElement.className+=' '+((function(){var e=document.createElement('canvas');return e.toDataURL&&e.toDataURL('image/webp').indexOf('data:image/webp')===0})()?"webp":"no-webp")</script>
 
-{{-- Preconnect to third-party origins --}}
+
 <link rel="preconnect" href="https://ajax.googleapis.com" crossorigin>
 <link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
 <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
 <link rel="dns-prefetch" href="https://code.jivosite.com">
 
-{{-- Preload actual hero background (first slide) — WebP only, with type hint --}}
-{{-- Non-WebP browsers (<1%) skip this preload but still get the JPG from CSS --}}
+
+
 <link rel="preload" href="/assets/templates/offshors/img/banner-mans.webp" as="image" type="image/webp" fetchpriority="high">
 
-{{-- Preload critical fonts --}}
+
 <link rel="preload" href="/assets/templates/offshors/fonts/PTSansNarrow-Bold.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/templates/offshors/fonts/PTSansNarrow-Regular.woff2" as="font" type="font/woff2" crossorigin>
 
-{{-- Canonical + Hreflang --}}
-@if (!empty($canonicalUrl))
-<link rel="canonical" href="{{ $canonicalUrl }}">
-@if (!empty($hreflangLinks))
-@foreach ($hreflangLinks as $alt)
-<link rel="alternate" hreflang="{{ $alt['hreflang'] }}" href="{{ $alt['href'] }}">
-@endforeach
-@endif
-@elseif (isset($pageKey))
-<link rel="canonical" href="{{ \App\Support\SeoLinks::canonical($pageKey) }}">
-@foreach (\App\Support\SeoLinks::hreflang($pageKey) as $alt)
-<link rel="alternate" hreflang="{{ $alt['hreflang'] }}" href="{{ $alt['href'] }}">
-@endforeach
-@endif
 
-{{-- OG tags --}}
+<?php if(!empty($canonicalUrl)): ?>
+<link rel="canonical" href="<?php echo e($canonicalUrl); ?>">
+<?php if(!empty($hreflangLinks)): ?>
+<?php $__currentLoopData = $hreflangLinks; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $alt): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+<link rel="alternate" hreflang="<?php echo e($alt['hreflang']); ?>" href="<?php echo e($alt['href']); ?>">
+<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+<?php endif; ?>
+<?php elseif(isset($pageKey)): ?>
+<link rel="canonical" href="<?php echo e(\App\Support\SeoLinks::canonical($pageKey)); ?>">
+<?php $__currentLoopData = \App\Support\SeoLinks::hreflang($pageKey); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $alt): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+<link rel="alternate" hreflang="<?php echo e($alt['hreflang']); ?>" href="<?php echo e($alt['href']); ?>">
+<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+<?php endif; ?>
+
+
 <meta property="og:site_name" content="CityEE">
-<meta property="og:title" content="@yield('title')">
-<meta property="og:description" content="@yield('description')">
+<meta property="og:title" content="<?php echo $__env->yieldContent('title'); ?>">
+<meta property="og:description" content="<?php echo $__env->yieldContent('description'); ?>">
 <meta property="og:type" content="website">
-@if (!empty($canonicalUrl))
-<meta property="og:url" content="{{ $canonicalUrl }}">
-@elseif (isset($pageKey))
-<meta property="og:url" content="{{ \App\Support\SeoLinks::canonical($pageKey) }}">
-@endif
+<?php if(!empty($canonicalUrl)): ?>
+<meta property="og:url" content="<?php echo e($canonicalUrl); ?>">
+<?php elseif(isset($pageKey)): ?>
+<meta property="og:url" content="<?php echo e(\App\Support\SeoLinks::canonical($pageKey)); ?>">
+<?php endif; ?>
 <meta property="og:image" content="https://cityee.ee/assets/templates/offshors/img/about-foto.jpg">
-<meta property="og:locale" content="{{ $locale === 'ru' ? 'ru_EE' : ($locale === 'en' ? 'en_US' : 'et_EE') }}">
+<meta property="og:locale" content="<?php echo e($locale === 'ru' ? 'ru_EE' : ($locale === 'en' ? 'en_US' : 'et_EE')); ?>">
 
-{{-- WebSite + SearchAction JSON-LD (global, every page) --}}
-{!! \App\Support\Schema::webSiteJsonLd() !!}
 
-{{-- Critical CSS — above-fold layout + hero to prevent FOUC & CLS --}}
+<?php echo \App\Support\Schema::webSiteJsonLd(); ?>
+
+
+
 <style>
 /* Core layout — prevent layout shift */
 *,*::before,*::after{box-sizing:border-box}
@@ -106,10 +107,10 @@ img{max-width:100%;height:auto}
 .hero-trust-line__divider{width:1px;height:16px;background:rgba(255,255,255,.3)}
 </style>
 
-{{-- Design tokens — single source of truth for all UI variables --}}
+
 <link rel="stylesheet" href="/assets/css/tokens.css?v=6">
 
-{{-- Core theme CSS — loaded synchronously to prevent FOUC --}}
+
 <link rel="stylesheet" href="/assets/templates/offshors/css/style.css?v=5">
 <link rel="stylesheet" href="/assets/templates/offshors/css/font-awesome.min.css" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="/assets/templates/offshors/css/font-awesome.min.css"></noscript>
@@ -120,8 +121,8 @@ img{max-width:100%;height:auto}
 <link href="/assets/css/cityee-phase4.css?v=2" rel="stylesheet">
 <link href="/assets/css/cityee-phase5-6.css?v=2" rel="stylesheet">
 
-{{-- JSON-LD --}}
-@stack('jsonld')
+
+<?php echo $__env->yieldPushContent('jsonld'); ?>
 
 <!-- Google Tag Manager — async, non-blocking -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -131,7 +132,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-5DRRX5ZJ');</script>
 <!-- End Google Tag Manager -->
 
-{{-- Font display:swap — woff2 only (legacy formats stripped) --}}
+
 <style>
 @font-face{font-family:'PT Sans Narrow';font-style:normal;font-weight:400;font-display:swap;src:url('/assets/templates/offshors/fonts/PTSansNarrow-Regular.woff2') format('woff2')}
 @font-face{font-family:'PT Sans Narrow';font-style:normal;font-weight:700;font-display:swap;src:url('/assets/templates/offshors/fonts/PTSansNarrow-Bold.woff2') format('woff2')}
@@ -140,7 +141,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </style>
 
 </head>
-<body class="v3" data-page-type="{{ $dlPageType }}">
+<body class="v3" data-page-type="<?php echo e($dlPageType); ?>">
 <!-- Skip to content link for accessibility -->
 <a href="#main-content" class="sr-only" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">Skip to content</a>
 <!-- Google Tag Manager (noscript) -->
@@ -154,76 +155,77 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="header__logo">
       <div class="logo" href="/">
         <div class="logo__img"><img src="/assets/templates/offshors/img/logo.png" width="200" height="60" alt="CityEE" decoding="async"></div>
-        <span class="logo__text">@yield('logo_text', $ui['logo_text'] ?? '')</span>
-        <a class="logo__href" href="{{ route("{$locale}.home") }}"></a>
+        <span class="logo__text"><?php echo $__env->yieldContent('logo_text', $ui['logo_text'] ?? ''); ?></span>
+        <a class="logo__href" href="<?php echo e(route("{$locale}.home")); ?>"></a>
       </div>
     </div>
 
     <div class="header__contacts">
       <div class="contacts">
-        <p class="contacts__adress">{{ $co['address'] }}<br/> {{ $co['city'] }}, {{ $co['postal_code'] }}</p>
-        <p class="contacts__mail" style="font-size:15px;"><a href="mailto:{{ $co['email'] }}">{{ $co['email'] }}</a></p>
+        <p class="contacts__adress"><?php echo e($co['address']); ?><br/> <?php echo e($co['city']); ?>, <?php echo e($co['postal_code']); ?></p>
+        <p class="contacts__mail" style="font-size:15px;"><a href="mailto:<?php echo e($co['email']); ?>"><?php echo e($co['email']); ?></a></p>
       </div>
     </div>
 
     <div class="header__phones">
       <div class="phones">
-        <div style="text-align:center;"><a href="{{ $co['city24'] }}{{ $locale === 'ru' ? 'ru/' : '' }}" target="blank">City24</a></div>
-        <div style="text-align:center;"><a href="{{ $co['facebook'] }}" target="blank">Facebook</a></div>
-        <div style="text-align:center;"><a href="{{ $co['instagram'] }}" target="blank">Instagram</a></div>
-        <div style="text-align:center;"><a href="{{ $co['linkedin'] }}" target="blank">LinkedIn</a></div>
+        <div style="text-align:center;"><a href="<?php echo e($co['city24']); ?><?php echo e($locale === 'ru' ? 'ru/' : ''); ?>" target="blank">City24</a></div>
+        <div style="text-align:center;"><a href="<?php echo e($co['facebook']); ?>" target="blank">Facebook</a></div>
+        <div style="text-align:center;"><a href="<?php echo e($co['instagram']); ?>" target="blank">Instagram</a></div>
+        <div style="text-align:center;"><a href="<?php echo e($co['linkedin']); ?>" target="blank">LinkedIn</a></div>
       </div>
     </div>
 
     <div class="header__main-phone">
       <div class="main-phone">
-        <a class="main-phone__item" href="tel:{{ $co['phone'] }}">{{ $co['phone_display'] }}</a>
-        <span class="main-phone__time">{{ $ui['hours'] ?? '10.00 kuni 22.00' }}</span>
-        <a class="main-phone__whatsapp" href="{{ $co['whatsapp'] }}" target="_blank" rel="noopener">
-    {{ $ui['call_whatsapp'] ?? "helista WhatsApp'i" }}
+        <a class="main-phone__item" href="tel:<?php echo e($co['phone']); ?>"><?php echo e($co['phone_display']); ?></a>
+        <span class="main-phone__time"><?php echo e($ui['hours'] ?? '10.00 kuni 22.00'); ?></span>
+        <a class="main-phone__whatsapp" href="<?php echo e($co['whatsapp']); ?>" target="_blank" rel="noopener">
+    <?php echo e($ui['call_whatsapp'] ?? "helista WhatsApp'i"); ?>
+
 </a>
       </div>
-      <a href="" class="mini-btn call-back">{{ $ui['order_call'] ?? 'Telli kõne' }}</a>
+      <a href="" class="mini-btn call-back"><?php echo e($ui['order_call'] ?? 'Telli kõne'); ?></a>
     </div>
 
     <div class="header__btn-wrapp">
-      <a href="" class="header__mobile-btn header__mobile-btn--adress">{{ $ui['contacts'] ?? 'Kontaktid' }}</a>
-      <a href="" class="header__mobile-btn header__mobile-btn--phones">{{ $ui['objects'] ?? 'Objektid' }}</a>
+      <a href="" class="header__mobile-btn header__mobile-btn--adress"><?php echo e($ui['contacts'] ?? 'Kontaktid'); ?></a>
+      <a href="" class="header__mobile-btn header__mobile-btn--phones"><?php echo e($ui['objects'] ?? 'Objektid'); ?></a>
     </div>
 
   </div>
 
-  <nav class="nav" aria-label="{{ $locale === 'ru' ? 'Главное меню' : ($locale === 'en' ? 'Main navigation' : 'Peamine navigatsioon') }}">
+  <nav class="nav" aria-label="<?php echo e($locale === 'ru' ? 'Главное меню' : ($locale === 'en' ? 'Main navigation' : 'Peamine navigatsioon')); ?>">
     <div class="container">
       <ul class="nav__list">
-        @foreach ($nav as $i => $item)
-          @php
+        <?php $__currentLoopData = $nav; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $i => $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+          <?php
               $routeName = "{$locale}.{$item['route']}";
               $classes = 'nav__item';
               if ($i === 0) $classes .= ' first';
               if ($i === count($nav) - 1) $classes .= ' last';
               if (Route::currentRouteName() === $routeName) $classes .= ' active';
-          @endphp
-          <li class="{{ $classes }}"><a href="{{ route($routeName) }}" title="{{ $item['title'] }}">{{ $item['label'] }}</a></li>
-        @endforeach
+          ?>
+          <li class="<?php echo e($classes); ?>"><a href="<?php echo e(route($routeName)); ?>" title="<?php echo e($item['title']); ?>"><?php echo e($item['label']); ?></a></li>
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
       </ul>
       <a href="#" class="nav__btn"></a>
-      @php
+      <?php
         $langEtRoute = 'et.' . ($pageKey ?? 'home');
         $langRuRoute = 'ru.' . ($pageKey ?? 'home');
         $langEnRoute = 'en.' . ($pageKey ?? 'home');
         $langEtUrl = \Illuminate\Support\Facades\Route::has($langEtRoute) ? route($langEtRoute) : route('et.home');
         $langRuUrl = \Illuminate\Support\Facades\Route::has($langRuRoute) ? route($langRuRoute) : route('ru.home');
         $langEnUrl = \Illuminate\Support\Facades\Route::has($langEnRoute) ? route($langEnRoute) : route('en.home');
-      @endphp
+      ?>
       <div class="languages">
-        <a href="@yield('lang_et_url', $langEtUrl)" class="languages__est{{ $locale === 'et' ? ' active' : '' }}">
+        <a href="<?php echo $__env->yieldContent('lang_et_url', $langEtUrl); ?>" class="languages__est<?php echo e($locale === 'et' ? ' active' : ''); ?>">
           <span>Est</span>
         </a>
-        <a href="@yield('lang_ru_url', $langRuUrl)" class="languages__rus{{ $locale === 'ru' ? ' active' : '' }}">
+        <a href="<?php echo $__env->yieldContent('lang_ru_url', $langRuUrl); ?>" class="languages__rus<?php echo e($locale === 'ru' ? ' active' : ''); ?>">
           <span>Rus</span>
         </a>
-        <a href="@yield('lang_en_url', $langEnUrl)" class="languages__eng{{ $locale === 'en' ? ' active' : '' }}">
+        <a href="<?php echo $__env->yieldContent('lang_en_url', $langEnUrl); ?>" class="languages__eng<?php echo e($locale === 'en' ? ' active' : ''); ?>">
           <span>Eng</span>
         </a>
       </div>
@@ -232,47 +234,48 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </header>
 
 <main id="main-content">
-@yield('content')
+<?php echo $__env->yieldContent('content'); ?>
 </main>
 
-<footer class="footer @yield('footer_class')" role="contentinfo">
+<footer class="footer <?php echo $__env->yieldContent('footer_class'); ?>" role="contentinfo">
   <div class="questions">
-    <p>{{ $ui['questions_call'] ?? 'Kas Teil on küsimusi? Helistage!' }} <span>{{ $co['phone_display'] }}</span>&nbsp;
-    <a href="{{ route("{$locale}.sell") }}" target="_blank" onclick="if(document.location.href.match('kinnisvara-muuk|sell')){$('#feedback').trigger('click'); return false;}"><font color="#fafae6" size="5">&nbsp;&nbsp;{{ $ui['how_sell'] ?? '' }}</font></a></p>
+    <p><?php echo e($ui['questions_call'] ?? 'Kas Teil on küsimusi? Helistage!'); ?> <span><?php echo e($co['phone_display']); ?></span>&nbsp;
+    <a href="<?php echo e(route("{$locale}.sell")); ?>" target="_blank" onclick="if(document.location.href.match('kinnisvara-muuk|sell')){$('#feedback').trigger('click'); return false;}"><font color="#fafae6" size="5">&nbsp;&nbsp;<?php echo e($ui['how_sell'] ?? ''); ?></font></a></p>
   </div>
   <div class="container">
     <div class="footer__menu">
       <ul class="footer__list">
-        @foreach ($nav as $i => $item)
-          @php
+        <?php $__currentLoopData = $nav; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $i => $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+          <?php
               $routeName = "{$locale}.{$item['route']}";
               $classes = '';
               if ($i === 0) $classes = 'first';
               if ($i === count($nav) - 1) $classes = 'last';
               if (Route::currentRouteName() === $routeName) $classes .= ' active';
-          @endphp
-          <li class="{{ trim($classes) }}"><a href="{{ route($routeName) }}" title="{{ $item['title'] }}">{{ $item['label'] }}</a></li>
-        @endforeach
+          ?>
+          <li class="<?php echo e(trim($classes)); ?>"><a href="<?php echo e(route($routeName)); ?>" title="<?php echo e($item['title']); ?>"><?php echo e($item['label']); ?></a></li>
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
       </ul>
       <ul class="footer__list"></ul>
     </div>
 
     <div class="footer__contacts">
       <div class="contacts">
-        <p class="contacts__adress">{{ $co['address'] }}<br/> {{ $co['city'] }}, {{ $co['postal_code'] }}</p>
-        <p class="contacts__mail" style="font-size:18px;"><a href="mailto:{{ $co['email'] }}">{{ $co['email'] }}</a></p>
-        <a href="" class="mini-btn call-back">{{ $ui['order_call'] ?? 'Telli kõne' }}</a>
+        <p class="contacts__adress"><?php echo e($co['address']); ?><br/> <?php echo e($co['city']); ?>, <?php echo e($co['postal_code']); ?></p>
+        <p class="contacts__mail" style="font-size:18px;"><a href="mailto:<?php echo e($co['email']); ?>"><?php echo e($co['email']); ?></a></p>
+        <a href="" class="mini-btn call-back"><?php echo e($ui['order_call'] ?? 'Telli kõne'); ?></a>
       </div>
     </div>
 
     <div class="footer__phones">
       <div class="main-phone">
-        <a class="main-phone__item" href="tel:{{ $co['phone'] }}">{{ $co['phone_display'] }}</a><br/>
-        <a class="main-phone__whatsapp" href="{{ $co['whatsapp'] }}" target="_blank" rel="noopener">
-    {{ $ui['call_whatsapp'] ?? "helista WhatsApp'i" }}
+        <a class="main-phone__item" href="tel:<?php echo e($co['phone']); ?>"><?php echo e($co['phone_display']); ?></a><br/>
+        <a class="main-phone__whatsapp" href="<?php echo e($co['whatsapp']); ?>" target="_blank" rel="noopener">
+    <?php echo e($ui['call_whatsapp'] ?? "helista WhatsApp'i"); ?>
+
 </a>
         <br/>
-        <a class="main-phone__telegram" href="{{ $co['telegram'] ?? 'https://t.me/kinnisvaramaakler' }}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:4px;color:#0088cc;font-size:14px;font-weight:600;margin-top:4px;">
+        <a class="main-phone__telegram" href="<?php echo e($co['telegram'] ?? 'https://t.me/kinnisvaramaakler'); ?>" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:4px;color:#0088cc;font-size:14px;font-weight:600;margin-top:4px;">
           <i class="fa fa-telegram" aria-hidden="true"></i> Telegram
         </a>
       </div>
@@ -281,11 +284,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <div class="footer__copy">
       <p>
-        © CityEE {{ date('Y') }} {{ $ui['copyright'] ?? '' }}
+        © CityEE <?php echo e(date('Y')); ?> <?php echo e($ui['copyright'] ?? ''); ?>
+
       </p>
       <p style="font-size:12px;color:#999;margin-top:8px;">
         CityEE — Property Sale & Rental Strategy Broker in Tallinn & Harjumaa.
-        {{ $co['address'] }}, {{ $co['city'] }} {{ $co['postal_code'] }}, Estonia.
+        <?php echo e($co['address']); ?>, <?php echo e($co['city']); ?> <?php echo e($co['postal_code']); ?>, Estonia.
       </p>
     </div>
   </div>
@@ -302,7 +306,7 @@ window.addEventListener('load', function() {
   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
   m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
-  ym({{ $metrikaId }}, "init", {
+  ym(<?php echo e($metrikaId); ?>, "init", {
     clickmap:true,
     trackLinks:true,
     accurateTrackBounce:true,
@@ -310,40 +314,40 @@ window.addEventListener('load', function() {
   });
 });
 </script>
-<noscript><div><img src="https://mc.yandex.ru/watch/{{ $metrikaId }}" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<noscript><div><img src="https://mc.yandex.ru/watch/<?php echo e($metrikaId); ?>" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 
 </footer>
 
-@include('partials.sticky-buttons')
+<?php echo $__env->make('partials.sticky-buttons', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
 <div class="backgroundPopup"></div>
 <div id="popupContact2" class="pop-up">
 <a href="" class="pop-up__close"></a>
-<h3>{{ $ui['order_call'] ?? 'Telli kõne' }}</h3>
-  <form action="{{ route('contact.callback') }}" method="POST" class="pop-up__form ajax-form">
-  @csrf
+<h3><?php echo e($ui['order_call'] ?? 'Telli kõne'); ?></h3>
+  <form action="<?php echo e(route('contact.callback')); ?>" method="POST" class="pop-up__form ajax-form">
+  <?php echo csrf_field(); ?>
   <div class="error"></div>
-    <input type="text" class="pop-up__input" name="name" placeholder="{{ $ui['your_name'] ?? 'Teie nimi' }}">
-    <input type="text" class="pop-up__input" name="tel" value="" placeholder="{{ $ui['your_phone'] ?? 'Teie telefoni number' }}">
-    <input type="submit" class="btn" name="submit" value="{{ $ui['send'] ?? 'Saada' }}">
+    <input type="text" class="pop-up__input" name="name" placeholder="<?php echo e($ui['your_name'] ?? 'Teie nimi'); ?>">
+    <input type="text" class="pop-up__input" name="tel" value="" placeholder="<?php echo e($ui['your_phone'] ?? 'Teie telefoni number'); ?>">
+    <input type="submit" class="btn" name="submit" value="<?php echo e($ui['send'] ?? 'Saada'); ?>">
     <input type="hidden" name="query_type" value="call">
   </form>
 </div>
 
 <div id="popupContact1" class="pop-up">
 <a href="" class="pop-up__close"></a>
-<h3>{{ $ui['send_inquiry'] ?? 'SAADA PÄRING' }}</h3>
-  <form action="{{ route('contact.inquiry') }}" method="POST" class="pop-up__form ajax-form">
-  @csrf
+<h3><?php echo e($ui['send_inquiry'] ?? 'SAADA PÄRING'); ?></h3>
+  <form action="<?php echo e(route('contact.inquiry')); ?>" method="POST" class="pop-up__form ajax-form">
+  <?php echo csrf_field(); ?>
   <div class="error"></div>
-    <input type="text" class="pop-up__input" name="name" placeholder="{{ $ui['your_name'] ?? 'Teie nimi' }}">
-    <input type="text" class="pop-up__input" name="tel" value="" placeholder="{{ $ui['your_phone'] ?? 'Teie telefoni number' }}">
-    <input type="text" class="pop-up__input" name="email" value="" placeholder="{{ $ui['your_email'] ?? 'Teie email' }}">
-    <textarea rows="4" class="pop-up__input" name="comment" value="" placeholder="{{ $ui['your_comment'] ?? 'Teie komentaar' }}"></textarea>
-    <input type="submit" class="btn" name="submit" value="{{ $ui['send'] ?? 'Saada' }}">
+    <input type="text" class="pop-up__input" name="name" placeholder="<?php echo e($ui['your_name'] ?? 'Teie nimi'); ?>">
+    <input type="text" class="pop-up__input" name="tel" value="" placeholder="<?php echo e($ui['your_phone'] ?? 'Teie telefoni number'); ?>">
+    <input type="text" class="pop-up__input" name="email" value="" placeholder="<?php echo e($ui['your_email'] ?? 'Teie email'); ?>">
+    <textarea rows="4" class="pop-up__input" name="comment" value="" placeholder="<?php echo e($ui['your_comment'] ?? 'Teie komentaar'); ?>"></textarea>
+    <input type="submit" class="btn" name="submit" value="<?php echo e($ui['send'] ?? 'Saada'); ?>">
     <input type="hidden" name="query_type" value="buy_kompany">
     <p></p>
-    <p><a href="{{ route("{$locale}.sell") }}" target="_blank"><font size="4"> {{ $ui['how_sell'] ?? '' }}</font></a></p>
+    <p><a href="<?php echo e(route("{$locale}.sell")); ?>" target="_blank"><font size="4"> <?php echo e($ui['how_sell'] ?? ''); ?></font></a></p>
   </form>
 </div>
 
@@ -351,12 +355,12 @@ window.addEventListener('load', function() {
 <script src="/assets/templates/offshors/js/main.js?v=3" defer></script>
 <script src="/assets/templates/offshors/js/jquery.bxslider.js" defer></script>
 
-{{-- Lightboxed — deferred CSS + JS --}}
+
 <link rel="stylesheet" href="/assets/lightboxed/lightboxed.css?v=1.31" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="/assets/lightboxed/lightboxed.css?v=1.31"></noscript>
 <script src="/assets/lightboxed/lightboxed.js?v=1.1" defer></script>
 
-{{-- Magnific Popup — deferred CSS + JS --}}
+
 <link rel="stylesheet" href="/assets/magnific-popup/magnific-popup.css" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="/assets/magnific-popup/magnific-popup.css"></noscript>
 <script src="/assets/magnific-popup/jquery.magnific-popup.js" defer></script>
@@ -396,10 +400,11 @@ window.addEventListener('load', function() {
   });
 </script>
 
-@include('partials.datalayer-leads')
-@include('partials.sticky-cta', ['locale' => $locale])
+<?php echo $__env->make('partials.datalayer-leads', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
+<?php echo $__env->make('partials.sticky-cta', ['locale' => $locale], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 <script>
 (function(){var s=document.getElementById('sticky-cta');if(!s)return;var shown=false;window.addEventListener('scroll',function(){if(window.scrollY>600){if(!shown){s.classList.add('sticky-cta--visible');shown=true}}else{if(shown){s.classList.remove('sticky-cta--visible');shown=false}}},{passive:true});})();
 </script>
 </body>
 </html>
+<?php /**PATH C:\Users\nikol\Documents\projects\cityee-laravel\resources\views/layouts/app.blade.php ENDPATH**/ ?>

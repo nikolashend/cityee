@@ -155,6 +155,120 @@ class SeoLinks
                 'ru' => "{$base}/ru/knowledge/oshibki-iz-za-kotorykh-teryayut-dengi/",
                 'en' => "{$base}/en/knowledge/mistakes-that-cost-money/",
             ],
+
+            // ── Phase 3 — RU-only intent landings ──────────────
+            'phase3.prodat-kvartiru-v-tallinne' => [
+                'et' => "{$base}/ru/prodat-kvartiru-v-tallinne/",
+                'ru' => "{$base}/ru/prodat-kvartiru-v-tallinne/",
+                'en' => "{$base}/ru/prodat-kvartiru-v-tallinne/",
+            ],
+            'phase3.sdat-kvartiru-v-tallinne' => [
+                'et' => "{$base}/ru/sdat-kvartiru-v-tallinne/",
+                'ru' => "{$base}/ru/sdat-kvartiru-v-tallinne/",
+                'en' => "{$base}/ru/sdat-kvartiru-v-tallinne/",
+            ],
+            'phase3.makler-v-tallinne' => [
+                'et' => "{$base}/ru/makler-v-tallinne/",
+                'ru' => "{$base}/ru/makler-v-tallinne/",
+                'en' => "{$base}/ru/makler-v-tallinne/",
+            ],
+            'phase3.agentstvo-nedvizhimosti-tallinn' => [
+                'et' => "{$base}/ru/agentstvo-nedvizhimosti-tallinn/",
+                'ru' => "{$base}/ru/agentstvo-nedvizhimosti-tallinn/",
+                'en' => "{$base}/ru/agentstvo-nedvizhimosti-tallinn/",
+            ],
+            'phase3.ocenka-kvartiry-v-tallinne' => [
+                'et' => "{$base}/ru/ocenka-kvartiry-v-tallinne/",
+                'ru' => "{$base}/ru/ocenka-kvartiry-v-tallinne/",
+                'en' => "{$base}/ru/ocenka-kvartiry-v-tallinne/",
+            ],
+            'phase3.ne-prodaetsya-kvartira-v-tallinne' => [
+                'et' => "{$base}/ru/ne-prodaetsya-kvartira-v-tallinne/",
+                'ru' => "{$base}/ru/ne-prodaetsya-kvartira-v-tallinne/",
+                'en' => "{$base}/ru/ne-prodaetsya-kvartira-v-tallinne/",
+            ],
+            'phase3.audit-nedvizhimosti-tallinn' => [
+                'et' => "{$base}/ru/audit-nedvizhimosti-tallinn/",
+                'ru' => "{$base}/ru/audit-nedvizhimosti-tallinn/",
+                'en' => "{$base}/ru/audit-nedvizhimosti-tallinn/",
+            ],
+            'phase3.o-kompanii' => [
+                'et' => "{$base}/ru/o-kompanii/",
+                'ru' => "{$base}/ru/o-kompanii/",
+                'en' => "{$base}/ru/o-kompanii/",
+            ],
+
+            // ── Phase 3 — GEO hub & cases hub ──────────────────
+            'phase3.geo-hub' => [
+                'et' => "{$base}/ru/tallinn/",
+                'ru' => "{$base}/ru/tallinn/",
+                'en' => "{$base}/ru/tallinn/",
+            ],
+            'phase3.cases-hub' => [
+                'et' => "{$base}/ru/cases/",
+                'ru' => "{$base}/ru/cases/",
+                'en' => "{$base}/ru/cases/",
+            ],
+
+            // ── Phase 3 — district pages ────────────────────────
+            'phase3.district.lasnamae' => [
+                'et' => "{$base}/ru/tallinn/lasnamae/",
+                'ru' => "{$base}/ru/tallinn/lasnamae/",
+                'en' => "{$base}/ru/tallinn/lasnamae/",
+            ],
+            'phase3.district.mustamae' => [
+                'et' => "{$base}/ru/tallinn/mustamae/",
+                'ru' => "{$base}/ru/tallinn/mustamae/",
+                'en' => "{$base}/ru/tallinn/mustamae/",
+            ],
+            'phase3.district.kesklinn' => [
+                'et' => "{$base}/ru/tallinn/kesklinn/",
+                'ru' => "{$base}/ru/tallinn/kesklinn/",
+                'en' => "{$base}/ru/tallinn/kesklinn/",
+            ],
+            'phase3.district.haabersti' => [
+                'et' => "{$base}/ru/tallinn/haabersti/",
+                'ru' => "{$base}/ru/tallinn/haabersti/",
+                'en' => "{$base}/ru/tallinn/haabersti/",
+            ],
+            'phase3.district.kristiine' => [
+                'et' => "{$base}/ru/tallinn/kristiine/",
+                'ru' => "{$base}/ru/tallinn/kristiine/",
+                'en' => "{$base}/ru/tallinn/kristiine/",
+            ],
+
+            // ── Phase 3 — individual case pages ─────────────────
+            'phase3.case.prodali-3-komnatnuyu-kvartiru-v-kesklinn-za-16-dney' => [
+                'et' => "{$base}/ru/cases/prodali-3-komnatnuyu-kvartiru-v-kesklinn-za-16-dney/",
+                'ru' => "{$base}/ru/cases/prodali-3-komnatnuyu-kvartiru-v-kesklinn-za-16-dney/",
+                'en' => "{$base}/ru/cases/prodali-3-komnatnuyu-kvartiru-v-kesklinn-za-16-dney/",
+            ],
+            'phase3.case.prodali-2-komnatnuyu-kvartiru-v-kadriorg-za-24-dnya' => [
+                'et' => "{$base}/ru/cases/prodali-2-komnatnuyu-kvartiru-v-kadriorg-za-24-dnya/",
+                'ru' => "{$base}/ru/cases/prodali-2-komnatnuyu-kvartiru-v-kadriorg-za-24-dnya/",
+                'en' => "{$base}/ru/cases/prodali-2-komnatnuyu-kvartiru-v-kadriorg-za-24-dnya/",
+            ],
+            'phase3.case.prodali-1-komnatnuyu-kvartiru-v-lasnamae' => [
+                'et' => "{$base}/ru/cases/prodali-1-komnatnuyu-kvartiru-v-lasnamae/",
+                'ru' => "{$base}/ru/cases/prodali-1-komnatnuyu-kvartiru-v-lasnamae/",
+                'en' => "{$base}/ru/cases/prodali-1-komnatnuyu-kvartiru-v-lasnamae/",
+            ],
+            'phase3.case.prodali-3-komnatnuyu-kvartiru-v-lasnamae' => [
+                'et' => "{$base}/ru/cases/prodali-3-komnatnuyu-kvartiru-v-lasnamae/",
+                'ru' => "{$base}/ru/cases/prodali-3-komnatnuyu-kvartiru-v-lasnamae/",
+                'en' => "{$base}/ru/cases/prodali-3-komnatnuyu-kvartiru-v-lasnamae/",
+            ],
+            'phase3.case.prodali-2-komnatnuyu-kvartiru-v-kristiine-za-18-dney' => [
+                'et' => "{$base}/ru/cases/prodali-2-komnatnuyu-kvartiru-v-kristiine-za-18-dney/",
+                'ru' => "{$base}/ru/cases/prodali-2-komnatnuyu-kvartiru-v-kristiine-za-18-dney/",
+                'en' => "{$base}/ru/cases/prodali-2-komnatnuyu-kvartiru-v-kristiine-za-18-dney/",
+            ],
+            'phase3.case.prodali-4-komnatnuyu-kvartiru-v-tiskre' => [
+                'et' => "{$base}/ru/cases/prodali-4-komnatnuyu-kvartiru-v-tiskre/",
+                'ru' => "{$base}/ru/cases/prodali-4-komnatnuyu-kvartiru-v-tiskre/",
+                'en' => "{$base}/ru/cases/prodali-4-komnatnuyu-kvartiru-v-tiskre/",
+            ],
+
             default => throw new \InvalidArgumentException("Unknown pageKey: {$pageKey}")
         };
     }
