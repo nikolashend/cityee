@@ -40,6 +40,26 @@ class RedirectOldUrls
         '/rent'         => '/en/rent-out-property',
         '/consultation' => '/en/consultation',
         '/contacts'     => '/en/contacts',
+
+        // Phase 3 — /locations/ → /tallinn/ migration
+        '/ru/locations/tallinn'    => '/ru/tallinn',
+        '/ru/locations/lasnamae'   => '/ru/tallinn/lasnamae',
+        '/ru/locations/mustamae'   => '/ru/tallinn/mustamae',
+        '/ru/locations/kesklinn'   => '/ru/tallinn/kesklinn',
+        '/ru/locations/haabersti'  => '/ru/tallinn/haabersti',
+        '/ru/locations/kristiine'  => '/ru/tallinn/kristiine',
+        '/locations/tallinn'       => '/ru/tallinn',
+        '/locations/lasnamae'      => '/ru/tallinn/lasnamae',
+        '/locations/mustamae'      => '/ru/tallinn/mustamae',
+        '/locations/kesklinn'      => '/ru/tallinn/kesklinn',
+        '/locations/haabersti'     => '/ru/tallinn/haabersti',
+        '/locations/kristiine'     => '/ru/tallinn/kristiine',
+        '/en/locations/tallinn'    => '/ru/tallinn',
+        '/en/locations/lasnamae'   => '/ru/tallinn/lasnamae',
+        '/en/locations/mustamae'   => '/ru/tallinn/mustamae',
+        '/en/locations/kesklinn'   => '/ru/tallinn/kesklinn',
+        '/en/locations/haabersti'  => '/ru/tallinn/haabersti',
+        '/en/locations/kristiine'  => '/ru/tallinn/kristiine',
     ];
 
     public function handle(Request $request, Closure $next): Response

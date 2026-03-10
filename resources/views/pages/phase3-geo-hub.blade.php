@@ -18,6 +18,27 @@
 ]) !!}
 {!! \App\Support\Schema::speakable(url()->current()) !!}
 <script type="application/ld+json">{!! json_encode(\App\Support\Schema::orgJsonLd(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}</script>
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'CollectionPage',
+    'name' => $hub['meta_title'] ?? 'Районы Таллина',
+    'description' => $hub['meta_description'] ?? '',
+    'url' => url()->current(),
+    'isPartOf' => ['@id' => 'https://cityee.ee/#website'],
+    'about' => ['@id' => 'https://cityee.ee/#organization'],
+    'mainEntity' => [
+        '@type' => 'ItemList',
+        'numberOfItems' => count($districts ?? []),
+        'itemListElement' => collect($districts ?? [])->values()->map(fn($d, $i) => [
+            '@type' => 'ListItem',
+            'position' => $i + 1,
+            'name' => $d['name'] ?? '',
+            'url' => url('/ru/tallinn/' . array_keys($districts)[$i]) . '/',
+        ])->toArray(),
+    ],
+], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}
+</script>
 @endpush
 
 @section('content')
@@ -34,6 +55,18 @@
 
 {{-- ======= Trust Metrics Bar ======= --}}
 @include('partials.trust-metrics', ['locale' => $locale])
+
+{{-- ======= AI Answer Block ======= --}}
+@if(!empty($hub['ai_answer']))
+<section class="phase3-ai-answer" style="padding:2.5rem 0;background:#f8fafb">
+  <div class="container" style="max-width:800px">
+    <div style="background:#fff;border-left:4px solid #4ecdc4;border-radius:8px;padding:1.5rem 2rem;box-shadow:0 2px 8px rgba(0,0,0,.06)">
+      <h2 style="font-size:1.2rem;margin:0 0 .75rem;color:#1a1a2e">{{ $hub['ai_answer']['title'] }}</h2>
+      <p style="margin:0;line-height:1.7;font-size:1rem;color:#333">{{ $hub['ai_answer']['text'] }}</p>
+    </div>
+  </div>
+</section>
+@endif
 
 {{-- ======= Why District Matters ======= --}}
 @if(!empty($hub['why_district']))

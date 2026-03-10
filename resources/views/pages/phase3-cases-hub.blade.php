@@ -18,6 +18,27 @@
 ]) !!}
 {!! \App\Support\Schema::speakable(url()->current()) !!}
 <script type="application/ld+json">{!! json_encode(\App\Support\Schema::orgJsonLd(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}</script>
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'CollectionPage',
+    'name' => $hub['meta_title'] ?? 'Кейсы продажи квартир',
+    'description' => $hub['meta_description'] ?? '',
+    'url' => url()->current(),
+    'isPartOf' => ['@id' => 'https://cityee.ee/#website'],
+    'about' => ['@id' => 'https://cityee.ee/#organization'],
+    'mainEntity' => [
+        '@type' => 'ItemList',
+        'numberOfItems' => count($cases ?? []),
+        'itemListElement' => collect($cases ?? [])->values()->map(fn($c, $i) => [
+            '@type' => 'ListItem',
+            'position' => $i + 1,
+            'name' => $c['h1'] ?? '',
+            'url' => url('/ru/cases/' . array_keys($cases)[$i]) . '/',
+        ])->toArray(),
+    ],
+], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}
+</script>
 @endpush
 
 @section('content')

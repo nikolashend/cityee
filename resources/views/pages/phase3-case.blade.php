@@ -19,6 +19,25 @@
 ]) !!}
 {!! \App\Support\Schema::speakable(url()->current()) !!}
 <script type="application/ld+json">{!! json_encode(\App\Support\Schema::orgJsonLd(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}</script>
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'Article',
+    'headline' => $case['h1'] ?? '',
+    'description' => $case['meta_description'] ?? '',
+    'url' => url()->current(),
+    'author' => ['@id' => 'https://cityee.ee/#aleksandr'],
+    'publisher' => ['@id' => 'https://cityee.ee/#organization'],
+    'mainEntityOfPage' => url()->current(),
+    'about' => [
+        '@type' => 'RealEstateListing',
+        'name' => $case['h1'] ?? '',
+        'description' => $case['summary'] ?? '',
+    ],
+    'articleSection' => 'Кейсы продажи недвижимости',
+    'inLanguage' => 'ru',
+], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}
+</script>
 @endpush
 
 @section('content')

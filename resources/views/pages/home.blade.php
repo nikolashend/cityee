@@ -393,6 +393,24 @@
 @include('partials.faq', ['faq' => $homeFaq, 'faqTitle' => 'FAQ'])
 @endif
 
+{{-- ═══ Phase 3 internal links (RU only) ═══ --}}
+@if($locale === 'ru')
+<section style="padding:2rem 0;background:#f8fafb">
+  <div class="container" style="max-width:900px">
+    <h3 style="font-size:1.05rem;margin-bottom:1rem">Полезные разделы</h3>
+    <div style="display:flex;flex-wrap:wrap;gap:.7rem">
+      <a href="/ru/prodat-kvartiru-v-tallinne/" style="display:inline-block;padding:.45rem 1rem;background:#fff;border-radius:6px;text-decoration:none;color:#1a1a2e;font-size:.9rem;box-shadow:0 1px 3px rgba(0,0,0,.07)">Продать квартиру</a>
+      <a href="/ru/makler-v-tallinne/" style="display:inline-block;padding:.45rem 1rem;background:#fff;border-radius:6px;text-decoration:none;color:#1a1a2e;font-size:.9rem;box-shadow:0 1px 3px rgba(0,0,0,.07)">Маклер в Таллине</a>
+      <a href="/ru/ocenka-kvartiry-v-tallinne/" style="display:inline-block;padding:.45rem 1rem;background:#fff;border-radius:6px;text-decoration:none;color:#1a1a2e;font-size:.9rem;box-shadow:0 1px 3px rgba(0,0,0,.07)">Оценка квартиры</a>
+      <a href="/ru/kvartira-ne-prodaetsya/" style="display:inline-block;padding:.45rem 1rem;background:#fff;border-radius:6px;text-decoration:none;color:#1a1a2e;font-size:.9rem;box-shadow:0 1px 3px rgba(0,0,0,.07)">Не продаётся?</a>
+      <a href="/ru/tallinn/" style="display:inline-block;padding:.45rem 1rem;background:#fff;border-radius:6px;text-decoration:none;color:#1a1a2e;font-size:.9rem;box-shadow:0 1px 3px rgba(0,0,0,.07)">Районы Таллина</a>
+      <a href="/ru/cases/" style="display:inline-block;padding:.45rem 1rem;background:#fff;border-radius:6px;text-decoration:none;color:#1a1a2e;font-size:.9rem;box-shadow:0 1px 3px rgba(0,0,0,.07)">Кейсы продаж</a>
+      <a href="{{ route('ru.profile') }}" style="display:inline-block;padding:.45rem 1rem;background:#fff;border-radius:6px;text-decoration:none;color:#1a1a2e;font-size:.9rem;box-shadow:0 1px 3px rgba(0,0,0,.07)">Александр Примаков</a>
+    </div>
+  </div>
+</section>
+@endif
+
 {{-- ═══ v3: Forms ═══ --}}
 @include('components.v3.form-audit', ['locale' => $locale])
 @include('components.v3.form-calc', ['locale' => $locale])

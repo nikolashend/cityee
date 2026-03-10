@@ -23,7 +23,6 @@ class SitemapController extends Controller
             "{$base}/sitemap-main.xml",
             "{$base}/sitemap-guides.xml",
             "{$base}/sitemap-audits.xml",
-            "{$base}/sitemap-locations.xml",
             "{$base}/sitemap-phase3.xml",
         ];
 

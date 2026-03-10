@@ -33,6 +33,8 @@
     ['name' => 'Aleksandr Primakov'],
 ]) !!}
 {!! \App\Support\Schema::speakable(\App\Support\SeoLinks::canonical('profile')) !!}
+<script type="application/ld+json">{!! json_encode(\App\Support\Schema::personJsonLd(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}</script>
+<script type="application/ld+json">{!! json_encode(\App\Support\Schema::orgJsonLd(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}</script>
 @endpush
 
 @section('content')
@@ -209,6 +211,9 @@
             <a href="{{ config('cityee.company.whatsapp') }}" class="intent-btn intent-btn--primary" target="_blank" rel="noopener">
                 <i class="fa fa-whatsapp" aria-hidden="true"></i> WhatsApp
             </a>
+            <a href="https://www.linkedin.com/in/kinnisvaramaakler/" class="intent-btn intent-btn--secondary" target="_blank" rel="noopener">
+                <i class="fa fa-linkedin" aria-hidden="true"></i> LinkedIn
+            </a>
             <a href="{{ route("{$locale}.consultation") }}" class="intent-btn intent-btn--secondary">
                 {{ $locale === 'ru' ? 'Консультация' : ($locale === 'en' ? 'Consultation' : 'Konsultatsioon') }}
             </a>
@@ -218,6 +223,21 @@
         </div>
     </div>
 </section>
+
+{{-- ═══ Related links ═══ --}}
+@if($locale === 'ru')
+<section style="padding:2rem 0;background:#f8fafb">
+  <div class="container" style="max-width:800px">
+    <h3 style="font-size:1.05rem;margin-bottom:1rem">Смотрите также</h3>
+    <ul style="list-style:none;padding:0;display:flex;flex-wrap:wrap;gap:.75rem">
+      <li><a href="/ru/makler-v-tallinne/" style="display:inline-block;padding:.45rem 1rem;background:#fff;border-radius:6px;text-decoration:none;color:#1a1a2e;font-size:.92rem;box-shadow:0 1px 3px rgba(0,0,0,.08)">Маклер в Таллине</a></li>
+      <li><a href="/ru/cases/" style="display:inline-block;padding:.45rem 1rem;background:#fff;border-radius:6px;text-decoration:none;color:#1a1a2e;font-size:.92rem;box-shadow:0 1px 3px rgba(0,0,0,.08)">Реальные кейсы</a></li>
+      <li><a href="/ru/agentstvo-nedvizhimosti-tallinn/" style="display:inline-block;padding:.45rem 1rem;background:#fff;border-radius:6px;text-decoration:none;color:#1a1a2e;font-size:.92rem;box-shadow:0 1px 3px rgba(0,0,0,.08)">Агентство недвижимости</a></li>
+      <li><a href="{{ route('ru.contacts') }}" style="display:inline-block;padding:.45rem 1rem;background:#fff;border-radius:6px;text-decoration:none;color:#1a1a2e;font-size:.92rem;box-shadow:0 1px 3px rgba(0,0,0,.08)">Контакты</a></li>
+    </ul>
+  </div>
+</section>
+@endif
 
 {{-- Geo reinforcement --}}
 <div class="container guide-geo-line">

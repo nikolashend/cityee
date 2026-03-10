@@ -85,5 +85,27 @@
       </div>
       @endif
     </div>
+
+    {{-- Phase 3 RU links — internal linking to new intent pages --}}
+    @if($locale === 'ru')
+    @php
+        $phase3Links = [
+            ['url' => '/ru/prodat-kvartiru-v-tallinne/', 'label' => 'Продать квартиру в Таллине'],
+            ['url' => '/ru/makler-v-tallinne/', 'label' => 'Маклер в Таллине'],
+            ['url' => '/ru/ocenka-kvartiry-v-tallinne/', 'label' => 'Оценка квартиры'],
+            ['url' => '/ru/tallinn/', 'label' => 'Районы Таллина'],
+            ['url' => '/ru/cases/', 'label' => 'Реальные кейсы'],
+            ['url' => '/ru/agentstvo-nedvizhimosti-tallinn/', 'label' => 'Агентство недвижимости'],
+        ];
+    @endphp
+    <div style="margin-top:1.5rem">
+      <h3 style="font-size:1rem;margin-bottom:.75rem;color:#333">Ещё по теме</h3>
+      <div style="display:flex;flex-wrap:wrap;gap:.6rem">
+        @foreach($phase3Links as $p3)
+        <a href="{{ $p3['url'] }}" style="display:inline-block;padding:.4rem .9rem;background:#fff;border-radius:6px;text-decoration:none;color:#1a1a2e;font-size:.88rem;box-shadow:0 1px 3px rgba(0,0,0,.07)">{{ $p3['label'] }}</a>
+        @endforeach
+      </div>
+    </div>
+    @endif
   </div>
 </section>

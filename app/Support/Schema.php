@@ -66,11 +66,11 @@ class Schema
                 'closes'    => '22:00',
             ],
             'sameAs' => [
-                'https://www.facebook.com/cityee.ee',
-                'https://www.instagram.com/cityee_ee/',
+                'https://www.instagram.com/cityee_ee',
                 'https://www.linkedin.com/in/kinnisvaramaakler/',
-                'https://t.me/kinnisvaramaakler',
-                'https://g.page/cityee',
+                'https://www.facebook.com/cityee.ee',
+                'https://www.threads.com/@cityee_ee',
+                'https://t.me/cityee_tallinn',
             ],
             'founder'  => ['@id' => 'https://cityee.ee/#aleksandr'],
             'employee' => [['@id' => 'https://cityee.ee/#aleksandr']],
@@ -133,11 +133,11 @@ class Schema
             'image'    => 'https://cityee.ee/assets/templates/offshors/img/ap1.png',
             'url'      => 'https://cityee.ee/aleksandr-primakov/',
             'sameAs'   => [
+                'https://www.instagram.com/cityee_ee',
                 'https://www.linkedin.com/in/kinnisvaramaakler/',
                 'https://www.facebook.com/cityee.ee',
-                'https://www.instagram.com/cityee_ee/',
-                'https://t.me/kinnisvaramaakler',
-                'https://g.page/cityee',
+                'https://www.threads.com/@cityee_ee',
+                'https://t.me/cityee_tallinn',
             ],
             'knowsAbout' => [
                 'Property sale strategy in Tallinn & Harjumaa',
@@ -172,7 +172,7 @@ class Schema
             'about'    => ['@id' => 'https://cityee.ee/#organization'],
             'speakable' => [
                 '@type'       => 'SpeakableSpecification',
-                'cssSelector' => ['.ai-summary', '.ai-summary-box', '.guide-quick-answer', '.guide-takeaways-box', '.page-title__name', '.banners__title'],
+                'cssSelector' => ['.ai-summary', '.ai-summary-box', '.phase3-ai-answer', '.guide-quick-answer', '.guide-takeaways-box', '.page-title__name', '.banners__title'],
             ],
         ];
 

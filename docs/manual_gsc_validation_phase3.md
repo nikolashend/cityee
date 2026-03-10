@@ -6,7 +6,7 @@
 ## Шаг 1: Проверка sitemap
 1. Открыть GSC → Sitemaps
 2. Отправить (или обновить) `https://cityee.ee/sitemap.xml`
-3. Убедиться, что `sitemap-phase3.xml` указан в индексе
+3. Убедиться, что `sitemap-phase3.xml` указан в индексе (note: `sitemap-locations.xml` was removed — /locations/ URLs now 301 to /tallinn/)
 4. Проверить статус: «Успех» для всех sub-sitemaps
 
 ## Шаг 2: Проверка индексации URL

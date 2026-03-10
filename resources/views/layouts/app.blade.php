@@ -254,7 +254,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <li class="{{ trim($classes) }}"><a href="{{ route($routeName) }}" title="{{ $item['title'] }}">{{ $item['label'] }}</a></li>
         @endforeach
       </ul>
-      <ul class="footer__list"></ul>
+      <ul class="footer__list">
+        @if($locale === 'ru')
+        <li><a href="/ru/makler-v-tallinne/" title="Маклер в Таллине">Маклер в Таллине</a></li>
+        <li><a href="/ru/ocenka-kvartiry-v-tallinne/" title="Оценка квартиры">Оценка квартиры</a></li>
+        <li><a href="/ru/ne-prodaetsya-kvartira-v-tallinne/" title="Не продаётся квартира?">Не продаётся?</a></li>
+        <li><a href="/ru/cases/" title="Кейсы">Кейсы</a></li>
+        <li><a href="/ru/tallinn/" title="Районы Таллина">Районы</a></li>
+        <li><a href="/ru/aleksandr-primakov/" title="Александр Примаков">Александр Примаков</a></li>
+        @endif
+      </ul>
     </div>
 
     <div class="footer__contacts">
@@ -272,7 +281,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     {{ $ui['call_whatsapp'] ?? "helista WhatsApp'i" }}
 </a>
         <br/>
-        <a class="main-phone__telegram" href="{{ $co['telegram'] ?? 'https://t.me/kinnisvaramaakler' }}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:4px;color:#0088cc;font-size:14px;font-weight:600;margin-top:4px;">
+        <a class="main-phone__telegram" href="{{ $co['telegram'] ?? 'https://t.me/cityee_tallinn' }}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:4px;color:#0088cc;font-size:14px;font-weight:600;margin-top:4px;">
           <i class="fa fa-telegram" aria-hidden="true"></i> Telegram
         </a>
       </div>

@@ -32,6 +32,25 @@
 ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}
 </script>
 @endif
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'Service',
+    'name' => $landing['h1'] ?? '',
+    'description' => $landing['meta_description'] ?? '',
+    'url' => url()->current(),
+    'provider' => ['@id' => 'https://cityee.ee/#organization'],
+    'areaServed' => [
+        ['@type' => 'City', 'name' => 'Tallinn'],
+        ['@type' => 'AdministrativeArea', 'name' => 'Harjumaa'],
+    ],
+    'availableChannel' => [
+        '@type' => 'ServiceChannel',
+        'serviceUrl' => url()->current(),
+        'servicePhone' => '+3725113411',
+    ],
+], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}
+</script>
 @endpush
 
 @section('content')

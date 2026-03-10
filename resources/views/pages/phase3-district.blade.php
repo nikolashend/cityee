@@ -56,7 +56,7 @@
 
 {{-- ======= AI Answer ======= --}}
 @if(!empty($district['ai_answer']))
-<section style="padding:2.5rem 0;background:#f8fafb">
+<section class="phase3-ai-answer" style="padding:2.5rem 0;background:#f8fafb">
   <div class="container" style="max-width:800px">
     <div style="background:#fff;border-left:4px solid #4ecdc4;border-radius:8px;padding:1.5rem 2rem;box-shadow:0 2px 8px rgba(0,0,0,.06)">
       <h2 style="font-size:1.15rem;margin:0 0 .75rem;color:#1a1a2e">Короткий ответ: продажа квартиры в {{ $district['name'] }}</h2>
