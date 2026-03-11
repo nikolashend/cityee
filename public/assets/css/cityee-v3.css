@@ -1612,8 +1612,14 @@ jdiv {
 }
 
 /* ─── INDEX PAGES: FILTER PILLS ───────────────────── */
+.section-padding {
+  padding: 32px 0;
+}
 .guide-filters {
   padding: 32px 0 0;
+}
+.guide-hero--index {
+  padding-top: 170px;
 }
 .guide-filter-pills {
   display: flex;
@@ -1621,7 +1627,7 @@ jdiv {
   gap: 8px;
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin: 0 0 24px;
 }
 .guide-filter-pill {
   display: inline-block;
@@ -1657,6 +1663,7 @@ jdiv {
   border-radius: 12px;
   overflow: hidden;
   transition: box-shadow .2s, transform .15s;
+  margin-bottom: 16px;
 }
 .knowledge-card:hover {
   box-shadow: 0 6px 20px rgba(0,0,0,.08);
@@ -1746,6 +1753,9 @@ jdiv {
 @media (max-width: 767px) {
   .guide-hero h1 {
     font-size: 1.5rem;
+  }
+  .guide-hero--index {
+    padding-top: 300px;
   }
   .guide-eeat-bar {
     gap: 12px;

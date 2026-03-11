@@ -1,13 +1,13 @@
 {{-- Intent page cross-links — internal silo linking between intent pages and sell page --}}
 @php
     $intentPages = [
-        'no_calls'       => ['et' => 'Müüte ise, aga keegi ei helista?',         'ru' => 'Продаёте сами, но никто не звонит?',        'en' => 'Selling Yourself but No Calls?'],
-        'no_offers'      => ['et' => 'Vaatamised on, aga pakkumisi pole?',       'ru' => 'Просмотры есть, но предложений нет?',        'en' => 'Viewings But No Offers?'],
-        'price_analysis' => ['et' => 'Kinnisvara hinnaanalüüs Tallinnas',        'ru' => 'Анализ цены недвижимости в Таллинне',        'en' => 'Property Price Analysis Tallinn'],
-        'mistakes'       => ['et' => 'Vead kinnisvara müümisel',                 'ru' => 'Ошибки при продаже недвижимости',             'en' => 'Mistakes When Selling Property'],
-        'sell_faster'    => ['et' => 'Kuidas müüa kiiremini?',                   'ru' => 'Как продать быстрее?',                        'en' => 'How to Sell Faster?'],
-        'listing_audit'  => ['et' => 'Kuulutuse audit',                          'ru' => 'Аудит объявления',                            'en' => 'Listing Audit'],
-        'comparison'     => ['et' => 'Müüa ise vs strateegiline partner',        'ru' => 'Продавать самому или через партнёра',          'en' => 'Sell Yourself vs Strategy Partner'],
+        'no_calls'       => ['et' => 'Müüte ise, aga keegi ei helista?',         'ru' => 'Продаёте сами, но никто не звонит?',        'en' => 'Selling Yourself but No Calls?',        'icon' => '📞'],
+        'no_offers'      => ['et' => 'Vaatamised on, aga pakkumisi pole?',       'ru' => 'Просмотры есть, но предложений нет?',        'en' => 'Viewings But No Offers?',                  'icon' => '👀'],
+        'price_analysis' => ['et' => 'Kinnisvara hinnaanalüüs Tallinnas',        'ru' => 'Анализ цены недвижимости в Таллинне',        'en' => 'Property Price Analysis Tallinn',            'icon' => '💰'],
+        'mistakes'       => ['et' => 'Vead kinnisvara müümisel',                 'ru' => 'Ошибки при продаже недвижимости',             'en' => 'Mistakes When Selling Property',             'icon' => '⚠️'],
+        'sell_faster'    => ['et' => 'Kuidas müüa kiiremini?',                   'ru' => 'Как продать быстрее?',                        'en' => 'How to Sell Faster?',                        'icon' => '⚡'],
+        'listing_audit'  => ['et' => 'Kuulutuse audit',                          'ru' => 'Аудит объявления',                            'en' => 'Listing Audit',                              'icon' => '🔍'],
+        'comparison'     => ['et' => 'Müüa ise vs strateegiline partner',        'ru' => 'Продавать самому или через партнёра',          'en' => 'Sell Yourself vs Strategy Partner',          'icon' => '⚖️'],
     ];
     $sellLabel = ['et' => 'Kinnisvara müük', 'ru' => 'Продажа недвижимости', 'en' => 'Sell Property'];
 @endphp
@@ -25,6 +25,7 @@
       @foreach($intentPages as $key => $labels)
         @if($key !== ($pageKey ?? ''))
         <a href="{{ route("{$locale}.{$key}") }}" class="crosslink-card">
+          <span class="crosslink-card__icon">{{ $labels['icon'] ?? '' }}</span>
           <span class="crosslink-card__title">{{ $labels[$locale] ?? $labels['et'] }}</span>
         </a>
         @endif

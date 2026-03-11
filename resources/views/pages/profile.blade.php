@@ -89,7 +89,7 @@
 </section>
 
 {{-- ═══ AI Summary — structured for SGE ═══ --}}
-<section class="ai-summary" style="max-width:800px;margin:2.5rem auto;padding:0 15px">
+<section class="ai-summary" style="max-width:800px;margin:2.5rem auto;padding:32px 15px 0">
     <h2>{{ $locale === 'ru' ? 'Кратко обо мне' : ($locale === 'en' ? 'About Me — Quick Summary' : 'Lühidalt minust') }}</h2>
     @if($locale === 'ru')
     <p>Александр Примаков — основатель CityEE, партнёр по оптимизации сделок с недвижимостью в Таллинне и Харьюмаа. Специализация: стратегия продажи и аренды, рыночный аудит, ценообразование, переговоры. Более 10 лет на рынке, 300+ закрытых сделок. Работаю на 3 языках: эстонский, русский, английский.</p>
