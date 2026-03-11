@@ -113,4 +113,5 @@
 @include('partials.faq', ['faq' => $t['faq'], 'faqTitle' => 'FAQ'])
 @endif
 
+@include('partials.service-crosslinks', ['locale' => $locale, 'pageKey' => 'consultation'])
 @endsection

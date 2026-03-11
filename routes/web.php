@@ -20,7 +20,6 @@ Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap')
 Route::get('/sitemap-main.xml', [SitemapController::class, 'main'])->name('sitemap.main');
 Route::get('/sitemap-guides.xml', [SitemapController::class, 'guides'])->name('sitemap.guides');
 Route::get('/sitemap-audits.xml', [SitemapController::class, 'audits'])->name('sitemap.audits');
-Route::get('/sitemap-locations.xml', [SitemapController::class, 'locations'])->name('sitemap.locations');
 Route::get('/sitemap-phase3.xml', [SitemapController::class, 'phase3'])->name('sitemap.phase3');
 Route::get('/robots.txt', [SitemapController::class, 'robots'])->name('robots');
 

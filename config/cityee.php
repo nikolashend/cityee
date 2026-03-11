@@ -160,9 +160,9 @@ return [
     // ─── SELL PAGE ─────────────────────────────────────────────
     'sell' => [
         'et' => [
-            'meta_title'       => 'Kinnisvara müük Tallinnas | Audit ja strateegia | CityEE',
-            'meta_description' => 'CityEE Kinnisvara pakub kvaliteetset vahendusteenust kinnisvara müümisel - Lühikese ajaga (1-1.5 kuud) ja parima hinnaga. Maakleriteenuste hind ( vahendustasu ) on minimaalne - 2% korteri maksumusest.',
-            'h1'               => 'Kinnisvara vahendamine',
+            'meta_title'       => 'Kinnisvara müük Tallinnas — strateegia, audit, läbirääkimised | CityEE',
+            'meta_description' => 'Müüme kinnisvara Tallinnas 30–45 päevaga turuhinnaga. Turuhinna audit, professionaalsed fotod, aktiivne reklaam. 10+ aastat, 300+ tehingut. Komisjon al. 2%.',
+            'h1'               => 'Kinnisvara müük Tallinnas',
             'hero_subtitle'    => 'Kinnisvara müük parima võimaliku hinna ja parima võimaliku ajaga !',
             'hero_add'         => '',
             'hero_cta'         => 'Saada päring',
@@ -199,9 +199,9 @@ return [
             ],
         ],
         'ru' => [
-            'meta_title'       => 'Продать недвижимость в Таллинне | Аудит цены и стратегия | CityEE',
-            'meta_description' => 'CityEE предлагает качественные посреднические услуги при продаже недвижимости – за короткий срок (1-1.5 месяца) и по лучшей цене. Стоимость маклерских услуг (комиссия) минимальная — 2%.',
-            'h1'               => 'Продажа недвижимости',
+            'meta_title'       => 'Продать квартиру в Таллинне — аудит цены, стратегия, сделка | CityEE',
+            'meta_description' => 'Продадим квартиру в Таллинне за 30–45 дней по рыночной цене. Аудит цены, профессиональные фото, переговоры до нотариуса. 10+ лет, 300+ сделок. Комиссия от 2%.',
+            'h1'               => 'Продажа недвижимости в Таллинне',
             'hero_subtitle'    => 'Продажа недвижимости по лучшей цене и в кратчайшие сроки!',
             'hero_add'         => '',
             'hero_cta'         => 'Отправить заявку',
@@ -281,9 +281,9 @@ return [
     // ─── RENT PAGE ─────────────────────────────────────────────
     'rent' => [
         'et' => [
-            'meta_title'       => 'Kinnisvara üürileandmine Tallinnas | Usaldusväärne üürnik | CityEE',
-            'meta_description' => 'Arvutame üüritootluse ja määrame õige hinna. Teeme professionaalseid fotosid ja käivitame aktiivse massireklaami. Vajadusel konsulteerime Teid huvitavates küsimustes, maksude ja muude kohustuste osas.',
-            'h1'               => 'Kinnisvara üürileandmine',
+            'meta_title'       => 'Kinnisvara üürileandmine Tallinnas — usaldusväärne üürnik ja leping | CityEE',
+            'meta_description' => 'CityEE leiab usaldusväärse üürniku Tallinnas. Üüritootluse arvutamine, professionaalsed fotod, taustauring ja juriidiliselt korrektne leping. Teenus hinnaga 1 kuu üür.',
+            'h1'               => 'Kinnisvara üürileandmine Tallinnas',
             'hero_subtitle'    => 'Abi üürilepingu koostamisel',
             'hero_add'         => 'Potentsiaalse üürilevõtja kontrollimine',
             'hero_cta'         => 'Saada päring',
@@ -318,9 +318,9 @@ return [
             ],
         ],
         'ru' => [
-            'meta_title'       => 'Сдать недвижимость в Таллинне | Надёжный арендатор | CityEE',
-            'meta_description' => 'Рассчитаем доходность аренды и определим правильную цену. Сделаем профессиональные фотографии и запустим активную массовую рекламу. Проконсультируем по вопросам налогов и обязательств.',
-            'h1'               => 'Сдача недвижимости в аренду',
+            'meta_title'       => 'Сдать квартиру в Таллинне — надёжный арендатор и договор | CityEE',
+            'meta_description' => 'CityEE найдёт надёжного арендатора в Таллинне. Расчёт доходности, профессиональные фото, проверка арендатора и юридически корректный договор. Услуга от 1 мес. аренды.',
+            'h1'               => 'Сдача недвижимости в аренду в Таллинне',
             'hero_subtitle'    => 'Помощь в составлении договора аренды',
             'hero_add'         => 'Проверка потенциального арендатора',
             'hero_cta'         => 'Отправить заявку',
@@ -396,9 +396,9 @@ return [
     // ─── CONSULTATION PAGE ─────────────────────────────────────
     'consultation' => [
         'et' => [
-            'meta_title'       => 'Kinnisvara konsultatsioon Tallinnas | Hindamine ja juriidiline abi | CityEE',
-            'meta_description' => 'CityEE kinnisvaravahendaja pakub konsultatsioone finants- ja varaõiguse küsimustes. Leiame Sulle parima kodu Tallinnas. Kinnisvara esmane kontroll ja dokumentatsiooni kontroll.',
-            'h1'               => 'Konsulteerimine',
+            'meta_title'       => 'Kinnisvara konsultatsioon Tallinnas — hindamine, audit, juriidiline abi | CityEE',
+            'meta_description' => 'CityEE konsulteerib kinnisvara ostu-müügi ja hindamise küsimustes Tallinnas. Esmane juriidiline konsultatsioon tasuta. Dokumentatsiooni kontroll, laenõustamine.',
+            'h1'               => 'Kinnisvara konsultatsioon Tallinnas',
             'hero_subtitle'    => 'Konsulteerime kinnisvara ostu ja müügi korral.',
             'hero_subtitle2'   => 'Objekti õige turuhinna määramine.',
             'hero_add'         => 'Pakume konsultatsioone finants- ja varaõiguse küsimustes.',
@@ -433,9 +433,9 @@ return [
             ],
         ],
         'ru' => [
-            'meta_title'       => 'Консультация по недвижимости Таллинн | Оценка и юридическая помощь | CityEE',
-            'meta_description' => 'Посредник CityEE предлагает консультации по финансовым и имущественным вопросам. Найдём лучшее жильё в Таллинне. Первичная проверка и проверка документации.',
-            'h1'               => 'Консультирование',
+            'meta_title'       => 'Консультация по недвижимости Таллинн — оценка, аудит, юридическая помощь | CityEE',
+            'meta_description' => 'CityEE консультирует по купле-продаже, оценке и юридическим вопросам недвижимости в Таллинне. Первичная консультация бесплатно. Проверка документов, кредитное консультирование.',
+            'h1'               => 'Консультация по недвижимости в Таллинне',
             'hero_subtitle'    => 'Консультируем при покупке и продаже недвижимости.',
             'hero_subtitle2'   => 'Определение правильной рыночной цены объекта.',
             'hero_add'         => 'Предлагаем консультации по финансовым и имущественным вопросам.',
@@ -548,10 +548,10 @@ return [
     // ─── HOME PAGE ─────────────────────────────────────────────
     'home' => [
         'et' => [
-            'meta_title'       => 'Kinnisvara müük ja üür Tallinn & Harjumaa | CityEE',
-            'meta_description' => 'CityEE — kinnisvaratehingute optimeerimise partner Tallinnas ja Harjumaal. Müügistrateegia, turuaudit, läbirääkimised. 10+ aastat, 300+ tehingut, 2% komisjon.',
-            'h1'               => 'KAS SOOVITE OSTA VÕI MÜÜA',
-            'h1_span'          => 'ANDA OMA KINNISVARA ÜÜRILE?',
+            'meta_title'       => 'Kinnisvaramaakler Tallinnas — müük, üür, audit | CityEE',
+            'meta_description' => 'CityEE — kinnisvaratehingute optimeerimise partner Tallinnas ja Harjumaal. Turuhinna audit, müügistrateegia, läbirääkimised. 10+ aastat kogemust, 300+ tehingut, komisjon al. 2%.',
+            'h1'               => 'KINNISVARAMAAKLER TALLINNAS',
+            'h1_span'          => 'MÜÜK · ÜÜRIMINE · AUDIT',
             'banner_text'      => '<span>Meie spetsialistid aitavad Teid sellega.</span> Professionaalne online konsultatsioon!',
             'banner2_h2'       => 'VALIME OPTIMAALSE VARIANDI',
             'banner2_span'     => 'ASUKOHA JA INFRASTRUKTUURI PÕHJAL',
@@ -582,10 +582,10 @@ return [
             'team_title'       => 'MEIE TÖÖTAJAD',
         ],
         'ru' => [
-            'meta_title'       => 'Продажа и аренда недвижимости Tallinn & Harjumaa | CityEE',
-            'meta_description' => 'CityEE — партнёр по оптимизации сделок с недвижимостью в Tallinn и Harjumaa. Стратегия продажи, аудит цены, переговоры. 10+ лет, 300+ сделок, комиссия 2%.',
-            'h1'               => 'ХОТИТЕ КУПИТЬ ИЛИ ПРОДАТЬ',
-            'h1_span'          => 'СДАТЬ ВАШУ НЕДВИЖИМОСТЬ В АРЕНДУ?',
+            'meta_title'       => 'Маклер в Таллинне — продажа и аренда недвижимости | CityEE',
+            'meta_description' => 'CityEE — партнёр по сделкам с недвижимостью в Таллинне и Харьюмаа. Аудит цены, стратегия продажи, переговоры до нотариуса. 10+ лет, 300+ сделок, комиссия от 2%.',
+            'h1'               => 'МАКЛЕР ПО НЕДВИЖИМОСТИ В ТАЛЛИННЕ',
+            'h1_span'          => 'ПРОДАЖА · АРЕНДА · АУДИТ',
             'banner_text'      => '<span>Наши специалисты помогут вам в этом.</span> Профессиональная онлайн-консультация!',
             'banner2_h2'       => 'ВЫБИРАЕМ ОПТИМАЛЬНЫЙ ВАРИАНТ',
             'banner2_span'     => 'ПО РАСПОЛОЖЕНИЮ И ИНФРАСТРУКТУРЕ',
@@ -616,10 +616,10 @@ return [
             'team_title'       => 'НАШИ СОТРУДНИКИ',
         ],
         'en' => [
-            'meta_title'       => 'Real Estate Sale & Rental Tallinn & Harjumaa | CityEE',
-            'meta_description' => 'CityEE — real estate deal optimization partner in Tallinn & Harjumaa. Sale strategy, price audit, negotiation. 10+ years, 300+ deals, 2% commission.',
-            'h1'               => 'LOOKING TO BUY OR SELL',
-            'h1_span'          => 'RENT OUT YOUR PROPERTY?',
+            'meta_title'       => 'Real Estate Broker in Tallinn — Sale, Rental & Audit | CityEE',
+            'meta_description' => 'CityEE — your real estate deal partner in Tallinn & Harjumaa. Price audit, sale strategy, negotiation to notary. 10+ years, 300+ deals, commission from 2%.',
+            'h1'               => 'REAL ESTATE BROKER IN TALLINN',
+            'h1_span'          => 'SALE · RENTAL · AUDIT',
             'banner_text'      => '<span>Our specialists will help you with that.</span> Professional online consultation!',
             'banner2_h2'       => 'WE CHOOSE THE OPTIMAL OPTION',
             'banner2_span'     => 'BASED ON LOCATION AND INFRASTRUCTURE',

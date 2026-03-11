@@ -10,6 +10,16 @@
 --}}
 @props(['items' => []])
 
+@php
+    // Ensure items is always an array (guard against double-encoded JSON)
+    if (is_string($items)) {
+        $items = json_decode($items, true) ?: [];
+    }
+    if (!is_array($items)) {
+        $items = [];
+    }
+@endphp
+
 @if(count($items))
 <script type="application/ld+json">
 {!! json_encode([

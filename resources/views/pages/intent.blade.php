@@ -129,4 +129,5 @@
 @include('components.v3.form-calc', ['locale' => $locale])
 @include('components.v3.form-scripts')
 
+@include('partials.service-crosslinks', ['locale' => $locale, 'pageKey' => $intentKey ?? ''])
 @endsection

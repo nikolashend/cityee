@@ -1,8 +1,8 @@
 {{-- Guides index page — ЭТАП 5: category filters + proper cards --}}
 @extends('layouts.app')
 
-@section('title', $locale === 'ru' ? 'Гиды по недвижимости Таллинн | CityEE' : ($locale === 'en' ? 'Real Estate Guides Tallinn | CityEE' : 'Kinnisvarajuhised Tallinn | CityEE'))
-@section('description', $locale === 'ru' ? 'Экспертные гиды CityEE: продажа, покупка, аренда недвижимости в Таллинне и Харьюмаа. 10+ лет опыта, 300+ сделок.' : ($locale === 'en' ? 'CityEE expert guides: selling, buying, renting real estate in Tallinn & Harjumaa. 10+ years, 300+ deals.' : 'CityEE ekspertjuhised: kinnisvara müük, ost, üür Tallinnas ja Harjumaal. 10+ aastat, 300+ tehingut.'))
+@section('title', $locale === 'ru' ? 'Гиды по недвижимости в Таллинне — продажа, аренда, оценка | CityEE' : ($locale === 'en' ? 'Real Estate Guides Tallinn — Selling, Rental, Pricing | CityEE' : 'Kinnisvarajuhised Tallinn — müük, üür, hindamine | CityEE'))
+@section('description', $locale === 'ru' ? 'Экспертные гиды CityEE: пошаговые инструкции по продаже, аренде и оценке недвижимости в Таллинне. 10+ лет опыта, 300+ сделок. Практические советы от Александра Примакова.' : ($locale === 'en' ? 'CityEE expert guides: step-by-step instructions for selling, renting and pricing real estate in Tallinn. 10+ years, 300+ deals. Practical advice from Aleksandr Primakov.' : 'CityEE ekspertjuhised: samm-sammult juhendid kinnisvara müügiks, üürimiseks ja hindamiseks Tallinnas. 10+ aastat kogemust, 300+ tehingut.'))
 @section('logo_text', $ui['logo_text'] ?? '')
 @section('footer_class', 'footer--page')
 
@@ -110,4 +110,6 @@
         </div>
     </div>
 </section>
+
+@include('partials.service-crosslinks', ['locale' => $locale, 'pageKey' => 'guides'])
 @endsection

@@ -244,4 +244,5 @@
     <p><small>{{ $locale === 'ru' ? '📍 CityEE — Таллинн, Харьюмаа, Эстония. Viru väljak 2, Tallinn 10111.' : ($locale === 'en' ? '📍 CityEE — Tallinn, Harjumaa, Estonia. Viru väljak 2, Tallinn 10111.' : '📍 CityEE — Tallinn, Harjumaa, Eesti. Viru väljak 2, Tallinn 10111.') }}</small></p>
 </div>
 
+@include('partials.service-crosslinks', ['locale' => $locale, 'pageKey' => 'profile'])
 @endsection

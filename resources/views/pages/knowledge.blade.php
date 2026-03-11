@@ -209,4 +209,5 @@ $cards = [
 
 @include('partials.about', ['ui' => $ui, 'isPage' => true])
 
+@include('partials.service-crosslinks', ['locale' => $locale, 'pageKey' => 'knowledge'])
 @endsection

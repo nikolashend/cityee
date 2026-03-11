@@ -43,18 +43,32 @@ class Guide extends Model
     }
 
     /**
+     * Safely normalise a slug list that may be double-encoded JSON.
+     */
+    private function normaliseSlugs($value): array
+    {
+        if (is_array($value)) return $value;
+        if (is_string($value)) {
+            $decoded = json_decode($value, true);
+            return is_array($decoded) ? $decoded : [];
+        }
+        return [];
+    }
+
+    /**
      * Get related guides (same locale, matching slugs).
      */
     public function relatedGuides()
     {
-        if (empty($this->related_guide_slugs)) {
+        $slugs = $this->normaliseSlugs($this->related_guide_slugs);
+        if (empty($slugs)) {
             return self::published()->locale($this->locale)
                 ->where('category', $this->category)
                 ->where('id', '!=', $this->id)
                 ->limit(3)->get();
         }
         return self::published()->locale($this->locale)
-            ->whereIn('slug', $this->related_guide_slugs)->get();
+            ->whereIn('slug', $slugs)->get();
     }
 
     /**
@@ -62,11 +76,12 @@ class Guide extends Model
      */
     public function relatedAudits()
     {
-        if (empty($this->related_audit_slugs)) {
+        $slugs = $this->normaliseSlugs($this->related_audit_slugs);
+        if (empty($slugs)) {
             return \App\Models\AreaAudit::published()->locale($this->locale)->limit(2)->get();
         }
         return \App\Models\AreaAudit::published()->locale($this->locale)
-            ->whereIn('slug', $this->related_audit_slugs)->get();
+            ->whereIn('slug', $slugs)->get();
     }
 
     /**
