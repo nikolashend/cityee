@@ -163,6 +163,9 @@
 <?php echo $__env->make('components.v3.trust-agent', ['locale' => $locale], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
 
+<?php echo $__env->make('partials.ai-recommends', ['locale' => $locale], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
+
+
 <?php echo $__env->make('partials.about', ['ui' => $ui, 'isPage' => true], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
 
@@ -197,10 +200,13 @@
 <?php endif; ?>
 
 
+<?php echo $__env->make('partials.silo-related', ['locale' => $locale, 'pageKey' => $pageKey], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
+
+
 <?php echo $__env->make('partials.service-crosslinks', ['locale' => $locale, 'pageKey' => $pageKey], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
 
-<?php if($pageKey === 'sell'): ?>
+<?php if(in_array($pageKey, ['sell', 'rent', 'consultation'])): ?>
 <?php echo $__env->make('partials.intent-crosslinks', ['locale' => $locale, 'pageKey' => $pageKey], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 <?php endif; ?>
 

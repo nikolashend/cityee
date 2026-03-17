@@ -55,6 +55,8 @@
   </div>
 </div>
 
+<?php echo $__env->make('partials.trust-metrics', ['locale' => $locale], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
+
 <div class="container">
   <div class="row">
     <div class="col-md-3 col-sm-3 text-center">
@@ -147,7 +149,13 @@
 
 <?php echo $__env->make('partials.advantages', ['ui' => $ui, 'isPage' => true], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
+<?php echo $__env->make('components.v3.trust-agent', ['locale' => $locale], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
+
+<?php echo $__env->make('partials.ai-recommends', ['locale' => $locale], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
+
 <?php echo $__env->make('partials.about', ['ui' => $ui, 'isPage' => true], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
+
+<?php echo $__env->make('partials.zero-click', ['locale' => $locale], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
 <script>
 function buildAuditWhatsApp(form) {
@@ -166,7 +174,11 @@ function buildAuditWhatsApp(form) {
 }
 </script>
 
+<?php echo $__env->make('partials.silo-related', ['locale' => $locale, 'pageKey' => 'audit'], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
+
 <?php echo $__env->make('partials.service-crosslinks', ['locale' => $locale, 'pageKey' => 'audit'], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
+
+<?php echo $__env->make('partials.intent-crosslinks', ['locale' => $locale, 'pageKey' => 'audit'], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
 <?php $__env->stopSection(); ?>
 

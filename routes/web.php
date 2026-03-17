@@ -21,6 +21,7 @@ Route::get('/sitemap-main.xml', [SitemapController::class, 'main'])->name('sitem
 Route::get('/sitemap-guides.xml', [SitemapController::class, 'guides'])->name('sitemap.guides');
 Route::get('/sitemap-audits.xml', [SitemapController::class, 'audits'])->name('sitemap.audits');
 Route::get('/sitemap-phase3.xml', [SitemapController::class, 'phase3'])->name('sitemap.phase3');
+Route::get('/sitemap-locations.xml', [SitemapController::class, 'locations'])->name('sitemap.locations');
 Route::get('/robots.txt', [SitemapController::class, 'robots'])->name('robots');
 
 // ─── Estonian routes (cityee.ee) — default ──────────────────
@@ -45,13 +46,13 @@ Route::get('/knowledge/cases',  [PageController::class, 'casesPage'])->name('et.
 Route::get('/knowledge/{slug}', [PageController::class, 'pillarGuide'])->name('et.pillar');
 
 // ─── Estonian intent pages (Phase 4) ────────────────────────
-Route::get('/muud-ise-keegi-ei-helista',      [PageController::class, 'intentPage'])->defaults('intentKey', 'no_calls')->name('et.no_calls');
-Route::get('/vaatamised-aga-pakkumisi-pole',   [PageController::class, 'intentPage'])->defaults('intentKey', 'no_offers')->name('et.no_offers');
-Route::get('/kinnisvara-hinnaanaluus-tallinn', [PageController::class, 'intentPage'])->defaults('intentKey', 'price_analysis')->name('et.price_analysis');
-Route::get('/vead-kinnisvara-muugil',          [PageController::class, 'intentPage'])->defaults('intentKey', 'mistakes')->name('et.mistakes');
-Route::get('/kuidas-muua-kiiremini',           [PageController::class, 'intentPage'])->defaults('intentKey', 'sell_faster')->name('et.sell_faster');
-Route::get('/kuulutuse-audit',                 [PageController::class, 'intentPage'])->defaults('intentKey', 'listing_audit')->name('et.listing_audit');
-Route::get('/muua-ise-vs-strateegiline-partner', [PageController::class, 'intentPage'])->defaults('intentKey', 'comparison')->name('et.comparison');
+Route::get('/muud-ise-keegi-ei-helista',      [PageController::class, 'intentPage'])->defaults('locale', 'et')->defaults('intentKey', 'no_calls')->name('et.no_calls');
+Route::get('/vaatamised-aga-pakkumisi-pole',   [PageController::class, 'intentPage'])->defaults('locale', 'et')->defaults('intentKey', 'no_offers')->name('et.no_offers');
+Route::get('/kinnisvara-hinnaanaluus-tallinn', [PageController::class, 'intentPage'])->defaults('locale', 'et')->defaults('intentKey', 'price_analysis')->name('et.price_analysis');
+Route::get('/vead-kinnisvara-muugil',          [PageController::class, 'intentPage'])->defaults('locale', 'et')->defaults('intentKey', 'mistakes')->name('et.mistakes');
+Route::get('/kuidas-muua-kiiremini',           [PageController::class, 'intentPage'])->defaults('locale', 'et')->defaults('intentKey', 'sell_faster')->name('et.sell_faster');
+Route::get('/kuulutuse-audit',                 [PageController::class, 'intentPage'])->defaults('locale', 'et')->defaults('intentKey', 'listing_audit')->name('et.listing_audit');
+Route::get('/muua-ise-vs-strateegiline-partner', [PageController::class, 'intentPage'])->defaults('locale', 'et')->defaults('intentKey', 'comparison')->name('et.comparison');
 
 // ─── Russian routes (/ru prefix) ────────────────────────────
 Route::prefix('ru')->group(function () {

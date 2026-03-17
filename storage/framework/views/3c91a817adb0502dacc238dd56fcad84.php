@@ -32,6 +32,7 @@
 <meta name="keywords" content="<?php echo $__env->yieldContent('keywords', ''); ?>">
 <link rel="icon" href="/favicon.png" type="image/x-icon"/>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#7b1f45">
 <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
 
 
@@ -111,6 +112,7 @@ img{max-width:100%;height:auto}
 <link rel="stylesheet" href="/assets/css/tokens.css?v=6">
 
 
+<link rel="preload" href="/assets/templates/offshors/css/style.css?v=5" as="style">
 <link rel="stylesheet" href="/assets/templates/offshors/css/style.css?v=5">
 <link rel="stylesheet" href="/assets/templates/offshors/css/font-awesome.min.css" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="/assets/templates/offshors/css/font-awesome.min.css"></noscript>
@@ -118,8 +120,17 @@ img{max-width:100%;height:auto}
 <noscript><link rel="stylesheet" href="/assets/templates/offshors/css/jquery.bxslider.css"></noscript>
 <link href="/assets/css/cityee-v3.css?v=5" rel="stylesheet">
 <link href="/assets/css/cityee-v3-overrides.css?v=25" rel="stylesheet">
+
+
+<?php if(in_array($dlPageType, ['intent', 'guide', 'cases', 'blog'])): ?>
 <link href="/assets/css/cityee-phase4.css?v=2" rel="stylesheet">
 <link href="/assets/css/cityee-phase5-6.css?v=2" rel="stylesheet">
+<?php else: ?>
+<link href="/assets/css/cityee-phase4.css?v=2" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="/assets/css/cityee-phase4.css?v=2" rel="stylesheet"></noscript>
+<link href="/assets/css/cityee-phase5-6.css?v=2" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="/assets/css/cityee-phase5-6.css?v=2" rel="stylesheet"></noscript>
+<?php endif; ?>
 
 
 <?php echo $__env->yieldPushContent('jsonld'); ?>
@@ -169,10 +180,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <div class="header__phones">
       <div class="phones">
-        <div style="text-align:center;"><a href="<?php echo e($co['city24']); ?><?php echo e($locale === 'ru' ? 'ru/' : ''); ?>" target="blank">City24</a></div>
-        <div style="text-align:center;"><a href="<?php echo e($co['facebook']); ?>" target="blank">Facebook</a></div>
-        <div style="text-align:center;"><a href="<?php echo e($co['instagram']); ?>" target="blank">Instagram</a></div>
-        <div style="text-align:center;"><a href="<?php echo e($co['linkedin']); ?>" target="blank">LinkedIn</a></div>
+        <div style="text-align:center;"><a href="<?php echo e($co['city24']); ?><?php echo e($locale === 'ru' ? 'ru/' : ''); ?>" target="_blank" rel="noopener">City24</a></div>
+        <div style="text-align:center;"><a href="<?php echo e($co['facebook']); ?>" target="_blank" rel="noopener">Facebook</a></div>
+        <div style="text-align:center;"><a href="<?php echo e($co['instagram']); ?>" target="_blank" rel="noopener">Instagram</a></div>
+        <div style="text-align:center;"><a href="<?php echo e($co['linkedin']); ?>" target="_blank" rel="noopener">LinkedIn</a></div>
       </div>
     </div>
 
@@ -336,8 +347,8 @@ window.addEventListener('load', function() {
   <form action="<?php echo e(route('contact.callback')); ?>" method="POST" class="pop-up__form ajax-form">
   <?php echo csrf_field(); ?>
   <div class="error"></div>
-    <input type="text" class="pop-up__input" name="name" placeholder="<?php echo e($ui['your_name'] ?? 'Teie nimi'); ?>">
-    <input type="text" class="pop-up__input" name="tel" value="" placeholder="<?php echo e($ui['your_phone'] ?? 'Teie telefoni number'); ?>">
+    <input type="text" class="pop-up__input" name="name" placeholder="<?php echo e($ui['your_name'] ?? 'Teie nimi'); ?>" aria-label="<?php echo e($ui['your_name'] ?? 'Teie nimi'); ?>" autocomplete="name">
+    <input type="tel" class="pop-up__input" name="tel" value="" placeholder="<?php echo e($ui['your_phone'] ?? 'Teie telefoni number'); ?>" aria-label="<?php echo e($ui['your_phone'] ?? 'Teie telefoni number'); ?>" autocomplete="tel">
     <input type="submit" class="btn" name="submit" value="<?php echo e($ui['send'] ?? 'Saada'); ?>">
     <input type="hidden" name="query_type" value="call">
   </form>
@@ -349,10 +360,10 @@ window.addEventListener('load', function() {
   <form action="<?php echo e(route('contact.inquiry')); ?>" method="POST" class="pop-up__form ajax-form">
   <?php echo csrf_field(); ?>
   <div class="error"></div>
-    <input type="text" class="pop-up__input" name="name" placeholder="<?php echo e($ui['your_name'] ?? 'Teie nimi'); ?>">
-    <input type="text" class="pop-up__input" name="tel" value="" placeholder="<?php echo e($ui['your_phone'] ?? 'Teie telefoni number'); ?>">
-    <input type="text" class="pop-up__input" name="email" value="" placeholder="<?php echo e($ui['your_email'] ?? 'Teie email'); ?>">
-    <textarea rows="4" class="pop-up__input" name="comment" value="" placeholder="<?php echo e($ui['your_comment'] ?? 'Teie komentaar'); ?>"></textarea>
+    <input type="text" class="pop-up__input" name="name" placeholder="<?php echo e($ui['your_name'] ?? 'Teie nimi'); ?>" aria-label="<?php echo e($ui['your_name'] ?? 'Teie nimi'); ?>" autocomplete="name">
+    <input type="tel" class="pop-up__input" name="tel" value="" placeholder="<?php echo e($ui['your_phone'] ?? 'Teie telefoni number'); ?>" aria-label="<?php echo e($ui['your_phone'] ?? 'Teie telefoni number'); ?>" autocomplete="tel">
+    <input type="email" class="pop-up__input" name="email" value="" placeholder="<?php echo e($ui['your_email'] ?? 'Teie email'); ?>" aria-label="<?php echo e($ui['your_email'] ?? 'Teie email'); ?>" autocomplete="email">
+    <textarea rows="4" class="pop-up__input" name="comment" placeholder="<?php echo e($ui['your_comment'] ?? 'Teie komentaar'); ?>" aria-label="<?php echo e($ui['your_comment'] ?? 'Teie komentaar'); ?>"></textarea>
     <input type="submit" class="btn" name="submit" value="<?php echo e($ui['send'] ?? 'Saada'); ?>">
     <input type="hidden" name="query_type" value="buy_kompany">
     <p></p>

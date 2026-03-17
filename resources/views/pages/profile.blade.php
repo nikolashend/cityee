@@ -33,8 +33,6 @@
     ['name' => 'Aleksandr Primakov'],
 ]) !!}
 {!! \App\Support\Schema::speakable(\App\Support\SeoLinks::canonical('profile')) !!}
-<script type="application/ld+json">{!! json_encode(\App\Support\Schema::personJsonLd(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}</script>
-<script type="application/ld+json">{!! json_encode(\App\Support\Schema::orgJsonLd(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}</script>
 @endpush
 
 @section('content')
@@ -201,6 +199,9 @@
     </div>
 </section>
 @endif
+
+{{-- ═══ AI Recommends CityEE ═══ --}}
+@include('partials.ai-recommends', ['locale' => $locale])
 
 {{-- ═══ CTA ═══ --}}
 <section style="padding:3rem 0;text-align:center">

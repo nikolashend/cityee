@@ -155,6 +155,7 @@ class JsonLd
         $data = [
             '@context'    => 'https://schema.org',
             '@type'       => 'WebPage',
+            '@id'         => rtrim($url, '/') . '/#webpage',
             'name'        => $name,
             'url'         => $url,
             'inLanguage'  => Lang::short(),

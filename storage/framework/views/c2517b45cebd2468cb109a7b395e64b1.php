@@ -11,12 +11,16 @@
 <?php $__env->startSection('lang_en_url', route('en.audits')); ?>
 
 <?php $__env->startPush('jsonld'); ?>
-<?php echo \App\Support\JsonLd::webPage(
+<?php echo \App\Support\JsonLd::collectionPage(
     $locale === 'ru' ? 'Разборы CityEE' : ($locale === 'en' ? 'CityEE Audits' : 'CityEE Auditid'),
     \App\Support\SeoLinks::canonical('audits'),
     $locale === 'ru' ? 'Реальные разборы объектов недвижимости.' : ($locale === 'en' ? 'Real property audit case studies.' : 'Tegelikud kinnisvara analüüsid.')
 ); ?>
 
+<?php if($audits->isNotEmpty()): ?>
+<?php echo \App\Support\JsonLd::itemList($audits->map(fn($a) => ['url' => $a->url, 'name' => $a->title])->all()); ?>
+
+<?php endif; ?>
 <?php echo \App\Support\JsonLd::breadcrumbs([
     ['name' => $nav[0]['label'] ?? 'Home', 'url' => route("{$locale}.home")],
     ['name' => $locale === 'ru' ? 'Разборы' : ($locale === 'en' ? 'Audits' : 'Auditid')],

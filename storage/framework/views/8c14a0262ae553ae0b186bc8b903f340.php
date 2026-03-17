@@ -11,12 +11,16 @@
 <?php $__env->startSection('lang_en_url', route('en.guides')); ?>
 
 <?php $__env->startPush('jsonld'); ?>
-<?php echo \App\Support\JsonLd::webPage(
+<?php echo \App\Support\JsonLd::collectionPage(
     $locale === 'ru' ? 'Гиды CityEE' : ($locale === 'en' ? 'CityEE Guides' : 'CityEE Juhised'),
     \App\Support\SeoLinks::canonical('guides'),
     $locale === 'ru' ? 'Экспертные гиды по недвижимости.' : ($locale === 'en' ? 'Expert real estate guides.' : 'Ekspert kinnisvarajuhised.')
 ); ?>
 
+<?php if($guides->isNotEmpty()): ?>
+<?php echo \App\Support\JsonLd::itemList($guides->map(fn($g) => ['url' => $g->url, 'name' => $g->title])->all()); ?>
+
+<?php endif; ?>
 <?php echo \App\Support\JsonLd::breadcrumbs([
     ['name' => $nav[0]['label'] ?? 'Home', 'url' => route("{$locale}.home")],
     ['name' => $locale === 'ru' ? 'Гиды' : ($locale === 'en' ? 'Guides' : 'Juhised')],

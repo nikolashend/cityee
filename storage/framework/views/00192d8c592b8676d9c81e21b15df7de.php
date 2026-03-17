@@ -36,8 +36,6 @@
 
 <?php echo \App\Support\Schema::speakable(\App\Support\SeoLinks::canonical('profile')); ?>
 
-<script type="application/ld+json"><?php echo json_encode(\App\Support\Schema::personJsonLd(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT); ?></script>
-<script type="application/ld+json"><?php echo json_encode(\App\Support\Schema::orgJsonLd(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT); ?></script>
 <?php $__env->stopPush(); ?>
 
 <?php $__env->startSection('content'); ?>
@@ -205,6 +203,9 @@
     </div>
 </section>
 <?php endif; ?>
+
+
+<?php echo $__env->make('partials.ai-recommends', ['locale' => $locale], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
 
 <section style="padding:3rem 0;text-align:center">

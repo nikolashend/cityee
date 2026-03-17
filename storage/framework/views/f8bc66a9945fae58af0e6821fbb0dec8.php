@@ -11,6 +11,8 @@
 <?php $__env->startSection('lang_en_url', route('en.' . $pageKey)); ?>
 
 <?php $__env->startPush('jsonld'); ?>
+<?php echo \App\Support\JsonLd::webPage($intent['h1'] ?? '', \App\Support\SeoLinks::canonical($pageKey), $intent['meta_description'] ?? ''); ?>
+
 <?php echo \App\Support\JsonLd::breadcrumbs([
     ['name' => $nav[0]['label'] ?? 'Home', 'url' => route("{$locale}.home")],
     ['name' => $intent['h1']],
@@ -18,6 +20,7 @@
 
 <?php echo \App\Support\Schema::speakable(\App\Support\SeoLinks::canonical($pageKey)); ?>
 
+<script type="application/ld+json"><?php echo json_encode(\App\Support\Schema::orgJsonLd(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT); ?></script>
 <?php
     $faqForSchema = $intent['faq'] ?? [];
 ?>
@@ -119,6 +122,9 @@
 <?php echo $__env->make('components.v3.trust-agent', ['locale' => $locale], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
 
+<?php echo $__env->make('partials.ai-recommends', ['locale' => $locale], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
+
+
 <?php echo $__env->make('partials.about', ['ui' => $ui, 'isPage' => true], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
 
@@ -138,6 +144,9 @@
   </div>
 </section>
 <?php endif; ?>
+
+
+<?php echo $__env->make('partials.silo-related', ['locale' => $locale, 'pageKey' => $pageKey], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
 
 <?php echo $__env->make('partials.intent-crosslinks', ['locale' => $locale, 'pageKey' => $pageKey], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
