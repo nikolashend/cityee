@@ -5324,10 +5324,10 @@ img {
 
 @media(max-width:479px){
   .steps__item{
-    width: 33.3%;
+    width: 50%;
     margin-bottom: 20px;
   }
-  .steps__item:nth-child(3):after{
+  .steps__item:nth-child(2):after{
     display: none;
   }
   .steps__list{
