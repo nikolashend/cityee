@@ -111,14 +111,14 @@ img{max-width:100%;height:auto}
 <link rel="stylesheet" href="/assets/css/tokens.css?v=6">
 
 {{-- Core theme CSS — loaded synchronously to prevent FOUC --}}
-<link rel="preload" href="/assets/templates/offshors/css/style.css?v=5" as="style">
-<link rel="stylesheet" href="/assets/templates/offshors/css/style.css?v=5">
+<link rel="preload" href="/assets/templates/offshors/css/style.css?v=6" as="style">
+<link rel="stylesheet" href="/assets/templates/offshors/css/style.css?v=6">
 <link rel="stylesheet" href="/assets/templates/offshors/css/font-awesome.min.css" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="/assets/templates/offshors/css/font-awesome.min.css"></noscript>
 <link rel="stylesheet" href="/assets/templates/offshors/css/jquery.bxslider.css" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="/assets/templates/offshors/css/jquery.bxslider.css"></noscript>
-<link href="/assets/css/cityee-v3.css?v=5" rel="stylesheet">
-<link href="/assets/css/cityee-v3-overrides.css?v=25" rel="stylesheet">
+<link href="/assets/css/cityee-v3.css?v=6" rel="stylesheet">
+<link href="/assets/css/cityee-v3-overrides.css?v=26" rel="stylesheet">
 
 {{-- Phase 4/5 CSS — deferred on pages that don't use them --}}
 @if(in_array($dlPageType, ['intent', 'guide', 'cases', 'blog']))
