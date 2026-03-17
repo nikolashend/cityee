@@ -11,11 +11,13 @@
 @section('lang_en_url', route('en.' . $pageKey))
 
 @push('jsonld')
+{!! \App\Support\JsonLd::webPage($intent['h1'] ?? '', \App\Support\SeoLinks::canonical($pageKey), $intent['meta_description'] ?? '') !!}
 {!! \App\Support\JsonLd::breadcrumbs([
     ['name' => $nav[0]['label'] ?? 'Home', 'url' => route("{$locale}.home")],
     ['name' => $intent['h1']],
 ]) !!}
 {!! \App\Support\Schema::speakable(\App\Support\SeoLinks::canonical($pageKey)) !!}
+<script type="application/ld+json">{!! json_encode(\App\Support\Schema::orgJsonLd(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}</script>
 @php
     $faqForSchema = $intent['faq'] ?? [];
 @endphp
@@ -97,6 +99,9 @@
 {{-- ======= Agent trust ======= --}}
 @include('components.v3.trust-agent', ['locale' => $locale])
 
+{{-- ======= AI recommends ======= --}}
+@include('partials.ai-recommends', ['locale' => $locale])
+
 {{-- ======= About ======= --}}
 @include('partials.about', ['ui' => $ui, 'isPage' => true])
 
@@ -117,6 +122,9 @@
   </div>
 </section>
 @endif
+
+{{-- ======= Silo related pages ======= --}}
+@include('partials.silo-related', ['locale' => $locale, 'pageKey' => $pageKey])
 
 {{-- ======= Internal cross-links (intent silo) ======= --}}
 @include('partials.intent-crosslinks', ['locale' => $locale, 'pageKey' => $pageKey])

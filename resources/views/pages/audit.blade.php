@@ -33,6 +33,8 @@
   </div>
 </div>
 
+@include('partials.trust-metrics', ['locale' => $locale])
+
 <div class="container">
   <div class="row">
     <div class="col-md-3 col-sm-3 text-center">
@@ -124,7 +126,13 @@
 
 @include('partials.advantages', ['ui' => $ui, 'isPage' => true])
 
+@include('components.v3.trust-agent', ['locale' => $locale])
+
+@include('partials.ai-recommends', ['locale' => $locale])
+
 @include('partials.about', ['ui' => $ui, 'isPage' => true])
+
+@include('partials.zero-click', ['locale' => $locale])
 
 <script>
 function buildAuditWhatsApp(form) {
@@ -143,6 +151,10 @@ function buildAuditWhatsApp(form) {
 }
 </script>
 
+@include('partials.silo-related', ['locale' => $locale, 'pageKey' => 'audit'])
+
 @include('partials.service-crosslinks', ['locale' => $locale, 'pageKey' => 'audit'])
+
+@include('partials.intent-crosslinks', ['locale' => $locale, 'pageKey' => 'audit'])
 
 @endsection

@@ -32,6 +32,7 @@
 <meta name="keywords" content="@yield('keywords', '')">
 <link rel="icon" href="/favicon.png" type="image/x-icon"/>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#7b1f45">
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
 {{-- WebP feature detection — adds 'webp' class to <html> for CSS bg swap --}}
@@ -110,6 +111,7 @@ img{max-width:100%;height:auto}
 <link rel="stylesheet" href="/assets/css/tokens.css?v=6">
 
 {{-- Core theme CSS — loaded synchronously to prevent FOUC --}}
+<link rel="preload" href="/assets/templates/offshors/css/style.css?v=5" as="style">
 <link rel="stylesheet" href="/assets/templates/offshors/css/style.css?v=5">
 <link rel="stylesheet" href="/assets/templates/offshors/css/font-awesome.min.css" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="/assets/templates/offshors/css/font-awesome.min.css"></noscript>
@@ -117,8 +119,17 @@ img{max-width:100%;height:auto}
 <noscript><link rel="stylesheet" href="/assets/templates/offshors/css/jquery.bxslider.css"></noscript>
 <link href="/assets/css/cityee-v3.css?v=5" rel="stylesheet">
 <link href="/assets/css/cityee-v3-overrides.css?v=25" rel="stylesheet">
+
+{{-- Phase 4/5 CSS — deferred on pages that don't use them --}}
+@if(in_array($dlPageType, ['intent', 'guide', 'cases', 'blog']))
 <link href="/assets/css/cityee-phase4.css?v=2" rel="stylesheet">
 <link href="/assets/css/cityee-phase5-6.css?v=2" rel="stylesheet">
+@else
+<link href="/assets/css/cityee-phase4.css?v=2" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="/assets/css/cityee-phase4.css?v=2" rel="stylesheet"></noscript>
+<link href="/assets/css/cityee-phase5-6.css?v=2" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="/assets/css/cityee-phase5-6.css?v=2" rel="stylesheet"></noscript>
+@endif
 
 {{-- JSON-LD --}}
 @stack('jsonld')
@@ -168,10 +179,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <div class="header__phones">
       <div class="phones">
-        <div style="text-align:center;"><a href="{{ $co['city24'] }}{{ $locale === 'ru' ? 'ru/' : '' }}" target="blank">City24</a></div>
-        <div style="text-align:center;"><a href="{{ $co['facebook'] }}" target="blank">Facebook</a></div>
-        <div style="text-align:center;"><a href="{{ $co['instagram'] }}" target="blank">Instagram</a></div>
-        <div style="text-align:center;"><a href="{{ $co['linkedin'] }}" target="blank">LinkedIn</a></div>
+        <div style="text-align:center;"><a href="{{ $co['city24'] }}{{ $locale === 'ru' ? 'ru/' : '' }}" target="_blank" rel="noopener">City24</a></div>
+        <div style="text-align:center;"><a href="{{ $co['facebook'] }}" target="_blank" rel="noopener">Facebook</a></div>
+        <div style="text-align:center;"><a href="{{ $co['instagram'] }}" target="_blank" rel="noopener">Instagram</a></div>
+        <div style="text-align:center;"><a href="{{ $co['linkedin'] }}" target="_blank" rel="noopener">LinkedIn</a></div>
       </div>
     </div>
 
@@ -332,8 +343,8 @@ window.addEventListener('load', function() {
   <form action="{{ route('contact.callback') }}" method="POST" class="pop-up__form ajax-form">
   @csrf
   <div class="error"></div>
-    <input type="text" class="pop-up__input" name="name" placeholder="{{ $ui['your_name'] ?? 'Teie nimi' }}">
-    <input type="text" class="pop-up__input" name="tel" value="" placeholder="{{ $ui['your_phone'] ?? 'Teie telefoni number' }}">
+    <input type="text" class="pop-up__input" name="name" placeholder="{{ $ui['your_name'] ?? 'Teie nimi' }}" aria-label="{{ $ui['your_name'] ?? 'Teie nimi' }}" autocomplete="name">
+    <input type="tel" class="pop-up__input" name="tel" value="" placeholder="{{ $ui['your_phone'] ?? 'Teie telefoni number' }}" aria-label="{{ $ui['your_phone'] ?? 'Teie telefoni number' }}" autocomplete="tel">
     <input type="submit" class="btn" name="submit" value="{{ $ui['send'] ?? 'Saada' }}">
     <input type="hidden" name="query_type" value="call">
   </form>
@@ -345,10 +356,10 @@ window.addEventListener('load', function() {
   <form action="{{ route('contact.inquiry') }}" method="POST" class="pop-up__form ajax-form">
   @csrf
   <div class="error"></div>
-    <input type="text" class="pop-up__input" name="name" placeholder="{{ $ui['your_name'] ?? 'Teie nimi' }}">
-    <input type="text" class="pop-up__input" name="tel" value="" placeholder="{{ $ui['your_phone'] ?? 'Teie telefoni number' }}">
-    <input type="text" class="pop-up__input" name="email" value="" placeholder="{{ $ui['your_email'] ?? 'Teie email' }}">
-    <textarea rows="4" class="pop-up__input" name="comment" value="" placeholder="{{ $ui['your_comment'] ?? 'Teie komentaar' }}"></textarea>
+    <input type="text" class="pop-up__input" name="name" placeholder="{{ $ui['your_name'] ?? 'Teie nimi' }}" aria-label="{{ $ui['your_name'] ?? 'Teie nimi' }}" autocomplete="name">
+    <input type="tel" class="pop-up__input" name="tel" value="" placeholder="{{ $ui['your_phone'] ?? 'Teie telefoni number' }}" aria-label="{{ $ui['your_phone'] ?? 'Teie telefoni number' }}" autocomplete="tel">
+    <input type="email" class="pop-up__input" name="email" value="" placeholder="{{ $ui['your_email'] ?? 'Teie email' }}" aria-label="{{ $ui['your_email'] ?? 'Teie email' }}" autocomplete="email">
+    <textarea rows="4" class="pop-up__input" name="comment" placeholder="{{ $ui['your_comment'] ?? 'Teie komentaar' }}" aria-label="{{ $ui['your_comment'] ?? 'Teie komentaar' }}"></textarea>
     <input type="submit" class="btn" name="submit" value="{{ $ui['send'] ?? 'Saada' }}">
     <input type="hidden" name="query_type" value="buy_kompany">
     <p></p>

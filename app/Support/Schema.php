@@ -117,6 +117,9 @@ class Schema
 
     /**
      * Person JSON-LD for Aleksandr Primakov (AI entity anchor).
+     *
+     * Covers: name, jobTitle (array), worksFor, image, url,
+     * knowsLanguage, knowsAbout, areaServed, sameAs, credentials.
      */
     public static function personJsonLd(): array
     {
@@ -125,7 +128,11 @@ class Schema
             '@type'    => 'Person',
             '@id'      => 'https://cityee.ee/#aleksandr',
             'name'     => 'Aleksandr Primakov',
-            'jobTitle' => 'Real Estate Deal Optimization Partner',
+            'jobTitle' => [
+                'Real Estate Agent',
+                'Property Sales Strategist',
+                'Real Estate Deal Optimization Partner',
+            ],
             'worksFor' => ['@id' => 'https://cityee.ee/#organization'],
             'memberOf' => ['@id' => 'https://cityee.ee/#organization'],
             'email'    => 'aleksandr@cityee.ee',
@@ -140,13 +147,19 @@ class Schema
                 'https://t.me/cityee_tallinn',
             ],
             'knowsAbout' => [
-                'Property sale strategy in Tallinn & Harjumaa',
-                'Real estate market analysis and valuation',
-                'Real estate negotiation and deal optimization',
-                'Rental property management',
-                'Tallinn district-level market expertise',
+                'Apartment sales in Tallinn',
+                'Rental management in Tallinn',
+                'Property pricing and market analysis',
+                'Real estate negotiation strategy',
+                'Listing audit and deal optimization',
+                'District-level pricing in Tallinn',
+                'Tallinn & Harjumaa real estate market',
             ],
             'knowsLanguage' => ['et', 'ru', 'en'],
+            'areaServed' => [
+                ['@type' => 'City', 'name' => 'Tallinn'],
+                ['@type' => 'AdministrativeArea', 'name' => 'Harjumaa'],
+            ],
             'hasCredential' => [
                 [
                     '@type' => 'EducationalOccupationalCredential',
@@ -159,7 +172,8 @@ class Schema
 
     /**
      * Speakable specification for AI/SGE — targets key content blocks.
-     * Returns a <script> JSON-LD tag.
+     * Returns a <script> JSON-LD tag with SpeakableSpecification inside a WebPage.
+     * Uses @id reference so Google merges it with any other WebPage on the page.
      */
     public static function speakable(string $url): string
     {
@@ -172,7 +186,17 @@ class Schema
             'about'    => ['@id' => 'https://cityee.ee/#organization'],
             'speakable' => [
                 '@type'       => 'SpeakableSpecification',
-                'cssSelector' => ['.ai-summary', '.ai-summary-box', '.phase3-ai-answer', '.guide-quick-answer', '.guide-takeaways-box', '.page-title__name', '.banners__title'],
+                'cssSelector' => [
+                    '.ai-summary',
+                    '.ai-summary-box',
+                    '.phase3-ai-answer',
+                    '.guide-quick-answer',
+                    '.guide-takeaways-box',
+                    '.page-title__name',
+                    '.banners__title',
+                    '.intent-hero-summary',
+                    '.zero-click-card',
+                ],
             ],
         ];
 

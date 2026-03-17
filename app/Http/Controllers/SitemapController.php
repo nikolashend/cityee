@@ -24,6 +24,8 @@ class SitemapController extends Controller
             "{$base}/sitemap-guides.xml",
             "{$base}/sitemap-audits.xml",
             "{$base}/sitemap-phase3.xml",
+            // sitemap-locations removed: all /locations/ URLs 301 to Phase 3 geo,
+            // and Phase 3 sitemap already covers /ru/tallinn/ and all districts.
         ];
 
         $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
@@ -205,18 +207,47 @@ class SitemapController extends Controller
     }
 
     /**
-     * Locations sitemap — static location pages from config.
+     * Locations sitemap — DEPRECATED, no longer in sitemap index.
      * GET /sitemap-locations.xml
+     *
+     * All /locations/{slug} routes now 301 to Phase 3 geo (/ru/tallinn/{district}).
+     * Phase 3 sitemap (sitemap-phase3.xml) already covers all canonical geo URLs.
+     * This method is kept for backward compatibility if crawlers still request it directly.
      */
     public function locations(): Response
     {
-        $base = self::BASE;
-        $locations = config('cityee-v3.locations', []);
+        $base  = self::BASE;
+        $today = now()->toDateString();
 
         $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
         $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"' . "\n";
         $xml .= '        xmlns:xhtml="http://www.w3.org/1999/xhtml">' . "\n";
 
+        // Trilingual location pages from config that have live routes
+        // (tallinn, haabersti, mustamae, etc. in /locations/ format)
+        // These redirect to Phase 3 geo, so we emit Phase 3 canonical URLs instead.
+        
+        // Phase 3 GEO hub — /ru/tallinn/ (RU-only)
+        $xml .= "  <url>\n";
+        $xml .= "    <loc>{$base}/ru/tallinn/</loc>\n";
+        $xml .= "    <lastmod>{$today}</lastmod>\n";
+        $xml .= "    <changefreq>monthly</changefreq>\n";
+        $xml .= "    <priority>0.8</priority>\n";
+        $xml .= "  </url>\n";
+
+        // Phase 3 district pages
+        $districts = config('cityee-phase3.districts', []);
+        foreach ($districts as $slug => $data) {
+            $xml .= "  <url>\n";
+            $xml .= "    <loc>{$base}/ru/tallinn/{$slug}/</loc>\n";
+            $xml .= "    <lastmod>{$today}</lastmod>\n";
+            $xml .= "    <changefreq>monthly</changefreq>\n";
+            $xml .= "    <priority>0.7</priority>\n";
+            $xml .= "  </url>\n";
+        }
+
+        // Trilingual location hubs from config (only tallinn has locale content)
+        $locations = config('cityee-v3.locations', []);
         $hreflangCode = fn($l) => match($l) { 'et' => 'et-EE', 'ru' => 'ru-EE', 'en' => 'en-EE', default => $l };
         $prefixMap = ['et' => '', 'ru' => '/ru', 'en' => '/en'];
 
@@ -229,6 +260,7 @@ class SitemapController extends Controller
 
                 $xml .= "  <url>\n";
                 $xml .= "    <loc>{$loc}</loc>\n";
+                $xml .= "    <lastmod>{$today}</lastmod>\n";
                 $xml .= "    <changefreq>monthly</changefreq>\n";
                 $xml .= "    <priority>0.7</priority>\n";
 

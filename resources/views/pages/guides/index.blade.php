@@ -11,11 +11,14 @@
 @section('lang_en_url', route('en.guides'))
 
 @push('jsonld')
-{!! \App\Support\JsonLd::webPage(
+{!! \App\Support\JsonLd::collectionPage(
     $locale === 'ru' ? 'Гиды CityEE' : ($locale === 'en' ? 'CityEE Guides' : 'CityEE Juhised'),
     \App\Support\SeoLinks::canonical('guides'),
     $locale === 'ru' ? 'Экспертные гиды по недвижимости.' : ($locale === 'en' ? 'Expert real estate guides.' : 'Ekspert kinnisvarajuhised.')
 ) !!}
+@if($guides->isNotEmpty())
+{!! \App\Support\JsonLd::itemList($guides->map(fn($g) => ['url' => $g->url, 'name' => $g->title])->all()) !!}
+@endif
 {!! \App\Support\JsonLd::breadcrumbs([
     ['name' => $nav[0]['label'] ?? 'Home', 'url' => route("{$locale}.home")],
     ['name' => $locale === 'ru' ? 'Гиды' : ($locale === 'en' ? 'Guides' : 'Juhised')],

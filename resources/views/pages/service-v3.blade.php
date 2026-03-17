@@ -138,6 +138,9 @@
 {{-- ======= C8: Agent trust ======= --}}
 @include('components.v3.trust-agent', ['locale' => $locale])
 
+{{-- ======= AI Recommends CityEE ======= --}}
+@include('partials.ai-recommends', ['locale' => $locale])
+
 {{-- ======= About ======= --}}
 @include('partials.about', ['ui' => $ui, 'isPage' => true])
 
@@ -172,11 +175,14 @@
 @include('partials.faq', ['faq' => $t['faq'], 'faqTitle' => 'FAQ'])
 @endif
 
+{{-- ======= Silo related pages ======= --}}
+@include('partials.silo-related', ['locale' => $locale, 'pageKey' => $pageKey])
+
 {{-- ======= D1: Internal cross-links (services ↔ guides ↔ audits) ======= --}}
 @include('partials.service-crosslinks', ['locale' => $locale, 'pageKey' => $pageKey])
 
-{{-- ======= Phase 4: Intent silo links (sell page only) ======= --}}
-@if($pageKey === 'sell')
+{{-- ======= Phase 4: Intent silo links (sell/rent/consultation pages) ======= --}}
+@if(in_array($pageKey, ['sell', 'rent', 'consultation']))
 @include('partials.intent-crosslinks', ['locale' => $locale, 'pageKey' => $pageKey])
 @endif
 
