@@ -212,68 +212,14 @@ class SitemapController extends Controller
      *
      * All /locations/{slug} routes now 301 to Phase 3 geo (/ru/tallinn/{district}).
      * Phase 3 sitemap (sitemap-phase3.xml) already covers all canonical geo URLs.
-     * This method is kept for backward compatibility if crawlers still request it directly.
+     * Returns an empty urlset for backward compatibility if crawlers still request it.
      */
     public function locations(): Response
     {
-        $base  = self::BASE;
-        $today = now()->toDateString();
-
         $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
-        $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"' . "\n";
-        $xml .= '        xmlns:xhtml="http://www.w3.org/1999/xhtml">' . "\n";
-
-        // Trilingual location pages from config that have live routes
-        // (tallinn, haabersti, mustamae, etc. in /locations/ format)
-        // These redirect to Phase 3 geo, so we emit Phase 3 canonical URLs instead.
-        
-        // Phase 3 GEO hub — /ru/tallinn/ (RU-only)
-        $xml .= "  <url>\n";
-        $xml .= "    <loc>{$base}/ru/tallinn/</loc>\n";
-        $xml .= "    <lastmod>{$today}</lastmod>\n";
-        $xml .= "    <changefreq>monthly</changefreq>\n";
-        $xml .= "    <priority>0.8</priority>\n";
-        $xml .= "  </url>\n";
-
-        // Phase 3 district pages
-        $districts = config('cityee-phase3.districts', []);
-        foreach ($districts as $slug => $data) {
-            $xml .= "  <url>\n";
-            $xml .= "    <loc>{$base}/ru/tallinn/{$slug}/</loc>\n";
-            $xml .= "    <lastmod>{$today}</lastmod>\n";
-            $xml .= "    <changefreq>monthly</changefreq>\n";
-            $xml .= "    <priority>0.7</priority>\n";
-            $xml .= "  </url>\n";
-        }
-
-        // Trilingual location hubs from config (only tallinn has locale content)
-        $locations = config('cityee-v3.locations', []);
-        $hreflangCode = fn($l) => match($l) { 'et' => 'et-EE', 'ru' => 'ru-EE', 'en' => 'en-EE', default => $l };
-        $prefixMap = ['et' => '', 'ru' => '/ru', 'en' => '/en'];
-
-        foreach ($locations as $slug => $locData) {
-            $availableLocales = array_intersect(['et', 'ru', 'en'], array_keys($locData));
-
-            foreach ($availableLocales as $locale) {
-                $prefix = $prefixMap[$locale] ?? '';
-                $loc = "{$base}{$prefix}/locations/{$slug}/";
-
-                $xml .= "  <url>\n";
-                $xml .= "    <loc>{$loc}</loc>\n";
-                $xml .= "    <lastmod>{$today}</lastmod>\n";
-                $xml .= "    <changefreq>monthly</changefreq>\n";
-                $xml .= "    <priority>0.7</priority>\n";
-
-                foreach ($availableLocales as $altLocale) {
-                    $altPrefix = $prefixMap[$altLocale] ?? '';
-                    $xml .= '    <xhtml:link rel="alternate" hreflang="' . $hreflangCode($altLocale) . '" href="' . $base . $altPrefix . '/locations/' . $slug . '/" />' . "\n";
-                }
-                $xml .= '    <xhtml:link rel="alternate" hreflang="x-default" href="' . $base . '/locations/' . $slug . '/" />' . "\n";
-
-                $xml .= "  </url>\n";
-            }
-        }
-
+        $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
+        $xml .= "<!-- Deprecated: all location URLs have been migrated to Phase 3 geo pages. -->\n";
+        $xml .= "<!-- See /sitemap-phase3.xml for current canonical geo URLs. -->\n";
         $xml .= '</urlset>';
 
         return response($xml, 200)->withHeaders([
@@ -347,6 +293,10 @@ class SitemapController extends Controller
         $txt .= "Disallow: /admin\n";
         $txt .= "Disallow: /login\n";
         $txt .= "Disallow: /register\n";
+        $txt .= "Disallow: /dashboard\n";
+        $txt .= "Disallow: /ru/dashboard\n";
+        $txt .= "Disallow: /en/dashboard\n";
+        $txt .= "Disallow: /search\n";
         $txt .= "Disallow: /storage/\n";
         $txt .= "Disallow: /vendor/\n";
         $txt .= "Disallow: /node_modules/\n";
@@ -368,7 +318,9 @@ class SitemapController extends Controller
         $txt .= "Disallow: /*?yclid=\n";
         $txt .= "Disallow: /*?category=\n";
         $txt .= "Disallow: /*?type=\n";
-        $txt .= "Disallow: /*?q=\n\n";
+        $txt .= "Disallow: /*?q=\n";
+        $txt .= "Disallow: /*?filter=\n";
+        $txt .= "Disallow: /*?search=\n\n";
         $txt .= "# AI crawlers — welcome\n";
         $txt .= "User-agent: GPTBot\n";
         $txt .= "Allow: /\n\n";
@@ -379,6 +331,10 @@ class SitemapController extends Controller
         $txt .= "User-agent: Bingbot\n";
         $txt .= "Allow: /\n\n";
         $txt .= "User-agent: PerplexityBot\n";
+        $txt .= "Allow: /\n\n";
+        $txt .= "User-agent: ClaudeBot\n";
+        $txt .= "Allow: /\n\n";
+        $txt .= "User-agent: anthropic-ai\n";
         $txt .= "Allow: /\n\n";
         $txt .= "Sitemap: {$base}/sitemap.xml\n";
 
@@ -414,7 +370,7 @@ class SitemapController extends Controller
                 ['slug' => '/miks-cityee/',     'key' => 'why',          'p' => '0.8', 'f' => 'monthly'],
                 ['slug' => '/audit/',           'key' => 'audit',        'p' => '0.8', 'f' => 'monthly'],
                 ['slug' => '/knowledge/',       'key' => 'knowledge',    'p' => '0.7', 'f' => 'monthly'],
-                ['slug' => '/dashboard/',       'key' => 'dashboard',    'p' => '0.6', 'f' => 'monthly'],
+                // dashboard excluded from sitemap: noindex internal scorecard
                 ['slug' => '/guides/',          'key' => 'guides',       'p' => '0.8', 'f' => 'weekly'],
                 ['slug' => '/audits/',          'key' => 'audits',       'p' => '0.8', 'f' => 'weekly'],
                 ['slug' => '/aleksandr-primakov/', 'key' => 'profile',  'p' => '0.7', 'f' => 'monthly'],
@@ -445,7 +401,7 @@ class SitemapController extends Controller
                 ['slug' => '/pochemu-cityee/',  'key' => 'why',          'p' => '0.8', 'f' => 'monthly'],
                 ['slug' => '/audit/',           'key' => 'audit',        'p' => '0.8', 'f' => 'monthly'],
                 ['slug' => '/knowledge/',       'key' => 'knowledge',    'p' => '0.7', 'f' => 'monthly'],
-                ['slug' => '/dashboard/',       'key' => 'dashboard',    'p' => '0.6', 'f' => 'monthly'],
+                // dashboard excluded from sitemap: noindex internal scorecard
                 ['slug' => '/guides/',          'key' => 'guides',       'p' => '0.8', 'f' => 'weekly'],
                 ['slug' => '/audits/',          'key' => 'audits',       'p' => '0.8', 'f' => 'weekly'],
                 ['slug' => '/aleksandr-primakov/', 'key' => 'profile',  'p' => '0.7', 'f' => 'monthly'],
@@ -476,7 +432,7 @@ class SitemapController extends Controller
                 ['slug' => '/why-cityee/',        'key' => 'why',          'p' => '0.8', 'f' => 'monthly'],
                 ['slug' => '/audit/',             'key' => 'audit',        'p' => '0.8', 'f' => 'monthly'],
                 ['slug' => '/knowledge/',         'key' => 'knowledge',    'p' => '0.7', 'f' => 'monthly'],
-                ['slug' => '/dashboard/',         'key' => 'dashboard',    'p' => '0.6', 'f' => 'monthly'],
+                // dashboard excluded from sitemap: noindex internal scorecard
                 ['slug' => '/guides/',            'key' => 'guides',       'p' => '0.8', 'f' => 'weekly'],
                 ['slug' => '/audits/',            'key' => 'audits',       'p' => '0.8', 'f' => 'weekly'],
                 ['slug' => '/aleksandr-primakov/', 'key' => 'profile',    'p' => '0.7', 'f' => 'monthly'],

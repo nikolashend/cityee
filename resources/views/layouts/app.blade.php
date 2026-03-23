@@ -53,6 +53,9 @@
 <link rel="preload" href="/assets/templates/offshors/fonts/PTSansNarrow-Regular.woff2" as="font" type="font/woff2" crossorigin>
 
 {{-- Canonical + Hreflang --}}
+@if ($pageKey === 'dashboard')
+<meta name="robots" content="noindex, follow">
+@endif
 @if (!empty($canonicalUrl))
 <link rel="canonical" href="{{ $canonicalUrl }}">
 @if (!empty($hreflangLinks))
@@ -273,6 +276,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <li><a href="/ru/cases/" title="Кейсы">Кейсы</a></li>
         <li><a href="/ru/tallinn/" title="Районы Таллина">Районы</a></li>
         <li><a href="/ru/aleksandr-primakov/" title="Александр Примаков">Александр Примаков</a></li>
+        @elseif($locale === 'et')
+        <li><a href="/guides/" title="Juhendid kinnisvara müügiks">Juhendid</a></li>
+        <li><a href="/audits/" title="Piirkonna auditid">Auditid</a></li>
+        <li><a href="/knowledge/cases/" title="Edukad tehingud">Klientide lood</a></li>
+        <li><a href="/kuidas-muua-kiiremini/" title="Kuidas müüa kinnisvarakiiremini">Kuidas müüa kiiremini</a></li>
+        <li><a href="/kuulutuse-audit/" title="Kuulutuse audit">Kuulutuse audit</a></li>
+        <li><a href="/aleksandr-primakov/" title="Aleksandr Primakov — maakler">Aleksandr Primakov</a></li>
+        @elseif($locale === 'en')
+        <li><a href="/en/guides/" title="Real estate guides">Guides</a></li>
+        <li><a href="/en/audits/" title="Area audits & analysis">Audits</a></li>
+        <li><a href="/en/knowledge/cases/" title="Successful deals">Client stories</a></li>
+        <li><a href="/en/how-to-sell-faster/" title="How to sell property faster">Sell faster</a></li>
+        <li><a href="/en/listing-audit/" title="Listing audit">Listing audit</a></li>
+        <li><a href="/en/aleksandr-primakov/" title="Aleksandr Primakov — broker">Aleksandr Primakov</a></li>
         @endif
       </ul>
     </div>

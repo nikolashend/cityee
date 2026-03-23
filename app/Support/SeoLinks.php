@@ -43,7 +43,7 @@ class SeoLinks
                 'ru' => "{$base}/ru/kontaktid/",
                 'en' => "{$base}/en/contacts/",
             ],
-            'comparison', 'why' => [
+            'why' => [
                 'et' => "{$base}/miks-cityee/",
                 'ru' => "{$base}/ru/pochemu-cityee/",
                 'en' => "{$base}/en/why-cityee/",
