@@ -20,7 +20,7 @@
             $slugField = match($locale) { 'ru' => 'slug_ru', 'en' => 'slug_en', default => 'slug' };
             $slug = $gc[$slugField] ?? '';
         @endphp
-        @if(!empty($gl['h1']))
+        @if(!empty($gl['h1']) && !empty($slug))
         <a href="{{ route("{$locale}.pillar", $slug) }}" class="crosslink-card">
           <span class="crosslink-card__icon">{{ $icons[$i] ?? '📄' }}</span>
           <span class="crosslink-card__title">{{ $gl['h1'] }}</span>

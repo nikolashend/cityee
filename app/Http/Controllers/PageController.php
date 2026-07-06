@@ -244,8 +244,8 @@ class PageController extends Controller
         $guideConfig = null;
 
         foreach ($guideKeys as $key) {
-            $cfg = config("cityee-knowledge.pillar_guides.{$key}");
-            if ($cfg && $cfg[$slugField] === $slug) {
+            $cfg = config("cityee-knowledge.{$key}");
+            if ($cfg && ($cfg[$slugField] ?? null) === $slug) {
                 $guideKey    = $key;
                 $guideConfig = $cfg;
                 break;
@@ -258,14 +258,39 @@ class PageController extends Controller
 
         $guide = $guideConfig[$locale] ?? $guideConfig['et'];
 
+        // Build canonical URL for this pillar guide
+        $base        = 'https://cityee.ee';
+        $prefixMap   = ['et' => '', 'ru' => '/ru', 'en' => '/en'];
+        $slugFieldMap = ['et' => 'slug', 'ru' => 'slug_ru', 'en' => 'slug_en'];
+        $canonicalUrl = $base . ($prefixMap[$locale] ?? '') . '/knowledge/' . $guideConfig[$slugFieldMap[$locale]] . '/';
+
+        // Build hreflang links — only include locales where the slug exists
+        $hreflangCodeMap = ['et' => 'et-EE', 'ru' => 'ru-EE', 'en' => 'en-EE'];
+        $hreflangLinks   = [];
+        foreach (['et', 'ru', 'en'] as $altLocale) {
+            $altSlug = $guideConfig[$slugFieldMap[$altLocale]] ?? null;
+            if ($altSlug) {
+                $hreflangLinks[] = [
+                    'hreflang' => $hreflangCodeMap[$altLocale],
+                    'href'     => $base . ($prefixMap[$altLocale] ?? '') . '/knowledge/' . $altSlug . '/',
+                ];
+            }
+        }
+        // x-default = ET
+        if (! empty($guideConfig['slug'])) {
+            $hreflangLinks[] = ['hreflang' => 'x-default', 'href' => $base . '/knowledge/' . $guideConfig['slug'] . '/'];
+        }
+
         return view('pages.pillar-guide', [
-            'locale'      => $locale,
-            'ui'          => $ui,
-            'nav'         => $this->nav($locale),
-            'pageKey'     => 'pillar',
-            'guideKey'    => $guideKey,
-            'guideConfig' => $guideConfig,
-            'guide'       => $guide,
+            'locale'        => $locale,
+            'ui'            => $ui,
+            'nav'           => $this->nav($locale),
+            'pageKey'       => 'pillar',
+            'guideKey'      => $guideKey,
+            'guideConfig'   => $guideConfig,
+            'guide'         => $guide,
+            'canonicalUrl'  => $canonicalUrl,
+            'hreflangLinks' => $hreflangLinks,
         ]);
     }
 

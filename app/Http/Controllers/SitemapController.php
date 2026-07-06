@@ -24,6 +24,7 @@ class SitemapController extends Controller
             "{$base}/sitemap-guides.xml",
             "{$base}/sitemap-audits.xml",
             "{$base}/sitemap-phase3.xml",
+            "{$base}/sitemap-knowledge.xml",
             // sitemap-locations removed: all /locations/ URLs 301 to Phase 3 geo,
             // and Phase 3 sitemap already covers /ru/tallinn/ and all districts.
         ];
@@ -230,8 +231,78 @@ class SitemapController extends Controller
     }
 
     /**
-     * Phase 3 sitemap — RU-only intent landings, district pages, cases.
-     * GET /sitemap-phase3.xml
+     * Knowledge/Pillar Guides sitemap — all trilingual pillar guides from config.
+     * GET /sitemap-knowledge.xml
+     */
+    public function knowledge(): Response
+    {
+        $base  = self::BASE;
+        $today = now()->toDateString();
+
+        $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+        $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"' . "\n";
+        $xml .= '        xmlns:xhtml="http://www.w3.org/1999/xhtml">' . "\n";
+
+        $guideKeys = [
+            'guide_sell_tallinn', 'guide_rent', 'guide_pricing',
+            'guide_negotiation', 'guide_staging', 'guide_market_2026', 'guide_mistakes',
+        ];
+
+        $prefixMap     = ['et' => '', 'ru' => '/ru', 'en' => '/en'];
+        $slugFieldMap  = ['et' => 'slug', 'ru' => 'slug_ru', 'en' => 'slug_en'];
+        $hreflangCode  = fn($l) => match ($l) { 'et' => 'et-EE', 'ru' => 'ru-EE', 'en' => 'en-EE', default => $l };
+
+        foreach ($guideKeys as $key) {
+            $cfg = config("cityee-knowledge.{$key}");
+            if (! $cfg) continue;
+
+            foreach (['et', 'ru', 'en'] as $locale) {
+                $slug  = $cfg[$slugFieldMap[$locale]] ?? null;
+                if (! $slug) continue;
+
+                $loc     = "{$base}{$prefixMap[$locale]}/knowledge/{$slug}/";
+                $lastmod = $cfg['date_modified'] ?? $today;
+
+                $xml .= "  <url>\n";
+                $xml .= "    <loc>{$loc}</loc>\n";
+                $xml .= "    <lastmod>{$lastmod}</lastmod>\n";
+                $xml .= "    <changefreq>monthly</changefreq>\n";
+                $xml .= "    <priority>0.85</priority>\n";
+
+                // hreflang alternates — only include locales where the slug exists
+                foreach (['et', 'ru', 'en'] as $altLocale) {
+                    $altSlug = $cfg[$slugFieldMap[$altLocale]] ?? null;
+                    if (! $altSlug) continue;
+                    $altLoc = "{$base}{$prefixMap[$altLocale]}/knowledge/{$altSlug}/";
+                    $xml .= '    <xhtml:link rel="alternate" hreflang="' . $hreflangCode($altLocale) . '" href="' . $altLoc . '" />' . "\n";
+                }
+                // x-default = ET
+                $etSlug = $cfg['slug'] ?? null;
+                if ($etSlug) {
+                    $xml .= '    <xhtml:link rel="alternate" hreflang="x-default" href="' . $base . '/knowledge/' . $etSlug . '/" />' . "\n";
+                }
+
+                $xml .= "  </url>\n";
+            }
+        }
+
+        // Cases hub (ET, RU, EN)
+        foreach (['' => 'et', '/ru' => 'ru', '/en' => 'en'] as $prefix => $locale) {
+            $loc = "{$base}{$prefix}/knowledge/cases/";
+            $xml .= "  <url>\n    <loc>{$loc}</loc>\n    <lastmod>{$today}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>0.8</priority>\n  </url>\n";
+        }
+
+        $xml .= '</urlset>';
+
+        return response($xml, 200)->withHeaders([
+            'Content-Type'  => 'application/xml; charset=UTF-8',
+            'Cache-Control' => 'public, max-age=3600, s-maxage=3600',
+            'X-Robots-Tag'  => 'noindex',
+        ]);
+    }
+
+    /**
+     * Phase 3 sitemap — RU-only intent landings, district pages, cases.     * GET /sitemap-phase3.xml
      */
     public function phase3(): Response
     {
@@ -308,19 +379,16 @@ class SitemapController extends Controller
         $txt .= "Disallow: /index\n";
         $txt .= "Disallow: /index.html\n";
         $txt .= "Disallow: /index.php\n";
-        $txt .= "Disallow: /*?sort=\n";
+        $txt .= "# Tracking / campaign params only. Content-filter params\n";
+        $txt .= "# (?category=, ?type=, ?page=) are intentionally NOT blocked:\n";
+        $txt .= "# they 301 to the clean canonical URL, so Google must be able to\n";
+        $txt .= "# crawl them to consolidate — blocking them strands 'indexed, blocked'.\n";
         $txt .= "Disallow: /*?utm_\n";
-        $txt .= "Disallow: /*?trk=\n";
-        $txt .= "Disallow: /*?page=\n";
-        $txt .= "Disallow: /*?ref=\n";
         $txt .= "Disallow: /*?fbclid=\n";
         $txt .= "Disallow: /*?gclid=\n";
         $txt .= "Disallow: /*?yclid=\n";
-        $txt .= "Disallow: /*?category=\n";
-        $txt .= "Disallow: /*?type=\n";
-        $txt .= "Disallow: /*?q=\n";
-        $txt .= "Disallow: /*?filter=\n";
-        $txt .= "Disallow: /*?search=\n\n";
+        $txt .= "Disallow: /*?msclkid=\n";
+        $txt .= "Disallow: /*?gtm_debug=\n\n";
         $txt .= "# AI crawlers — welcome\n";
         $txt .= "User-agent: GPTBot\n";
         $txt .= "Allow: /\n\n";

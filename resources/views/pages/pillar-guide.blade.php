@@ -13,7 +13,7 @@
 @push('jsonld')
 {!! \App\Support\JsonLd::article(
     $guide['h1'],
-    \App\Support\SeoLinks::canonical($pageKey),
+    $canonicalUrl,
     $guide['meta_description'],
     $guideConfig['date_published'] ?? null,
     $guideConfig['date_modified'] ?? null
@@ -23,7 +23,7 @@
     ['name' => $locale === 'ru' ? 'База знаний' : ($locale === 'en' ? 'Knowledge Hub' : 'Teadmistebaas'), 'url' => route("{$locale}.knowledge")],
     ['name' => $guide['h1']],
 ]) !!}
-{!! \App\Support\Schema::speakable(\App\Support\SeoLinks::canonical($pageKey)) !!}
+{!! \App\Support\Schema::speakable($canonicalUrl) !!}
 @if(!empty($guide['faq']))
 <x-faq-schema :items="$guide['faq']" />
 @endif

@@ -204,23 +204,21 @@ class Schema
     }
 
     /**
-     * WebSite + SearchAction JSON-LD (global, every page).
+     * WebSite JSON-LD (global, every page).
+     * NOTE: SearchAction intentionally omitted — no functional site search page exists.
+     * SearchAction pointing to /guides?q= would reference a noindex/blocked query URL (RULE-006, INV-17).
+     * Add SearchAction only when a real /search/ route exists.
      */
     public static function webSiteJsonLd(): string
     {
         $data = [
-            '@context' => 'https://schema.org',
-            '@type'    => 'WebSite',
-            '@id'      => 'https://cityee.ee/#website',
-            'name'     => 'CityEE',
-            'url'      => 'https://cityee.ee',
-            'publisher' => ['@id' => 'https://cityee.ee/#organization'],
+            '@context'   => 'https://schema.org',
+            '@type'      => 'WebSite',
+            '@id'        => 'https://cityee.ee/#website',
+            'name'       => 'CityEE',
+            'url'        => 'https://cityee.ee',
+            'publisher'  => ['@id' => 'https://cityee.ee/#organization'],
             'inLanguage' => ['et', 'ru', 'en'],
-            'potentialAction' => [
-                '@type'       => 'SearchAction',
-                'target'      => 'https://cityee.ee/guides?q={search_term_string}',
-                'query-input' => 'required name=search_term_string',
-            ],
         ];
 
         return '<script type="application/ld+json">' . json_encode($data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) . '</script>';
