@@ -61,7 +61,9 @@ class RedirectOldUrls
         '/en/locations/haabersti'  => '/ru/tallinn/haabersti',
         '/en/locations/kristiine'  => '/ru/tallinn/kristiine',
 
-        // GSC — index duplicates (INV-9: /index → /)
+        // GSC — index duplicates (INV-9: /index → /).
+        // config/seo_redirects.php is authoritative (checked first in the
+        // middleware); these mirror it so the two never disagree.
         '/index'     => '/',
         '/ru/index'  => '/ru',
         '/en/index'  => '/en',

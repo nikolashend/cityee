@@ -1,5 +1,8 @@
 {{-- Trust Layer — social proof + authority stats --}}
+{{-- Numeric facts come from the TrustClaimRegistry (config/trust_claims.php);
+     labels stay local to this component. --}}
 @php
+    use App\Support\TrustClaims;
     $locale = $locale ?? app()->getLocale();
     $titles = [
         'et' => 'Miks omanikud valivad CityEE',
@@ -13,22 +16,22 @@
     ];
     $stats = [
         'et' => [
-            ['number' => '10+',   'label' => 'Aastat kogemust'],
-            ['number' => '300+',  'label' => 'Tehingut'],
-            ['number' => '1-1.5', 'label' => 'Kuud müügiaeg'],
-            ['number' => '2%',    'label' => 'Vahendustasu'],
+            ['number' => TrustClaims::experienceValue(),   'label' => 'Aastat kogemust'],
+            ['number' => TrustClaims::dealCountValue(),     'label' => 'Tehingut'],
+            ['number' => TrustClaims::avgSaleMonths('et'),  'label' => 'Kuud müügiaeg'],
+            ['number' => TrustClaims::commission(),          'label' => 'Vahendustasu'],
         ],
         'ru' => [
-            ['number' => '10+',   'label' => 'Лет опыта'],
-            ['number' => '300+',  'label' => 'Сделок'],
-            ['number' => '1-1.5', 'label' => 'Мес. срок продажи'],
-            ['number' => '2%',    'label' => 'Комиссия'],
+            ['number' => TrustClaims::experienceValue(),   'label' => 'Лет опыта'],
+            ['number' => TrustClaims::dealCountValue(),     'label' => 'Сделок'],
+            ['number' => TrustClaims::avgSaleMonths('ru'),  'label' => 'Мес. срок продажи'],
+            ['number' => TrustClaims::commission(),          'label' => 'Комиссия'],
         ],
         'en' => [
-            ['number' => '10+',   'label' => 'Years experience'],
-            ['number' => '300+',  'label' => 'Deals completed'],
-            ['number' => '1-1.5', 'label' => 'Months avg. sale'],
-            ['number' => '2%',    'label' => 'Commission'],
+            ['number' => TrustClaims::experienceValue(),   'label' => 'Years experience'],
+            ['number' => TrustClaims::dealCountValue(),     'label' => 'Deals completed'],
+            ['number' => TrustClaims::avgSaleMonths('en'),  'label' => 'Months avg. sale'],
+            ['number' => TrustClaims::commission(),          'label' => 'Commission'],
         ],
     ];
     $features = [

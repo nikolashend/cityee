@@ -1,21 +1,23 @@
 
+
 <?php
+    use App\Support\TrustClaims;
     $locale = $locale ?? app()->getLocale();
     $metrics = [
         [
-            'value' => '10+',
+            'value' => TrustClaims::experienceValue(),
             'label' => ['et' => 'aastat kogemust', 'ru' => 'лет опыта', 'en' => 'years experience'],
         ],
         [
-            'value' => '300+',
+            'value' => TrustClaims::dealCountValue(),
             'label' => ['et' => 'tehingut', 'ru' => 'сделок', 'en' => 'deals closed'],
         ],
         [
-            'value' => '45',
+            'value' => TrustClaims::avgSaleDays(),
             'label' => ['et' => 'päeva kes. müük', 'ru' => 'дней ср. продажа', 'en' => 'avg days to sell'],
         ],
         [
-            'value' => '⭐ 5.0',
+            'value' => '⭐ ' . TrustClaims::googleRating(),
             'label' => ['et' => 'Google hinnang', 'ru' => 'рейтинг Google', 'en' => 'Google rating'],
         ],
     ];

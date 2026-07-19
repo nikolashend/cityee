@@ -27,6 +27,12 @@ return [
         'status' => 301,
         'reason' => 'RULE-009: /index duplicate → root',
     ],
+    // NOTE: targets are the non-slash form because Laravel's redirect()/URL
+    // generator strips trailing slashes — redirect('/ru/') still emits a /ru
+    // Location header. The trailing-slash canonical is therefore enforced by
+    // <link rel=canonical>, not by the redirect target. Both /ru and /ru/ return
+    // 200, so this is consolidation-by-canonical, not a redirect chain.
+    // (See CITYEE_X999_FINAL_HARDENING_REPORT.md §5 — trailing-slash finding.)
     '/ru/index' => [
         'target' => '/ru',
         'status' => 301,

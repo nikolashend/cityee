@@ -1,0 +1,38 @@
+url,class,reason,expected_redirect,source_of_discovery,target,status_target,redirect_hops,in_sitemap,internal_references,hreflang_references,action
+http://cityee.ee/,A,http -> https (server-level nginx/apache),yes,external/historical,https://cityee.ee/,200,1,no,no,no,KEEP
+http://www.cityee.ee/,A,http+www -> https non-www (server-level),yes,external/historical,https://cityee.ee/,200,1,no,no,no,KEEP
+https://www.cityee.ee/,A,www -> non-www (server-level),yes,external/historical,https://cityee.ee/,200,1,no,no,no,KEEP
+http://ru.cityee.ee/,A,legacy subdomain+http -> path-based https (server-level + RedirectOldUrls LEGACY_HOSTS),yes,external/historical,https://cityee.ee/ru,200,1,no,no,no,KEEP
+https://ru.cityee.ee/kontaktid,A,legacy subdomain -> path-based (server-level + RedirectOldUrls),yes,external/historical,https://cityee.ee/ru/kontaktid,200,1,no,no,no,KEEP
+https://cityee.ee/index,A,/index duplicate -> root (CanonicalRedirects + RedirectOldUrls + seo_redirects),yes,historical crawl,https://cityee.ee/,200,1,no,no,no,KEEP
+https://cityee.ee/ru/index,A,/ru/index duplicate -> /ru (seo_redirects),yes,historical crawl,https://cityee.ee/ru,200,1,no,no,no,KEEP
+https://cityee.ee/en/index,A,/en/index duplicate -> /en (seo_redirects),yes,historical crawl,https://cityee.ee/en,200,1,no,no,no,KEEP
+https://cityee.ee/en/index/,A,/en/index/ -> collapse+strip index -> /en,yes,historical crawl,https://cityee.ee/en,200,1,no,no,no,KEEP
+https://cityee.ee/en,C,trailing-slash variant of canonical /en/ (canonical tag consolidates; both 200),soft,external/historical,https://cityee.ee/en/,200,0-1,no,no,no,VERIFY-NOT-REFERENCED
+https://cityee.ee/kontaktid,C,trailing-slash variant of canonical /kontaktid/ (canonical tag consolidates),soft,external/historical,https://cityee.ee/kontaktid/,200,0-1,no,no,no,VERIFY-NOT-REFERENCED
+https://cityee.ee/kuidas-muua-kiiremini,C,trailing-slash variant of canonical /kuidas-muua-kiiremini/,soft,external/historical,https://cityee.ee/kuidas-muua-kiiremini/,200,0-1,no,no,no,VERIFY-NOT-REFERENCED
+https://cityee.ee/knowledge/cases,C,trailing-slash variant of canonical /knowledge/cases/,soft,external/historical,https://cityee.ee/knowledge/cases/,200,0-1,no,no,no,VERIFY-NOT-REFERENCED
+https://cityee.ee/ru/prodat-kvartiru-v-tallinne,C,trailing-slash variant of RU money page /ru/prodat-kvartiru-v-tallinne/,soft,external/historical,https://cityee.ee/ru/prodat-kvartiru-v-tallinne/,200,0-1,no,no,no,VERIFY-NOT-REFERENCED
+https://cityee.ee/ru/knowledge,C,trailing-slash variant of canonical /ru/knowledge/,soft,external/historical,https://cityee.ee/ru/knowledge/,200,0-1,no,no,no,VERIFY-NOT-REFERENCED
+https://cityee.ee/ru/pochemu-cityee,C,trailing-slash variant of canonical /ru/pochemu-cityee/,soft,external/historical,https://cityee.ee/ru/pochemu-cityee/,200,0-1,no,no,no,VERIFY-NOT-REFERENCED
+https://cityee.ee/en/property-price-analysis-tallinn,C,trailing-slash variant of canonical /en/property-price-analysis-tallinn/,soft,external/historical,https://cityee.ee/en/property-price-analysis-tallinn/,200,0-1,no,no,no,VERIFY-NOT-REFERENCED
+https://cityee.ee/en/how-to-sell-faster,C,trailing-slash variant of canonical /en/how-to-sell-faster/,soft,external/historical,https://cityee.ee/en/how-to-sell-faster/,200,0-1,no,no,no,VERIFY-NOT-REFERENCED
+https://cityee.ee/ru/locations/tallinn,B,legacy /locations/ scheme -> Phase 3 geo,yes,historical crawl,https://cityee.ee/ru/tallinn,200,1,no,no,no,KEEP
+https://cityee.ee/ru/locations/lasnamae,B,legacy /locations/ scheme -> Phase 3 geo,yes,historical crawl,https://cityee.ee/ru/tallinn/lasnamae,200,1,no,no,no,KEEP
+https://cityee.ee/ru/locations/mustamae,B,legacy /locations/ scheme -> Phase 3 geo,yes,historical crawl,https://cityee.ee/ru/tallinn/mustamae,200,1,no,no,no,KEEP
+https://cityee.ee/ru/locations/kesklinn,B,legacy /locations/ scheme -> Phase 3 geo,yes,historical crawl,https://cityee.ee/ru/tallinn/kesklinn,200,1,no,no,no,KEEP
+https://cityee.ee/ru/locations/haabersti,B,legacy /locations/ scheme -> Phase 3 geo,yes,historical crawl,https://cityee.ee/ru/tallinn/haabersti,200,1,no,no,no,KEEP
+https://cityee.ee/ru/locations/kristiine,B,legacy /locations/ scheme -> Phase 3 geo,yes,historical crawl,https://cityee.ee/ru/tallinn/kristiine,200,1,no,no,no,KEEP
+https://cityee.ee/locations/tallinn,B,prefixless legacy /locations/ -> RU Phase 3 geo,yes,historical crawl,https://cityee.ee/ru/tallinn,200,1,no,no,no,KEEP
+https://cityee.ee/teenused,B,old ET service slug -> /kinnisvara-muuk,yes,historical crawl,https://cityee.ee/kinnisvara-muuk,200,1,no,no,no,KEEP
+https://cityee.ee/kontakt,B,old ET contacts slug -> /kontaktid,yes,historical crawl,https://cityee.ee/kontaktid,200,1,no,no,no,KEEP
+https://cityee.ee/sell,B,old prefixless EN -> /en/sell-property,yes,historical crawl,https://cityee.ee/en/sell-property,200,1,no,no,no,KEEP
+https://cityee.ee/rent,B,old prefixless EN -> /en/rent-out-property,yes,historical crawl,https://cityee.ee/en/rent-out-property,200,1,no,no,no,KEEP
+https://cityee.ee/ru/kvartira-ne-prodaetsya,E,old RU "not selling" slug -> current Phase 3 landing,yes,historical crawl,https://cityee.ee/ru/ne-prodaetsya-kvartira-v-tallinne,200,1,no,no,no,KEEP
+https://cityee.ee/knowledge/labiraakimiste-strateegia-kinnisvara,E,negotiation pillar slug typo fix (double aa),yes,historical crawl,https://cityee.ee/knowledge/labirakimiste-strateegia-kinnisvara,200,1,no,no,no,KEEP
+https://cityee.ee/guides/seo-strategi-2026,D,removed SEO guide -> guides index (link equity),yes,historical crawl,https://cityee.ee/guides,200,1,no,no,no,KEEP
+https://cityee.ee/guides/geo-aeo-ai-optimizatsiya,D,removed SEO guide -> guides index,yes,historical crawl,https://cityee.ee/guides,200,1,no,no,no,KEEP
+https://cityee.ee/ru/guides/seo-strategi-2026,D,removed SEO guide -> RU guides index,yes,historical crawl,https://cityee.ee/ru/guides,200,1,no,no,no,KEEP
+https://cityee.ee/ru/guides/geo-aeo-ai-optimizatsiya,D,removed SEO guide -> RU guides index,yes,historical crawl,https://cityee.ee/ru/guides,200,1,no,no,no,KEEP
+https://cityee.ee/wp-admin,B,WordPress crawl bait on non-WP site -> root,yes,bot crawl,https://cityee.ee/,200,1,no,no,no,KEEP
+https://cityee.ee/index.php,B,legacy index file -> root,yes,historical crawl,https://cityee.ee/,200,1,no,no,no,KEEP
