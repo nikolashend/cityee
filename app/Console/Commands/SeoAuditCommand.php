@@ -77,6 +77,21 @@ class SeoAuditCommand extends Command
         }
         $this->newLine();
 
+        // ── E. Zero-broken-link crawl (§12 / INV-002/003) ──────────
+        $this->newLine();
+        $this->line('<options=bold>[E] Internal link crawl (seo:audit-links)</>');
+        if ($this->call('seo:audit-links') !== self::SUCCESS) {
+            $critical++;
+        }
+
+        // ── F. Public URL smoke test (§69) ─────────────────────────
+        $this->newLine();
+        $this->line('<options=bold>[F] Public URL smoke test (seo:smoke-public)</>');
+        if ($this->call('seo:smoke-public') !== self::SUCCESS) {
+            $critical++;
+        }
+        $this->newLine();
+
         // ── KPI block (§63) ────────────────────────────────────────
         $this->printKpiBlock($mpProblems, $drift);
 
@@ -148,8 +163,10 @@ class SeoAuditCommand extends Command
         $this->line("  REDIRECT_MAP_ENTRIES         = {$redirects}");
         $this->line("  REDIRECT_CHAINS              = 0 (asserted by cityee:redirect-check)");
         $this->line("  SITEMAP_REDIRECT_URLS        = 0 (asserted by cityee:seo-validate CHECK-002)");
-        $this->line("  CANONICAL_TO_REDIRECT        = REQUIRES-HTTP (cityee:redirect-check --http)");
-        $this->line("  HREFLANG_TO_REDIRECT         = REQUIRES-HTTP (cityee:redirect-check --http)");
-        $this->line("  PUBLIC_5XX                   = REQUIRES-HTTP (cityee:render-check)");
+        $this->line("  INTERNAL_LINKS_TO_4XX/5XX    = 0 (asserted by [E] seo:audit-links)");
+        $this->line("  INTERNAL_LINKS_TO_3XX        = 0 (asserted by [E] seo:audit-links)");
+        $this->line("  PUBLIC_CANONICAL_5XX         = 0 (asserted by [F] seo:smoke-public)");
+        $this->line("  CANONICAL_TO_REDIRECT        = REQUIRES-LIVE-HOST (cityee:redirect-check --http)");
+        $this->line("  HREFLANG_TO_REDIRECT         = REQUIRES-LIVE-HOST (cityee:redirect-check --http)");
     }
 }

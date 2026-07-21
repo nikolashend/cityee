@@ -96,46 +96,11 @@ $cards = [
             'en' => 'Step-by-step guides: sell, buy, evaluate property. SEO + GEO insights.',
         ],
     ],
-    [
-        'icon' => '🤖',
-        'route' => route("{$locale}.guides.show", 'seo-strategii-2026'),
-        'title' => ['et' => 'SEO strateegiad 2026', 'ru' => 'SEO стратегии 2026', 'en' => 'SEO Strategies 2026'],
-        'desc' => [
-            'et' => 'Tehniline SEO, sisu, UX, AI-nähtavus, EEAT — täielik juhend.',
-            'ru' => 'Техническое SEO, контент, UX, AI-видимость, EEAT — полный гайд.',
-            'en' => 'Technical SEO, content, UX, AI visibility, EEAT — complete guide.',
-        ],
-    ],
-    [
-        'icon' => '🧠',
-        'route' => route("{$locale}.guides.show", 'geo-aeo-ai-optimizatsiya'),
-        'title' => ['et' => 'GEO / AEO optimeerimine', 'ru' => 'GEO / AEO оптимизация', 'en' => 'GEO / AEO Optimization'],
-        'desc' => [
-            'et' => 'Kuidas pääseda AI-vastustesse: Google SGE, ChatGPT, Perplexity.',
-            'ru' => 'Как попасть в ответы ИИ: Google SGE, ChatGPT, Perplexity. JSON-LD, Voice SEO.',
-            'en' => 'Get into AI answers: Google SGE, ChatGPT, Perplexity. JSON-LD, Voice SEO.',
-        ],
-    ],
-    [
-        'icon' => '⚡',
-        'route' => route("{$locale}.guides.show", 'ux-core-web-vitals-2026'),
-        'title' => ['et' => 'UX & Core Web Vitals', 'ru' => 'UX и Core Web Vitals', 'en' => 'UX & Core Web Vitals'],
-        'desc' => [
-            'et' => 'LCP, INP, CLS, Nielseni heuristikad, ligipääsetavus — SEO mõju.',
-            'ru' => 'LCP, INP, CLS, эвристики Нильсена, доступность — влияние на SEO.',
-            'en' => 'LCP, INP, CLS, Nielsen heuristics, accessibility — SEO impact.',
-        ],
-    ],
-    [
-        'icon' => '🛡️',
-        'route' => route("{$locale}.guides.show", 'eeat-ekspertiza-doverie-2026'),
-        'title' => ['et' => 'EEAT usaldus', 'ru' => 'EEAT доверие', 'en' => 'EEAT Trust Signals'],
-        'desc' => [
-            'et' => 'Kogemus, ekspertiis, autoriteetsus, usaldusväärsus — Google ja AI signaalid.',
-            'ru' => 'Опыт, экспертиза, авторитет, доверие — сигналы для Google и AI.',
-            'en' => 'Experience, expertise, authority, trust — signals for Google and AI.',
-        ],
-    ],
+    // NOTE: 4 SEO-meta guide cards (seo-strategii-2026, geo-aeo-ai-optimizatsiya,
+    // ux-core-web-vitals-2026, eeat-ekspertiza-doverie-2026) were removed here —
+    // those guides were deleted (404 / 301→/guides), so the cards were broken
+    // internal links (X999^5 INV-002). Real estate expert guides live in the
+    // pillar-guides grid below.
 ];
 @endphp
 
