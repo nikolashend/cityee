@@ -90,6 +90,13 @@ class SeoAuditCommand extends Command
         if ($this->call('seo:smoke-public') !== self::SUCCESS) {
             $critical++;
         }
+
+        // ── G. Intent cannibalization (§5 / INV-004) ───────────────
+        $this->newLine();
+        $this->line('<options=bold>[G] Intent cannibalization (seo:audit-intents)</>');
+        if ($this->call('seo:audit-intents') !== self::SUCCESS) {
+            $critical++;
+        }
         $this->newLine();
 
         // ── KPI block (§63) ────────────────────────────────────────
