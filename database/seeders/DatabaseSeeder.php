@@ -15,12 +15,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        // The test user relies on fakerphp/faker (require-dev), which is NOT
+        // installed on production (composer install --no-dev). Seeding it there
+        // fatals with "Call to undefined function fake()" and aborts the whole
+        // seed run before the content seeders execute. Restrict it to local/testing.
+        if (app()->environment('local', 'testing')) {
+            User::factory()->create([
+                'name' => 'Test User',
+                'email' => 'test@example.com',
+            ]);
+        }
 
         $this->call([
             ContentMachineSeeder::class,

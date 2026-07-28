@@ -55,27 +55,30 @@ return [
     ],
 
     // ─── Commission model ──────────────────────────────────────────
-    // The business runs a TIERED model, not a single number:
-    //   • headline  = 2%   — minimal fee, WITH an exclusive agreement
-    //   • standard  = 2–5% — general brokerage range (no exclusive)
-    // The "2–3%" figure previously seen on the consultation price tables,
-    // the profile page and the AI summary matches NEITHER tier and is the true
-    // drift to remediate (see docs/CITYEE_X999_FINAL_HARDENING_REPORT.md).
+    // APPROVED BUSINESS FACT (X999^5 Seller-Domination §2):
+    //   • standard commission = 2% of the deal price
+    //   • minimum commission  = €2000
+    //   • final terms depend on the property and agreed scope
+    // This is now the SINGLE canonical model. The previous "2–5%" standard tier
+    // and the "2–3%" figures (profile / consultation tables / ai-summary) are
+    // superseded and must be reconciled to this model — no conflicting range may
+    // be published without an explicit different-product explanation.
     'commission' => [
-        'headline'       => '2%',   // the marketing/hero claim (exclusive agreement)
-        'headline_num'   => 2,
-        'standard_range' => '2–5%', // general brokerage range
-        'condition' => [
-            'et' => 'ainuesinduslepingu korral',
-            'ru' => 'при эксклюзивном договоре',
-            'en' => 'with an exclusive agreement',
+        'standard_percent' => 2,
+        'minimum_eur'      => 2000,
+        'headline'         => '2%',   // display value used by trust components
+        'headline_num'     => 2,
+        'qualifier' => [
+            'et' => 'Täpsed tingimused sõltuvad objektist ja kokkulepitud teenuse mahust.',
+            'ru' => 'Точные условия зависят от объекта и согласованного объёма услуги.',
+            'en' => 'Final terms depend on the property and the agreed scope of service.',
         ],
         'label' => ['et' => 'vahendustasu', 'ru' => 'комиссия', 'en' => 'commission'],
         // Full sanctioned sentence — use this instead of inventing a variant.
         'sentence' => [
-            'et' => 'Vahendustasu on ainult 2% müügihinnast ainuesinduslepingu korral (standardtasu 2–5%).',
-            'ru' => 'Комиссия — всего 2% от цены продажи при эксклюзивном договоре (стандарт 2–5%).',
-            'en' => 'Commission is only 2% of the sale price with an exclusive agreement (standard 2–5%).',
+            'et' => 'Vahendustasu on 2% müügihinnast, kuid vähemalt 2000 €. Teenuse täpne maht lepitakse kokku enne tööd.',
+            'ru' => 'Комиссия составляет 2% от цены сделки, но не менее 2000 €. Точный объём услуги фиксируется до начала работы.',
+            'en' => 'Commission is 2% of the sale price, with a €2000 minimum. The exact scope is agreed before work begins.',
         ],
     ],
 

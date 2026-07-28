@@ -68,7 +68,7 @@
             </tr>
             <tr>
               <td>Kinnisvaravahendus</td>
-              <td>2-3%</td>
+              <td>{{ \App\Support\TrustClaims::commission() }}</td>
             </tr>
             <tr>
               <td>Objektide valik tellimuse alusel</td>

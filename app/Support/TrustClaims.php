@@ -44,10 +44,16 @@ class TrustClaims
         return config('trust_claims.deal_count.value', '300+');
     }
 
-    /** Headline commission ("2%"), the exclusive-agreement minimal fee. */
+    /** Headline commission ("2%") — the standard rate (X999^5 §2). */
     public static function commission(): string
     {
         return config('trust_claims.commission.headline', '2%');
+    }
+
+    /** Minimum commission in EUR (X999^5 §2 approved fact). */
+    public static function commissionMinimumEur(): int
+    {
+        return (int) config('trust_claims.commission.minimum_eur', 2000);
     }
 
     /** Full sanctioned commission sentence for the given locale. */

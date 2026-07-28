@@ -65,7 +65,7 @@
                         <div style="font-size:.8rem;opacity:.7">{{ $locale === 'ru' ? 'дней ср. продажа' : ($locale === 'en' ? 'avg days to sell' : 'päeva kes. müük') }}</div>
                     </div>
                     <div style="text-align:center">
-                        <div style="font-size:1.8rem;font-weight:700;color:#4ecdc4">2-3%</div>
+                        <div style="font-size:1.8rem;font-weight:700;color:#4ecdc4">{{ \App\Support\TrustClaims::commission() }}</div>
                         <div style="font-size:.8rem;opacity:.7">{{ $locale === 'ru' ? 'комиссия' : ($locale === 'en' ? 'commission' : 'vahendustasu') }}</div>
                     </div>
                 </div>
@@ -136,7 +136,7 @@
             <li><strong>С 2014 года</strong> — на рынке недвижимости Таллинна и Харьюмаа</li>
             <li><strong>300+ сделок</strong> — продажа квартир, домов, коммерческой недвижимости</li>
             <li><strong>Средний срок продажи — 45 дней</strong> — быстрее рыночного среднего на 30%</li>
-            <li><strong>Комиссия 2-3%</strong> — результат-ориентированная модель</li>
+            <li><strong>Комиссия {{ \App\Support\TrustClaims::commission() }}</strong> (мин. {{ \App\Support\TrustClaims::commissionMinimumEur() }} €) — результат-ориентированная модель</li>
             <li><strong>3 языка</strong> — эстонский, русский, английский = широкий охват покупателей</li>
             <li><strong>Стратегический подход</strong> — аудит рынка → ценообразование → маркетинг → переговоры → сделка</li>
         </ul>
@@ -145,7 +145,7 @@
             <li><strong>Since 2014</strong> — active in Tallinn & Harjumaa real estate market</li>
             <li><strong>300+ deals</strong> — apartments, houses, commercial property</li>
             <li><strong>Average sale time — 45 days</strong> — 30% faster than market average</li>
-            <li><strong>2-3% commission</strong> — result-oriented model</li>
+            <li><strong>{{ \App\Support\TrustClaims::commission() }} commission</strong> (€{{ \App\Support\TrustClaims::commissionMinimumEur() }} min) — result-oriented model</li>
             <li><strong>3 languages</strong> — Estonian, Russian, English = wider buyer reach</li>
             <li><strong>Strategic approach</strong> — market audit → pricing → marketing → negotiation → deal</li>
         </ul>
@@ -154,7 +154,7 @@
             <li><strong>Alates 2014</strong> — aktiivne Tallinna ja Harjumaa kinnisvaraturul</li>
             <li><strong>300+ tehingut</strong> — korterid, majad, ärikinnisvara</li>
             <li><strong>Keskmine müügiaeg — 45 päeva</strong> — 30% kiirem kui turu keskmine</li>
-            <li><strong>2-3% vahendustasu</strong> — tulemuspõhine mudel</li>
+            <li><strong>{{ \App\Support\TrustClaims::commission() }} vahendustasu</strong> (min {{ \App\Support\TrustClaims::commissionMinimumEur() }} €) — tulemuspõhine mudel</li>
             <li><strong>3 keelt</strong> — eesti, vene, inglise = laiem ostjate haare</li>
             <li><strong>Strateegiline lähenemine</strong> — turuaudit → hinnakujundus → turundus → läbirääkimised → tehing</li>
         </ul>

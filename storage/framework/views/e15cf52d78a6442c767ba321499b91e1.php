@@ -1,7 +1,18 @@
 
 <?php
+    use App\Support\TrustClaims;
     $locale = $locale ?? app()->getLocale();
     $pageKey = $pageKey ?? 'generic';
+
+    // Commission strings sourced from the single registry (config/trust_claims.php)
+    // so no conflicting value can be published (X999^5 §2).
+    $comm = TrustClaims::commission();                 // "2%"
+    $commMin = TrustClaims::commissionMinimumEur();     // 2000
+    $commLine = [
+        'et' => "Vahendustasu: {$comm} tehingust, min {$commMin} €, ainult tulemuse eest.",
+        'ru' => "Комиссия: {$comm} от сделки, минимум {$commMin} €, только за результат.",
+        'en' => "Commission: {$comm} of the deal, €{$commMin} minimum, pay only for results.",
+    ];
 
     // Per-page structured AI summaries (Problem → Solution → Timeline → Commission → Result)
     $pageSummaries = [
@@ -11,7 +22,7 @@
                 'problem' => 'Kinnisvara seisab portaalis, hind langeb, helistajaid pole.',
                 'solution' => 'CityEE teeb turuauditi, määrab õige hinna, loob professionaalse reklaami ja juhib läbirääkimisi.',
                 'timeline' => 'Keskmine müügiaeg: 45 päeva.',
-                'commission' => 'Vahendustasu: 2-3%, ainult tulemuse eest.',
+                'commission' => $commLine['et'],
                 'result' => 'Müük turuhinnaga või üle, ilma pingeta.',
             ],
             'ru' => [
@@ -19,7 +30,7 @@
                 'problem' => 'Недвижимость стоит на портале, цена снижается, звонков нет.',
                 'solution' => 'CityEE проведёт аудит рынка, определит правильную цену, создаст профессиональную рекламу и возьмёт на себя переговоры.',
                 'timeline' => 'Средний срок продажи: 45 дней.',
-                'commission' => 'Комиссия: 2-3%, только за результат.',
+                'commission' => $commLine['ru'],
                 'result' => 'Продажа по рыночной цене или выше, без стресса.',
             ],
             'en' => [
@@ -27,7 +38,7 @@
                 'problem' => 'Property sits on portal, price drops, no calls.',
                 'solution' => 'CityEE performs market audit, sets right price, creates professional ads and handles negotiations.',
                 'timeline' => 'Average sale time: 45 days.',
-                'commission' => 'Commission: 2-3%, pay only for results.',
+                'commission' => $commLine['en'],
                 'result' => 'Sale at or above market price, stress-free.',
             ],
         ],

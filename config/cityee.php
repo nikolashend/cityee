@@ -420,7 +420,7 @@ return [
             'bonus'           => 'Esmane kinnisvaraalane juriidiline konsultatsioon ja nõustamine telefoni teel või online on <strong>- TASUTA!</strong>',
             'pricing_title'   => 'Teenuste eest tasumise',
             'pricing_table' => [
-                ['service' => 'Kinnisvaravahendus', 'price' => '2-3%'],
+                ['service' => 'Kinnisvaravahendus', 'price' => '2%'],
                 ['service' => 'Objektide valik tellimuse alusel', 'price' => '200 EUR'],
                 ['service' => 'Kinnisvara hindamine', 'price' => '300 EUR'],
                 ['service' => 'Dokumentatsiooni esmane ülevaatus ja kontroll', 'price' => '150 EUR'],
@@ -457,7 +457,7 @@ return [
             'bonus'           => 'Первичная юридическая консультация по недвижимости по телефону или онлайн — <strong>БЕСПЛАТНО!</strong>',
             'pricing_title'   => 'Стоимость услуг',
             'pricing_table' => [
-                ['service' => 'Посредничество', 'price' => '2-3%'],
+                ['service' => 'Посредничество', 'price' => '2%'],
                 ['service' => 'Подбор объектов по заказу', 'price' => '200 EUR'],
                 ['service' => 'Оценка недвижимости', 'price' => '300 EUR'],
                 ['service' => 'Первичный осмотр документации', 'price' => '150 EUR'],
@@ -494,7 +494,7 @@ return [
             'bonus'           => 'Initial legal real estate consultation by phone or online is <strong>FREE!</strong>',
             'pricing_title'   => 'Service Pricing',
             'pricing_table' => [
-                ['service' => 'Brokerage', 'price' => '2-3%'],
+                ['service' => 'Brokerage', 'price' => '2%'],
                 ['service' => 'Property selection on request', 'price' => '200 EUR'],
                 ['service' => 'Property valuation', 'price' => '300 EUR'],
                 ['service' => 'Initial documentation review', 'price' => '150 EUR'],

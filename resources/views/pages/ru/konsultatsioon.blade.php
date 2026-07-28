@@ -68,7 +68,7 @@
             </tr>
             <tr>
               <td>Посредничество в сфере недвижимости</td>
-              <td>2-3%</td>
+              <td>{{ \App\Support\TrustClaims::commission() }}</td>
             </tr>
             <tr>
               <td>Подбор объектов под заказ</td>
