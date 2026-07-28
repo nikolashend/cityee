@@ -663,3 +663,17 @@ body { padding-bottom: 52px; }
 
 /* ─── Category filter: hidden cards when a filter is active ─── */
 .guide-filter-hidden { display: none !important; }
+
+/* ─── Guide detail polish (round 2) ─── */
+/* Duplicate robot icon: keep the styled ::before, hide the redundant markup icon */
+.ai-summary-box__icon { display: none; }
+
+/* Active filter pill text must stay white even while hovered/focused
+   (.guide-filter-pill:hover sets the same burgundy as the active bg) */
+.guide-filter-pill.active,
+.guide-filter-pill.active:hover,
+.guide-filter-pill.active:focus { color: #fff !important; }
+
+/* Larger, more readable AI-summary + key-takeaways text */
+.ai-summary-box p { font-size: 1.05rem; }
+.guide-takeaways li { font-size: 1.05rem; line-height: 1.6; }
