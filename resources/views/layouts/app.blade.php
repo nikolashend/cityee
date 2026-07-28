@@ -126,12 +126,12 @@ img{max-width:100%;height:auto}
 {{-- Phase 4/5 CSS — deferred on pages that don't use them --}}
 @if(in_array($dlPageType, ['intent', 'guide', 'cases', 'blog']))
 <link href="/assets/css/cityee-phase4.css?v=2" rel="stylesheet">
-<link href="/assets/css/cityee-phase5-6.css?v=2" rel="stylesheet">
+<link href="/assets/css/cityee-phase5-6.css?v=3" rel="stylesheet">
 @else
 <link href="/assets/css/cityee-phase4.css?v=2" rel="stylesheet" media="print" onload="this.media='all'">
 <noscript><link href="/assets/css/cityee-phase4.css?v=2" rel="stylesheet"></noscript>
-<link href="/assets/css/cityee-phase5-6.css?v=2" rel="stylesheet" media="print" onload="this.media='all'">
-<noscript><link href="/assets/css/cityee-phase5-6.css?v=2" rel="stylesheet"></noscript>
+<link href="/assets/css/cityee-phase5-6.css?v=3" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="/assets/css/cityee-phase5-6.css?v=3" rel="stylesheet"></noscript>
 @endif
 
 {{-- JSON-LD --}}
@@ -350,6 +350,20 @@ window.addEventListener('load', function() {
 <noscript><div><img src="https://mc.yandex.ru/watch/{{ $metrikaId }}" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 
 </footer>
+
+{{-- FAQ accordion — global delegated handler (guides/audits/home use .faq-question) --}}
+<script>
+document.addEventListener('click', function (e) {
+  var q = e.target.closest('.faq-question');
+  if (!q) return;
+  var item = q.closest('.faq-item');
+  var ans = item ? item.querySelector('.faq-answer') : null;
+  var open = item && !item.classList.contains('active');
+  if (item) item.classList.toggle('active', open);
+  if (ans) { if (open) { ans.hidden = false; } else { ans.hidden = true; } }
+  q.setAttribute('aria-expanded', open ? 'true' : 'false');
+});
+</script>
 
 @include('partials.sticky-buttons')
 

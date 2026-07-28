@@ -515,3 +515,125 @@ body { padding-bottom: 52px; }
 }
 
 /* ── Sticky CTA show on scroll (JS) ───────────────────── */
+
+/* ═══════════════════════════════════════════════════════════════════
+   GUIDE / AUDIT DETAIL PAGE FIXES  (X999^5)
+   These pages were 500 until seeded, so their styling was never wired.
+   1) detail hero must clear the fixed site header (like the index heroes)
+   2) .guide-intro / .guide-howto-list / meta children had no CSS
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* 1 — clear the fixed .header (matches .guide-hero--index) */
+.guide-hero,
+.audit-hero {
+  padding-top: 170px;
+}
+@media (max-width: 767px) {
+  .guide-hero,
+  .audit-hero {
+    padding-top: 300px;
+  }
+}
+
+/* 2 — intro article body */
+.guide-intro {
+  max-width: 760px;
+  font-size: var(--ce-fz-lg, 17px);
+  line-height: 1.75;
+  color: var(--ce-text, #333);
+}
+.guide-intro > *:first-child { margin-top: 0; }
+.guide-intro p { margin: 0 0 16px; }
+.guide-intro h2 { font-size: 1.35rem; font-weight: 600; color: #1a1a1a; line-height: 1.3; margin: 26px 0 12px; }
+.guide-intro h3 { font-size: 1.15rem; font-weight: 600; color: #1a1a1a; line-height: 1.3; margin: 22px 0 10px; }
+.guide-intro ul,
+.guide-intro ol { margin: 0 0 16px; padding-left: 22px; }
+.guide-intro li { margin-bottom: 8px; }
+.guide-intro strong { color: #1a1a1a; }
+.guide-intro a { color: var(--ce-primary, #7b1f45); }
+
+/* 3 — how-to steps (numbered) */
+.guide-howto-list {
+  list-style: none;
+  counter-reset: howto;
+  max-width: 760px;
+  margin: 0;
+  padding: 0;
+}
+.guide-howto-step {
+  counter-increment: howto;
+  position: relative;
+  padding: 16px 18px 16px 58px;
+  margin-bottom: 12px;
+  background: #fff;
+  border: 1px solid var(--ce-border, #eee);
+  border-radius: 10px;
+}
+.guide-howto-step::before {
+  content: counter(howto);
+  position: absolute;
+  left: 14px;
+  top: 16px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--ce-primary, #7b1f45);
+  color: #fff;
+  border-radius: 8px;
+  font-weight: 700;
+}
+.guide-howto-step strong { display: block; margin-bottom: 4px; color: #1a1a1a; }
+.guide-howto-step p { margin: 0; color: var(--ce-text-soft, #444); line-height: 1.6; }
+
+/* 4 — meta line children */
+.guide-meta__author  { font-weight: 600; color: var(--ce-text-soft, #444); }
+.guide-meta__divider { color: var(--ce-border-strong, #ccc); }
+.guide-meta__reading,
+.guide-meta__date    { color: var(--ce-muted, #666); }
+
+/* ─── AUDIT DETAIL content classes (were unstyled) ─── */
+.audit-summary {
+  max-width: 760px;
+  font-size: var(--ce-fz-lg, 17px);
+  line-height: 1.75;
+  color: var(--ce-text, #333);
+  background: #faf7f4;
+  border-left: 4px solid var(--ce-primary, #7b1f45);
+  padding: 18px 22px;
+  border-radius: 0 8px 8px 0;
+}
+.audit-summary > *:first-child { margin-top: 0; }
+.audit-summary > *:last-child { margin-bottom: 0; }
+.audit-summary p { margin: 0 0 14px; }
+
+.audit-section__body {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--ce-text, #333);
+  max-width: 760px;
+}
+.audit-section__body p { margin: 0 0 14px; }
+.audit-section__body strong { color: #1a1a1a; }
+
+.audit-market-data {
+  overflow-x: auto;
+}
+.audit-market-data table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+  margin: 4px 0;
+}
+.audit-market-data th,
+.audit-market-data td {
+  border: 1px solid var(--ce-border, #eee);
+  padding: 10px 14px;
+  text-align: left;
+}
+.audit-market-data th {
+  background: #f8f6f3;
+  font-weight: 600;
+  color: #1a1a1a;
+}
