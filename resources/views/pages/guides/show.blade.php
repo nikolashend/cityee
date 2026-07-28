@@ -212,8 +212,8 @@
             <div class="faq-list">
                 @foreach($faqItems as $faq)
                     <div class="faq-item">
-                        <button class="faq-question" aria-expanded="false">{{ $faq['question'] }}</button>
-                        <div class="faq-answer" hidden>
+                        <div class="faq-question" role="button" tabindex="0" aria-expanded="false" onclick="this.parentElement.classList.toggle('active');this.setAttribute('aria-expanded',this.parentElement.classList.contains('active'))">{{ $faq['question'] }}</div>
+                        <div class="faq-answer">
                             <div>{!! $faq['answer'] !!}</div>
                         </div>
                     </div>
