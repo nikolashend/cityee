@@ -49,11 +49,11 @@
 <section class="guide-filters">
     <div class="container">
         <div class="guide-filter-pills">
-            <a href="{{ route("{$locale}.guides") }}" class="guide-filter-pill {{ !$activeCategory ? 'active' : '' }}">
+            <a href="{{ route("{$locale}.guides") }}" data-filter="all" class="guide-filter-pill {{ !$activeCategory ? 'active' : '' }}">
                 {{ $locale === 'ru' ? 'Все' : ($locale === 'en' ? 'All' : 'Kõik') }}
             </a>
             @foreach($categories as $cat)
-                <a href="{{ route("{$locale}.guides", ['category' => $cat]) }}" class="guide-filter-pill {{ $activeCategory === $cat ? 'active' : '' }}">
+                <a href="{{ route("{$locale}.guides", ['category' => $cat]) }}" data-filter="{{ $cat }}" class="guide-filter-pill {{ $activeCategory === $cat ? 'active' : '' }}">
                     {{ $categoryLabels[$cat] ?? ucfirst($cat) }}
                 </a>
             @endforeach
@@ -71,7 +71,7 @@
         @else
             <div class="row g-4">
                 @foreach($guides as $guide)
-                    <div class="col-md-6 col-lg-4">
+                    <div class="col-md-6 col-lg-4 guide-card-item" data-category="{{ $guide->category }}">
                         <article class="knowledge-card" itemscope itemtype="https://schema.org/Article">
                             <a href="{{ route("{$locale}.guides.show", $guide->slug) }}" class="knowledge-card__link">
                                 @if($guide->category)
@@ -115,4 +115,25 @@
 </section>
 
 @include('partials.service-crosslinks', ['locale' => $locale, 'pageKey' => 'guides'])
+
+{{-- Client-side category filter (avoids the ?category query-strip redirect) --}}
+<script>
+(function () {
+    var pills = document.querySelectorAll('.guide-filter-pill[data-filter]');
+    var cards = document.querySelectorAll('.guide-card-item[data-category]');
+    if (!pills.length || !cards.length) return;
+    pills.forEach(function (pill) {
+        pill.addEventListener('click', function (e) {
+            e.preventDefault();
+            var filter = pill.getAttribute('data-filter');
+            pills.forEach(function (p) { p.classList.remove('active'); });
+            pill.classList.add('active');
+            cards.forEach(function (card) {
+                var show = filter === 'all' || card.getAttribute('data-category') === filter;
+                card.classList.toggle('guide-filter-hidden', !show);
+            });
+        });
+    });
+})();
+</script>
 @endsection

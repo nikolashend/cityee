@@ -637,3 +637,29 @@ body { padding-bottom: 52px; }
   font-weight: 600;
   color: #1a1a1a;
 }
+
+/* ─── Breadcrumb: horizontal with separators (was a default numbered list) ─── */
+.guide-breadcrumb ol,
+.audit-breadcrumb ol {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+}
+.guide-breadcrumb li,
+.audit-breadcrumb li { display: inline-flex; align-items: center; }
+.guide-breadcrumb li:not(:last-child)::after,
+.audit-breadcrumb li:not(:last-child)::after {
+  content: "›";
+  margin-left: 8px;
+  color: var(--ce-border-strong, #ccc);
+}
+
+/* ─── Slightly larger, more readable guide/knowledge card text ─── */
+.knowledge-card__desc { font-size: 15px; }
+
+/* ─── Category filter: hidden cards when a filter is active ─── */
+.guide-filter-hidden { display: none !important; }

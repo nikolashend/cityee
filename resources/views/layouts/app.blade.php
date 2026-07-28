@@ -126,12 +126,12 @@ img{max-width:100%;height:auto}
 {{-- Phase 4/5 CSS — deferred on pages that don't use them --}}
 @if(in_array($dlPageType, ['intent', 'guide', 'cases', 'blog']))
 <link href="/assets/css/cityee-phase4.css?v=2" rel="stylesheet">
-<link href="/assets/css/cityee-phase5-6.css?v=3" rel="stylesheet">
+<link href="/assets/css/cityee-phase5-6.css?v=4" rel="stylesheet">
 @else
 <link href="/assets/css/cityee-phase4.css?v=2" rel="stylesheet" media="print" onload="this.media='all'">
 <noscript><link href="/assets/css/cityee-phase4.css?v=2" rel="stylesheet"></noscript>
-<link href="/assets/css/cityee-phase5-6.css?v=3" rel="stylesheet" media="print" onload="this.media='all'">
-<noscript><link href="/assets/css/cityee-phase5-6.css?v=3" rel="stylesheet"></noscript>
+<link href="/assets/css/cityee-phase5-6.css?v=4" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="/assets/css/cityee-phase5-6.css?v=4" rel="stylesheet"></noscript>
 @endif
 
 {{-- JSON-LD --}}
