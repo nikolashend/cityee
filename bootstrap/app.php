@@ -21,6 +21,8 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->web(append: [
             \App\Http\Middleware\NoIndexQueryParams::class,
             \App\Http\Middleware\SeoHeaders::class,
+            // X999^5 §8 — internal <a href> → trailing-slash canonical (kills internal 301s)
+            \App\Http\Middleware\NormalizeInternalLinkSlashes::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

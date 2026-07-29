@@ -56,7 +56,7 @@ class SeoAuditProductionCommand extends Command
             $url = $this->base . $path;
             $resp = $this->fetch($url, false);           // no redirect follow
             $status = $resp['status'];
-            $this->statusCache[$this->normUrl($url)] = $status;
+            $this->statusCache[$this->cacheKey($url)] = $status;
 
             if ($status >= 300 && $status < 400) {
                 $redirectRows[] = [$url, $status, $resp['location'] ?? '', 'canonical URL itself redirects'];
@@ -195,9 +195,23 @@ class SeoAuditProductionCommand extends Command
 
     private function probe(string $url, bool $follow = true): int
     {
-        $k = $this->normUrl($url);
+        // Slash-SENSITIVE cache key (X999^5 §9): /x and /x/ must never share an
+        // entry — /x may 301 while /x/ is 200. normUrl() (slash-insensitive) is
+        // used only for self-canonical/reciprocity comparison, never for caching.
+        $k = $this->cacheKey($url);
         if (isset($this->statusCache[$k])) return $this->statusCache[$k];
         return $this->statusCache[$k] = $this->fetch($url, $follow)['status'];
+    }
+
+    /** Exact status-cache key: scheme+host+path (slash kept) + query. */
+    private function cacheKey(string $url): string
+    {
+        $p = parse_url($url);
+        $scheme = strtolower($p['scheme'] ?? 'https');
+        $host   = strtolower($p['host'] ?? $this->host);
+        $path   = $p['path'] ?? '/';
+        $query  = isset($p['query']) ? '?' . $p['query'] : '';
+        return "{$scheme}://{$host}{$path}{$query}";
     }
 
     // ── Parsing helpers ──────────────────────────────────────────

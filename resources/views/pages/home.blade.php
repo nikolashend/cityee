@@ -400,8 +400,9 @@
     <h3 style="font-size:1.05rem;margin-bottom:1rem">Полезные разделы</h3>
     <div style="display:flex;flex-wrap:wrap;gap:.7rem">
       <a href="/ru/prodat-kvartiru-v-tallinne/" style="display:inline-block;padding:.45rem 1rem;background:#fff;border-radius:6px;text-decoration:none;color:#1a1a2e;font-size:.9rem;box-shadow:0 1px 3px rgba(0,0,0,.07)">Продать квартиру</a>
-      <a href="/ru/makler-v-tallinne/" style="display:inline-block;padding:.45rem 1rem;background:#fff;border-radius:6px;text-decoration:none;color:#1a1a2e;font-size:.9rem;box-shadow:0 1px 3px rgba(0,0,0,.07)">Маклер в Таллине</a>
-      <a href="/ru/ocenka-kvartiry-v-tallinne/" style="display:inline-block;padding:.45rem 1rem;background:#fff;border-radius:6px;text-decoration:none;color:#1a1a2e;font-size:.9rem;box-shadow:0 1px 3px rgba(0,0,0,.07)">Оценка квартиры</a>
+      <a href="/ru/makler-v-tallinne/" style="display:inline-block;padding:.45rem 1rem;background:#fff;border-radius:6px;text-decoration:none;color:#1a1a2e;font-size:.9rem;box-shadow:0 1px 3px rgba(0,0,0,.07)">Профессиональный маклер</a>
+      <a href="/ru/ocenka-kvartiry-v-tallinne/" style="display:inline-block;padding:.45rem 1rem;background:#fff;border-radius:6px;text-decoration:none;color:#1a1a2e;font-size:.9rem;box-shadow:0 1px 3px rgba(0,0,0,.07)">Проверить рыночную стоимость</a>
+      <a href="/ru/agentstvo-nedvizhimosti-tallinn/" style="display:inline-block;padding:.45rem 1rem;background:#fff;border-radius:6px;text-decoration:none;color:#1a1a2e;font-size:.9rem;box-shadow:0 1px 3px rgba(0,0,0,.07)">Агентство недвижимости CityEE</a>
       <a href="/ru/ne-prodaetsya-kvartira-v-tallinne/" style="display:inline-block;padding:.45rem 1rem;background:#fff;border-radius:6px;text-decoration:none;color:#1a1a2e;font-size:.9rem;box-shadow:0 1px 3px rgba(0,0,0,.07)">Не продаётся?</a>
       <a href="/ru/tallinn/" style="display:inline-block;padding:.45rem 1rem;background:#fff;border-radius:6px;text-decoration:none;color:#1a1a2e;font-size:.9rem;box-shadow:0 1px 3px rgba(0,0,0,.07)">Районы Таллина</a>
       <a href="/ru/cases/" style="display:inline-block;padding:.45rem 1rem;background:#fff;border-radius:6px;text-decoration:none;color:#1a1a2e;font-size:.9rem;box-shadow:0 1px 3px rgba(0,0,0,.07)">Кейсы продаж</a>

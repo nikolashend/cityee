@@ -22,3 +22,6 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+# Production SQLite DB — never track (git pull must not overwrite prod data)
+/database/database.sqlite

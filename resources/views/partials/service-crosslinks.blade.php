@@ -89,13 +89,15 @@
     {{-- Phase 3 RU links — internal linking to new intent pages --}}
     @if($locale === 'ru')
     @php
+        // Semantic anchor variants (X999^5 §13) — distinct from the footer's
+        // exact-match anchors so inbound anchor text is diversified, not repeated.
         $phase3Links = [
             ['url' => '/ru/prodat-kvartiru-v-tallinne/', 'label' => 'Продать квартиру в Таллине'],
-            ['url' => '/ru/makler-v-tallinne/', 'label' => 'Маклер в Таллине'],
-            ['url' => '/ru/ocenka-kvartiry-v-tallinne/', 'label' => 'Оценка квартиры'],
+            ['url' => '/ru/makler-v-tallinne/', 'label' => 'Сопровождение продажи недвижимости'],
+            ['url' => '/ru/ocenka-kvartiry-v-tallinne/', 'label' => 'Узнать реальную цену квартиры'],
             ['url' => '/ru/tallinn/', 'label' => 'Районы Таллина'],
             ['url' => '/ru/cases/', 'label' => 'Реальные кейсы'],
-            ['url' => '/ru/agentstvo-nedvizhimosti-tallinn/', 'label' => 'Агентство недвижимости'],
+            ['url' => '/ru/agentstvo-nedvizhimosti-tallinn/', 'label' => 'Профессиональное сопровождение сделки'],
         ];
     @endphp
     <div style="margin-top:1.5rem">

@@ -1,11 +1,5 @@
-{{--
-  Silo Related Pages — semantic "next step" links for intent/service pages.
-  Connects intent pages → guides → audits → conversion.
-  
-  @param string $locale
-  @param string $pageKey  Current page key (e.g. 'no_calls', 'sell', 'audit')
---}}
-@php
+
+<?php
 $locale = $locale ?? app()->getLocale();
 $pageKey = $pageKey ?? '';
 
@@ -87,28 +81,30 @@ $sectionTitles = [
     'ru' => 'Полезно также',
     'en' => 'Useful next steps',
 ];
-@endphp
+?>
 
-@if(!empty($links))
+<?php if(!empty($links)): ?>
 <section class="silo-related" style="padding:2rem 0;background:#faf8f5">
   <div class="container" style="max-width:900px">
-    <h3 style="font-size:1.1rem;margin-bottom:1rem;color:#1a1a2e">{{ $sectionTitles[$locale] ?? $sectionTitles['en'] }}</h3>
+    <h3 style="font-size:1.1rem;margin-bottom:1rem;color:#1a1a2e"><?php echo e($sectionTitles[$locale] ?? $sectionTitles['en']); ?></h3>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.75rem">
-      @foreach($links as $link)
-      <a href="{{ route($link['route']) }}" style="display:block;padding:.85rem 1.1rem;background:#fff;border-radius:8px;text-decoration:none;color:#1a1a2e;font-size:.95rem;border:1px solid #eee;transition:box-shadow .2s,border-color .2s" onmouseover="this.style.borderColor='#7b1f45';this.style.boxShadow='0 2px 8px rgba(123,31,69,.1)'" onmouseout="this.style.borderColor='#eee';this.style.boxShadow='none'">
-        → {{ $link[$locale] ?? $link['en'] }}
+      <?php $__currentLoopData = $links; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $link): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+      <a href="<?php echo e(route($link['route'])); ?>" style="display:block;padding:.85rem 1.1rem;background:#fff;border-radius:8px;text-decoration:none;color:#1a1a2e;font-size:.95rem;border:1px solid #eee;transition:box-shadow .2s,border-color .2s" onmouseover="this.style.borderColor='#7b1f45';this.style.boxShadow='0 2px 8px rgba(123,31,69,.1)'" onmouseout="this.style.borderColor='#eee';this.style.boxShadow='none'">
+        → <?php echo e($link[$locale] ?? $link['en']); ?>
+
       </a>
-      @endforeach
+      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
     </div>
-    @if($locale === 'ru')
-    {{-- Contextual seller-money links, distinct semantic anchors (X999^5 §13) --}}
+    <?php if($locale === 'ru'): ?>
+    
     <div style="display:flex;flex-wrap:wrap;gap:.55rem;margin-top:1rem">
       <a href="/ru/makler-v-tallinne/" style="display:inline-block;padding:.4rem .9rem;background:#fff;border-radius:6px;text-decoration:none;color:#1a1a2e;font-size:.88rem;border:1px solid #eee">Помощь маклера при продаже квартиры</a>
       <a href="/ru/ocenka-kvartiry-v-tallinne/" style="display:inline-block;padding:.4rem .9rem;background:#fff;border-radius:6px;text-decoration:none;color:#1a1a2e;font-size:.88rem;border:1px solid #eee">Ценовой коридор квартиры</a>
       <a href="/ru/agentstvo-nedvizhimosti-tallinn/" style="display:inline-block;padding:.4rem .9rem;background:#fff;border-radius:6px;text-decoration:none;color:#1a1a2e;font-size:.88rem;border:1px solid #eee">Система продажи и аренды CityEE</a>
       <a href="/ru/prodat-kvartiru-v-tallinne/" style="display:inline-block;padding:.4rem .9rem;background:#fff;border-radius:6px;text-decoration:none;color:#1a1a2e;font-size:.88rem;border:1px solid #eee">Продажа квартиры с сопровождением</a>
     </div>
-    @endif
+    <?php endif; ?>
   </div>
 </section>
-@endif
+<?php endif; ?>
+<?php /**PATH C:\Users\nikol\Documents\projects\cityee-laravel\resources\views/partials/silo-related.blade.php ENDPATH**/ ?>
