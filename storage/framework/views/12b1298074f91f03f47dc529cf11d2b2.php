@@ -19,16 +19,24 @@ document.addEventListener('DOMContentLoaded', function () {
                 body: new FormData(form)
             })
             .then(function (r) {
-                if (r.ok) {
-                    form.reset();
-                    if (msg) msg.style.display = 'block';
-                    /* dataLayer lead tracking */
-                    if (typeof cityeeTrackLead === 'function') {
-                        var src = form.dataset.leadSource || 'form_inline';
-                        cityeeTrackLead('form', src);
-                    }
-                } else {
-                    alert('Error. Please try again.');
+                if (!r.ok) { alert('Error. Please try again.'); return null; }
+                return r.json().catch(function () { return null; });
+            })
+            .then(function (data) {
+                if (data === null) return;
+                form.reset();
+                if (msg) msg.style.display = 'block';
+                /* GA4 generate_lead — NON-PII payload only (name/phone/email never sent) */
+                if (window.dataLayer && data && data.lead) {
+                    window.dataLayer.push({
+                        event: 'generate_lead',
+                        lead_public_id: data.lead.lead_public_id,
+                        form_type: data.lead.form_type,
+                        source_class: data.lead.source_class,
+                        campaign_name: data.lead.campaign_name || undefined,
+                        has_gclid: !!data.lead.has_gclid,
+                        submission_page: data.lead.submission_page
+                    });
                 }
             })
             .catch(function () {

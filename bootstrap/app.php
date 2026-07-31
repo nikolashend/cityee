@@ -19,6 +19,8 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->prepend(\App\Http\Middleware\CanonicalRedirects::class);
         $middleware->prepend(\App\Http\Middleware\RedirectOldUrls::class);
         $middleware->web(append: [
+            // X999^5 §7 — capture first/last-touch attribution into the session (GET only)
+            \App\Http\Middleware\CaptureAttribution::class,
             \App\Http\Middleware\NoIndexQueryParams::class,
             \App\Http\Middleware\SeoHeaders::class,
             // X999^5 §8 — internal <a href> → trailing-slash canonical (kills internal 301s)

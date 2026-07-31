@@ -5,6 +5,25 @@ conversion system (3 recent leads) throughout — no form, CTA, route, or analyt
 
 ---
 
+## ⚠ CORRECTION NOTE (added 2026-07-30, per X999^5 §3)
+
+An earlier revision of this report contained a **contradiction**: §11–14 stated the winner
+authority targets were met (makler/valuation/agency anchor diversity → 5, agency depth 3→2,
+sell inlinks → 35), while other lines implied "winner strengthening not started / anchor
+diversity not proven." That mixed two different things. The **correct, unambiguous** status is:
+
+- **Winner AUTHORITY / internal-link strengthening (§12–14):** IMPLEMENTED LOCALLY and measured
+  (`seo:seller-baseline`), **PRODUCTION VERIFICATION PENDING** (not yet deployed/crawled on
+  `cityee.ee`). It is *not* "not started."
+- **Winner CONTENT strengthening (§16–18 — copy blocks like "when you need a broker", decision
+  summaries, valuation scenarios):** **NOT DONE — intentionally deferred — OUTSIDE current scope.**
+
+These are separate: *authority* (internal links/anchors — done locally) ≠ *content* (page copy —
+not done). No line below should conflate them. Historical text is retained above/below; this note
+governs interpretation.
+
+---
+
 ## 1. Executive verdict
 
 ### GLOBAL FAIL — one or more mandatory invariants not proven.
