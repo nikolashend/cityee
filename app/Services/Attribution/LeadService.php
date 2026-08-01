@@ -41,6 +41,14 @@ class LeadService
         $first = $ctx['first'] ?? [];
         $last  = $ctx['last'] ?? [];
 
+        // Synthetic/test click-id (§8B/§21): a test gclid must NEVER become a real
+        // Ads conversion. Flag the lead so the frontend suppresses generate_lead.
+        $isTest = $this->isSyntheticClickId($first['gclid'] ?? null)
+            || $this->isSyntheticClickId($last['gclid'] ?? null)
+            || $this->isSyntheticClickId($first['gbraid'] ?? null)
+            || $this->isSyntheticClickId($last['gbraid'] ?? null)
+            || $this->isSyntheticClickId($last['wbraid'] ?? null);
+
         // Short transaction — no network/mail inside it.
         $lead = DB::transaction(fn () => Lead::create([
             'form_type'            => $formType,
@@ -67,8 +75,9 @@ class LeadService
             'ip_hash'              => $this->ipHash($request->ip()),
             'consent_state'        => $this->norm($request->input('consent')) ?? 'unknown',
             'duplicate_fingerprint'=> $fingerprint,
+            'is_test'              => $isTest,
             'mail_status'          => 'pending',
-            'analytics_status'     => 'unknown',
+            'analytics_status'     => $isTest ? 'suppressed_test' : 'unknown',
         ]));
 
         // Mail AFTER commit. Failure is recorded, not fatal (lead already saved).
@@ -98,6 +107,14 @@ class LeadService
     private function ipHash(?string $ip): ?string
     {
         return $ip ? hash_hmac('sha256', $ip, (string) config('app.key')) : null;
+    }
+
+    /** Detect obvious test / synthetic click identifiers (never a real conversion).
+     * Matches explicit test markers (underscores are word chars, so \b is unreliable). */
+    private function isSyntheticClickId(?string $id): bool
+    {
+        if (! $id) return false;
+        return (bool) preg_match('/(^test|test\d|test[-_]?gclid|cityee[-_]?test|closure[-_]?test|synthetic|not[-_]?real)/i', $id);
     }
 
     private function norm(?string $v): ?string

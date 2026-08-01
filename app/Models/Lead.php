@@ -34,11 +34,15 @@ class Lead extends Model
     {
         return [
             'lead_public_id' => $this->public_id,
+            // Stable, non-PII dedup key shared between GA4 and Google Ads (§10.5/§13).
+            'event_id'       => hash_hmac('sha256', $this->public_id . '|generate_lead', (string) config('app.key')),
             'form_type'      => $this->form_type,
             'submission_page'=> $this->submission_page,
             'source_class'   => $this->last_touch_source ?: $this->first_touch_source ?: 'unknown',
             'campaign_name'  => $this->last_touch_campaign ?: $this->first_touch_campaign,
             'has_gclid'      => (bool) ($this->last_touch_gclid ?: $this->first_touch_gclid),
+            // Test leads (synthetic click-id) must NOT fire a real conversion (§8B).
+            'is_test'        => (bool) $this->is_test,
         ];
     }
 }

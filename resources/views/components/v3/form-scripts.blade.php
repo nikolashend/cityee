@@ -26,10 +26,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (data === null) return;
                 form.reset();
                 if (msg) msg.style.display = 'block';
-                /* GA4 generate_lead — NON-PII payload only (name/phone/email never sent) */
-                if (window.dataLayer && data && data.lead) {
+                /* GA4 generate_lead — NON-PII only; skipped for test leads so a
+                   synthetic click-id never becomes a real Ads conversion. event_id
+                   deduplicates GA4 vs Google Ads. */
+                if (window.dataLayer && data && data.lead && !data.lead.is_test) {
                     window.dataLayer.push({
                         event: 'generate_lead',
+                        event_id: data.lead.event_id,
                         lead_public_id: data.lead.lead_public_id,
                         form_type: data.lead.form_type,
                         source_class: data.lead.source_class,
