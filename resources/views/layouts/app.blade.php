@@ -385,7 +385,7 @@ window.addEventListener('load', function() {
 </div>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js" defer></script>
-<script src="/assets/templates/offshors/js/main.js?v=3" defer></script>
+<script src="/assets/templates/offshors/js/main.js?v=4" defer></script>
 <script src="/assets/templates/offshors/js/jquery.bxslider.js" defer></script>
 
 {{-- Lightboxed — deferred CSS + JS --}}

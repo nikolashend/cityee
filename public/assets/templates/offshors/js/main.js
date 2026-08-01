@@ -84,17 +84,31 @@ $(document).ready(function () {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
       success: function (msg) {
-        if (msg == "OK") {
+        // Response is now JSON { status:"OK", lead:{…} }; keep the legacy "OK" string too.
+        var ok = (msg === "OK") || (msg && msg.status === "OK");
+        if (ok) {
           form.html(
             '<div class="ok-message">Teie päring saadetud. Võtame Teiega ühendust esimesel võimalusel.</div>'
           );
           form.css("background-image", "none");
-          /* dataLayer lead tracking */
-          if (typeof cityeeTrackLead === 'function') {
+          /* GA4 generate_lead — NON-PII; skipped for test leads (synthetic click-id) */
+          var lead = msg && msg.lead;
+          if (window.dataLayer && lead && !lead.is_test) {
+            window.dataLayer.push({
+              event: 'generate_lead',
+              event_id: lead.event_id,
+              lead_public_id: lead.lead_public_id,
+              form_type: lead.form_type,
+              source_class: lead.source_class,
+              campaign_name: lead.campaign_name || undefined,
+              has_gclid: !!lead.has_gclid,
+              submission_page: lead.submission_page
+            });
+          } else if (typeof cityeeTrackLead === 'function') {
             cityeeTrackLead('form', 'form_popup');
           }
         } else {
-          form.find(".error").html(msg);
+          form.find(".error").html(typeof msg === "string" ? msg : "Viga saatmisel / Ошибка отправки");
         }
       },
       error: function(xhr) {
