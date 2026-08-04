@@ -20,26 +20,30 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             .then(function (r) {
                 if (!r.ok) { alert('Error. Please try again.'); return null; }
-                return r.json().catch(function () { return null; });
+                // On a 2xx with an unparseable body, still treat it as success ({}).
+                return r.json().catch(function () { return {}; });
             })
             .then(function (data) {
-                if (data === null) return;
+                if (data === null) return;   // only null when the request failed (!r.ok)
                 form.reset();
                 if (msg) msg.style.display = 'block';
-                /* GA4 generate_lead — NON-PII only; skipped for test leads so a
-                   synthetic click-id never becomes a real Ads conversion. event_id
-                   deduplicates GA4 vs Google Ads. */
-                if (window.dataLayer && data && data.lead && !data.lead.is_test) {
-                    window.dataLayer.push({
-                        event: 'generate_lead',
-                        event_id: data.lead.event_id,
-                        lead_public_id: data.lead.lead_public_id,
-                        form_type: data.lead.form_type,
-                        source_class: data.lead.source_class,
-                        campaign_name: data.lead.campaign_name || undefined,
-                        has_gclid: !!data.lead.has_gclid,
-                        submission_page: data.lead.submission_page
-                    });
+                // GTM / GA4 generate_lead — fire exactly once on confirmed success.
+                // NOT gated on the lead payload, so a missing/legacy body still tracks.
+                // event_id (when present) deduplicates GA4 vs Google Ads.
+                var lead = data && data.lead;
+                if (window.dataLayer && !(lead && lead.is_test)) {
+                    window.dataLayer = window.dataLayer || [];
+                    var evt = { event: 'generate_lead', form_name: 'lead_form' };
+                    if (lead) {
+                        evt.event_id        = lead.event_id;
+                        evt.lead_public_id  = lead.lead_public_id;
+                        evt.form_type       = lead.form_type;
+                        evt.source_class    = lead.source_class;
+                        evt.campaign_name   = lead.campaign_name || undefined;
+                        evt.has_gclid       = !!lead.has_gclid;
+                        evt.submission_page = lead.submission_page;
+                    }
+                    window.dataLayer.push(evt);
                 }
             })
             .catch(function () {

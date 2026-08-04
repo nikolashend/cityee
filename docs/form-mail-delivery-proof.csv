@@ -1,0 +1,5 @@
+form_type,public_id,saved_at,mail_attempted_at,mail_status,inbox_received,duplicate_mail_count,verdict,evidence
+callback,,,,,,,BLOCKED,"prod submit + info@cityee.ee inbox check"
+inquiry,,,,,,,BLOCKED,
+audit,,,,,,,BLOCKED,
+price_calculator,,,,,,,BLOCKED,

@@ -110,4 +110,16 @@ class LeadClosureTest extends TestCase
         $this->assertSame('denied', $lead->consent_state);
         $this->assertNotNull($lead->id);
     }
+
+    public function test_summary_report_is_zero_row_safe_and_non_pii(): void
+    {
+        $this->artisan('leads:summary')->assertSuccessful();   // empty DB
+
+        Lead::create(['form_type' => 'callback', 'name' => 'Ivan Petrov', 'phone' => '+37255500011',
+            'last_touch_source' => 'google_ads', 'last_touch_campaign' => 'spring', 'duplicate_fingerprint' => 'q']);
+        $this->artisan('leads:summary --json')
+            ->assertSuccessful()
+            ->doesntExpectOutputToContain('Ivan')
+            ->doesntExpectOutputToContain('55500011');
+    }
 }

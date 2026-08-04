@@ -1,0 +1,7 @@
+scenario_id,submission_timestamp,form_type,submission_page,public_id,source_class,first_touch_source,last_touch_source,campaign_name,has_gclid,is_test,consent_state,mail_status,analytics_status,duplicate_result,email_received,expected_result,actual_result,verdict,evidence_reference
+A-synthetic-gclid,,callback,,,google_ads,google_ads,,CITYEE_ATTR_CLOSURE,1,true,,,suppressed_test,,,"is_test=true; no generate_lead; no Ads conversion",,BLOCKED,"run on prod: leads:export"
+C-direct,,inquiry,,,direct,direct,,,0,false,,,,,, "direct; lead saved",,BLOCKED,
+D-utm,,audit,,,other_organic,,,CITYEE_ATTR_CLOSURE,0,false,,,,,, "UTM preserved after nav",,BLOCKED,
+E-duplicate,,callback,,,,,,,0,false,,,,collapsed,, "one lead / one email",,BLOCKED,
+F-consent-denied,,inquiry,,,,,,,0,false,denied,,,,, "lead saved; consent recorded",,BLOCKED,
+G-mail-failure,,price_calculator,,,,,,,0,false,,failed,,,, "lead persists; mail_status=failed",,BLOCKED,

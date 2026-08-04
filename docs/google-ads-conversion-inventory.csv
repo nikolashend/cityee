@@ -1,0 +1,5 @@
+conversion_action,source,status,primary_or_secondary,count_setting,included_in_conversions,campaign_goal_usage,dedup_method,risk,required_action,final_status
+Qualified website lead,GA4 generate_lead import (recommended),UNKNOWN,primary,One,yes,lead campaigns,event_id + lead_public_id,double-count if a direct AW- tag also fires,confirm no direct tag; import GA4 event only,BLOCKED (needs Google Ads + GTM access)
+WhatsApp click,GTM (if configured),UNKNOWN,secondary,One,no,none,n/a,treating as lead,keep secondary,BLOCKED
+Phone click,GTM (if configured),UNKNOWN,secondary,One,no,none,n/a,treating as call,keep secondary,BLOCKED
+Form submit (legacy),GTM (if configured),UNKNOWN,secondary,One,no,none,n/a,double-count vs generate_lead,verify not primary,BLOCKED
