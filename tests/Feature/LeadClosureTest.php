@@ -111,6 +111,17 @@ class LeadClosureTest extends TestCase
         $this->assertNotNull($lead->id);
     }
 
+    public function test_client_submission_id_extra_field_is_accepted_harmlessly(): void
+    {
+        // The frontend sends client_submission_id for cross-channel de-dup. The
+        // backend does not persist it yet; it must be ignored, never break the save.
+        $this->postJson('/contact/callback', [
+            'name' => 'D', 'tel' => '+372504', 'client_submission_id' => 'cs_abc123',
+        ])->assertOk();
+        $this->assertSame(1, Lead::where('form_type', 'callback')->count());
+        $this->assertArrayNotHasKey('client_submission_id', Lead::firstOrFail()->getAttributes());
+    }
+
     public function test_summary_report_is_zero_row_safe_and_non_pii(): void
     {
         $this->artisan('leads:summary')->assertSuccessful();   // empty DB

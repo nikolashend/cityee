@@ -67,7 +67,6 @@ $(document).ready(function () {
   });
 
   $(".ajax-form").submit(function () {
-    var str = $(this).serialize();
     var form = $(this);
     var action = form.attr('action');
 
@@ -75,6 +74,15 @@ $(document).ready(function () {
       form.find(".error").html("Form action not configured");
       return false;
     }
+    if (form.data('submitting')) { return false; }   // block double-submit
+    form.data('submitting', true);
+
+    // Stable id decided BEFORE the request: sent to the backend AND reused as the
+    // fallback event_id, so we never mint a fresh conversion id after success.
+    var clientSubmissionId = (typeof cityeeStableSubmissionId === 'function')
+      ? cityeeStableSubmissionId() : null;
+    var str = form.serialize() + (clientSubmissionId
+      ? '&client_submission_id=' + encodeURIComponent(clientSubmissionId) : '');
 
     $.ajax({
       url: action,
@@ -83,37 +91,31 @@ $(document).ready(function () {
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
-      success: function (msg) {
-        // Response is JSON { status:"OK", lead:{…} }; legacy bare "OK" string still accepted.
-        var ok = (msg === "OK") || (msg && msg.status === "OK");
-        if (ok) {
+      success: function (msg, textStatus, xhr) {
+        // Canonical success + fail-closed test gating live in cityee-lead-tracking.js.
+        var decision = (typeof cityeeHandleLeadResponse === 'function')
+          ? cityeeHandleLeadResponse({
+              httpOk: true,
+              parsed: (msg && typeof msg === 'object') ? msg : null,
+              rawText: (typeof msg === 'string') ? msg
+                       : (xhr && xhr.responseText) ? xhr.responseText : null,
+              clientSubmissionId: clientSubmissionId
+            })
+          : { accepted: (msg === "OK") || (msg && msg.status === "OK") };
+
+        if (decision.accepted) {
           form.html(
             '<div class="ok-message">Teie päring saadetud. Võtame Teiega ühendust esimesel võimalusel.</div>'
           );
           form.css("background-image", "none");
-          // GTM / GA4 generate_lead — fire exactly once on confirmed success.
-          // NOT gated on the lead payload, so a missing/legacy response body still tracks.
-          var lead = msg && msg.lead;
-          if (window.dataLayer && !(lead && lead.is_test)) {
-            window.dataLayer = window.dataLayer || [];
-            var evt = { event: 'generate_lead', form_name: 'lead_form' };
-            if (lead) {
-              evt.event_id        = lead.event_id;
-              evt.lead_public_id  = lead.lead_public_id;
-              evt.form_type       = lead.form_type;
-              evt.source_class    = lead.source_class;
-              evt.campaign_name   = lead.campaign_name || undefined;
-              evt.has_gclid       = !!lead.has_gclid;
-              evt.submission_page = lead.submission_page;
-            }
-            window.dataLayer.push(evt);
-          }
         } else {
+          form.data('submitting', false);
           form.find(".error").html(typeof msg === "string" ? msg : "Viga saatmisel / Ошибка отправки");
         }
       },
       error: function(xhr) {
-        if (xhr.status === 422) {
+        form.data('submitting', false);
+        if (xhr.status === 422 && xhr.responseJSON && xhr.responseJSON.errors) {
           var errors = xhr.responseJSON.errors;
           var errorHtml = '';
           for (var key in errors) {
