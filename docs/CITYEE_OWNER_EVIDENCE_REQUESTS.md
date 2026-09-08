@@ -1,12 +1,48 @@
 # CITYEE X999⁵ — OWNER EVIDENCE REQUESTS (Stage B)
 
-Claude has finished Stage A (repo/code). These are the exact proofs it still needs, **one at a
-time, read-only, current state**. Forward each block verbatim to the holder named in `SYSTEM`.
-Paste the returned screenshot/output back into **this same Claude Code context** with the
-`OWNER EVIDENCE` header (see handoff protocol §8). Reference facts: GA4 lead event =
-`generate_lead`; GTM container = `GTM-5DRRX5ZJ`; four forms = `callback`, `inquiry`,
-`audit-request`, `price-calculator`; synthetic-click marker = `CITYEE_TEST…` → `is_test=true` →
-event suppressed.
+Claude has finished Stage A (repo/code). These are the exact proofs it still needs, **read-only,
+current state**. Reference facts: GA4 lead event = `generate_lead`; GTM container = `GTM-5DRRX5ZJ`;
+four forms = `callback`, `inquiry`, `audit-request`, `price-calculator`; synthetic-click marker =
+`CITYEE_TEST…` → `is_test=true` → event suppressed.
+
+> **Collection scheme (batch, not one-at-a-time).** Aleksandr captures **one OWNER EVIDENCE PACK**
+> covering GA4 + Google Ads + GTM in a single pass and sends all screenshots in **one message**.
+> Claude analyses the whole pack together and only asks for extra screenshots if a **real gap** is
+> found. The per-proof blocks (#1–#3) below are the detail for that single pack — not a sequence of
+> separate requests. Owner Action #0 (production server) and #4 (mailbox) have **different holders**,
+> so they run in parallel and are not part of Aleksandr's pack.
+
+---
+
+## ⭐ OWNER EVIDENCE PACK — one pass, one reply (Aleksandr: GA4 + Ads + GTM)
+Capture everything below, read-only, change nothing, then send all screenshots in one message with
+the `OWNER EVIDENCE` header (protocol §8). Two parts: **static** (any time) + **live QA** (needs a
+form submission to observe).
+
+**Part 1 — static current state (screenshot each):**
+- ☐ GA4 · Admin → **Events** (or Configure → Events): the events list showing `generate_lead` and whether it is a **Key event**.
+- ☐ GA4 · Admin → **Data streams** → web stream: stream id + measurement id visible.
+- ☐ Google Ads · Goals → **Conversions → Summary**: the full conversion-actions table (name · source · category · **Primary/Secondary** · status).
+- ☐ Google Ads · open the **lead** conversion action → settings: **count (One/Every)**, attribution model, **“Include in Conversions”** toggle.
+- ☐ GTM · **Tags** list (container `GTM-5DRRX5ZJ`).
+- ☐ GTM · the **GA4 tag** that fires on the `generate_lead` trigger — its trigger + parameters.
+- ☐ GTM · the **Google Ads conversion tag** (if one exists) — its config.
+- ☐ GTM · **Consent Overview** + default consent state / consent settings.
+
+**Part 2 — live QA (do the submissions, note exact times, capture GA4 DebugView):**
+- ☐ Enable GA4 **DebugView** (or GTM Preview + DebugView).
+- ☐ Submit **QA-REAL** on each of the 4 forms from a **clean URL (no gclid)** — note each time. DebugView must show **exactly one** `generate_lead` per submission, with params `event_id, form_name, form_type, source_class, has_gclid, submission_page` and **no** name/phone/email/message. Screenshot the event + its params.
+- ☐ Submit **QA-TEST** with `?gclid=CITYEE_TEST_QA` — DebugView must show **zero** `generate_lead` (suppression). Screenshot.
+- ☐ Submit **QA-DUP** (callback twice within 10 min) and **QA-CONSENT** (consent denied) — note times; DB/mail side is verified separately by the server/inbox holders.
+
+**Reply once, labelled**, e.g. `GA4-events`, `ADS-summary`, `ADS-lead-action`, `GTM-tags`,
+`GTM-lead-tag`, `GTM-consent`, `DebugView-QA-REAL-callback`, `DebugView-QA-TEST` … Mask customer PII;
+keep the technical fields the proof needs. **Change nothing before capturing.**
+
+---
+
+The per-proof detail blocks below specify exactly what each screenshot must prove; forward the
+holder-specific ones (#0 server, #4 mailbox) separately.
 
 ---
 

@@ -50,13 +50,19 @@ safety, analytics emission contract, the four forms, mail pipeline (as far as re
 SEO/render non-regression. Then Claude lists precisely which proofs are impossible without
 Aleksandr's accounts or the production shell. **Do not ask Aleksandr for anything during Stage A.**
 
-### STAGE B — owner-evidence loop (only after Claude prints `OWNER ACTION REQUIRED`)
+### STAGE B — owner-evidence, collected as ONE pack (batch)
+While Claude runs Stage A, Aleksandr captures **one OWNER EVIDENCE PACK** covering **GA4 + Google
+Ads + GTM** in a single pass (checklist: `CITYEE_OWNER_EVIDENCE_REQUESTS.md` → "OWNER EVIDENCE
+PACK"). Aleksandr sends all screenshots in **one message**; Claude analyses the whole pack together
+and asks for extra screenshots **only if a real gap is found**.
 ```
-CLAUDE → OWNER_EVIDENCE_REQUEST → Nikolai → Aleksandr → screenshot
-       → Nikolai (upload into the SAME Claude Code context) → CLAUDE validates → next smallest action
+CLAUDE (Stage A) + ALEKSANDR (collects full pack in parallel)
+       → Nikolai (upload the whole pack into the SAME Claude Code context)
+       → CLAUDE validates the pack → requests deltas only if a gap exists
 ```
-Nikolai never invents what to photograph. Claude specifies the exact proof; Nikolai forwards it
-verbatim; Aleksandr captures **current state, read-only**; Nikolai pastes it back **into this same
+Nikolai never invents what to photograph — the pack checklist is exact. The production-server proof
+(#0) and the mailbox proof (#4) have different holders and run in parallel, outside Aleksandr's
+pack. Everything is captured **read-only, current state**, and pasted back **into this same
 task/context** (not a new SEO task).
 
 ## 4. Owner-evidence request format (what Claude emits)

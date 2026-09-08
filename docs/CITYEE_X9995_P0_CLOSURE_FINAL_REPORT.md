@@ -8,15 +8,24 @@ not FAIL**. No fabricated schema, GA4, Ads, inbox, or monitoring evidence.
 
 ## Executive verdict
 
-> ## IMPLEMENTATION_PASS + PRODUCTION_OWNER_EVIDENCE_PENDING
-> The attribution implementation is proven correct and non-regressing from the repository. Every
-> remaining proof is **owner/server-gated evidence, not a defect** — the healthy, expected outcome
-> of Stage A. This is **not** GLOBAL FAIL: zero defects are proven.
+> ## GLOBAL FAIL — PROVEN GTM MEASUREMENT-CONFIGURATION DEFECT
+> The Laravel/site **implementation is correct** (IMPLEMENTATION_PASS), but Aleksandr's owner
+> evidence (GTM+GA4+Ads pack, 2026-09-08) revealed a **proven configuration-level defect cluster**
+> in the GTM container `GTM-5DRRX5ZJ` (v11) that corrupts lead measurement. A defect is proven →
+> per the handoff protocol this is FAIL (not PENDING). It is fixable with three owner actions in
+> GTM; no SEO/site rewrite is needed. Full analysis: `docs/CITYEE_OWNER_EVIDENCE_ANALYSIS_GTM_GA4_ADS.md`.
+
+**The defect cluster (config-confirmed from screenshots; runtime magnitude pending DebugView):**
+- **F1** two GA4 tags send `generate_lead` on the same `lead_submit_success` trigger → duplicate lead event.
+- **F2** a mislabeled "Google Analytics Configuration" tag sends `generate_lead` on **All Pages** (page view) to a phantom measurement ID — latent "every pageview = a lead".
+- **F3** the site pushes dataLayer `generate_lead` on form submit, but the only lead trigger is `lead_submit_success` and there is **no `generate_lead` trigger** → real form submits may fire no GA4 lead event (the original "no event after submit" symptom).
+- **F4** contact-link clicks (tel/WhatsApp/Telegram/email) push `lead_submit_success` → currently counted as leads (and doubled).
+- **F6** the site's `event_id` is **not mapped** onto either GA4 tag → the designed GA4↔Ads dedup is not actually delivered.
 
 **Access reality (Step 0):** this Claude Code session runs on a **local checkout**
-(`APP_ENV=local`, `APP_URL=http://localhost`, no CityEE production host in SSH config). So
-production-server proofs are `SERVER_ACCESS_PENDING` (Nikolai/DevOps); Google-account proofs are
-`OWNER_EVIDENCE_PENDING` (Aleksandr); the inbox proof is `OWNER_EVIDENCE_PENDING` (mailbox owner).
+(`APP_ENV=local`, no CityEE production host in SSH config). Production-server proofs remain
+`SERVER_ACCESS_PENDING` (Nikolai/DevOps); the inbox proof is `OWNER_EVIDENCE_PENDING`; **GA4/GTM/Ads
+owner evidence has now been received and analysed** (result: the defect cluster above).
 
 ## Layered result
 
@@ -24,12 +33,12 @@ production-server proofs are `SERVER_ACCESS_PENDING` (Nikolai/DevOps); Google-ac
 |---|---|---|
 | **IMPLEMENTATION** | ✅ `PASS` | 38 PHP tests / 190 assertions + JS matrix 50/50 + render-check 44/44 |
 | **PRODUCTION (server)** | ⏳ `SERVER_ACCESS_PENDING` | migration-applied, prod schema, prod lead count — needs prod shell (Owner Action #0) |
-| **GA4** | ⏳ `OWNER_EVIDENCE_PENDING` | exactly-once `generate_lead` + suppression — DebugView (Owner Action #1) |
-| **GOOGLE ADS** | ⏳ `OWNER_EVIDENCE_PENDING` | single Primary conversion — inventory (Owner Action #2) |
-| **GTM + CONSENT** | ⏳ `OWNER_EVIDENCE_PENDING` | lead tag + Consent Mode — GTM `GTM-5DRRX5ZJ` (Owner Action #3) |
-| **MAIL DELIVERY** | ⏳ `OWNER_EVIDENCE_PENDING` | one email per submission — inbox (Owner Action #4) |
-| **LIVE FORM QA** | ⏳ pending | 4 forms + dup + consent test cases defined (QA-REAL/TEST/02–04/DUP/CONSENT) |
-| **72H OBSERVABILITY** | `NOT_STARTED` | gate not yet green; cannot be simulated |
+| **GA4 exactly-once** | ❌ `FAIL` | proven config defect: duplicate sender (F1) + All-Pages `generate_lead` (F2); event-name mismatch (F3); `event_id` not mapped (F6) |
+| **GOOGLE ADS single Primary** | ✅ `PASS (config)` | one CityEE Primary `cityee.ee (web) generate_lead`, Count=One; dependent on fixing F1/F6 |
+| **GTM + CONSENT** | ❌ `FAIL` (tags) / ⏳ `OWNER_EVIDENCE_PENDING` (consent) | tag defects F1–F4/F6 confirmed; Consent Mode not evidenced (F7) — Owner Action C |
+| **MAIL DELIVERY** | ⏳ `OWNER_EVIDENCE_PENDING` | one email per submission — inbox |
+| **LIVE FORM QA** | ⏳ pending | needed to confirm runtime magnitude of F1–F4 (DebugView) |
+| **72H OBSERVABILITY** | `NOT_STARTED` | gate FAILs until the GTM defect is fixed and re-verified |
 
 ## §26 verdict block
 
@@ -40,27 +49,29 @@ Commit:              17cc665 (impl) · babc444 (evidence) · this report
 Production release:  UNKNOWN — session on local checkout (SERVER_ACCESS_PENDING)
 Baseline start:      NOT STARTED
 
-Proof 1 — Production schema:          SERVER_ACCESS_PENDING   (Owner Action #0)
-Proof 2 — Four live forms + email:    OWNER_EVIDENCE_PENDING  (Owner Actions #4 + QA)
-Proof 3 — GA4 exactly-once:           OWNER_EVIDENCE_PENDING  (Owner Action #1)
-Proof 4 — Google Ads single Primary:  OWNER_EVIDENCE_PENDING  (Owner Action #2)
-Proof 5 — Consent Mode:               OWNER_EVIDENCE_PENDING  (Owner Action #3)
+Proof 1 — Production schema:          SERVER_ACCESS_PENDING   (prod shell — 3 read-only cmds)
+Proof 2 — Four live forms + email:    OWNER_EVIDENCE_PENDING  (inbox + DebugView QA)
+Proof 3 — GA4 exactly-once:           FAIL (config)           (F1 duplicate sender + F2 all-pages + F3 mismatch + F6 no event_id)
+Proof 4 — Google Ads single Primary:  PASS (config)           (one CityEE Primary, Count=One; fix F1/F6)
+Proof 5 — Consent Mode:               OWNER_EVIDENCE_PENDING  (Owner Action C — consent overview)
 
-Dedup:                CONTAINED_UNREACHABLE   (live path complete; fallback code-unreachable)
+Dedup (code):         CONTAINED_UNREACHABLE   (server path complete; but event_id not wired in GTM → F6)
 SEO non-regression:   PASS (code-side)        (render-check 44/44; prod HTTP pending)
 Security red-team:    PASS (22) / 1 PARTIAL / 2 PENDING (GTM/Ads)
 
-72H monitoring:       NOT STARTED
+72H monitoring:       NOT STARTED (blocked until GTM defect fixed + re-verified)
 14-day baseline:      NOT STARTED
 
-P0 defects: 0   P1 defects: 0   P2 defects: 0
+Implementation defects (Laravel/site): 0
+GTM measurement defects: P1 ×5 (F1,F3,F4,F6 + F7-pending), latent P0 ×1 (F2)
 
-GLOBAL VERDICT:  IMPLEMENTATION_PASS + PRODUCTION_OWNER_EVIDENCE_PENDING
-                 (NOT GLOBAL FAIL — no defect proven)
+GLOBAL VERDICT:  GLOBAL FAIL — PROVEN GTM MEASUREMENT-CONFIGURATION DEFECT
+                 (implementation PASS; the fault is in GTM container GTM-5DRRX5ZJ, not the code)
 
 NEXT SAFE ACTION:
-  Run Owner Action #0 (production schema — 3 read-only commands) and paste the text back
-  into this context. That flips Proof 1 → PASS. Then Owner Actions #1–#4 per the requests doc.
+  Aleksandr applies GTM Owner Actions A + B (remove duplicate/all-pages generate_lead tags;
+  repoint the single lead tag to Custom Event `generate_lead` and map event_id), then confirms
+  in GA4 DebugView with one real form submit + one WhatsApp click. See the analysis doc.
 ```
 
 ## Stage A — what is proven (Claude-only, GREEN)
@@ -81,27 +92,33 @@ NEXT SAFE ACTION:
 | Zero SEO/render regression (code-side) | `cityee:render-check` 44/44; `seo:audit-links`/`seo:audit-intents` PASS |
 | Local schema contract | `storage/app/audit/production-attribution-schema-proof.txt` (33 cols, is_test, unique public_id, 8 indexes) |
 
-## Stage B — the owner-evidence loop
-All remaining proofs are packaged as ready-to-forward blocks in
-**`docs/CITYEE_OWNER_EVIDENCE_REQUESTS.md`** (Owner Actions #0–#4 + the QA test cases). Flow:
-```
-CLAUDE → OWNER_EVIDENCE_REQUEST → Nikolai → holder → screenshot/text
-       → Nikolai (paste into THIS context) → CLAUDE validates → next smallest action
-```
-Rules of the loop: read-only current state first; no GTM/Ads/consent changes before Claude analyses;
-QA submissions carry known ids and the synthetic marker where they must not train Ads; the inbox
-proof has a named owner. See `docs/CITYEE_OWNER_EVIDENCE_HANDOFF_PROTOCOL.md`.
+## Stage B — owner evidence RECEIVED and analysed (2026-09-08)
+Aleksandr's **OWNER EVIDENCE PACK** (29 screenshots: GA4 + Google Ads + GTM, `docs/CITYEE screens/`)
+was analysed as a whole → the F1–F8 findings above. Full analysis + current-state capture + root
+causes + rollback: **`docs/CITYEE_OWNER_EVIDENCE_ANALYSIS_GTM_GA4_ADS.md`**.
 
-## Why not GLOBAL FAIL
-The main TZ would force FAIL for anything unproven. The handoff protocol (§1) overrides that: a
-correct implementation whose production evidence is simply gated behind someone else's account is
-`PENDING`, not a failure. Zero defects are proven, so FAIL would be false. `GLOBAL PASS` will be
-declared only after Owner Actions #0–#4 return real evidence and the 72H window completes.
+**Owner actions to fix (GTM — read-only state already captured; apply after go-ahead):**
+- **A** — remove the duplicate `generate_lead` tag + the All-Pages `generate_lead` tag (F1, F2, F5).
+- **B** — repoint the single lead tag to Custom Event `generate_lead` and map `event_id` (F3, F6).
+- **C** — capture Consent Mode current state (F7).
+- **Website (Claude, gated on B):** drop the contact-click `lead_submit_success` push so clicks stop feeding the lead event (F4).
+
+Then confirm in GA4 DebugView: a real form submit → exactly one `generate_lead` with `event_id`, no
+PII; a WhatsApp click → no `generate_lead`. Only after that does the 72H gate reopen.
+
+## Why this is FAIL now (it was PENDING before the pack)
+Before the pack, no defect was proven → the honest state was PENDING. Aleksandr's evidence changed
+that: the GTM container has a **proven configuration defect** (duplicate `generate_lead` sender; a
+lead event on every page view; the site/GTM event-name mismatch; `event_id` not forwarded). A proven
+defect is FAIL, not PENDING. Crucially, the fault is **in the GTM container, not in the Laravel code**
+— the implementation layer stays PASS. `GLOBAL PASS` needs Owner Actions A+B (+C) applied, confirmed
+in DebugView, then a clean 72H window.
 
 ## Deliverables (§25)
 `production-attribution-schema-proof.txt` · `production-form-qa-results.csv` (skeleton) ·
 `ga4-production-lead-proof.md` · `google-ads-conversion-inventory.csv` (skeleton) ·
 `consent-mode-production-proof.md` · `dedup-production-verdict.md` ·
+**`CITYEE_OWNER_EVIDENCE_ANALYSIS_GTM_GA4_ADS.md` (GTM+GA4+Ads pack analysis)** ·
 `CITYEE_ATTRIBUTION_RED_TEAM_EVIDENCE.md` · `CITYEE_72H_PRODUCTION_MONITORING_LOG.md` (template) ·
 `CITYEE_14_DAY_REVENUE_INTELLIGENCE_BASELINE.md` (template) · **this report** ·
 `CITYEE_OWNER_EVIDENCE_HANDOFF_PROTOCOL.md` · `CITYEE_OWNER_EVIDENCE_REQUESTS.md` ·
