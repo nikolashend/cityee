@@ -1,6 +1,18 @@
 {{-- ══════════════════════════════════════════════════════════════════════
-     UNIFIED LEAD TRACKING — dataLayer / GTM / GA4 / Google Ads
-     Event: lead_submit_success
+     CONTACT-LINK CLICK TRACKING — dataLayer / GTM
+     Event: contact_link_click  (NOT a form lead)
+
+     X999⁵ F4 fix. Previously this pushed `lead_submit_success`, which the GTM
+     "generate_lead" tags trigger on — so tel/WhatsApp/Telegram/email CLICKS were
+     being counted as form leads. Contact links are observational, never the lead
+     conversion, so the event is renamed to `contact_link_click`. Form submits fire
+     `generate_lead` from cityee-lead-tracking.js — a separate, authoritative path.
+
+     ⚠ DEPLOY ORDER: ship this ONLY AFTER GTM Owner Action B repoints the single
+     generate_lead tag to the Custom Event `generate_lead`. If shipped before B,
+     nothing pushes `lead_submit_success` and forms have no matching trigger yet, so
+     `generate_lead` would fire from nothing until B lands. See
+     docs/CITYEE_GTM_OWNER_ACTIONS_A_B_C.md.
      ══════════════════════════════════════════════════════════════════════ --}}
 <script>
 (function () {
@@ -23,10 +35,10 @@
         return 'other';
     }
 
-    /* ── 3. Central push function (global) ── */
+    /* ── 3. Central push function (global) — contact-link click, NOT a lead ── */
     window.cityeeTrackLead = function (leadType, leadSource) {
         window.dataLayer.push({
-            event:       'lead_submit_success',
+            event:       'contact_link_click',
             lead_type:   leadType,
             lead_source: leadSource,
             page_type:   getPageType(),
