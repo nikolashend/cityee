@@ -1,0 +1,6 @@
+query,language,intent,commercial_value,historical_owner,current_owner,hist_pos,cur_pos,hist_clicks,cur_clicks,hist_impr,cur_impr,ctr_delta,loss_type,business_importance,root_cause,confidence
+маклер таллинн,ru,SELLER_BROKER,CV-3,/ru/makler-v-tallinne/,OWNER_EVIDENCE_PENDING,7.63,10.66,5,1,84,64,-4.39pp,RANKING+CTR,HIGH,RC-02 cannibalization,STRONGLY_SUPPORTED
+маклер,ru,SELLER_BROKER,CV-3,/ru/makler-v-tallinne/,OWNER_EVIDENCE_PENDING,7.75,10.69,2,2,106,106,~0,RANKING (impr stable),HIGH,RC-02,STRONGLY_SUPPORTED
+/ru/tallinn/ cluster,ru,GEO_SELLER,CV-2,/ru/tallinn/,/ru/tallinn/,15.9,22.4,21,7,1752,1538,-0.74pp,RANKING,MEDIUM-HIGH,RC-02/RC-01,PLAUSIBLE
+non-brand homepage,ru/et,GENERIC_REAL_ESTATE,CV-1,/,/,13.24,15.19,,,,,-0.25pp,CTR/QUERY-MIX,MEDIUM,RC-03/RC-04,PLAUSIBLE
+оценка квартиры таллинн,ru,VALUATION,CV-3,/ru/ocenka-kvartiry-v-tallinne/,/ru/ocenka-kvartiry-v-tallinne/,10.02,10.13,13,9,317,247,~0,NONE (control - demand dip only),HIGH,RC-04 mild demand,PROVEN stable
