@@ -197,8 +197,122 @@ Selective Historical Winner Recovery, smallest-change-first (§33): (1) confirm 
 `seo:audit-intents` gate to include homepage/hubs so this blind spot can't recur; (4) measure one
 change at a time to preserve causal observability.
 
-## 30. Final verdict
+## 30. Final verdict (2026-09-12)
 **FORENSIC_COMPLETE_WITH_NONBLOCKING_EVIDENCE_GAPS.** Root cause identified with strong evidence
 (cannibalization of the broker cluster + homepage fallback expansion), controls and rejected
 hypotheses documented, protected winners intact, recovery direction low-risk and reversible. Elevation
 to PROVEN needs one GSC Query→Page export (non-blocking). No P0 search defect. No changes made.
+
+---
+
+# ADDENDUM 2026-09-14 — OWNER-EVIDENCE CLOSURE + BROKER OWNERSHIP PROOF + BATCH 1 PLAN
+Continues commit `5634397`. Detailed artifacts in `docs/search-revenue/`. READ-ONLY; nothing deployed.
+
+## A. Executive verdict → **RECOVERY_PLAN_READY_WITH_NONBLOCKING_EVIDENCE_GAP**
+Batch 1A is implementation-ready (not implemented): remove the exact broker head term "Маклер в
+Таллинне" from the `/ru/` homepage `<title>` (1 URL, 1 field, 1 config line, exact rollback). The
+only remaining gap — an EXACT `/ru/` page export — is NONBLOCKING for the plan and REQUIRED as the
+pre-deploy baseline. `P0_SEARCH_DEFECT = NONE`.
+
+## B. What the new owner evidence changed
+- RC-02 is **REFINED**, not confirmed wholesale: fragmentation is **by lexical family**. Only
+  **MAKLER** shows a clean ranking-loss signature (impr 106→106, pos 7.75→10.69); **RIELTOR** is
+  benign multi-URL visibility (both URLs' impressions grew; specialist keeps 71% share); **RIELTOR_YO**
+  is query-mix-confounded (impr +23%, avg pos −4.2, root *held* ~6 — not displaced).
+- Root `/` is **not** a fixable competitor: `lang=et`, x-default → `/`, **zero Cyrillic** on page.
+  Its RU broker impressions are entity/x-default authority → benign SUPPORTING. Do not touch.
+- ET mechanism is **DIFFERENT_FROM_RU**: `/locations/tallinn/` (ET "Kinnisvaramaakler Tallinnas")
+  **301s to `/ru/tallinn/`**; there is no live ET specialist and no ET broker family in the registry —
+  root is the sole de-facto ET owner (registry gap, not a collision). No ET change in Batch 1.
+
+## C. GSC evidence quality / filter validation
+**No CityEE CSV/XLSX exports were found** (repo, Downloads, Desktop, Documents). The only XLSX are
+for **adme.ee** (wrong property) → excluded. The supplied evidence is owner-stated approximate figures
+(screenshot-level precedence). The `/ru/` dataset is `URL_CONTAINS / RU_SUBTREE` (§58) → **not**
+exact homepage evidence → `EXACT_RU_HOMEPAGE_GSC_EVIDENCE = PENDING`. Manifest:
+`search-revenue/OWNER_GSC_EVIDENCE_MANIFEST.md`. No rows fabricated; shares computed only where two
+supplied URLs allow (RIELTOR 71%→… stable; RIELTOR_YO 71%→67%; MAKLER share = pending).
+
+## D. Broker query ownership verdict
+`BROKER_PRIMARY_OWNER_RU = /ru/makler-v-tallinne/` (registry + still holds the rows). MAKLER =
+PROBABLE_CANNIBALIZATION by `/ru/` title; RIELTOR = BENIGN; RIELTOR_YO = POSSIBLE (query-mix);
+AGENCY = NO_CONFLICT. Matrix: `search-revenue/BROKER_QUERY_URL_OWNERSHIP_MATRIX.csv`.
+
+## E. RC-02 final status → **REFINED** (mechanism: MAKLER head-term collision on `/ru/` `<title>`,
+introduced `a3ea5c0` 2026-03-11 — the `meta_title` key was **added**, no prior broker title existed;
+`/ru/` live H1 carries no broker term, so title-only de-confliction suffices).
+
+## F. Exact roles
+| URL | role | JTBD (one sentence) | flag |
+|---|---|---|---|
+| `/` | HOMEPAGE (brand, ET entry, x-default) | Brand + overall seller proposition in ET; sole de-facto ET broker owner. | benign RU supporting; DO NOT TOUCH |
+| `/ru/` | LANG_HOMEPAGE (RU service ecosystem) | RU entry to the seller/rental service ecosystem in Tallinn/Harjumaa. | `<title>` claims MAKLER head term → **Batch 1A** |
+| `/ru/tallinn/` | GEO_HUB | Tallinn district market/service hub for sellers by district. | trailing "Маклер по районам" → INTENT_DIFFERENTIATION_WEAK vs makler; 1B candidate |
+| `/ru/makler-v-tallinne/` | PRIMARY_OWNER (broker) | Choosing/hiring a professional broker in Tallinn. | protected |
+| `/ru/agentstvo-nedvizhimosti-tallinn/` | ALTERNATE_SERVICE (agency/company) | Agency/company/service-provider intent. | not material; no change |
+
+## G. Alternative root causes — see `search-revenue/ROOT_CAUSE_CAUSALITY_MATRIX.md`
+Accepted: RC-02 (MAKLER, 19/21). Partial: RC-04 CTR (secondary to rank), RC-10 query-mix (explains
+RIELTOR/YO only), RC-07 geo hub (secondary). Rejected: RC-01, RC-03 (for MAKLER), RC-05, RC-06 (weak),
+RC-09 (external evidence required).
+
+## H. Control-group result — HOLDS. `/ru/ocenka…/` stable (10.02→10.13; assoc. query 18.1→10.6),
+no homepage/hub title competitor for "оценка"; brand stable. Isolates page-specific collision.
+
+## I. ET cross-language — `ET_BROKER_MECHANISM = DIFFERENT_FROM_RU` (no live ET specialist; root
+sole owner; registry has no ET broker family). Confidence MEDIUM (ET GSC rows not supplied).
+
+## J. Recovery options
+- **A — title-only de-confliction on `/ru/`** (non-owner, 1 field): benefit high on MAKLER; evidence
+  strong; risk R1–R2; reversible; causally clean; winner untouched; scope 1 line; observe 14–21d. ★
+- **B — title + H1/hero de-confliction on `/ru/`**: unnecessary — live H1 already has no broker term;
+  adds a variable for no gain. Rejected.
+- **C — internal anchor reinforcement to the specialist**: anchors already broker-specific and the
+  specialist is the most-linked page; low expected benefit; keep as later support (R1). Not first.
+- **D — staged combined (A → observe → 1B `/ru/tallinn/` title)**: selected as the *sequence*, with A
+  as the only Batch 1A variable.
+
+## K. Selected strategy — D with A as Batch 1A (one variable, non-owner first, then observe).
+
+## L. Batch 1A exact proposal — `search-revenue/SELECTIVE_WINNER_RECOVERY_BATCH_1_PLAN.md`
+`config/cityee.php:585` `meta_title`: **"Маклер в Таллинне — продажа и аренда недвижимости | CityEE"**
+→ **"Продажа и аренда недвижимости в Таллинне и Харьюмаа | CityEE"** (removes "Маклер в Таллинне —";
+aligns with live H1; keeps seller/rental/geo/brand). Budget 1 URL / 1 field. Rollback = exact current string.
+
+## M. Do-not-touch — `search-revenue/DO_NOT_TOUCH_REGISTER.md` (root `/`, specialist, ocenka control,
+prodat, agentstvo, ET pages, `/ru/tallinn/` in 1A, measurement stack).
+
+## N. Remaining owner evidence — `search-revenue/SEARCH_OWNER_EVIDENCE_REQUESTS.md` (#1 EXACT `/ru/`
+Queries — **not URL-contains**; #2 exact specialist; #3 family Pages denominators; #4 control/brand;
+#5 kristiine P2).
+
+## O. Implementation readiness — **YES** (§65 A–I true; J classified NONBLOCKING with baseline precondition).
+
+## P. Next action — owner exports #1–#3 (baseline) → owner approves a **separate** implementation task
+for Batch 1A → deploy 1 line → observe 14–21d → GO/HOLD/ROLLBACK.
+
+```
+SEARCH_FORENSIC_FINAL_STATUS=RECOVERY_PLAN_READY_WITH_NONBLOCKING_EVIDENCE_GAP
+P0_SEARCH_DEFECT=NONE
+RC02_STATUS=REFINED
+BROKER_PRIMARY_OWNER_RU=/ru/makler-v-tallinne/
+MAKLER_FAMILY_CURRENT_OWNER=/ru/makler-v-tallinne/ (weakened; /ru/ title competitor; exact share PENDING)
+RIELTOR_FAMILY_CURRENT_OWNER=/ru/makler-v-tallinne/ (71% share; root / supporting, benign)
+RIELTOR_YO_FAMILY_CURRENT_OWNER=/ru/makler-v-tallinne/ (67% share; root / supporting; query-mix softening)
+ROOT_HOMEPAGE_CONFLICT=BENIGN_SUPPORTING (x-default/entity; zero RU text; no removable signal)
+RU_HOMEPAGE_CONFLICT=PROBABLE_CANNIBALIZATION (MAKLER; <title> only)
+RU_TALLINN_HUB_CONFLICT=POSSIBLE_SECONDARY (trailing "Маклер по районам"; Batch 1B candidate)
+AGENTSTVO_CONFLICT=NO_MATERIAL_CONFLICT
+ET_BROKER_MECHANISM=DIFFERENT_FROM_RU
+EXACT_RU_HOMEPAGE_GSC_EVIDENCE=PENDING (NONBLOCKING; required as pre-deploy baseline)
+BATCH_1_TARGET_URL=https://cityee.ee/ru/
+BATCH_1_CHANGE_TYPE=TITLE_ONLY (config/cityee.php:585 meta_title)
+BATCH_1_CHANGE_BUDGET=1 URL / 1 field / 1 line
+BATCH_1_CONFIDENCE=MEDIUM
+OWNER_EVIDENCE_BLOCKING=NO
+IMPLEMENTATION_READY=YES
+IMPLEMENTATION_EXECUTED=NO
+PRODUCTION_CHANGED=NO
+DEPLOY_EXECUTED=NO
+WAITING_FOR_OWNER_APPROVAL_FOR_BATCH_1=YES
+```
