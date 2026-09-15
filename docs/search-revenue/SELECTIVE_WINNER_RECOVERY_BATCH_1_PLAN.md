@@ -103,3 +103,17 @@ forms · analytics · consent · rendering · CWV-sensitive structure — **none
 Root `/` (no removable RU token; x-default/entity authority; benign SUPPORTING); `/ru/tallinn/`
 (1B candidate, separate variable); agentstvo (not a material competitor on evidence); the specialist
 itself (owner, protected); any ET page; any redirect/canonical/URL/H1/body change; measurement stack.
+
+---
+
+## 2026-09-15 GATE RESULT (exact GSC reconciliation) — supersedes the 09-14 confidence line
+See `EXACT_GSC_EVIDENCE_RECONCILIATION_2026-09-15.md`.
+- Exact `/ru/` + exact specialist page data validated (GSC chips without "+" = exact; XLSX files not on disk).
+- Decisive: head query "маклер" **transferred** from the specialist (prev 105 impr / 2 clicks -> 0 / 0)
+  to `/ru/` (0 -> 106 impr / 2 clicks @ 10.69). RC-02 ownership overlap = PROVEN; causal = STRONGLY_SUPPORTED.
+- Control correction: ocenka = MIXED / NOT_CLEAN_STABLE_CONTROL (aggregate worse, primary query improved).
+- Proposed title: ACCEPT_WITH_CONCERN (aligns with existing H1; no new head claim).
+- **BATCH_1A_DECISION = GO** (G1-G12 pass). **BATCH_1A_CONFIDENCE = MEDIUM_HIGH** (was MEDIUM).
+- Baseline: Datasets A + B already captured; no new 3-month forensic needed before deployment.
+- Still: IMPLEMENTATION_EXECUTED=NO / PRODUCTION_CHANGED=NO / DEPLOY_EXECUTED=NO. Requires a separate,
+  explicitly owner-approved implementation task. One variable only; `/ru/tallinn/`, `/`, specialist, ET untouched.
