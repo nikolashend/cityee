@@ -50,3 +50,36 @@ Expected: /ru/ title = NEW; canonical unchanged; makler title unchanged.
 From T0: SEO freeze on /ru/, /ru/makler-v-tallinne/, /ru/tallinn/, /ru/agentstvo…, /ru/prodat…
 and broker-family anchors. T+3–7 sanity only · T+14 directional · T+21 primary gate ·
 low volume → HOLD_FOR_MORE_DATA. Batch 1B (/ru/tallinn/) DEFERRED / WATCH. ET deferred.
+
+---
+
+## POST-DEPLOY PRODUCTION VERIFICATION — 2026-09-17 (deploy completed by operator)
+Read-only live GET (no-cache), verified against the pre-change baseline:
+
+| URL | HTTP | final URL | title | canonical | robots | H1 | result |
+|---|---|---|---|---|---|---|---|
+| /ru/ | 200 | same | **Продажа и аренда недвижимости в Таллинне и Харьюмаа \| CityEE** (og:title identical — derived) | https://cityee.ee/ru/ (unchanged) | none (indexable) | unchanged | **TITLE=NEW ✓** |
+| /ru/makler-v-tallinne/ | 200 | same | unchanged | unchanged | none | unchanged | ✓ |
+| /ru/tallinn/ | 200 | same | unchanged | unchanged | none | unchanged | ✓ |
+| /ru/prodat-kvartiru-v-tallinne/ | 200 | same | unchanged | unchanged | none | unchanged | ✓ |
+| /ru/ocenka-kvartiry-v-tallinne/ | 200 | same | unchanged | unchanged | none | unchanged | ✓ |
+| /ru/agentstvo-nedvizhimosti-tallinn/ | 200 | same | unchanged | unchanged | none | unchanged | ✓ |
+
+No redirects, no robots blocking, no canonical change, no H1 change, protected winner byte-identical.
+
+## BATCH_1A_T0 = **2026-09-17 15:39:20 EEST (Europe/Tallinn, UTC+03:00)**  = 12:39:20 UTC
+Basis: production-live confirmation of the new `<title>` (not commit/edit/build time).
+
+## SEO OBSERVATION FREEZE — ACTIVE from T0
+Frozen: /ru/, /ru/makler-v-tallinne/, /ru/tallinn/, /ru/agentstvo-nedvizhimosti-tallinn/,
+/ru/prodat-kvartiru-v-tallinne/, broker-family anchors/linking. No title/H1/body/anchor/schema/
+canonical/hreflang/redirect changes and no new broker pages during observation.
+
+| checkpoint | date (Europe/Tallinn) | action |
+|---|---|---|
+| T+3–7 | 2026-09-20 → 2026-09-24 | technical/indexing sanity only (title still live, indexed, canonical OK, winner healthy) — no ranking judgement |
+| T+14 | 2026-10-01 | directional GSC review: маклер / маклер таллинн / маклер в таллинне — keep MAKLER, RIELTOR, RIELTOR_YO separate; page share per family for /ru/makler-v-tallinne/, /ru/, /ru/tallinn/ |
+| T+21 | 2026-10-08 | primary gate: did MAKLER ownership move back to the specialist without collateral loss? low volume → HOLD_FOR_MORE_DATA |
+
+Batch 1B (/ru/tallinn/): DEFERRED / WATCH — opens only if MAKLER ownership shifts to /ru/tallinn/ instead of the specialist.
+ET: DEFERRED until the recovery window closes. Rollback value unchanged (old title, single line).
