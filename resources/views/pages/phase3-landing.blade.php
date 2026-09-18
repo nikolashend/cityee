@@ -63,8 +63,8 @@
       {{ $landing['subtitle'] ?? '' }}
     </p>
     <div class="v3-hero__cta" style="margin-top:1.8rem;display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
-      <a href="#v3-form-audit" class="btn btn-v3-primary">{{ $landing['cta_primary'] ?? 'Получить аудит' }}</a>
-      <a href="#v3-form-calc" class="btn btn-v3-secondary">{{ $landing['cta_secondary'] ?? 'Узнать цену' }}</a>
+      <a href="{{ $landing['cta_primary_target'] ?? '#v3-form-audit' }}" class="btn btn-v3-primary">{{ $landing['cta_primary'] ?? 'Получить аудит' }}</a>
+      <a href="{{ $landing['cta_secondary_target'] ?? '#v3-form-calc' }}" class="btn btn-v3-secondary">{{ $landing['cta_secondary'] ?? 'Узнать цену' }}</a>
     </div>
   </div>
 </section>
@@ -136,7 +136,7 @@
 <section class="phase3-cta" style="padding:3rem 0;text-align:center;background:var(--ce-warm-bg,#faf8f5)">
   <div class="container">
     <h2>{{ $landing['cta_bottom_title'] }}</h2>
-    <a href="#v3-form-audit" class="btn btn-v3-primary" style="margin-top:1rem">{{ $landing['cta_bottom_btn'] ?? 'Связаться' }}</a>
+    <a href="{{ $landing['cta_bottom_target'] ?? '#v3-form-audit' }}" class="btn btn-v3-primary" style="margin-top:1rem">{{ $landing['cta_bottom_btn'] ?? 'Связаться' }}</a>
   </div>
 </section>
 @endif
@@ -156,8 +156,13 @@
 @endif
 
 {{-- ======= Forms ======= --}}
+@if(($landing['forms_order'] ?? 'audit-first') === 'calc-first')
+@include('components.v3.form-calc', ['locale' => $locale])
+@include('components.v3.form-audit', ['locale' => $locale])
+@else
 @include('components.v3.form-audit', ['locale' => $locale])
 @include('components.v3.form-calc', ['locale' => $locale])
+@endif
 @include('components.v3.form-scripts')
 
 {{-- Geo reinforcement --}}
