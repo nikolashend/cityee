@@ -105,3 +105,28 @@ CTA, form order/fields, hero, layout; Ads strategic freeze (hard-negative hygien
 T+3–7 technical/measurement sanity · T+14 directional CRO + qualified-lead review · T+21 primary directional gate if
 volume · else HOLD_FOR_MORE_DATA. Success = more valid `generate_lead` from valuation intent with preserved/improved
 qualified-owner share, no SEO/measurement regression, Audit still reachable. Rollback = revert `d70ec3d` only.
+
+---
+
+## 2026-09-18 — PRE-O1 BASELINE APPROVED · DEPLOY IN PROGRESS
+**Owner baseline (captured, approved — Level 1/owner evidence):**
+- GA4 landing page `/ru/ocenka-kvartiry-v-tallinne/`, 2026-08-19 → 2026-09-17: 24 sessions, 22 active users,
+  21 new users, ~19 s avg engagement/session, **generate_lead = 0**.
+- Google Ads Ocenka campaign, 2026-09-04 → 2026-09-17: 7 clicks, 81 impressions, CTR 8.64 %, avg CPC ≈ €0.65,
+  cost €4.57, **conversions 0**. Device: predominantly mobile (captured separately).
+- Ads change log (pre-O1): "сколько стоит моя квартира" Broad → Exact (before O1; not part of the experiment).
+- Reading: 24 sessions / 7 paid clicks and 0 leads → any lead in the window is a signal; volumes are tiny →
+  T+21 will likely be `HOLD_FOR_MORE_DATA` unless leads appear. Baseline is a valid before-state.
+
+**Pre-deploy gates (2026-09-18):** worktree clean · approved commit `d70ec3d` in HEAD · production drift gate:
+title/H1/canonical/CTA targets/form order == O0 baseline → `PRE_DEPLOY_BASELINE_DRIFT=NO`.
+**Established workflow step 1 — push:** `origin/main` = `4871f08` (contains `d70ec3d`; other 2 commits docs-only).
+**Step 2 — production pull:** operator action (no production shell here): `git pull && php artisan optimize:clear`.
+Production polled ×3 after push: still old state (no auto-deploy). `OCENKA_CRO_O1_T0` **not set** — will be set
+only when the O1 state is confirmed live.
+
+**Post-pull verification to run (ready):** HTTP 200; hero primary → `#v3-form-calc`; bottom → `#v3-form-calc`;
+secondary → `#v3-form-audit`; form order calc → audit; title/description/H1/canonical/robots/JSON-LD/hreflang
+unchanged; Batch 1A frozen URLs unchanged; desktop/mobile sanity; one controlled valuation submission
+(labelled `CITYEE-CRO-O1-TEST`, session marked `?gclid=CITYEE_TEST_O1` → `is_test=true`, never an Ads conversion)
++ immediate duplicate re-POST must return the same `lead_public_id` (dedup) — then T0.
