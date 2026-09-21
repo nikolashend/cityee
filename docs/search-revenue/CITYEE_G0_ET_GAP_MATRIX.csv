@@ -1,0 +1,12 @@
+et_intent,existing_et_owner,ru_equivalent,literal_translation,actual_et_jtbd,search_evidence,seller_strength,geo,property_type,existing_url_fit,new_url_needed,conversion_contract,information_gain,priority,confidence
+korteri hind / kinnisvara hindamine / turuhind (valuation),/kinnisvara-hinnaanaluus-tallinn/,/ru/ocenka-kvartiry-v-tallinne/,NO (different page type),know the real market price before selling,OBSERVED_GSC=NO (pending),HIGH,Tallinn,APARTMENT,GOOD,NO,MATERIAL_MISMATCH (audit CTA) -> fix,ADEQUATE (add method + comparables),P1 NEXT,HIGH
+korteri müük / kuidas müüa korterit (sell),/kinnisvara-muuk/,/ru/prodat-kvartiru-v-tallinne/,NO,sell apartment without price loss,pending,HIGH,Tallinn+Harjumaa,APARTMENT,GOOD but H1 shared with root,NO,MINOR_MISMATCH,ADEQUATE,P1,MEDIUM
+maakler / kinnisvaramaakler (broker),root / (title only),/ru/makler-v-tallinne/,NO,choose a broker,pending,HIGH,Tallinn,ALL,WEAK (homepage),MAYBE - only after root de-conflict,none,-,P2 (HOLD),LOW
+kinnisvarabüroo (agency),none,/ru/agentstvo-nedvizhimosti-tallinn/,NO,choose agency / company,pending,MEDIUM,Tallinn,ALL,none (/miks-cityee partial),EVIDENCE_REQUIRED,-,-,P3,LOW
+korter ei müü / miks korter ei müü (failed-sale umbrella),fragments: muud-ise-keegi-ei-helista + vaatamised-aga-pakkumisi-pole + kuulutuse-audit,/ru/ne-prodaetsya-kvartira-v-tallinne/,NO,diagnose why it is not selling,pending,HIGH,Tallinn,APARTMENT,PARTIAL (no umbrella),MAYBE (or consolidate),coherent (audit),ADEQUATE,P2,LOW
+maja müük / maja müük Harjumaal (house),none,none,n/a,sell a house (Harjumaa-heavy),pending,HIGH,Harjumaa+Tallinn,HOUSE,none,YES (gated on evidence),valuation / contact,needs labelled data,P2,MEDIUM
+kinnistu / maa müük (land),none,none,n/a,sell land,pending,MEDIUM,Harjumaa,LAND,none,EVIDENCE_REQUIRED,-,-,P3,LOW
+ärikinnisvara müük (commercial),none,none,n/a,sell commercial property,pending,MEDIUM,Tallinn,COMMERCIAL,none,EVIDENCE_REQUIRED,-,-,P3,LOW
+maakleritasu (commission),partial (/muua-ise-vs-strateegiline-partner/),/ru/prodat-samomu-vs-partner/,NO,understand cost vs value,pending,MEDIUM,-,ALL,GOOD,NO,coherent,ADEQUATE,P3,MEDIUM
+üürileandmine (landlord),/kinnisvara-uur/,/ru/sdat-kvartiru-v-tallinne/,NO,rent out safely,pending,MEDIUM,Tallinn,ALL,GOOD,NO,MINOR_MISMATCH,ADEQUATE,P3,MEDIUM
+Tallinn districts / Harjumaa municipalities (seller geo),none (/locations/* 301 -> RU hub),/ru/tallinn/*,NO,sell in my district / municipality,pending,MEDIUM,districts / Harjumaa,APARTMENT/HOUSE,none,EVIDENCE_REQUIRED,-,unique local data needed,P3,LOW
