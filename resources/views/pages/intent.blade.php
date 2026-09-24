@@ -118,7 +118,7 @@
 <section class="intent-cta">
   <div class="container text-center">
     <h2>{{ $intent['cta_title'] }}</h2>
-    <a href="#v3-form-audit" class="btn btn-primary btn-lg">{{ $intent['cta_btn'] }}</a>
+    <a href="{{ $intent['cta_primary_target'] ?? '#v3-form-audit' }}" class="btn btn-primary btn-lg">{{ $intent['cta_btn'] }}</a>
   </div>
 </section>
 @endif
@@ -133,8 +133,13 @@
 @include('partials.micro-conversion', ['locale' => $locale])
 
 {{-- ======= Forms ======= --}}
+@if(($intent['forms_order'] ?? 'audit-first') === 'calc-first')
+@include('components.v3.form-calc', ['locale' => $locale])
+@include('components.v3.form-audit', ['locale' => $locale])
+@else
 @include('components.v3.form-audit', ['locale' => $locale])
 @include('components.v3.form-calc', ['locale' => $locale])
+@endif
 @include('components.v3.form-scripts')
 
 @include('partials.service-crosslinks', ['locale' => $locale, 'pageKey' => $intentKey ?? ''])

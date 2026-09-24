@@ -312,6 +312,9 @@ return [
             ],
             'cta_title' => 'Saatke aadress — saate tasuta hinnakoridori analüüsi 24h jooksul',
             'cta_btn'   => 'Soovin analüüsi',
+            // ET valuation CRO O1: valuation intent -> valuation form (audit stays secondary/second)
+            'cta_primary_target' => '#v3-form-calc',
+            'forms_order'        => 'calc-first',
         ],
         'ru' => [
             'meta_title'       => 'Анализ цены недвижимости в Таллинне | CityEE',
