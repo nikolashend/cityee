@@ -5,6 +5,8 @@
 **Preflight verdict:** `READY_WITH_CONCERNS` (shared template `intent.blade.php` serves 21 intent routes → required a
 default-preserving extension plus proof of zero delta on the other 20).
 **Implementation commit:** `a4734b9810e65e3061f5cff7819eefc9fd94fafb`
+**Status:** `DEPLOYMENT_STATUS=LIVE_CONFIRMED` · `FINAL_DECISION=LIVE_VERIFIED_OBSERVATION_STARTED` ·
+`ET_O1_OBSERVATION_STATUS=RUNNING` · **`ET_VALUATION_CRO_O1_T0=2026-09-28 22:16:20 EEST`** (Europe/Tallinn)
 
 ## Pre-change state (verified 2026-09-24, production read-only)
 HTTP 200 · 0 redirects · title `Kinnisvara hinnaanalüüs Tallinnas | CityEE` · H1 `Kinnisvara hinnaanalüüs Tallinnas —
@@ -65,22 +67,54 @@ validation/endpoints/backend, micro-conversion "Soovin auditi", sitewide sticky 
 trust blocks, CSS, JS, schema, canonical, hreflang, robots, sitemap, internal links, GTM/GA4/Ads, `generate_lead`,
 `event_id`, dedup, persistence, email. `DATABASE_CHANGE_REQUIRED=NO`.
 
-## Deployment
+## Deployment — `DEPLOYMENT_STATUS=LIVE_CONFIRMED`
 Established CityEE flow: push to `origin/main` → operator runs on production `git pull && php artisan optimize:clear`
-(config + view caches; **no migrate, no seed, no asset build**). This environment has no production shell →
-`DEPLOYMENT_STATUS=OWNER_OR_OPERATOR_ACTION_REQUIRED`. **Revision to deploy: `a4734b9`.**
-`ET_VALUATION_CRO_O1_T0` is **NOT set** — it is recorded only after the intended state is verified live.
+(config + view caches; **no migrate, no seed, no asset build**). This environment has no production shell, so deployment
+was executed by the operator. **Deployed revision: `a4734b9`** (contained in `31f4e8d`).
 
-## Post-deploy verification plan (next task)
-HTTP 200 / final URL / primary CTA → `#v3-form-calc` / forms calc-first / Audit present & second / anchors unique /
-title-meta-H1-canonical-robots-hreflang-schema unchanged / desktop + mobile structural / RU Ocenka O1 unchanged /
-Batch 1A six URLs unchanged / representative non-target intent routes unchanged → then T0 (Europe/Tallinn).
-`LIVE_FORM_SUBMISSION_EXECUTED=NO` — backend/endpoints/tracking untouched, so no test lead is warranted.
+Deploy history — recorded because the first attempt is a reusable lesson:
+- **2026-09-27 — first attempt NOT EFFECTIVE.** Post-deploy verification found production still serving the pre-O1
+  contract (CTA → `#v3-form-audit`, audit-first, 80801 bytes = the exact pre-change render). Ruled out as cause:
+  HTTP/CDN caching (`Cache-Control: no-cache, private`, no `Age`/`X-Cache`, cache-busted fetch byte-identical) and a
+  missing push (`a4734b9` confirmed an ancestor of `origin/main`). Remaining candidates — production checkout lacking
+  the commit, or a stale compiled-view / cached-config artifact — are indistinguishable from outside, since the commit
+  touches only a Blade template and a config file. **No T0 was set and nothing was changed in response.**
+- **2026-09-28 — operator re-ran the guarded runbook** (`git pull --ff-only origin main` + `php artisan optimize:clear`).
+  Verification then passed in full.
 
-## Observation (after T0)
-Freeze on target: CTA target, form order, CTA text, hero, form wording/fields, FAQ, sticky, micro-conversion, title, H1,
-meta, schema, internal links. T+3–7 technical/conversion-path sanity · T+14 directional CRO + qualified owner review ·
-T+21 primary gate if volume sufficient · low volume → `HOLD_FOR_MORE_DATA`.
+**`ET_VALUATION_CRO_O1_T0 = 2026-09-28 22:16:20 EEST` (Europe/Tallinn)** — the moment the intended live state was
+confirmed, not the moment of deployment.
+
+## Production verification — executed 2026-09-28, `FINAL_DECISION=LIVE_VERIFIED_OBSERVATION_STARTED`
+Target `https://cityee.ee/kinnisvara-hinnaanaluus-tallinn/`: HTTP **200**, 0 redirects, final URL unchanged · primary
+CTA "Soovin analüüsi" → **`#v3-form-calc`** · valuation form **first** (`#v3-form-calc` @51077, `/contact/price-calculator`)
+· Audit form present and **second** (`#v3-form-audit` @53721, `/contact/audit-request`) · both anchor IDs unique and
+resolving · title / meta description / H1 / canonical byte-identical · no robots meta · hreflang 4 with identical targets
+· JSON-LD 6 · desktop **PASS** · mobile (iPhone UA) **PASS**, byte-identical to desktop.
+
+**Production before/after proof (CSRF-normalised):** 1532 lines in both the pre-deploy capture and the live page, with
+exactly **one** differing line — `#v3-form-audit` → `#v3-form-calc` on the primary CTA. All other movement is the pure
+relocation of the calculator block. 80801 → 80800 bytes, the one-character difference between `audit` and `calc`.
+
+**No regression:** 11/11 protected & sibling pages **0 delta lines** across the deploy (Batch 1A six URLs incl. the `/ru/`
+title, RU Ocenka O1, ET/EN siblings) · **20/20** non-target intent routes still CTA → `#v3-form-audit` and audit-first
+(enumerated from the router: 7 ET + 7 RU + 7 EN, minus the target) · RU Ocenka O1 all four assertions PASS
+(primary → calc, bottom valuation → calc, secondary audit → audit, calc-first).
+
+`LIVE_FORM_SUBMISSION_EXECUTED=NO` · `TEST_LEAD_CREATED=NO` — backend, endpoints, payload and tracking were untouched,
+so no test lead was warranted.
+
+## Observation — `ET_O1_OBSERVATION_STATUS=RUNNING` (T0 = 2026-09-28 22:16:20 EEST)
+| Checkpoint | Date | Scope |
+|---|---|---|
+| T+3–7 | **2026-10-01 .. 2026-10-05** | technical / conversion-path sanity only |
+| T+14 | **2026-10-12** | directional CRO + qualified owner review |
+| T+21 | **2026-10-19** | primary directional gate **if traffic volume is sufficient** |
+
+`LOW_VOLUME_RULE=HOLD_FOR_MORE_DATA` — an insufficient sample defers the gate; it never converts into a verdict.
+
+**Freeze active on the target until the T+21 gate:** CTA target, form order, CTA text, hero, form wording/fields, FAQ,
+sticky, micro-conversion, title, H1, meta, schema, material internal-link changes.
 **Primary KPI:** qualified ET owner valuation leads. Not QS, impressions, CTR, generic sessions or Audit leads.
 Other clocks unaffected: Batch 1A T0 2026-09-17 15:39:20 EEST · RU Ocenka O1 T0 2026-09-20 19:56:16 EEST.
 
