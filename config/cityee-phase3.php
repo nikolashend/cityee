@@ -212,13 +212,27 @@ return [
             'og_description'   => 'Поможем понять, сколько реально стоит квартира перед продажей и где проходит рабочий рыночный диапазон.',
             'h1'               => 'Оценка квартиры в Таллине — реальный ценовой коридор перед продажей',
             'subtitle'         => 'Если вы хотите понять, сколько реально стоит квартира в Таллине перед продажей, важно смотреть не только на активные объявления, но и на аналоги, ушедшие в бронь, состояние объекта, район и реакцию рынка.',
-            'cta_primary'      => 'Получить реальный ценовой коридор',
-            'cta_secondary'    => 'Аудит уже опубликованного объявления',
+            'cta_primary'      => 'Узнать реальную цену квартиры',
+            'cta_secondary'    => 'Уже продаёте и нет результата? Аудит объявления',
             // CRO O1 (valuation-first): primary/bottom CTAs → valuation form; audit secondary; forms calc-first
             'cta_primary_target'   => '#v3-form-calc',
             'cta_secondary_target' => '#v3-form-audit',
             'cta_bottom_target'    => '#v3-form-calc',
             'forms_order'          => 'calc-first',
+            // Mobile CRO V2: one dominant valuation CTA; audit demoted to a subordinate text link;
+            // sticky CTA carries the page's own (valuation) intent instead of the sitewide audit default.
+            'cta_secondary_class'  => 'v3-hero__cta-link',
+            'cta_secondary_style'  => 'background:none;border:0;box-shadow:none;color:#fff;opacity:.85;text-decoration:underline;font-size:.95rem;padding:.35rem .5rem',
+            'sticky_cta_target'    => '#v3-form-calc',
+            'sticky_cta_label'     => 'Узнать реальную цену',
+            'value_module' => [
+                'title' => 'Что вы получаете',
+                'items' => [
+                    'Реальный ценовой коридор для вашего объекта — диапазон, в котором квартира продаётся без лишней потери времени.',
+                    'Позицию квартиры относительно конкурирующих предложений в её сегменте.',
+                    'Факторы объекта и рынка, которые влияют на обоснованную стартовую цену.',
+                ],
+            ],
             'ai_answer' => [
                 'title' => 'Короткий ответ: как понять, сколько стоит квартира в Таллине?',
                 'text'  => 'Реальная стоимость квартиры в Таллине определяется не только по похожим активным объявлениям. Важно учитывать аналоги, которые были забронированы, уровень ремонта, район, подачу объекта и реакцию рынка. Поэтому точная оценка квартиры перед продажей — это всегда анализ ценового коридора, а не догадка.',

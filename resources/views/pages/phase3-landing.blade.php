@@ -64,10 +64,22 @@
     </p>
     <div class="v3-hero__cta" style="margin-top:1.8rem;display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
       <a href="{{ $landing['cta_primary_target'] ?? '#v3-form-audit' }}" class="btn btn-v3-primary">{{ $landing['cta_primary'] ?? 'Получить аудит' }}</a>
-      <a href="{{ $landing['cta_secondary_target'] ?? '#v3-form-calc' }}" class="btn btn-v3-secondary">{{ $landing['cta_secondary'] ?? 'Узнать цену' }}</a>
+      <a href="{{ $landing['cta_secondary_target'] ?? '#v3-form-calc' }}" class="{{ $landing['cta_secondary_class'] ?? 'btn btn-v3-secondary' }}"{!! !empty($landing['cta_secondary_style']) ? ' style="'.e($landing['cta_secondary_style']).'"' : '' !!}>{{ $landing['cta_secondary'] ?? 'Узнать цену' }}</a>
     </div>
   </div>
 </section>
+@if(!empty($landing['value_module']))
+<section class="phase3-value-module" style="padding:1.5rem 0;background:#fff;border-bottom:1px solid #eee">
+  <div class="container" style="max-width:760px">
+    <h2 style="font-size:1.05rem;margin:0 0 .8rem;color:#1a1a2e">{{ $landing['value_module']['title'] }}</h2>
+    <ul style="margin:0;padding-left:1.1rem;line-height:1.65;font-size:.98rem;color:#333">
+      @foreach($landing['value_module']['items'] as $vmItem)
+      <li style="margin-bottom:.4rem">{{ $vmItem }}</li>
+      @endforeach
+    </ul>
+  </div>
+</section>
+@endif
 
 {{-- ======= Trust Metrics Bar ======= --}}
 @include('partials.trust-metrics', ['locale' => $locale])
