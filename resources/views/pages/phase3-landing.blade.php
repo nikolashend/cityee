@@ -56,6 +56,18 @@
 @section('content')
 
 {{-- ======= Hero ======= --}}
+@if(!empty($landing['mobile_focus_ui']))
+<style>
+@media (max-width:767px){
+  /* Redundant right floating stack: WhatsApp/Telegram/calc are already in the bottom bar */
+  .sticky-buttons{display:none!important}
+  /* Primary action available from the first viewport instead of after a scroll threshold */
+  .sticky-cta{transform:translateY(0)!important}
+  /* Keep every field and the submit scrollable clear of the fixed bottom bar */
+  #v3-form-calc,#v3-form-audit{padding-bottom:3.5rem}
+}
+</style>
+@endif
 <section class="v3-hero" style="background:var(--ce-dark,#1a1a2e);color:#fff;padding:3.5rem 0 3rem">
   <div class="container text-center">
     <h1 class="v3-hero__title">{{ $landing['h1'] }}</h1>

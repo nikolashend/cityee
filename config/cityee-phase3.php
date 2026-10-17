@@ -223,6 +223,9 @@ return [
             // sticky CTA carries the page's own (valuation) intent instead of the sitewide audit default.
             'cta_secondary_class'  => 'v3-hero__cta-link',
             'cta_secondary_style'  => 'background:none;border:0;box-shadow:none;color:#fff;opacity:.85;text-decoration:underline;font-size:.95rem;padding:.35rem .5rem',
+            // Mobile visual V2.1: hide the redundant right floating stack, reveal the bottom valuation
+            // bar from the first viewport, and keep form controls clear of it — mobile only, this page only.
+            'mobile_focus_ui'      => true,
             'sticky_cta_target'    => '#v3-form-calc',
             'sticky_cta_label'     => 'Узнать реальную цену',
             'value_module' => [
