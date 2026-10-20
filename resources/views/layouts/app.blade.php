@@ -435,7 +435,7 @@ window.addEventListener('load', function() {
 </script>
 
 @include('partials.datalayer-leads')
-@include('partials.sticky-cta', ['locale' => $locale, 'stickyTarget' => $landing['sticky_cta_target'] ?? null, 'stickyLabel' => $landing['sticky_cta_label'] ?? null])
+@include('partials.sticky-cta', ['locale' => $locale, 'stickyTarget' => $landing['sticky_cta_target'] ?? $intent['sticky_cta_target'] ?? null, 'stickyLabel' => $landing['sticky_cta_label'] ?? $intent['sticky_cta_label'] ?? null])
 <script>
 (function(){var s=document.getElementById('sticky-cta');if(!s)return;var shown=false;window.addEventListener('scroll',function(){if(window.scrollY>600){if(!shown){s.classList.add('sticky-cta--visible');shown=true}}else{if(shown){s.classList.remove('sticky-cta--visible');shown=false}}},{passive:true});})();
 </script>

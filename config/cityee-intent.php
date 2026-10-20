@@ -315,6 +315,10 @@ return [
             // ET valuation CRO O1: valuation intent -> valuation form (audit stays secondary/second)
             'cta_primary_target' => '#v3-form-calc',
             'forms_order'        => 'calc-first',
+            // Mobile parity with RU Ocenka: the persistent sticky CTA must carry this page's own
+            // (valuation) intent instead of the sitewide audit default. Label reuses cta_btn above.
+            'sticky_cta_target'  => '#v3-form-calc',
+            'sticky_cta_label'   => 'Soovin analüüsi',
         ],
         'ru' => [
             'meta_title'       => 'Анализ цены недвижимости в Таллинне | CityEE',
