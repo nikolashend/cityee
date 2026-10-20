@@ -28,8 +28,14 @@ return [
             'supporting' => ['/ru/makler-v-tallinne/', '/ru/pochemu-cityee/'],
             'tier'       => 'A',
         ],
+        // Fast/urgent-sale queries are an adjacent sub-intent of SELL, not a separate owner: GSC shows
+        // Google already serves them from the prodat landing, while /ru/kak-prodat-bystree/ (the former
+        // declared fast_sale primary) has no visibility and stays a supporting process guide. Folded in
+        // here rather than given a second primary, because one URL may own only ONE cluster (INV-004,
+        // enforced by seo:audit-intents).
         'sell_tallinn' => [
-            'queries'    => ['продать квартиру в таллинне', 'продажа квартиры таллинн', 'помощь в продаже квартиры'],
+            'queries'    => ['продать квартиру в таллинне', 'продажа квартиры таллинн', 'помощь в продаже квартиры',
+                             'продать квартиру быстро', 'срочно продать квартиру', 'быстрая продажа квартиры'],
             'primary'    => '/ru/prodat-kvartiru-v-tallinne/',
             'supporting' => ['/ru/kinnisvara-muuk/', '/ru/kak-prodat-bystree/', '/ru/oshibki-pri-prodazhe/'],
             'tier'       => 'S',
@@ -56,12 +62,6 @@ return [
             'queries'    => ['просмотры есть предложений нет', 'покупатели торгуются'],
             'primary'    => '/ru/prosmotry-est-predlozheniy-net/',
             'supporting' => ['/ru/analiz-ceny-nedvizhimosti-tallinn/'],
-            'tier'       => 'A',
-        ],
-        'fast_sale' => [
-            'queries'    => ['продать квартиру быстро', 'срочно продать квартиру', 'быстрая продажа квартиры'],
-            'primary'    => '/ru/kak-prodat-bystree/',
-            'supporting' => ['/ru/prodat-kvartiru-v-tallinne/', '/ru/audit/'],
             'tier'       => 'A',
         ],
         'listing_audit' => [
