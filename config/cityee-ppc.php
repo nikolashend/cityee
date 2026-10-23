@@ -63,6 +63,69 @@ return [
             'reassurance' => 'Это консультация по цене, а не обязательство продавать. Если решите продавать — условия обсуждаем отдельно.',
         ],
 
+
+        // ─── Bank appraisal act (Commit D) ─────────────────────────
+        // Paid job: someone whose BANK has asked for an appraisal act.
+        // Materially different from a seller valuation (different buyer, a paid
+        // deliverable, a third-party licensed appraiser), hence its own LP and
+        // its own lead type — mixing it into price_calculator would corrupt both
+        // the seller funnel's lead quality and this page's own measurement.
+        //
+        // CLAIM DISCIPLINE — these two figures are owner-authorised business
+        // facts (§35) and are published with an explicit "ориентировочно"
+        // hedge. They are NOT market data and must not be restated as firm
+        // quotes. Deliberately absent: any claim that a given bank will accept
+        // the act, and any suggestion that CityEE itself is the appraiser.
+        'ocenochnyy-akt-dlya-banka' => [
+            'locale'       => 'ru',
+            'meta_title'   => 'Оценочный акт для банка — Таллинн и Харьюмаа | CityEE',
+            'meta_description' => 'Нужен оценочный акт для банка в Таллинне или Харьюмаа? Организуем оценку через лицензированного партнёра-оценщика: ориентировочно 300 € и 4–7 дней.',
+            'h1'           => 'Оценочный акт для банка в Таллинне и Харьюмаа',
+            'subtitle'     => 'Банк запросил оценку недвижимости? Организуем её через лицензированного партнёра-оценщика и ведём процесс до готового акта.',
+            'cta_label'    => 'Заказать оценочный акт',
+            'cta_target'   => '#v3-form-bank',
+            'form'         => 'bank-appraisal',
+
+            'sticky_cta_label'  => 'Заказать акт',
+            'sticky_cta_target' => '#v3-form-bank',
+
+            'facts_title' => 'Стоимость и срок',
+            'facts' => [
+                'Стоимость — ориентировочно 300 €.',
+                'Срок — ориентировочно 4–7 дней с момента доступа к объекту.',
+                'Требования банков различаются, поэтому перед заказом подтверждаем требования вашего банка.',
+            ],
+
+            'bullets' => [
+                'Акт готовит лицензированный партнёр-оценщик — не CityEE.',
+                'Мы берём на себя согласование визита, документы и сроки.',
+                'Вы получаете акт в том виде, который запросил ваш банк.',
+            ],
+
+            'steps' => [
+                ['title' => 'Вы оставляете объект и банк',  'text' => 'Адрес объекта и название банка, который запросил оценку.'],
+                ['title' => 'Мы подтверждаем требования',   'text' => 'Уточняем, что именно требует ваш банк, и подтверждаем стоимость и срок до начала работы.'],
+                ['title' => 'Оценщик выезжает на объект',   'text' => 'Согласуем удобное время доступа к недвижимости.'],
+                ['title' => 'Вы получаете оценочный акт',   'text' => 'Готовый акт передаётся вам для предоставления в банк.'],
+            ],
+
+            // Copy lives in config like every other CityEE form; the component
+            // stays presentation-only. RU-only: this is a single-locale paid LP.
+            'form_copy' => [
+                'title'     => 'Заказать оценочный акт',
+                'address'   => 'Адрес объекта',
+                'bank'      => 'Какой банк запросил оценку',
+                'purpose'   => 'Для чего нужна оценка',
+                'purposes'  => ['Кредит на покупку', 'Рефинансирование', 'Раздел имущества', 'Наследство', 'Другое'],
+                'contact'   => 'Телефон / WhatsApp',
+                'submit'    => 'Заказать оценочный акт',
+                'note'      => 'Перед заказом подтверждаем требования вашего банка.',
+                'success'   => 'Спасибо! Свяжемся с вами и подтвердим требования вашего банка.',
+            ],
+
+            'reassurance' => 'Перед заказом подтверждаем требования вашего банка. Если банк требует оценку в ином формате — скажем об этом до оплаты, а не после.',
+        ],
+
     ],
 
 ];

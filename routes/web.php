@@ -15,6 +15,7 @@ Route::post('/contact/callback', [ContactController::class, 'callback'])->name('
 Route::post('/contact/inquiry', [ContactController::class, 'inquiry'])->name('contact.inquiry');
 Route::post('/contact/audit-request', [ContactController::class, 'auditRequest'])->name('contact.audit-request');
 Route::post('/contact/price-calculator', [ContactController::class, 'priceCalculator'])->name('contact.price-calculator');
+Route::post('/contact/bank-appraisal', [ContactController::class, 'bankAppraisal'])->name('contact.bank-appraisal');
 
 // ─── Sitemap & robots ───────────────────────────────────────
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
@@ -109,6 +110,7 @@ Route::prefix('ru')->group(function () {
     // noindex + self-canonical + no hreflang + absent from every sitemap.
     // See config/cityee-ppc.php — these are NOT organic assets.
     Route::get('/lp/ocenka-lasnamae',                 [PpcLandingController::class, 'landing'])->defaults('ppcKey', 'ocenka-lasnamae')->name('ru.ppc.ocenka-lasnamae');
+    Route::get('/lp/ocenochnyy-akt-dlya-banka',       [PpcLandingController::class, 'landing'])->defaults('ppcKey', 'ocenochnyy-akt-dlya-banka')->name('ru.ppc.ocenochnyy-akt-dlya-banka');
 });
 
 // ─── English routes (/en prefix) ────────────────────────────

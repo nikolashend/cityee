@@ -95,7 +95,11 @@
 </section>
 @endif
 
+@if(($ppc['form'] ?? '') === 'bank-appraisal')
+@include('components.v3.form-bank-appraisal', ['locale' => $locale, 'ppc' => $ppc])
+@else
 @include('components.v3.form-calc', ['locale' => $locale])
+@endif
 @include('components.v3.form-scripts')
 
 @if(!empty($ppc['reassurance']))

@@ -140,6 +140,47 @@ class ContactController extends Controller
     }
 
     /**
+     * Bank appraisal act request (paid LP /ru/lp/ocenochnyy-akt-dlya-banka/).
+     *
+     * Its OWN form_type on purpose: this is a different buyer (someone whose
+     * bank demands an appraisal), a different deliverable and a third-party
+     * licensed appraiser. Folding it into price_calculator would pollute the
+     * seller funnel's lead quality and make both pages unmeasurable.
+     *
+     * No PII reaches analytics — the response body is Lead::analyticsPayload().
+     */
+    public function bankAppraisal(Request $request, LeadService $leads)
+    {
+        $validated = $request->validate([
+            'address' => 'required|string|max:500',
+            'bank'    => 'nullable|string|max:120',
+            'purpose' => 'nullable|string|max:120',
+            'contact' => 'required|string|max:255',
+            'locale'  => 'nullable|string|max:5',
+        ], [
+            'address.required' => 'Пожалуйста, укажите адрес объекта.',
+            'contact.required' => 'Пожалуйста, введите номер телефона.',
+        ]);
+
+        $lead = $leads->record($request, 'bank_appraisal', [
+            'phone'    => $validated['contact'],
+            'message'  => $validated['address'],
+            'metadata' => array_intersect_key($validated, array_flip(['address', 'bank', 'purpose', 'locale'])),
+        ], function (Lead $lead) use ($validated) {
+            $subject = "Оценочный акт для банка — cityee.ee";
+            $message = "Новая заявка на оценочный акт для банка\n\n"
+                . "Адрес: " . $validated['address'] . "\n"
+                . "Банк: " . ($validated['bank'] ?? '-') . "\n"
+                . "Цель: " . ($validated['purpose'] ?? '-') . "\n"
+                . "Контакт: " . htmlspecialchars((string) $lead->phone) . "\n";
+            $headers = "From: cityee.ee <noreply@cityee.ee>\r\nContent-type: text/plain; charset=utf-8\r\n";
+            return mail("info@cityee.ee", $subject, $message, $headers);
+        });
+
+        return $this->ok($lead);
+    }
+
+    /**
      * Success response — 200 once the lead is persisted (mail status is recorded on
      * the lead, not surfaced as failure, so no lead is lost / no duplicate retry).
      * Body is NON-PII (safe for the frontend generate_lead dataLayer push).
