@@ -154,7 +154,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </style>
 
 </head>
-<body class="v3" data-page-type="{{ $dlPageType }}">
+<body class="v3{{ !empty($ppcShell) ? ' page-ppc' : '' }}" data-page-type="{{ $dlPageType }}">
 <!-- Skip to content link for accessibility -->
 <a href="#main-content" class="sr-only" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">Skip to content</a>
 <!-- Google Tag Manager (noscript) -->

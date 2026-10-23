@@ -10,37 +10,72 @@
 @section('content')
 
 <style>
-/* Scoped to .ppc-* — no shared class is redefined, so no cascade collision
-   with cityee-v3.css / cityee-v3-overrides.css / cityee-phase5-6.css. */
-.ppc-hero{background:var(--ce-dark,#1a1a2e);color:#fff;padding:2.25rem 0 2rem}
-.ppc-hero__title{font-size:1.6rem;line-height:1.2;margin:0 0 .75rem;text-wrap:balance}
-.ppc-hero__sub{font-size:1.02rem;line-height:1.55;opacity:.92;margin:0 0 1.5rem;max-width:34rem}
-.ppc-hero__cta{display:inline-block;padding:.95rem 1.5rem;font-size:1.05rem;font-weight:700;
+/* PPC visual shell. Scoped to .page-ppc / .ppc-* — no shared class is
+   redefined, so there is no cascade collision with cityee-v3.css /
+   cityee-v3-overrides.css / cityee-phase5-6.css.
+
+   NOTE ON UNITS: style.css sets html{font-size:10px}, so 1rem == 10px on this
+   site, not 16px. Every length below is therefore stated in px — rem values
+   written for a 16px root render at 62.5% of their intended size, which is
+   exactly how this hero's copy became unreadably small. */
+
+/* ── Header / hero collision — ONE root cause, both breakpoints ──
+   The global header is position:fixed at >=768px and position:absolute at
+   <=767px, so it sits OUTSIDE normal flow and nothing reserves space for it.
+   Organic pages compensate with hard-coded per-breakpoint top padding on
+   .v3-hero (208 / 192 / 308px). Copying those magic numbers here would break
+   the moment the header's height changes, so the PPC shell instead puts the
+   header BACK into normal flow for these two pages only — the hero then
+   starts after it at every width, with no pixel arithmetic.
+   position:relative, NOT static, is deliberate: .nav, .header__contacts,
+   .header__phones and .languages are absolutely positioned against .header
+   and must keep it as their containing block. */
+.page-ppc header.header{position:relative}
+
+/* Anchor offset: the site reserves 140px for the fixed header. On a PPC page
+   the header scrolls away, so that reserve would leave a gap above the form. */
+.page-ppc [id]{scroll-margin-top:16px}
+
+/* Hero palette stated explicitly rather than inherited: the washed-out look in
+   the owner's screenshots was white hero text seen THROUGH the header's
+   rgba(255,255,255,.9) background, not a wrong colour — but an explicit
+   palette makes the hero immune to any future cascade change. */
+.ppc-hero{background:#1a1a1a;color:#fff;padding:36px 0 32px}
+.ppc-hero__title{color:#fff;font-size:clamp(26px,6vw,42px);line-height:1.18;margin:0 0 12px;text-wrap:balance}
+.ppc-hero__sub{color:#fff;opacity:.92;font-size:clamp(16px,2.2vw,19px);line-height:1.55;margin:0 0 24px;max-width:36em}
+.ppc-hero__cta{display:inline-block;padding:15px 26px;font-size:17px;font-weight:700;
   border-radius:8px;background:#4ecdc4;color:#10303a;text-decoration:none;min-height:48px;line-height:1.4}
 .ppc-hero__cta:hover,.ppc-hero__cta:focus{background:#3fb8b0;color:#0b2429}
-.ppc-block{padding:1.75rem 0;border-bottom:1px solid #eee;background:#fff}
-.ppc-block__title{font-size:1.15rem;margin:0 0 .9rem;color:#1a1a2e}
-.ppc-list{margin:0;padding-left:1.15rem;line-height:1.65;font-size:1rem;color:#333}
-.ppc-list li{margin-bottom:.5rem}
+.ppc-block{padding:28px 0;border-bottom:1px solid #eee;background:#fff}
+.ppc-block__title{font-size:19px;margin:0 0 14px;color:#1a1a2e}
+.ppc-list{margin:0;padding-left:18px;line-height:1.65;font-size:16px;color:#333}
+.ppc-list li{margin-bottom:8px}
 .ppc-steps{list-style:none;margin:0;padding:0;counter-reset:ppcstep}
-.ppc-steps li{position:relative;padding-left:2.4rem;margin-bottom:1.1rem;counter-increment:ppcstep}
-.ppc-steps li::before{content:counter(ppcstep);position:absolute;left:0;top:0;width:1.7rem;height:1.7rem;
-  border-radius:50%;background:#1a1a2e;color:#fff;font-weight:700;font-size:.95rem;
+.ppc-steps li{position:relative;padding-left:40px;margin-bottom:18px;counter-increment:ppcstep}
+.ppc-steps li::before{content:counter(ppcstep);position:absolute;left:0;top:0;width:28px;height:28px;
+  border-radius:50%;background:#1a1a2e;color:#fff;font-weight:700;font-size:15px;
   display:flex;align-items:center;justify-content:center}
-.ppc-steps__title{display:block;font-weight:700;color:#1a1a2e;margin-bottom:.15rem}
-.ppc-steps__text{display:block;line-height:1.6;color:#444;font-size:.97rem}
-.ppc-note{background:#faf8f5;padding:1.25rem 0;font-size:.95rem;line-height:1.6;color:#444}
+.ppc-steps__title{display:block;font-weight:700;font-size:17px;color:#1a1a2e;margin-bottom:3px}
+.ppc-steps__text{display:block;line-height:1.6;color:#444;font-size:16px}
+.ppc-note{background:#faf8f5;padding:20px 0;font-size:16px;line-height:1.6;color:#444}
 @media (min-width:768px){
-  .ppc-hero{padding:3.25rem 0 3rem}
-  .ppc-hero__title{font-size:2.1rem}
+  .ppc-hero{padding:52px 0 48px}
 }
 /* Mobile single-job focus — same contract as the RU/ET valuation CRO work:
    the redundant right-hand float stack is removed, the primary action is
    available from the first viewport, and no fixed bar covers the submit. */
 @media (max-width:767px){
+  /* PPC-only header compaction: the global mobile header is 288px tall, 34% of
+     a 844px phone before the paid message appears. Only DUPLICATE controls go:
+     the fixed bottom bar already carries phone, WhatsApp and the primary CTA
+     permanently, so the header copy of them costs a third of the paid first
+     viewport and buys nothing. Brand and the burger navigation both stay. */
+  .page-ppc .header__btn-wrapp{display:none}
+  .page-ppc .header__main-phone{display:none}
+  .page-ppc .header__logo{margin-bottom:8px}
   .sticky-buttons{display:none!important}
   .sticky-cta{transform:translateY(0)!important}
-  #v3-form-calc,#v3-form-bank{padding-bottom:3.5rem}
+  #v3-form-calc,#v3-form-bank{padding-bottom:56px}
 }
 </style>
 

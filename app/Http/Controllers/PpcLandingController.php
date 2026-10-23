@@ -39,6 +39,9 @@ class PpcLandingController extends Controller
 
             // Paid-page contract — see class docblock.
             'pageNoindex'  => true,
+
+            // Scopes the PPC visual shell CSS; see pages/ppc-landing.blade.php.
+            'ppcShell'     => true,
             'canonicalUrl' => url()->current(),
 
             // Re-points the sitewide sticky bar at this page's single job.
