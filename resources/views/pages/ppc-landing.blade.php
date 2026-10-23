@@ -36,11 +36,13 @@
    the header scrolls away, so that reserve would leave a gap above the form. */
 .page-ppc [id]{scroll-margin-top:16px}
 
-/* Hero palette stated explicitly rather than inherited: the washed-out look in
-   the owner's screenshots was white hero text seen THROUGH the header's
-   rgba(255,255,255,.9) background, not a wrong colour — but an explicit
-   palette makes the hero immune to any future cascade change. */
-.ppc-hero{background:#1a1a1a;color:#fff;padding:36px 0 32px}
+/* Hero palette stated explicitly rather than inherited. Same burgundy gradient
+   as the organic .v3-hero, so a paid visitor lands on a page that looks like
+   CityEE: the logo, the sticky bar and every organic hero already use it.
+   (The washed-out look in the owner's first screenshots was white hero text
+   seen THROUGH the header's rgba(255,255,255,.9) background, not a wrong
+   colour — but an explicit palette makes the hero immune to cascade changes.) */
+.ppc-hero{background:linear-gradient(135deg,#7b1f45 0%,#4a1129 100%);color:#fff;padding:36px 0 32px}
 .ppc-hero__title{color:#fff;font-size:clamp(26px,6vw,42px);line-height:1.18;margin:0 0 12px;text-wrap:balance}
 .ppc-hero__sub{color:#fff;opacity:.92;font-size:clamp(16px,2.2vw,19px);line-height:1.55;margin:0 0 24px;max-width:36em}
 .ppc-hero__cta{display:inline-block;padding:15px 26px;font-size:17px;font-weight:700;
