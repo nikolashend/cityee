@@ -53,7 +53,7 @@
 <link rel="preload" href="/assets/templates/offshors/fonts/PTSansNarrow-Regular.woff2" as="font" type="font/woff2" crossorigin>
 
 {{-- Canonical + Hreflang --}}
-@if ($pageKey === 'dashboard')
+@if ($pageKey === 'dashboard' || !empty($pageNoindex))
 <meta name="robots" content="noindex, follow">
 @endif
 @if (!empty($canonicalUrl))

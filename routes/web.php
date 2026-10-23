@@ -7,6 +7,7 @@ use App\Http\Controllers\GuideController;
 use App\Http\Controllers\AuditContentController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\Phase3Controller;
+use App\Http\Controllers\PpcLandingController;
 use Illuminate\Support\Facades\Route;
 
 // ─── Form submission routes (shared) ────────────────────────
@@ -103,6 +104,11 @@ Route::prefix('ru')->group(function () {
     // Phase 3 — Cases hub + individual cases
     Route::get('/cases',                              [Phase3Controller::class, 'casesHub'])->name('ru.phase3.cases-hub');
     Route::get('/cases/{slug}',                       [Phase3Controller::class, 'caseDetail'])->name('ru.phase3.case');
+
+    // ─── Paid-traffic landing pages (Google Ads) ───────────
+    // noindex + self-canonical + no hreflang + absent from every sitemap.
+    // See config/cityee-ppc.php — these are NOT organic assets.
+    Route::get('/lp/ocenka-lasnamae',                 [PpcLandingController::class, 'landing'])->defaults('ppcKey', 'ocenka-lasnamae')->name('ru.ppc.ocenka-lasnamae');
 });
 
 // ─── English routes (/en prefix) ────────────────────────────
