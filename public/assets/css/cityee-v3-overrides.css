@@ -1499,11 +1499,20 @@
     float: none;
   }
   .v3 .footer__contacts .contacts { text-align: center; }
+  /* 30px of top padding that aligned this block against .footer__menu, which is
+     display:none at this width — without the menu it is just a dead gap. */
+  .v3 .footer__contacts { padding-top: 0; }
   .v3 .footer__phones {
     flex: 0 0 100%;
     width: 100%;
     text-align: center;
   }
+  /* .main-phone carries text-align:right for the HEADER, where the phone sits
+     in the right-hand column. The footer reuses the same class, so on mobile
+     that rule dragged the phone / WhatsApp / Telegram block to the right edge
+     while the address, e-mail, call-back button and copyright above and below
+     it were centred. Re-centre it in the footer only — the header is untouched. */
+  .v3 .footer__phones .main-phone { text-align: center; }
   .v3 .footer__copy { text-align: center; }
   .v3 .footer a.main-phone__item {
     font-size: 20px;
