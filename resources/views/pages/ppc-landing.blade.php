@@ -81,6 +81,20 @@
 }
 </style>
 
+@if(($ppc['form'] ?? '') === 'bank-appraisal')
+<style>
+/* Bank variant only — this block is not emitted for the Lasnamäe LP, whose
+   #v3-form-calc exists and whose floating calculator works.
+
+   This page renders #v3-form-bank instead, so the sitewide floating
+   «Рассчитать цену» pointed at a fragment that is not here. The shell above
+   hides the whole floating stack at <=767px, which is why the dead control
+   only ever surfaced on desktop; this removes just that one entry at every
+   width and leaves WhatsApp and Telegram alone. display:none also drops it
+   from the tab order. */
+.sticky-btn--calc{display:none!important}
+</style>
+@endif
 <section class="ppc-hero">
   <div class="container">
     <h1 class="ppc-hero__title">{{ $ppc['h1'] }}</h1>

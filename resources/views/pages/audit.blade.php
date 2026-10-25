@@ -25,6 +25,26 @@
 
 @section('content')
 
+<style>
+/* Page-local, emitted only by this view — no shared asset is touched.
+
+   The sitewide floating stack (partials/sticky-buttons.blade.php) always
+   offers «Рассчитать цену» pointing at #v3-form-calc. This page renders no
+   calculator — its job is the audit request — so that control resolved to
+   nothing. display:none also takes it out of the tab order, so no keyboard
+   path reaches a missing fragment either. WhatsApp and Telegram in the same
+   stack are real links and stay. */
+.sticky-btn--calc{display:none!important}
+
+/* The global header is position:fixed at >=768px, so an anchor jump lands the
+   form card's top edge underneath it. Reserve the header's height (~163px at
+   1440) so the sticky CTA and the hero CTA both leave the form usable. Below
+   768px the header is position:absolute and scrolls away, so no offset. */
+@media (min-width:768px){
+  #audit-form{scroll-margin-top:180px}
+}
+</style>
+
 <div class="page-title" style="background: url({{ $t['hero_bg'] }}) no-repeat; background-position: center top; background-size: cover;">
   <div class="container">
     <h1 class="page-title__name">{{ $t['h1'] }}</h1>

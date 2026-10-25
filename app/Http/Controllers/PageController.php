@@ -161,6 +161,14 @@ class PageController extends Controller
             'ui'      => $ui,
             'nav'     => $this->nav($locale),
             'pageKey' => 'audit',
+
+            // The sitewide sticky bar defaults to #v3-form-audit, which this
+            // page never renders — it has its own #audit-form. Same override
+            // idiom as PpcLandingController. No label is passed, so the bar
+            // keeps its per-locale wording from partials/sticky-cta.blade.php.
+            'landing' => [
+                'sticky_cta_target' => '#audit-form',
+            ],
         ]);
     }
 
