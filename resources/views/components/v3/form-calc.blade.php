@@ -42,9 +42,22 @@
                 </select>
             </div>
 
+            {{-- One reachable channel: a phone OR an email. The server is the
+                 authority (App\Rules\ReachableContact); type stays "text" so a
+                 phone and an email can share the single `contact` field. --}}
             <div class="v3-form__group">
                 <label for="calc_contact">{{ $f['calc_contact'] }}</label>
-                <input type="text" id="calc_contact" name="contact" required class="v3-form__input">
+                <input type="text" id="calc_contact" name="contact" required
+                       class="v3-form__input"
+                       inputmode="text" autocomplete="tel email"
+                       placeholder="{{ $f['calc_contact_ph'] ?? '' }}"
+                       aria-describedby="calc_contact_error"
+                       @error('contact') aria-invalid="true" @enderror>
+                {{-- Filled by the shared handler when JS is on, and rendered
+                     server-side after a redirect back when JS is off. --}}
+                <p class="v3-form__error" id="calc_contact_error" data-error-for="contact"
+                   style="{{ $errors->has('contact') ? '' : 'display:none;' }}"
+                   role="alert">{{ $errors->first('contact') }}</p>
             </div>
 
             <button type="submit" class="v3-btn v3-btn--primary v3-btn--full">{{ $f['calc_submit'] }}</button>

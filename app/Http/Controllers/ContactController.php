@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Lead;
+use App\Rules\ReachableContact;
 use App\Services\Attribution\LeadService;
 use Illuminate\Http\Request;
 
@@ -115,7 +116,11 @@ class ContactController extends Controller
             'rooms'     => 'nullable|integer|min:1|max:20',
             'floor'     => 'nullable|string|max:50',
             'condition' => 'nullable|string|max:100',
-            'contact'   => 'required|string|max:255',
+            // A price-corridor request promises a manual, individual answer, so
+            // the one contact field has to be something an advisor can actually
+            // reply to. `required|string` alone accepted "Нет" (2026-10-26).
+            'contact'   => ['required', 'string', 'max:255',
+                             new ReachableContact($request->input('locale'))],
             'locale'    => 'nullable|string|max:5',
         ]);
 

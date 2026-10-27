@@ -1,6 +1,29 @@
 {{-- v3 form AJAX + scroll-smooth for anchor CTAs --}}
 <script>
 document.addEventListener('DOMContentLoaded', function () {
+    // Render a 422 field message next to the field that caused it, so a
+    // rejected contact tells the visitor what to fix instead of a bare alert.
+    // Returns false when the form has no slot for this error, which keeps the
+    // original alert path for every form that has not opted in.
+    function showFieldErrors(form, status, parsed) {
+        if (status !== 422 || !parsed || !parsed.errors) return false;
+        var shown = false, firstField = null;
+        Object.keys(parsed.errors).forEach(function (name) {
+            var slot = form.querySelector('[data-error-for="' + name + '"]');
+            var field = form.querySelector('[name="' + name + '"]');
+            if (!slot) return;
+            slot.textContent = [].concat(parsed.errors[name])[0] || '';
+            slot.style.display = 'block';
+            if (field) {
+                field.setAttribute('aria-invalid', 'true');
+                if (!firstField) firstField = field;
+            }
+            shown = true;
+        });
+        if (firstField) firstField.focus();
+        return shown;
+    }
+
     // ── AJAX submit for v3 forms ──
     document.querySelectorAll('[data-v3-form]').forEach(function (form) {
         form.addEventListener('submit', function (e) {
@@ -11,6 +34,14 @@ document.addEventListener('DOMContentLoaded', function () {
             var msg = form.querySelector('.v3-form__success');
             btn.disabled = true;
             btn.textContent = '…';
+
+            // Clear any error left from a previous attempt.
+            form.querySelectorAll('[data-error-for]').forEach(function (el) {
+                el.textContent = '';
+                el.style.display = 'none';
+                var field = form.querySelector('[name="' + el.dataset.errorFor + '"]');
+                if (field) field.removeAttribute('aria-invalid');
+            });
 
             // Stable id decided BEFORE the request: sent to the backend AND reused
             // as the fallback event_id (never mint a fresh conversion id after success).
@@ -48,7 +79,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (decision.accepted) {
                     form.reset();
                     if (msg) msg.style.display = 'block';
-                } else {
+                } else if (!showFieldErrors(form, res.status, parsed)) {
+                    // Nothing field-specific to show (or this form has no error
+                    // slots) — the original alert still applies.
                     alert('Error. Please try again.');
                 }
             })
