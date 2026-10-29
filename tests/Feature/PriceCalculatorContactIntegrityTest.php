@@ -149,16 +149,24 @@ class PriceCalculatorContactIntegrityTest extends TestCase
     }
 
     /**
-     * The sibling endpoints are explicitly out of scope for this release and
-     * must keep behaving exactly as before.
+     * The sibling endpoints still each produce their own lead type.
+     *
+     * Written for the 2026-10-27 release, when audit-request and
+     * bank-appraisal still accepted the permissive `contact => 'c'` and this
+     * test asserted that this release had not touched them. The 2026-10-29
+     * release (AUDIT_BANK_CONTACT_INTEGRITY_V1) deliberately closed that same
+     * weakness on both, so the fixtures now carry reachable contacts. The
+     * assertion this test actually exists for — four endpoints, four distinct
+     * form_type values, no cross-contamination from the calculator — is
+     * unchanged. /contact/callback and /contact/inquiry remain untouched.
      */
     public function test_sibling_contact_endpoints_are_untouched(): void
     {
         $this->postJson('/contact/audit-request',
-            ['type' => 'apartment', 'goal' => 'sell', 'contact' => 'c'])->assertOk();
+            ['type' => 'apartment', 'goal' => 'sell', 'contact' => '+372 5555 4321'])->assertOk();
 
         $this->postJson('/contact/bank-appraisal',
-            ['address' => 'Viru 2', 'bank' => 'LHV', 'contact' => 'c'])->assertOk();
+            ['address' => 'Viru 2', 'bank' => 'LHV', 'contact' => 'owner@example.com'])->assertOk();
 
         $this->postJson('/contact/callback', ['name' => 'a', 'tel' => '1'])->assertOk();
         $this->postJson('/contact/inquiry', ['name' => 'b', 'tel' => '2'])->assertOk();

@@ -35,7 +35,22 @@
 
             <div class="v3-form__group">
                 <label for="bank_contact">{{ $fc['contact'] }}</label>
-                <input type="text" id="bank_contact" name="contact" required class="v3-form__input">
+                {{-- One field for either channel, so type stays "text":
+                     type="tel" mishandles an address and type="email" refuses a
+                     number. autocomplete offers the browser both. --}}
+                <input type="text" id="bank_contact" name="contact" required
+                       class="v3-form__input"
+                       inputmode="text" autocomplete="tel email"
+                       placeholder="{{ $fc['contact_ph'] ?? '' }}"
+                       aria-describedby="bank_contact_error"
+                       @error('contact') aria-invalid="true" @enderror>
+                {{-- Opt-in slot read by showFieldErrors() in form-scripts: a
+                     rejected contact says what to fix instead of raising the
+                     generic alert. Also rendered server-side so the no-JS
+                     redirect path is not a dead end. --}}
+                <p class="v3-form__error" id="bank_contact_error" data-error-for="contact"
+                   style="{{ $errors->has('contact') ? '' : 'display:none;' }}"
+                   role="alert">{{ $errors->first('contact') }}</p>
             </div>
 
             <button type="submit" class="v3-btn v3-btn--primary v3-btn--full">{{ $fc['submit'] }}</button>

@@ -108,7 +108,9 @@ class LeadAttributionTest extends TestCase
     {
         $this->postJson('/contact/callback', ['name' => 'a', 'tel' => '1'])->assertOk();
         $this->postJson('/contact/inquiry', ['name' => 'b', 'tel' => '2'])->assertOk();
-        $this->postJson('/contact/audit-request', ['type' => 'apartment', 'goal' => 'sell', 'contact' => 'c'])->assertOk();
+        // 'c' used to pass: the audit contact is now validated as a reachable
+        // phone, email or Telegram handle (App\Rules\ReachableAuditContact).
+        $this->postJson('/contact/audit-request', ['type' => 'apartment', 'goal' => 'sell', 'contact' => '+372 5555 4321'])->assertOk();
         // 'd' used to pass: the price-calculator contact is now validated as a
         // reachable phone or email (App\Rules\ReachableContact).
         $this->postJson('/contact/price-calculator', ['address' => 'Viru 2', 'contact' => '+372 5555 1234'])->assertOk();

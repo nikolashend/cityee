@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Lead;
+use App\Rules\ReachableAuditContact;
 use App\Rules\ReachableContact;
 use App\Services\Attribution\LeadService;
 use Illuminate\Http\Request;
@@ -84,7 +85,12 @@ class ContactController extends Controller
             'district' => 'nullable|string|max:255',
             'type'     => 'required|in:apartment,house,commercial',
             'goal'     => 'required|in:sell,rent',
-            'contact'  => 'required|string|max:255',
+            // An audit is answered by hand, so the one contact field has to be
+            // something an advisor can reply to. `required|string` alone
+            // accepted "Нет" here exactly as it did on the price calculator.
+            // The field's label offers Telegram as well, so the rule honours it.
+            'contact'  => ['required', 'string', 'max:255',
+                            new ReachableAuditContact($request->input('locale'))],
             'language' => 'nullable|in:et,ru,en',
             'locale'   => 'nullable|string|max:5',
         ]);
@@ -160,11 +166,19 @@ class ContactController extends Controller
             'address' => 'required|string|max:500',
             'bank'    => 'nullable|string|max:120',
             'purpose' => 'nullable|string|max:120',
-            'contact' => 'required|string|max:255',
+            // Same contact-integrity class as the price calculator, same rule.
+            // This landing page offers phone or email only — no Telegram — so
+            // it uses ReachableContact rather than the audit form's variant.
+            'contact' => ['required', 'string', 'max:255',
+                           new ReachableContact($request->input('locale', 'ru'))],
             'locale'  => 'nullable|string|max:5',
         ], [
             'address.required' => 'Пожалуйста, укажите адрес объекта.',
-            'contact.required' => 'Пожалуйста, введите номер телефона.',
+            // Kept from the original release so an empty field still answers in
+            // Russian on this RU-only landing page; only the wording follows the
+            // widened contract. A filled-but-unusable value is answered by
+            // ReachableContact itself.
+            'contact.required' => 'Пожалуйста, укажите телефон или email.',
         ]);
 
         $lead = $leads->record($request, 'bank_appraisal', [
